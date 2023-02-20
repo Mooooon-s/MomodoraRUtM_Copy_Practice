@@ -11,6 +11,12 @@ namespace Mn {
 		HWND		_Hwnd;
 		HDC			_Hdc;
 		Vector2		_Pos;
+
+		HBITMAP _BackBuffer;
+		HDC _BackHDC;
+
+		UINT _Width;
+		UINT _Height;
 	public:
 		Application();
 		~Application();
