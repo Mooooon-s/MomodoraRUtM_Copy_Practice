@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engin">
+      <UniqueIdentifier>{b9eedab9-d04b-453b-a3f8-af99c68775bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{c43bba72-d628-4e7b-9456-efc9af91b9e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\GameObject">
+      <UniqueIdentifier>{50259711-4e20-4f96-8a5b-b27d9651388c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{6e31d35f-8b37-490c-b573-1394bcbee820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\High Level Interface">
+      <UniqueIdentifier>{a95a07b3-8ab3-4e74-90a3-3548d130c24b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Scene">
+      <UniqueIdentifier>{ec77e782-ccf1-4256-afac-c71d4bdb8d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Component">
+      <UniqueIdentifier>{c0fc3a39-d4d0-4022-8304-74810172438d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Common">
+      <UniqueIdentifier>{565e9e99-6572-4052-b319-15b2f0739d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Scene\PlayScene">
+      <UniqueIdentifier>{7023a408-7140-4ef8-b653-3f01f4b9bc95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene">
+      <UniqueIdentifier>{62716123-6502-49d7-b03e-6fa7102bc6c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Player">
+      <UniqueIdentifier>{e2c7bfb4-27e1-4b26-9931-7d828444eaae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Time">
+      <UniqueIdentifier>{2fc93132-d543-4509-8f22-0272db377984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Layer">
+      <UniqueIdentifier>{e55396f5-fd3e-4129-8112-62c929811b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Input">
+      <UniqueIdentifier>{1ca9b186-5b93-4f6f-a9de-021252df0e5d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMath.h">
+      <Filter>Engin\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Commoninclude.h">
+      <Filter>Engin\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MnEngine.h">
+      <Filter>Engin\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MnEnum.h">
+      <Filter>Engin\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="MnGameObject.h">
+      <Filter>Engin\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MnEntity.h">
+      <Filter>Engin\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Engin\High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="MnScene.h">
+      <Filter>Engin\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnComponent.h">
+      <Filter>Engin\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MnLayer.h">
+      <Filter>Engin\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="MnSceneManager.h">
+      <Filter>Engin\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnPlayScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMomodora.h">
+      <Filter>Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MnTime.h">
+      <Filter>Engin\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="MnInput.h">
+      <Filter>Engin\Input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Client.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="E:\Steam\steamapps\common\Momodora RUtM\MomodoraRUtM\.rsrc\1033\ICON\momodora.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMath.cpp">
+      <Filter>Engin\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="MnGameObject.cpp">
+      <Filter>Engin\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MnEntity.cpp">
+      <Filter>Engin\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Engin\High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="MnScene.cpp">
+      <Filter>Engin\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnComponent.cpp">
+      <Filter>Engin\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MnLayer.cpp">
+      <Filter>Engin\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="MnSceneManager.cpp">
+      <Filter>Engin\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnPlayScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMomodora.cpp">
+      <Filter>Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTime.cpp">
+      <Filter>Engin\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="MnInput.cpp">
+      <Filter>Engin\Input</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
