@@ -12,11 +12,12 @@ namespace Mn {
 		HDC			_Hdc;
 		Vector2		_Pos;
 
-		HBITMAP _BackBuffer;
-		HDC _BackHDC;
+		HBITMAP		_BackBuffer;
+		HDC			_BackHDC;
 
-		UINT _Width;
-		UINT _Height;
+		UINT		_Width;
+		UINT		_Height;
+		UINT		_Height;
 	public:
 		Application();
 		~Application();

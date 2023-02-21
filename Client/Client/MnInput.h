@@ -23,9 +23,9 @@ namespace Mn {
 	{
 	public:
 		struct Key {
-			eKeyCode key;
-			eKeyState state;
-			bool bPressed;
+			eKeyCode	key;
+			eKeyState	state;
+			bool		bPressed;
 		};
 		static void Initialize();
 		static void Updatae();
