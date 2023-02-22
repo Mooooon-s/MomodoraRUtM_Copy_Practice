@@ -29,11 +29,14 @@ namespace Mn {
 
 	void Mn::SceneManager::Render(HDC hdc)
 	{
-		for (auto scene : _Scenes) {
+		/*for (auto scene : _Scenes) {
 			if (scene == nullptr)
 				continue;
 			scene->Render(hdc);
-		}
+		}*/
+
+		_Scenes[(UINT)eScene::play]->Render(hdc);
+
 	}
 
 	void Mn::SceneManager::Release()

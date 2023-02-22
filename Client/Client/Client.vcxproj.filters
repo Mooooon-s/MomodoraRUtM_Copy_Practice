@@ -118,12 +118,14 @@
     <ClInclude Include="MnResources.h">
       <Filter>Engin\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnBG.h">
       <Filter>Contents\BG</Filter>
     </ClInclude>
     <ClInclude Include="MnTitleScene.h">
       <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnImage.h">
+      <Filter>Engin\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,12 +190,14 @@
     <ClCompile Include="MnResources.cpp">
       <Filter>Engin\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="MnImage.cpp" />
     <ClCompile Include="MnBG.cpp">
       <Filter>Contents\BG</Filter>
     </ClCompile>
     <ClCompile Include="MnTitleScene.cpp">
       <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnImage.cpp">
+      <Filter>Engin\Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
