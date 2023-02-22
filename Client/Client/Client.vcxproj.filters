@@ -47,6 +47,9 @@
     <Filter Include="Engin\Input">
       <UniqueIdentifier>{1ca9b186-5b93-4f6f-a9de-021252df0e5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engin\Resource">
+      <UniqueIdentifier>{b4077465-f9d4-443f-8924-1c1bc1be9ca7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -106,6 +109,13 @@
     <ClInclude Include="MnInput.h">
       <Filter>Engin\Input</Filter>
     </ClInclude>
+    <ClInclude Include="MnResource.h">
+      <Filter>Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MnResources.h">
+      <Filter>Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MnImage.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -163,5 +173,12 @@
     <ClCompile Include="MnInput.cpp">
       <Filter>Engin\Input</Filter>
     </ClCompile>
+    <ClCompile Include="MnResource.cpp">
+      <Filter>Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="MnResources.cpp">
+      <Filter>Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="MnImage.cpp" />
   </ItemGroup>
 </Project>

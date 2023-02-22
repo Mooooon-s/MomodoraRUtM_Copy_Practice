@@ -3,6 +3,7 @@
 namespace Mn {
 	Layer::Layer()
 	{
+
 	}
 	Layer::~Layer()
 	{

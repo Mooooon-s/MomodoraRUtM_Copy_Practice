@@ -150,11 +150,14 @@
     <ClInclude Include="MnEngine.h" />
     <ClInclude Include="MnEnum.h" />
     <ClInclude Include="MnGameObject.h" />
+    <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnInput.h" />
     <ClInclude Include="MnLayer.h" />
     <ClInclude Include="MnMath.h" />
     <ClInclude Include="MnMomodora.h" />
     <ClInclude Include="MnPlayScene.h" />
+    <ClInclude Include="MnResource.h" />
+    <ClInclude Include="MnResources.h" />
     <ClInclude Include="MnScene.h" />
     <ClInclude Include="MnSceneManager.h" />
     <ClInclude Include="MnTime.h" />
@@ -163,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="MnImage.cpp" />
     <ClCompile Include="MnInput.cpp" />
     <ClCompile Include="MnEntity.cpp" />
     <ClCompile Include="main.cpp" />
@@ -175,6 +179,8 @@
     <ClCompile Include="MnPlayScene.cpp" />
     <ClCompile Include="MnMomodora.cpp" />
     <ClCompile Include="MnTime.cpp" />
+    <ClCompile Include="MnResource.cpp" />
+    <ClCompile Include="MnResources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

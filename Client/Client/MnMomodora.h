@@ -1,12 +1,13 @@
 #pragma once
 #include "MnGameObject.h"
 #include "MnTime.h"
+#include "MnImage.h"
 
 namespace Mn {
 	class Momodora : public GameObject
 	{
 	private:
-
+		Image* _Image;
 	public:
 		Momodora();
 		~Momodora();

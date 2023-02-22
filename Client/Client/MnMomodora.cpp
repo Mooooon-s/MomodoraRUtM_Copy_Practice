@@ -1,5 +1,6 @@
 #include "MnMomodora.h"
 #include "MnInput.h"
+#include "MnResources.h"
 
 
 
@@ -13,6 +14,8 @@ namespace Mn
 	}
 	void Momodora::Initialize()
 	{
+		_Image = Resources::Load<Image>(L"Momodora",L"..\\Resources\\Momo.bmp");
+		
 		GameObject::Initialize();
 	}
 	void Momodora::Update()
@@ -42,20 +45,7 @@ namespace Mn
 	void Momodora::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
-		// stock 오브젝트
-		HBRUSH brush = CreateSolidBrush(RGB(0, 0, 0));
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
-		//Rectangle(mHdc, -1, -1, 1601, 901);
-
-		HPEN pen = CreatePen(PS_SOLID, 2, RGB(255, 0, 255));
-		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
-
-		Rectangle(hdc, _Pos.x, _Pos.y, _Pos.x + 100, _Pos.y + 100);
-
-		SelectObject(hdc, oldPen);
-		DeleteObject(pen);
-		SelectObject(hdc, oldBrush);
-		DeleteObject(brush);
+		BitBlt(hdc, _Pos.x, _Pos.y, _Image->Width(), _Image->Height(), _Image->Hdc(), 0, 0, SRCCOPY);
 	}
 	void Momodora::Release()
 	{

@@ -10,13 +10,14 @@ namespace Mn {
 	private:
 		HWND		_Hwnd;
 		HDC			_Hdc;
-		Vector2		_Pos;
 
 		HBITMAP		_BackBuffer;
 		HDC			_BackHDC;
 
 		UINT		_Width;
 		UINT		_Height;
+
+		Vector2		_Pos;
 	public:
 		Application();
 		~Application();
@@ -27,6 +28,7 @@ namespace Mn {
 		void Render();
 
 		HWND GetHwnd() { return _Hwnd; }
+		HDC	 GetHdc()  { return _Hdc; }
 
 	};
 
