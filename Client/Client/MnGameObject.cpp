@@ -8,6 +8,11 @@ namespace Mn
 
 	GameObject::~GameObject()
 	{
+		for (Component* comp : _Components)
+		{
+			delete comp;
+			comp = nullptr;
+		}
 	}
 
 	void GameObject::Initialize()
@@ -39,11 +44,6 @@ namespace Mn
 
 	void GameObject::Release()
 	{
-		for (auto comp : _Components) {
-			if (comp == nullptr)
-				continue;
-			comp->Release();
-		}
 	}
 
 }

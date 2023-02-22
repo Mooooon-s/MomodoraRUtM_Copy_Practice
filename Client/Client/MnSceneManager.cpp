@@ -39,7 +39,9 @@ namespace Mn {
 		for (auto scene : _Scenes) {
 			if (scene == nullptr)
 				continue;
-			scene->Release();
+
+			delete scene;
+			scene = nullptr;
 		}
 	}
 }

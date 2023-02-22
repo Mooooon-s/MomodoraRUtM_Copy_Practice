@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Client.h"
 #include "Application.h"
+#include "MnSceneManager.h"
 
 #define MAX_LOADSTRING 100
 
@@ -30,6 +31,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
+
+    //메모리 릭 검사
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetBreakAlloc(217); // 추가
+
 
     //1.윈도우의 정보를 담고 있는 클래스를 저으이(메모리 등록)해주어야한다.
     //2. CreateWindow함수를 통해서 메모리상에 윈도우를 할당해준다.
@@ -75,9 +81,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-    if (WM_QUIT == msg.message) {
-
-    }
+    Mn::SceneManager::Release();
 
     return (int) msg.wParam;
 }
@@ -214,6 +218,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
+
+    
+
     return 0;
 }
 

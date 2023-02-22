@@ -34,10 +34,6 @@ namespace Mn
 	}
 	void Scene::Release()
 	{
-		for (Layer& layer : _Layers)
-		{
-			layer.Release();
-		}
 	}
 	void Scene::AddGameObject(GameObject* obj, eLayer layer)
 	{

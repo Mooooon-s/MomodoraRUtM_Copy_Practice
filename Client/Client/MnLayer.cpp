@@ -6,6 +6,11 @@ namespace Mn {
 	}
 	Layer::~Layer()
 	{
+		for (GameObject* gameObj : _GameObject) 
+		{
+			delete gameObj;
+			gameObj = nullptr;
+		}
 	}
 
 	void Layer::Initialize()
@@ -35,11 +40,6 @@ namespace Mn {
 	}
 	void Layer::Release()
 	{
-		for (auto gameObj : _GameObject) {
-			if (gameObj == nullptr)
-				continue;
-			gameObj->Release();
-		}
 	}
 	void Layer::AddGameObject(GameObject* obj)
 	{

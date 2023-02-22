@@ -17,7 +17,6 @@ namespace Mn {
 
 		UINT		_Width;
 		UINT		_Height;
-		UINT		_Height;
 	public:
 		Application();
 		~Application();
