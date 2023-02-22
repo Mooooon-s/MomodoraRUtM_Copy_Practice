@@ -1,6 +1,6 @@
 #pragma once
 enum class eScene {
-	start,
+	Title,
 	play,
 	end,
 	Max,

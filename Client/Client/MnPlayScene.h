@@ -1,11 +1,14 @@
 #pragma once
 #include"MnScene.h"
 #include"MnMomodora.h"
+#include "MnImage.h"
 
 namespace Mn 
 {
 	class PlayScene :public Scene
 	{
+	private:
+		Image* _image;
 	public:
 		PlayScene();
 		~PlayScene();

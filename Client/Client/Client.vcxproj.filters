@@ -50,6 +50,9 @@
     <Filter Include="Engin\Resource">
       <UniqueIdentifier>{b4077465-f9d4-443f-8924-1c1bc1be9ca7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\BG">
+      <UniqueIdentifier>{7d72ebd9-644d-4ba7-b4c3-bfe0fa8d4882}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -116,6 +119,12 @@
       <Filter>Engin\Resource</Filter>
     </ClInclude>
     <ClInclude Include="MnImage.h" />
+    <ClInclude Include="MnBG.h">
+      <Filter>Contents\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="MnTitleScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -180,5 +189,11 @@
       <Filter>Engin\Resource</Filter>
     </ClCompile>
     <ClCompile Include="MnImage.cpp" />
+    <ClCompile Include="MnBG.cpp">
+      <Filter>Contents\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTitleScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #include "MnSceneManager.h"
+#include "MnTitleScene.h"
 
 namespace Mn {
 	//static 변수이기 때문에 전역에 메모리 할당을 해주어야함
@@ -8,6 +9,7 @@ namespace Mn {
 	{
 		_Scenes.resize((UINT)eScene::Max);
 		_Scenes[(UINT)eScene::play] = new PlayScene();
+		//_Scenes[(UINT)eScene::Title] = new TitleScene();
 
 		for (auto scene : _Scenes) {
 			if (scene == nullptr)

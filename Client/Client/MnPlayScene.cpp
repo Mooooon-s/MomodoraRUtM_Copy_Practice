@@ -1,4 +1,8 @@
 #include "MnPlayScene.h"
+#include "MnResources.h"
+#include "MnBG.h"
+
+
 namespace Mn 
 {
 	
@@ -11,6 +15,10 @@ namespace Mn
 	}
 	void PlayScene::Initialize()
 	{
+		//배경 객체 생성
+		BG* BackGround = new BG();
+		AddGameObject(BackGround, eLayer::BG);
+
 		//플레이어 객체 생성
 		Momodora* momodora = new Momodora();
 		AddGameObject(momodora, eLayer::Player);
@@ -23,6 +31,7 @@ namespace Mn
 	}
 	void PlayScene::Render(HDC hdc)
 	{
+		
 		Scene::Render(hdc);
 	}
 	void PlayScene::Release()
