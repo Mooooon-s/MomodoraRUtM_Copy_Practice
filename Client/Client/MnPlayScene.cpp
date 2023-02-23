@@ -1,6 +1,7 @@
 #include "MnPlayScene.h"
-#include "MnResources.h"
 #include "MnBG.h"
+#include "MnInput.h"
+#include "MnSceneManager.h"
 
 
 namespace Mn 
@@ -27,15 +28,24 @@ namespace Mn
 	}
 	void PlayScene::Update()
 	{
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			SceneManager::LoadScene(eScene::Title);
+		}
 		Scene::Update();
 	}
 	void PlayScene::Render(HDC hdc)
 	{
-		
 		Scene::Render(hdc);
 	}
 	void PlayScene::Release()
 	{
 		Scene::Release();
+	}
+	void PlayScene::OnEnter()
+	{
+	}
+	void PlayScene::OnExit()
+	{
 	}
 }

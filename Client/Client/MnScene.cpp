@@ -35,6 +35,12 @@ namespace Mn
 	void Scene::Release()
 	{
 	}
+	void Scene::OnEnter()
+	{
+	}
+	void Scene::OnExit()
+	{
+	}
 	void Scene::AddGameObject(GameObject* obj, eLayer layer)
 	{
 		_Layers[(UINT)layer].AddGameObject(obj);

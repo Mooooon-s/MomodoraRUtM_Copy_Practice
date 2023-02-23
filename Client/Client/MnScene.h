@@ -16,6 +16,9 @@ namespace Mn
 		virtual void Render(HDC hdc);
 		virtual void Release();
 	public:
+		virtual void OnEnter();
+		virtual void OnExit();
+	public:
 		void AddGameObject(GameObject* obj, eLayer layer);
 	};
 }

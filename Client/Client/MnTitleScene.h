@@ -14,6 +14,9 @@ namespace Mn
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc)override;
+	public:
+		void OnEnter() override;
+		void OnExit()  override;
 	};
 }
 

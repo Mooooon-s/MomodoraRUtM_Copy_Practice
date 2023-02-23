@@ -1,4 +1,7 @@
 #include "MnTitleScene.h"
+#include "MnSceneManager.h"
+#include "MnInput.h"
+#include "MnBG.h"
 
 namespace Mn
 {
@@ -10,14 +13,28 @@ namespace Mn
 	}
 	void TitleScene::Initialize()
 	{
+		BG* BackGround = new BG;
+		AddGameObject(BackGround, eLayer::BG);
+
 		Scene::Initialize();
 	}
 	void TitleScene::Update()
 	{
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			SceneManager::LoadScene(eScene::play);
+		}
+
 		Scene::Update();
 	}
 	void TitleScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
+	}
+	void TitleScene::OnEnter()
+	{
+	}
+	void TitleScene::OnExit()
+	{
 	}
 }

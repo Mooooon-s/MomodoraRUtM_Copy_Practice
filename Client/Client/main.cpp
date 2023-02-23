@@ -5,6 +5,7 @@
 #include "Client.h"
 #include "Application.h"
 #include "MnSceneManager.h"
+#include "MnResources.h"
 
 #define MAX_LOADSTRING 100
 
@@ -81,6 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    Mn::Resources::Release();
     Mn::SceneManager::Release();
 
     return (int) msg.wParam;

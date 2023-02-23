@@ -41,6 +41,17 @@ namespace Mn {
 			return dynamic_cast <T*>(resource);
 
 		}
+
+		static void Release()
+		{
+			for (auto resouse : _Resources)
+			{
+				delete resouse.second;
+				resouse.second = nullptr;
+			}
+
+		}
+
 	};
 }
 
