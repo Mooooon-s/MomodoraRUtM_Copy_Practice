@@ -8,8 +8,6 @@ namespace Mn
 	{
 	private:
 		std::vector<Component*> _Components;
-	protected:
-		Vector2		_Pos;
 	public:
 		GameObject();
 		virtual ~GameObject();
@@ -18,6 +16,28 @@ namespace Mn
 		virtual void Update();
 		virtual void Render(HDC hdc);
 		virtual void Release();
+	public:
+		template<typename T>
+		T* AddComponent()
+		{
+			T* comp = new T();
+			UINT compType = (UINT)comp->Type();
+			_Components[compType] = comp;
+
+			return comp;
+		}
 		
+		template <typename T>
+		T* GetComponent()
+		{
+			for (Component* comp : _Components)
+			{
+				if (dynamic_cast<T*>(comp))
+				{
+					return dynamic_cast<T*>(comp);
+				}
+				return nullptr;
+			}
+		}
 	};
 }

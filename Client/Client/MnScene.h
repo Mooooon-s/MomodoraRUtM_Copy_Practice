@@ -19,7 +19,7 @@ namespace Mn
 		virtual void OnEnter();
 		virtual void OnExit();
 	public:
-		void AddGameObject(GameObject* obj, eLayer layer);
+		void AddGameObject(GameObject* obj, eLayerType layer);
 	};
 }
 

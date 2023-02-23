@@ -15,6 +15,6 @@ namespace Mn {
 		static void Render(HDC hdc);
 		static void Release();
 	public:
-		static void LoadScene(eScene SceneType);
+		static void LoadScene(eSceneType SceneType);
 	};
 }

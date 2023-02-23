@@ -18,11 +18,11 @@ namespace Mn
 	{
 		//배경 객체 생성
 		BG* BackGround = new BG();
-		AddGameObject(BackGround, eLayer::BG);
+		AddGameObject(BackGround, eLayerType::BG);
 
 		//플레이어 객체 생성
 		Momodora* momodora = new Momodora();
-		AddGameObject(momodora, eLayer::Player);
+		AddGameObject(momodora, eLayerType::Player);
 
 		Scene::Initialize();
 	}
@@ -30,7 +30,7 @@ namespace Mn
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(eScene::Title);
+			SceneManager::LoadScene(eSceneType::Title);
 		}
 		Scene::Update();
 	}

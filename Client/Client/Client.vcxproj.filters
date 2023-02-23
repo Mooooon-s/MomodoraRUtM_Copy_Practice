@@ -127,6 +127,9 @@
     <ClInclude Include="MnImage.h">
       <Filter>Engin\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="MnTransform.h">
+      <Filter>Engin\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -198,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="MnImage.cpp">
       <Filter>Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTransform.cpp">
+      <Filter>Engin\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

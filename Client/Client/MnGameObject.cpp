@@ -1,9 +1,12 @@
 #include "MnGameObject.h"
+#include "MnTransform.h"
 
 namespace Mn
 {
 	GameObject::GameObject()
 	{
+		_Components.resize((UINT)eComponentType::Max);
+		AddComponent<Transform>();
 	}
 
 	GameObject::~GameObject()

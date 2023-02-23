@@ -5,7 +5,7 @@ namespace Mn
 {
 	Scene::Scene()
 	{
-		_Layers.resize((UINT)eLayer::Max);
+		_Layers.resize((UINT)eLayerType::Max);
 	}
 	Scene::~Scene()
 	{
@@ -41,7 +41,7 @@ namespace Mn
 	void Scene::OnExit()
 	{
 	}
-	void Scene::AddGameObject(GameObject* obj, eLayer layer)
+	void Scene::AddGameObject(GameObject* obj, eLayerType layer)
 	{
 		_Layers[(UINT)layer].AddGameObject(obj);
 	}

@@ -14,7 +14,7 @@ namespace Mn
 	void TitleScene::Initialize()
 	{
 		BG* BackGround = new BG;
-		AddGameObject(BackGround, eLayer::BG);
+		AddGameObject(BackGround, eLayerType::BG);
 
 		Scene::Initialize();
 	}
@@ -22,7 +22,7 @@ namespace Mn
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(eScene::play);
+			SceneManager::LoadScene(eSceneType::play);
 		}
 
 		Scene::Update();

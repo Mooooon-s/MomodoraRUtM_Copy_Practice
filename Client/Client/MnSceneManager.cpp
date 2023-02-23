@@ -9,10 +9,10 @@ namespace Mn {
 	Scene* SceneManager::_ActiveScene=nullptr;
 	void Mn::SceneManager::Initialize()
 	{
-		_Scenes.resize((UINT)eScene::Max);
-		_Scenes[(UINT)eScene::play] = new PlayScene();
-		_Scenes[(UINT)eScene::Title] = new TitleScene();
-		_ActiveScene = _Scenes[(UINT)eScene::Title];
+		_Scenes.resize((UINT)eSceneType::Max);
+		_Scenes[(UINT)eSceneType::play] = new PlayScene();
+		_Scenes[(UINT)eSceneType::Title] = new TitleScene();
+		_ActiveScene = _Scenes[(UINT)eSceneType::Title];
 
 		for (auto scene : _Scenes) {
 			if (scene == nullptr)
@@ -42,7 +42,7 @@ namespace Mn {
 		}
 	}
 
-	void SceneManager::LoadScene(eScene SceneType)
+	void SceneManager::LoadScene(eSceneType SceneType)
 	{
 		_ActiveScene->OnExit();
 		_ActiveScene = _Scenes[(UINT)SceneType];
