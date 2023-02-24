@@ -1,7 +1,7 @@
 #include "MnTitleScene.h"
 #include "MnSceneManager.h"
 #include "MnInput.h"
-#include "MnBG.h"
+#include "MnTitleBG.h"
 
 namespace Mn
 {
@@ -13,7 +13,7 @@ namespace Mn
 	}
 	void TitleScene::Initialize()
 	{
-		BG* BackGround = new BG;
+		TitleBG* BackGround = new TitleBG;
 		AddGameObject(BackGround, eLayerType::BG);
 
 		Scene::Initialize();

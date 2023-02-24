@@ -162,6 +162,7 @@
     <ClInclude Include="MnScene.h" />
     <ClInclude Include="MnSceneManager.h" />
     <ClInclude Include="MnTime.h" />
+    <ClInclude Include="MnTitleBG.h" />
     <ClInclude Include="MnTitleScene.h" />
     <ClInclude Include="MnTransform.h" />
     <ClInclude Include="Resource.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="MnResources.cpp" />
     <ClCompile Include="MnTitleScene.cpp" />
     <ClCompile Include="MnTransform.cpp" />
+    <ClCompile Include="MnTitleBG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

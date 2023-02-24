@@ -17,7 +17,7 @@ namespace Mn {
 	}
 	void BG::Initialize()
 	{
-		_image = Resources::Load<Image>(L"BackGround", L"..\\Resources\\BackGround.bmp");
+		_image = Resources::Load<Image>(L"Play_BackGround", L"..\\Resources\\BackGround.bmp");
 		GameObject::Initialize();
 	}
 	void BG::Update()
