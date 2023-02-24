@@ -24,7 +24,8 @@ namespace Mn
 	}
 	void TitleBG::Render(HDC hdc)
 	{
-		BitBlt(hdc, 0, 0, _Image->Width(), _Image->Height(), _Image->Hdc(), 0, 0, SRCCOPY);
+		//BitBlt(hdc, 0, 0, _Image->Width(), _Image->Height(), _Image->Hdc(), 0, 0, SRCCOPY);
+		GdiTransparentBlt(hdc, 0, 0, _Image->Width()*3.0f, _Image->Height()*3.0f, _Image->Hdc(), 0, 0, _Image->Width(), _Image->Height(), RGB(0, 128, 128));
 		GameObject::Render(hdc);
 	}
 }
