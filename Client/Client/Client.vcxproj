@@ -154,6 +154,8 @@
     <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnInput.h" />
     <ClInclude Include="MnLayer.h" />
+    <ClInclude Include="MnMainMenuBG.h" />
+    <ClInclude Include="MnMainMenuScene.h" />
     <ClInclude Include="MnMath.h" />
     <ClInclude Include="MnMomodora.h" />
     <ClInclude Include="MnPlayScene.h" />
@@ -178,6 +180,8 @@
     <ClCompile Include="MnComponent.cpp" />
     <ClCompile Include="MnGameObject.cpp" />
     <ClCompile Include="MnLayer.cpp" />
+    <ClCompile Include="MnMainMenuBG.cpp" />
+    <ClCompile Include="MnMainMenuScene.cpp" />
     <ClCompile Include="MnMath.cpp" />
     <ClCompile Include="MnScene.cpp" />
     <ClCompile Include="MnSceneManager.cpp" />

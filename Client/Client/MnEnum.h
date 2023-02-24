@@ -1,6 +1,7 @@
 #pragma once
 enum class eSceneType {
 	Title,
+	MainMenu,
 	play,
 	end,
 	Max,

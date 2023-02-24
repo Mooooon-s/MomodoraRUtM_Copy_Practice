@@ -133,6 +133,12 @@
     <ClInclude Include="MnTitleBG.h">
       <Filter>Contents\BG</Filter>
     </ClInclude>
+    <ClInclude Include="MnMainMenuScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMainMenuBG.h">
+      <Filter>Contents\BG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -209,6 +215,12 @@
       <Filter>Engin\Component</Filter>
     </ClCompile>
     <ClCompile Include="MnTitleBG.cpp">
+      <Filter>Contents\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMainMenuScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMainMenuBG.cpp">
       <Filter>Contents\BG</Filter>
     </ClCompile>
   </ItemGroup>

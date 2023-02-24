@@ -22,7 +22,7 @@ namespace Mn
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(eSceneType::play);
+			SceneManager::LoadScene(eSceneType::MainMenu);
 		}
 
 		Scene::Update();
