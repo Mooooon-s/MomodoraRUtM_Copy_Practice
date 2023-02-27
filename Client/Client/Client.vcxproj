@@ -166,6 +166,7 @@
     <ClInclude Include="MnTime.h" />
     <ClInclude Include="MnTitleBG.h" />
     <ClInclude Include="MnTitleScene.h" />
+    <ClInclude Include="MnTitleUI.h" />
     <ClInclude Include="MnTransform.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="MnTitleScene.cpp" />
     <ClCompile Include="MnTransform.cpp" />
     <ClCompile Include="MnTitleBG.cpp" />
+    <ClCompile Include="MnTitleUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

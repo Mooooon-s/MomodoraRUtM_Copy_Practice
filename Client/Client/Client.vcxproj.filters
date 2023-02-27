@@ -53,6 +53,9 @@
     <Filter Include="Contents\BG">
       <UniqueIdentifier>{7d72ebd9-644d-4ba7-b4c3-bfe0fa8d4882}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\UI">
+      <UniqueIdentifier>{89ec0f5b-8629-46a5-b17d-f242dc522457}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -139,6 +142,9 @@
     <ClInclude Include="MnMainMenuBG.h">
       <Filter>Contents\BG</Filter>
     </ClInclude>
+    <ClInclude Include="MnTitleUI.h">
+      <Filter>Contents\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -222,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="MnMainMenuBG.cpp">
       <Filter>Contents\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTitleUI.cpp">
+      <Filter>Contents\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

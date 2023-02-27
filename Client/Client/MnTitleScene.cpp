@@ -2,6 +2,7 @@
 #include "MnSceneManager.h"
 #include "MnInput.h"
 #include "MnTitleBG.h"
+#include "MnTitleUI.h"
 
 namespace Mn
 {
@@ -15,6 +16,9 @@ namespace Mn
 	{
 		TitleBG* BackGround = new TitleBG;
 		AddGameObject(BackGround, eLayerType::BG);
+
+		TitleUI* TitleName = new TitleUI;
+		AddGameObject(TitleName, eLayerType::UI);
 
 		Scene::Initialize();
 	}
