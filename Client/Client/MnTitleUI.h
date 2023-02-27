@@ -7,7 +7,9 @@ namespace Mn
 	class TitleUI : public GameObject
 	{
 	private:
-		Image* _image;
+		Image*	_Image;
+		int		_Idx;
+		float	_Time;
 	public:
 		TitleUI();
 		~TitleUI();

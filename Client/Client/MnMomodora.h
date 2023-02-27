@@ -7,7 +7,9 @@ namespace Mn {
 	class Momodora : public GameObject
 	{
 	private:
-		Image* _Image;
+		Image*	_Image;
+		float	_Time;
+		int		_Idx;
 	public:
 		Momodora();
 		~Momodora();

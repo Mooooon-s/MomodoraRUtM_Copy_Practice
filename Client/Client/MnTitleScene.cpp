@@ -3,6 +3,7 @@
 #include "MnInput.h"
 #include "MnTitleBG.h"
 #include "MnTitleUI.h"
+#include "MnTitle_Letter.h"
 
 namespace Mn
 {
@@ -17,7 +18,10 @@ namespace Mn
 		TitleBG* BackGround = new TitleBG;
 		AddGameObject(BackGround, eLayerType::BG);
 
-		TitleUI* TitleName = new TitleUI;
+		TitleUI* TitleAnima = new TitleUI;
+		AddGameObject(TitleAnima, eLayerType::UI);
+
+		Title_Letter* TitleName = new Title_Letter;
 		AddGameObject(TitleName, eLayerType::UI);
 
 		Scene::Initialize();

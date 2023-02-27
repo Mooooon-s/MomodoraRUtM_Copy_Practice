@@ -167,6 +167,7 @@
     <ClInclude Include="MnTitleBG.h" />
     <ClInclude Include="MnTitleScene.h" />
     <ClInclude Include="MnTitleUI.h" />
+    <ClInclude Include="MnTitle_Letter.h" />
     <ClInclude Include="MnTransform.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="MnResource.cpp" />
     <ClCompile Include="MnResources.cpp" />
     <ClCompile Include="MnTitleScene.cpp" />
+    <ClCompile Include="MnTitle_Letter.cpp" />
     <ClCompile Include="MnTransform.cpp" />
     <ClCompile Include="MnTitleBG.cpp" />
     <ClCompile Include="MnTitleUI.cpp" />

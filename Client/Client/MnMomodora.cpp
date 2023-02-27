@@ -3,12 +3,16 @@
 #include "MnInput.h"
 #include "MnResources.h"
 #include "MnTransform.h"
+#include "MnTime.h"
 
 
 
 namespace Mn
 {
 	Momodora::Momodora()
+		:_Image(NULL)
+		, _Time(0)
+		, _Idx(0)
 	{
 	}
 	Momodora::~Momodora()
@@ -53,7 +57,23 @@ namespace Mn
 		GameObject::Render(hdc);
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
-		BitBlt(hdc, pos.x, pos.y, _Image->Width(), _Image->Height(), _Image->Hdc(), 0, 0, SRCCOPY);
+
+		_Time += Time::DeltaTime();
+
+		if (_Idx >= 5)
+		{
+			_Idx = 0;
+		}
+
+		if (_Time > 0.15f)
+		{
+			_Idx++;
+			_Time = 0;
+		}
+
+		GdiTransparentBlt(hdc, pos.x, pos.y, 48 * 3, 48 * 3
+			, _Image->Hdc(), (48*_Idx), 0, 48, 48, RGB(0,128,128));
+		//BitBlt(hdc, pos.x, pos.y, _Image->Width(), _Image->Height(), _Image->Hdc(), 0, 0, SRCCOPY);
 	}
 	void Momodora::Release()
 	{

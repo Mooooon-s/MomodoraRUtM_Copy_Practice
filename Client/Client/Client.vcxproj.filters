@@ -56,6 +56,9 @@
     <Filter Include="Contents\UI">
       <UniqueIdentifier>{89ec0f5b-8629-46a5-b17d-f242dc522457}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Letters">
+      <UniqueIdentifier>{7fc0d46b-71a6-416f-9f12-29c31114ee40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -145,6 +148,9 @@
     <ClInclude Include="MnTitleUI.h">
       <Filter>Contents\UI</Filter>
     </ClInclude>
+    <ClInclude Include="MnTitle_Letter.h">
+      <Filter>Contents\Letters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -231,6 +237,9 @@
     </ClCompile>
     <ClCompile Include="MnTitleUI.cpp">
       <Filter>Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTitle_Letter.cpp">
+      <Filter>Contents\Letters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
