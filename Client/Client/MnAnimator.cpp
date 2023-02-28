@@ -10,6 +10,11 @@ namespace Mn
 	}
 	Animator::~Animator()
 	{
+		for (auto animation : _Animations)
+		{
+			delete animation.second;
+			animation.second = nullptr;
+		}
 	}
 	void Animator::Initialize()
 	{
@@ -65,4 +70,12 @@ namespace Mn
 		_ActiveAnimation = FindAnimation(name);
 		_bLoop = loop;
 	}
+
+	void Animator::Reset()
+	{
+		_ActiveAnimation->Reset();
+	}
+
+	
+
 }

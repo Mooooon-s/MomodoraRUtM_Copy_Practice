@@ -22,15 +22,18 @@ namespace Mn
 		Image* _Image =Resources::Load<Image>(L"Momodora",L"..\\Resources\\Momo.bmp");
 		Animator* animator = AddComponent<Animator>();
 		//Right
-		animator->CreateAnimation(L"Idle_Right",_Image,Vector2::Zero,10,8,6,Vector2::Zero,0.1);
-		animator->CreateAnimation(L"Run_Right", _Image, Vector2(0, 48), 10, 8, 8, Vector2::Zero, 0.1);
-		animator->CreateAnimation(L"Start_Run_Right", _Image, Vector2(0, (48 * 2)), 10, 8, 2, Vector2::Zero, 0.1);
-		animator->CreateAnimation(L"End_Run_Right", _Image, Vector2(0, (48 * 3)), 10, 8, 6, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"Idle_Right",_Image,Vector2::Zero,10,12,6,Vector2::Zero,0.1);
+		animator->CreateAnimation(L"Run_Right", _Image, Vector2(0, 48), 10, 12, 8, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"Start_Run_Right", _Image, Vector2(0, (48 * 2)), 10, 12, 2, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"End_Run_Right", _Image, Vector2(0, (48 * 3)), 10, 12, 6, Vector2::Zero, 0.1);
 		//Left
-		animator->CreateAnimation(L"Idle_Left", _Image, Vector2(0, (48 * 4)), 10, 8, 6, Vector2::Zero, 0.1);
-		animator->CreateAnimation(L"Run_Left", _Image, Vector2(0, (48 * 5)), 10, 8, 8, Vector2::Zero, 0.1);
-		animator->CreateAnimation(L"Start_Run_Left", _Image, Vector2(0, (48 * 6)), 10, 8, 2, Vector2::Zero, 0.1);
-		animator->CreateAnimation(L"End_Run_Left", _Image, Vector2(0, (48 * 7)), 10, 8, 6, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"Idle_Left", _Image, Vector2(0, (48 * 4)), 10, 12, 6, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"Run_Left", _Image, Vector2(0, (48 * 5)), 10, 12, 8, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"Start_Run_Left", _Image, Vector2(0, (48 * 6)), 10, 12, 2, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"End_Run_Left", _Image, Vector2(0, (48 * 7)), 10, 12, 6, Vector2::Zero, 0.1);
+		//Crouch
+		animator->CreateAnimation(L"Crouch_Right", _Image, Vector2(0, (48 * 8)), 10, 12, 4, Vector2::Zero, 0.1);
+		animator->CreateAnimation(L"Crouch_Left", _Image, Vector2(0, (48 * 9)), 10, 12, 4, Vector2::Zero, 0.1);
 
 		animator->Play(L"Idle_Right", true);
 		
@@ -83,10 +86,16 @@ namespace Mn
 			pos.y -= 100.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKeyState(eKeyCode::S) == eKeyState::Pressed)
+		if (Input::GetKeyState(eKeyCode::S) == eKeyState::Down)
 		{
 			_status = eStatus::Move;
-			pos.y += 100.0f * Time::DeltaTime();
+			animator->Play(L"Crouch_Right", false);
+			//pos.y += 100.0f * Time::DeltaTime();
+		}
+		if (Input::GetKeyState(eKeyCode::S) == eKeyState::Up)
+		{
+			animator->Reset();
+			animator->Play(L"Idle_Right", true);
 		}
 		tr->Pos(pos);
 	}

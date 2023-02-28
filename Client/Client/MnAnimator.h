@@ -27,6 +27,7 @@ namespace Mn
 			, Vector2 offset, float duration);
 		Animation* FindAnimation(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop);
+		void Reset();
 
 		
 	};

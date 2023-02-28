@@ -1,13 +1,11 @@
 #pragma once
 #include "MnGameObject.h"
-#include "MnImage.h"
 
 namespace Mn
 {
 	class TitleUI : public GameObject
 	{
 	private:
-		Image*	_Image;
 		int		_Idx;
 		float	_Time;
 	public:

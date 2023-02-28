@@ -1,11 +1,15 @@
 #include "MnTitleUI.h"
 #include "MnResources.h"
 #include "MnTime.h"
+#include "MnAnimator.h"
+#include "MnImage.h"
+#include "MnTransform.h"
 
 namespace Mn
 {
 	TitleUI::TitleUI()
-		:_Image(NULL)
+		:_Idx(0)
+		,_Time(0)
 	{
 	}
 	TitleUI::~TitleUI()
@@ -13,7 +17,14 @@ namespace Mn
 	}
 	void TitleUI::Initialize()
 	{
-		_Image = Resources::Load<Image>(L"TitleName", L"..\\Resources\\Title_Animation.bmp");
+		Image* _Image = Resources::Load<Image>(L"TitleName", L"..\\Resources\\Title_Animation.bmp");
+		Animator* animator = AddComponent<Animator>();
+		animator->CreateAnimation(L"Title_Animation", _Image, Vector2::Zero, 5, 2, 5, Vector2::Zero, 0.1f);
+		
+		Transform* tr = animator->Owner()->GetComponent<Transform>();
+		tr->Pos(Vector2((324-137)*3,(244-54)*3));
+		animator->Play(L"Title_Animation", true);
+
 		GameObject::Initialize();
 	}
 	void TitleUI::Update()
@@ -22,20 +33,6 @@ namespace Mn
 	}
 	void TitleUI::Render(HDC hdc)
 	{
-		_Time += Time::DeltaTime();
-
-		if (_Idx >= 4)
-		{
-			_Idx = 0;
-		}
-
-		if (_Time > 0.15f)
-		{
-			_Idx++;
-			_Time = 0.0f;
-		}
-		GdiTransparentBlt(hdc, 564, 570, 136 * 3, 54 * 3, _Image->Hdc(), 1, (54*_Idx), 136, 54, SRCCOPY);
-		//BitBlt(hdc, 100, 100, _image->Width(), _image->Height(), _image->Hdc(), 0, 0, SRCCOPY);
 		GameObject::Render(hdc);
 	}
 	void TitleUI::Release()
