@@ -151,6 +151,12 @@
     <ClInclude Include="MnTitle_Letter.h">
       <Filter>Contents\Letters</Filter>
     </ClInclude>
+    <ClInclude Include="MnAnimation.h">
+      <Filter>Engin\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MnAnimator.h">
+      <Filter>Engin\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -240,6 +246,12 @@
     </ClCompile>
     <ClCompile Include="MnTitle_Letter.cpp">
       <Filter>Contents\Letters</Filter>
+    </ClCompile>
+    <ClCompile Include="MnAnimation.cpp">
+      <Filter>Engin\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MnAnimator.cpp">
+      <Filter>Engin\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

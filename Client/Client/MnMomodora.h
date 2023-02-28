@@ -1,13 +1,25 @@
 #pragma once
 #include "MnGameObject.h"
 #include "MnTime.h"
-#include "MnImage.h"
 
 namespace Mn {
 	class Momodora : public GameObject
 	{
 	private:
-		Image*	_Image;
+		enum class eStatus
+		{
+			Idle,
+			Move,
+			Rolling,
+			Crouch,
+			Jump,
+			Melee,
+			Range,
+			Climb,
+			Max,
+		};
+
+		eStatus	_status;
 		float	_Time;
 		int		_Idx;
 	public:

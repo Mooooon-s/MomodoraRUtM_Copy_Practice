@@ -3,6 +3,12 @@ struct Vector2 {
 	float x;
 	float y;
 
+	static Vector2 Up;
+	static Vector2 Right;
+
+	static Vector2 One;
+	static Vector2 Zero;
+
 	Vector2()
 		:	x(0.0f)
 		,	y(0.0f)

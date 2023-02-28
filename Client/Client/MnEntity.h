@@ -11,7 +11,7 @@ namespace Mn {
 		Entity();
 		virtual ~Entity();
 
-		void SetName(std::wstring& name) { _Name = name; }
+		void SetName(const std::wstring& name) { _Name = name; }
 		std::wstring& GetName() { return _Name; }
 	};
 }

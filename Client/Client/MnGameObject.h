@@ -23,6 +23,7 @@ namespace Mn
 			T* comp = new T();
 			UINT compType = (UINT)comp->Type();
 			_Components[compType] = comp;
+			comp->Owner(this);
 
 			return comp;
 		}
@@ -33,11 +34,9 @@ namespace Mn
 			for (Component* comp : _Components)
 			{
 				if (dynamic_cast<T*>(comp))
-				{
 					return dynamic_cast<T*>(comp);
-				}
-				return nullptr;
 			}
+			return nullptr;
 		}
 	};
 }
