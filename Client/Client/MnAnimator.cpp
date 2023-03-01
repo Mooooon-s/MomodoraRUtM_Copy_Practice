@@ -69,13 +69,7 @@ namespace Mn
 	{
 		_ActiveAnimation = FindAnimation(name);
 		_bLoop = loop;
+		if(!_bLoop)
+			_ActiveAnimation->Reset();
 	}
-
-	void Animator::Reset()
-	{
-		_ActiveAnimation->Reset();
-	}
-
-	
-
 }

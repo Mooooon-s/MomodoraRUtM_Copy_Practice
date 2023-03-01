@@ -3,6 +3,7 @@
 #include "MnTime.h"
 
 namespace Mn {
+	class Animator;
 	class Momodora : public GameObject
 	{
 	private:
@@ -18,10 +19,18 @@ namespace Mn {
 			Climb,
 			Max,
 		};
-
-		eStatus	_status;
-		float	_Time;
-		int		_Idx;
+		
+		enum class eDir
+		{
+			Left,
+			Right
+		};
+	private:
+		Animator*	_animator;
+		eStatus		_Status;
+		eDir		_Dir;
+		float		_Time;
+		int			_Idx;
 	public:
 		Momodora();
 		~Momodora();
@@ -30,5 +39,10 @@ namespace Mn {
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
+	private:
+		void move();
+		void idle();
+		void crouch();
+		void rolling();
 	};
 }
