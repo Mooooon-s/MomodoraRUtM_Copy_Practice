@@ -30,7 +30,12 @@ namespace Mn {
 		eStatus		_Status;
 		eDir		_Dir;
 		float		_Time;
+		bool		_IsJumped;
+		bool		_bDoubleJump;
 		int			_Idx;
+		int			_col;
+		int			_row;
+
 	public:
 		Momodora();
 		~Momodora();
@@ -40,9 +45,14 @@ namespace Mn {
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 	private:
+		void playAnimationDirection(void);
+	private:
 		void move();
 		void idle();
+		void jump();
 		void crouch();
 		void rolling();
+		void meleeAttack();
+		void rangeAttack();
 	};
 }
