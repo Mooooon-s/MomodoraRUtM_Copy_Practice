@@ -157,6 +157,9 @@
     <ClInclude Include="MnAnimator.h">
       <Filter>Engin\Component</Filter>
     </ClInclude>
+    <ClInclude Include="MnCollider.h">
+      <Filter>Engin\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -251,6 +254,9 @@
       <Filter>Engin\Component</Filter>
     </ClCompile>
     <ClCompile Include="MnAnimator.cpp">
+      <Filter>Engin\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MnCollider.cpp">
       <Filter>Engin\Component</Filter>
     </ClCompile>
   </ItemGroup>

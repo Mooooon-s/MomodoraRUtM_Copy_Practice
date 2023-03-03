@@ -4,6 +4,7 @@ namespace Mn
 {
 	Transform::Transform()
 		:Component(eComponentType::Transform)
+		,_Scale(Vector2(3.0f,3.0f))
 	{
 	}
 

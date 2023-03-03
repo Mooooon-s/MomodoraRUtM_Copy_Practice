@@ -33,5 +33,40 @@ struct Vector2 {
 
 	Vector2(Vector2&&) = default;
 	Vector2& operator=(Vector2&&) = default;
+
+	Vector2 operator+(Vector2 other)
+	{
+		Vector2 tmp;
+		tmp.x = x + other.x;
+		tmp.y = y + other.y;
+		return tmp;
+	}
+
+	Vector2 operator-(Vector2 other)
+	{
+		Vector2 tmp;
+		tmp.x = x - other.x;
+		tmp.y = y - other.y;
+		return tmp;
+	}
+
+	void operator+=(const Vector2& other)
+	{
+		x += other.x;
+		y += other.y;
+	}
+	void operator-=(const Vector2& other)
+	{
+		x -= other.x;
+		y -= other.y;
+	}
+
+	Vector2 operator*(Vector2 other)
+	{
+		Vector2 tmp;
+		tmp.x = x * other.x;
+		tmp.y = y * other.y;
+		return tmp;
+	}
 };
 

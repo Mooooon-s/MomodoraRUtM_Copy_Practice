@@ -39,8 +39,16 @@ namespace Mn
 	void Animation::Render(HDC hdc)
 	{
 		Transform* tr = _Animator->Owner()->GetComponent<Transform>();
-		GdiTransparentBlt(hdc, tr->Pos().x, tr->Pos().y
-			, _SpriteSheet[_SpriteIndex].size.x*3, _SpriteSheet[_SpriteIndex].size.y*3
+		Vector2 scale = tr->Scale();
+
+		Vector2 pos = tr->Pos();
+		pos += _SpriteSheet[_SpriteIndex].offset;
+		pos.x -= ((_SpriteSheet[_SpriteIndex].size.x / 2.0f)*scale.x);
+		pos.y -= ((_SpriteSheet[_SpriteIndex].size.y)*scale.y);
+		
+		GdiTransparentBlt(hdc, pos.x, pos.y
+			, _SpriteSheet[_SpriteIndex].size.x*scale.x
+			, _SpriteSheet[_SpriteIndex].size.y*scale.y
 			, _ImageSheet->Hdc()
 			, _SpriteSheet[_SpriteIndex].leftTop.x, _SpriteSheet[_SpriteIndex].leftTop.y
 			, _SpriteSheet[_SpriteIndex].size.x, _SpriteSheet[_SpriteIndex].size.y,

@@ -19,7 +19,7 @@ namespace Mn
 	{
 		Image* _Image = Resources::Load<Image>(L"TitleName", L"..\\Resources\\Title_Animation.bmp");
 		Animator* animator = AddComponent<Animator>();
-		animator->CreateAnimation(L"Title_Animation", _Image, Vector2::Zero, 5, 2, 5, Vector2::Zero, 0.1f);
+		animator->CreateAnimation(L"Title_Animation", _Image, Vector2::Zero, 5, 2, 5, Vector2((324 - 118), (244 - 82)), 0.1f);
 		
 		Transform* tr = animator->Owner()->GetComponent<Transform>();
 		tr->Pos(Vector2((324-137)*3,(244-54)*3));

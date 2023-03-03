@@ -147,6 +147,7 @@
     <ClInclude Include="MnAnimation.h" />
     <ClInclude Include="MnAnimator.h" />
     <ClInclude Include="MnBG.h" />
+    <ClInclude Include="MnCollider.h" />
     <ClInclude Include="MnEntity.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MnComponent.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnCollider.cpp" />
     <ClCompile Include="MnAnimator.cpp" />
     <ClCompile Include="MnAnimation.cpp" />
     <ClCompile Include="Application.cpp" />

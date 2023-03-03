@@ -11,12 +11,16 @@ namespace Mn {
 		{
 			Idle,
 			Move,
+			Death,
 			Rolling,
 			Crouch,
 			Jump,
 			Melee,
 			Range,
 			Climb,
+			UseItem,
+			GetItem,
+			Hurt,
 			Max,
 		};
 		
@@ -50,9 +54,15 @@ namespace Mn {
 		void move();
 		void idle();
 		void jump();
+		void hurt();
+		void climb();
+		void death();
 		void crouch();
 		void rolling();
+		void getItem();
+		void useItem();
 		void meleeAttack();
 		void rangeAttack();
+
 	};
 }
