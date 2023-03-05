@@ -1,5 +1,7 @@
 #include "MnPlayScene.h"
 #include "MnBG.h"
+#include "MnMomodora.h"
+#include "MnImp.h"
 #include "MnInput.h"
 #include "MnSceneManager.h"
 
@@ -23,6 +25,9 @@ namespace Mn
 		//플레이어 객체 생성
 		Momodora* momodora = new Momodora();
 		AddGameObject(momodora, eLayerType::Player);
+
+		Imp* imp = new Imp();
+		AddGameObject(imp, eLayerType::Monster);
 
 		Scene::Initialize();
 	}

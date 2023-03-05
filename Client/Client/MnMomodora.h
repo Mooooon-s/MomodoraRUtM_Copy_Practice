@@ -35,10 +35,12 @@ namespace Mn {
 		eDir		_Dir;
 		float		_Time;
 		bool		_IsJumped;
+		bool		_IsCrouch;
 		bool		_bDoubleJump;
 		int			_Idx;
 		int			_col;
 		int			_row;
+
 
 	public:
 		Momodora();

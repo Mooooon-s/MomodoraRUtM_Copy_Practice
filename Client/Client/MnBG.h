@@ -6,7 +6,10 @@ namespace Mn {
 	class BG : public GameObject
 	{
 	private:
-		Image* _image;
+		Image*		_image;
+
+		HBITMAP		_PreBitmap;
+		HDC			_PreHDC;
 	public:
 		BG();
 		~BG();

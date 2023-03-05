@@ -14,11 +14,12 @@ namespace Mn
 		, _animator(nullptr)
 		, _Time(0)
 		, _Idx(0)
-		,_IsJumped(false)
-		,_bDoubleJump(true)
-		,_Dir(eDir::Right)
-		,_col(24)
-		,_row(44)
+		, _IsJumped(false)
+		, _IsCrouch(false)
+		, _bDoubleJump(true)
+		, _Dir(eDir::Right)
+		, _col(24)
+		, _row(44)
 	{
 	}
 	Momodora::~Momodora()
@@ -32,9 +33,10 @@ namespace Mn
 		Collider* collider = AddComponent<Collider>();
 		collider->Center(Vector2(0.0f,0.0f));
 
-		Image* _Image =Resources::Load<Image>(L"Momodora",L"..\\Resources\\Kaho_Human.bmp");
+		Image* _Image =Resources::Load<Image>(L"Kaho",L"..\\Resources\\Kaho_Human.bmp");
 		_animator = AddComponent<Animator>();
 
+		//Kaho_Human------------------------------------------------------------------------------------------
 		//Move Right
 		_animator->CreateAnimation(L"Idle_Right",_Image,Vector2::Zero,_col,_row,6,Vector2::Zero,0.1);
 		_animator->CreateAnimation(L"Run_Right", _Image, Vector2(0, 48), _col, _row, 8, Vector2::Zero, 0.1);
@@ -68,12 +70,15 @@ namespace Mn
 		_animator->CreateAnimation(L"Range_Attack_Left", _Image, Vector2(0, (48 * 19)), _col, _row, 6, Vector2::Zero, 0.1);
 		_animator->CreateAnimation(L"Air_Range_Attack_Right", _Image, Vector2(288, (48 * 18)), _col, _row, 6, Vector2::Zero, 0.1);
 		_animator->CreateAnimation(L"Air_Range_Attack_Left", _Image, Vector2(288, (48 * 19)), _col, _row, 6, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Crouch_Range_Attack_Right", _Image, Vector2(576, (48 * 18)), _col, _row, 6, Vector2(0.0f,12.0f), 0.1);
+		_animator->CreateAnimation(L"Crouch_Range_Attack_Left", _Image, Vector2(576, (48 * 19)), _col, _row, 6, Vector2(0.0f,12.0f), 0.1);
 		//Melee Attack_1
 		_animator->CreateAnimation(L"Melee_Attack_1_Right", _Image, Vector2(0, (48 * 20)), _col, _row, 7, Vector2::Zero, 0.1);
 		_animator->CreateAnimation(L"Melee_Attack_1_Left", _Image, Vector2(0, (48 * 21)), _col, _row, 7, Vector2::Zero, 0.1);
 		//Air_Melee_Attack_1
 		_animator->CreateAnimation(L"Air_Melee_Attack_Right", _Image, Vector2(0, (48 * 22)), _col, _row, 7, Vector2::Zero, 0.1);
 		_animator->CreateAnimation(L"Air_Melee_Attack_Left", _Image, Vector2(0, (48 * 23)), _col, _row, 7, Vector2::Zero, 0.1);
+
 		//Melee_Attack_2
 		_animator->CreateAnimation(L"Melee_Attack_2_Right", _Image, Vector2(0, (48 * 24)), _col, _row, 7, Vector2::Zero, 0.1);
 		_animator->CreateAnimation(L"Melee_Attack_2_Left", _Image, Vector2(0, (48 * 25)), _col, _row, 7, Vector2::Zero, 0.1);
@@ -113,7 +118,23 @@ namespace Mn
 		_animator->CreateAnimation(L"Death_Left", _Image, Vector2(0, (48 * 43)), _col, _row, 24, Vector2::Zero, 0.1);
 
 		_animator->Play(L"Idle_Right", true);
-		
+
+		//-------------------------------------------------------------------------------------------------------------------------
+		// 
+		//								 ---     ^        ------
+		//								|	   /___|         |
+		//								 ---  /    |         |
+		//-------------------------------------------------------------------------------------------------------------------------
+		_Image = Resources::Load<Image>(L"Kaho_Cat", L"..\\Resources\\Kaho_Cat.bmp");
+		_animator->CreateAnimation(L"Cat_Attack_1_Right", _Image, Vector2(0, 0), 12, 6, 7, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Cat_Attack_1_Left", _Image, Vector2(0, 80), 12, 6, 7, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Cat_Attack_2_Right", _Image, Vector2(0, 80*2), 12, 6, 7, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Cat_Attack_2_Left", _Image, Vector2(0, 80*3), 12, 6, 7, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Cat_Attack_3_Right", _Image, Vector2(0, 80*4), 12, 6, 12, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Cat_Attack_3_Left", _Image, Vector2(0, 80*5), 12, 6, 12, Vector2::Zero, 0.1);
+
+
+
 		GameObject::Initialize();
 	}
 	void Momodora::Update()
@@ -238,6 +259,14 @@ namespace Mn
 				else
 					_animator->Play(L"Air_Range_Attack_Right", false);
 			}
+			else if (_IsCrouch)
+			{
+				if(_Dir==eDir::Left)
+					_animator->Play(L"Crouch_Range_Attack_Left", false);
+				else
+					_animator->Play(L"Crouch_Range_Attack_Right", false);
+
+			}
 			else
 			{
 				if (_Dir == eDir::Left)
@@ -345,6 +374,18 @@ namespace Mn
 
 	void Momodora::idle()
 	{
+		if (Input::GetKeyDown(eKeyCode::M))
+		{
+			_animator->Play(L"Cat_Attack_1_Right", false);
+		}
+		if (Input::GetKeyDown(eKeyCode::B))
+		{
+			_animator->Play(L"Cat_Attack_2_Right", false);
+		}
+		if (Input::GetKeyDown(eKeyCode::V))
+		{
+			_animator->Play(L"Cat_Attack_3_Right", false);
+		}
 		if (Input::GetKey(eKeyCode::Left))
 		{
 			_Status = eStatus::Move;
@@ -360,6 +401,7 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::Down))
 		{
 			_Status = eStatus::Crouch;
+			_IsCrouch = true;
 			playAnimationDirection();
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
@@ -485,12 +527,13 @@ namespace Mn
 	{
 		if (Input::GetKey(eKeyCode::D))
 		{
-			//_Status = eStatus::Range;
-			//playAnimationDirection();
+			_Status = eStatus::Range;
+			playAnimationDirection();
 		}
 		if (Input::GetKeyUp(eKeyCode::Down))
 		{
 			_Status = eStatus::Idle;
+			_IsCrouch = false;
 			playAnimationDirection();
 		}
 	}
@@ -527,7 +570,10 @@ namespace Mn
 	{
 		if (Input::GetKeyUp(eKeyCode::D))
 		{
-			_Status = eStatus::Idle;
+			if (_IsCrouch)
+				_Status = eStatus::Crouch;
+			else
+				_Status = eStatus::Idle;
 			playAnimationDirection();
 		}
 	}

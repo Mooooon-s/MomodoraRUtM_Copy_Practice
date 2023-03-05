@@ -17,7 +17,21 @@ namespace Mn {
 	}
 	void BG::Initialize()
 	{
-		_image = Resources::Load<Image>(L"Play_BackGround", L"..\\Resources\\BackGround.bmp");
+		HDC mhdc = application.GetHdc();
+		_image = Resources::Load<Image>(L"Play_BackGround", L"..\\Resources\\Stage1_BackGround_324_240.bmp");
+		_PreBitmap = CreateCompatibleBitmap(mhdc, (_image->Width() / 4), _image->Height());
+		_PreHDC = CreateCompatibleDC(mhdc);
+
+		HBITMAP defaultBitmap
+			= (HBITMAP)SelectObject(_PreHDC, _PreBitmap);
+		DeleteObject(defaultBitmap);
+
+
+		for (int i = 0; i < 4; i++)
+		{
+			GdiTransparentBlt(_PreHDC, 0, 0, _image->Width() / 4, _image->Height(), _image->Hdc(), 0+(324*i), 0, _image->Width() / 4, _image->Height(), RGB(0, 128, 128));
+		}
+		
 		GameObject::Initialize();
 	}
 	void BG::Update()
@@ -26,7 +40,7 @@ namespace Mn {
 	}
 	void BG::Render(HDC hdc)
 	{
-		GdiTransparentBlt(hdc, 0, 0, _image->Width() * 3, _image->Height() * 3, _image->Hdc(),0,0, _image->Width(), _image->Height(), SRCCOPY);
+		GdiTransparentBlt(hdc, 0, 0, (_image->Width()/4)*3, _image->Height() * 3, _PreHDC,0,0, _image->Width()/4, _image->Height(), SRCCOPY);
 		//BitBlt(hdc, 0, 0, _image->Width(), _image->Height(), _image->Hdc(), 0, 0, SRCCOPY);
 		GameObject::Render(hdc);
 	}

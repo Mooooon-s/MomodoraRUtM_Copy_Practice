@@ -155,6 +155,7 @@
     <ClInclude Include="MnEnum.h" />
     <ClInclude Include="MnGameObject.h" />
     <ClInclude Include="MnImage.h" />
+    <ClInclude Include="MnImp.h" />
     <ClInclude Include="MnInput.h" />
     <ClInclude Include="MnLayer.h" />
     <ClInclude Include="MnMainMenuBG.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="MnBG.cpp" />
     <ClCompile Include="MnImage.cpp" />
+    <ClCompile Include="MnImp.cpp" />
     <ClCompile Include="MnInput.cpp" />
     <ClCompile Include="MnEntity.cpp" />
     <ClCompile Include="main.cpp" />

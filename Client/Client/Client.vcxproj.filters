@@ -59,6 +59,9 @@
     <Filter Include="Contents\Letters">
       <UniqueIdentifier>{7fc0d46b-71a6-416f-9f12-29c31114ee40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Monster">
+      <UniqueIdentifier>{88a748ab-e93d-4291-a279-57901c0a8713}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -160,6 +163,9 @@
     <ClInclude Include="MnCollider.h">
       <Filter>Engin\Component</Filter>
     </ClInclude>
+    <ClInclude Include="MnImp.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -258,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="MnCollider.cpp">
       <Filter>Engin\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MnImp.cpp">
+      <Filter>Contents\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
