@@ -8,7 +8,9 @@ extern Mn::Application application;
 namespace Mn {
 
 	BG::BG()
-		:_image(NULL)
+		: _image(NULL)
+		, _PreBitmap(nullptr)
+		, _PreHDC(nullptr)
 	{
 	}
 
@@ -41,7 +43,6 @@ namespace Mn {
 	void BG::Render(HDC hdc)
 	{
 		GdiTransparentBlt(hdc, 0, 0, (_image->Width()/4)*3, _image->Height() * 3, _PreHDC,0,0, _image->Width()/4, _image->Height(), SRCCOPY);
-		//BitBlt(hdc, 0, 0, _image->Width(), _image->Height(), _image->Hdc(), 0, 0, SRCCOPY);
 		GameObject::Render(hdc);
 	}
 }
