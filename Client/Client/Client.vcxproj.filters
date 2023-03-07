@@ -166,6 +166,18 @@
     <ClInclude Include="MnImp.h">
       <Filter>Contents\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="MnArsonist.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnKaho_Cat.h">
+      <Filter>Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MnKaho.h">
+      <Filter>Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MnKaho_Human.h">
+      <Filter>Contents\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -267,6 +279,18 @@
     </ClCompile>
     <ClCompile Include="MnImp.cpp">
       <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnArsonist.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnKaho_Cat.cpp">
+      <Filter>Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MnKaho.cpp">
+      <Filter>Contents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MnKaho_Human.cpp">
+      <Filter>Contents\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

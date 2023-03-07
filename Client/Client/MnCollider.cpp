@@ -22,7 +22,7 @@ namespace Mn
 	void Collider::Update()
 	{
 			Transform* tr = Owner()->GetComponent<Transform>();
-		_Pos = tr->Pos()+ _Center;
+			_Pos = tr->Pos()+ _Center;
 	}
 	void Collider::Render(HDC hdc)
 	{
@@ -41,6 +41,7 @@ namespace Mn
 	}
 	void Collider::Center(Vector2 center)
 	{
+		_Center = center;
 	}
 	void Collider::Size(Vector2 size)
 	{

@@ -31,108 +31,135 @@ namespace Mn
 		tr->Pos(Vector2(400.0f, 400.0f));
 
 		Collider* collider = AddComponent<Collider>();
-		collider->Center(Vector2(0.0f,0.0f));
+		collider->Center(Vector2(-24.0f*3,-48.0f*3));
 
 		Image* _Image =Resources::Load<Image>(L"Kaho",L"..\\Resources\\Kaho_Human.bmp");
 		_animator = AddComponent<Animator>();
 
 		//Kaho_Human------------------------------------------------------------------------------------------
 		//Move Right
-		_animator->CreateAnimation(L"Idle_Right",_Image,Vector2::Zero,_col,_row,6,Vector2::Zero,0.1);
-		_animator->CreateAnimation(L"Run_Right", _Image, Vector2(0, 48), _col, _row, 8, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Start_Run_Right", _Image, Vector2(0, (48 * 2)), _col, _row, 2, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"End_Run_Right", _Image, Vector2(0, (48 * 3)), _col, _row, 6, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Idle_Right",_Image,Vector2::Zero,_col,_row,6,Vector2::Zero,0.08);
+		_animator->CreateAnimation(L"Run_Right", _Image, Vector2(0, 48), _col, _row, 8, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Start_Run_Right", _Image, Vector2(0, (48 * 2)), _col, _row, 2, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"End_Run_Right", _Image, Vector2(0, (48 * 3)), _col, _row, 6, Vector2::Zero, 0.08);
 		//Move Left
-		_animator->CreateAnimation(L"Idle_Left", _Image, Vector2(0, (48 * 4)), _col, _row, 6, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Run_Left", _Image, Vector2(0, (48 * 5)), _col, _row, 8, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Start_Run_Left", _Image, Vector2(0, (48 * 6)), _col, _row, 2, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"End_Run_Left", _Image, Vector2(0, (48 * 7)), _col, _row, 6, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Idle_Left", _Image, Vector2(0, (48 * 4)), _col, _row, 6, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Run_Left", _Image, Vector2(0, (48 * 5)), _col, _row, 8, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Start_Run_Left", _Image, Vector2(0, (48 * 6)), _col, _row, 2, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"End_Run_Left", _Image, Vector2(0, (48 * 7)), _col, _row, 6, Vector2::Zero, 0.08);
 		//Hurt
-		_animator->CreateAnimation(L"Hurt_Right", _Image, Vector2(96, (48 * 2)), _col, _row, 1, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Hurt_Left", _Image, Vector2(142, (48 * 2)), _col, _row, 1, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Hurt_Right", _Image, Vector2(96, (48 * 2)), _col, _row, 1, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Hurt_Left", _Image, Vector2(142, (48 * 2)), _col, _row, 1, Vector2::Zero, 0.08);
 		//Crouch
-		_animator->CreateAnimation(L"Crouch_Right", _Image, Vector2(0, (48 * 8)), _col, _row, 4, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Crouch_Left", _Image, Vector2(0, (48 * 9)), _col, _row, 4, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Crouch_Right", _Image, Vector2(0, (48 * 8)), _col, _row, 4, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Crouch_Left", _Image, Vector2(0, (48 * 9)), _col, _row, 4, Vector2::Zero, 0.08);
 		//Rise
-		_animator->CreateAnimation(L"Rise_Right", _Image, Vector2(0, (48 * 10)), _col, _row, 2, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Rise_Left", _Image, Vector2(0, (48 * 11)), _col, _row, 2, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Rise_Right", _Image, Vector2(0, (48 * 10)), _col, _row, 2, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Rise_Left", _Image, Vector2(0, (48 * 11)), _col, _row, 2, Vector2::Zero, 0.08);
 		//Jump
-		_animator->CreateAnimation(L"Jump_Right", _Image, Vector2(0, (48 * 12)), _col, _row, 3, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Jump_Left", _Image, Vector2(0, (48 * 13)), _col, _row, 3, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Jump_Right", _Image, Vector2(0, (48 * 12)), _col, _row, 3, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Jump_Left", _Image, Vector2(0, (48 * 13)), _col, _row, 3, Vector2::Zero, 0.08);
 		//Fall
-		_animator->CreateAnimation(L"Fall_Right", _Image, Vector2(0, (48 * 14)), _col, _row, 5, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Fall_Left", _Image, Vector2(0, (48 * 15)), _col, _row, 5, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Fall_Right", _Image, Vector2(0, (48 * 14)), _col, _row, 5, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Fall_Left", _Image, Vector2(0, (48 * 15)), _col, _row, 5, Vector2::Zero, 0.08);
 		//Rolling
-		_animator->CreateAnimation(L"Roll_Right", _Image, Vector2(0, (48 * 16)), _col, _row, 8, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Roll_Left", _Image, Vector2(0, (48 * 17)), _col, _row, 8, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Roll_Right", _Image, Vector2(0, (48 * 16)), _col, _row, 8, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Roll_Left", _Image, Vector2(0, (48 * 17)), _col, _row, 8, Vector2::Zero, 0.08);
 		//Range Attack
-		_animator->CreateAnimation(L"Range_Attack_Right", _Image, Vector2(0, (48 * 18)), _col, _row, 6, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Range_Attack_Left", _Image, Vector2(0, (48 * 19)), _col, _row, 6, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Air_Range_Attack_Right", _Image, Vector2(288, (48 * 18)), _col, _row, 6, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Air_Range_Attack_Left", _Image, Vector2(288, (48 * 19)), _col, _row, 6, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Crouch_Range_Attack_Right", _Image, Vector2(576, (48 * 18)), _col, _row, 6, Vector2(0.0f,12.0f), 0.1);
-		_animator->CreateAnimation(L"Crouch_Range_Attack_Left", _Image, Vector2(576, (48 * 19)), _col, _row, 6, Vector2(0.0f,12.0f), 0.1);
+		_animator->CreateAnimation(L"Range_Attack_Right", _Image, Vector2(0, (48 * 18)), _col, _row, 6, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Range_Attack_Left", _Image, Vector2(0, (48 * 19)), _col, _row, 6, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Air_Range_Attack_Right", _Image, Vector2(288, (48 * 18)), _col, _row, 6, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Air_Range_Attack_Left", _Image, Vector2(288, (48 * 19)), _col, _row, 6, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Crouch_Range_Attack_Right", _Image, Vector2(576, (48 * 18)), _col, _row, 6, Vector2(0.0f,12.0f), 0.08);
+		_animator->CreateAnimation(L"Crouch_Range_Attack_Left", _Image, Vector2(576, (48 * 19)), _col, _row, 6, Vector2(0.0f,12.0f), 0.08);
 		//Melee Attack_1
-		_animator->CreateAnimation(L"Melee_Attack_1_Right", _Image, Vector2(0, (48 * 20)), _col, _row, 7, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Melee_Attack_1_Left", _Image, Vector2(0, (48 * 21)), _col, _row, 7, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Melee_Attack_1_Right", _Image, Vector2(0, (48 * 20)), _col, _row, 7, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Melee_Attack_1_Left", _Image, Vector2(0, (48 * 21)), _col, _row, 7, Vector2::Zero, 0.08);
 		//Air_Melee_Attack_1
-		_animator->CreateAnimation(L"Air_Melee_Attack_Right", _Image, Vector2(0, (48 * 22)), _col, _row, 7, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Air_Melee_Attack_Left", _Image, Vector2(0, (48 * 23)), _col, _row, 7, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Air_Melee_Attack_Right", _Image, Vector2(0, (48 * 22)), _col, _row, 7, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Air_Melee_Attack_Left", _Image, Vector2(0, (48 * 23)), _col, _row, 7, Vector2::Zero, 0.08);
 
 		//Melee_Attack_2
-		_animator->CreateAnimation(L"Melee_Attack_2_Right", _Image, Vector2(0, (48 * 24)), _col, _row, 7, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Melee_Attack_2_Left", _Image, Vector2(0, (48 * 25)), _col, _row, 7, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Melee_Attack_2_Right", _Image, Vector2(0, (48 * 24)), _col, _row, 7, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Melee_Attack_2_Left", _Image, Vector2(0, (48 * 25)), _col, _row, 7, Vector2::Zero, 0.08);
 		//Melee_Attack_3
-		_animator->CreateAnimation(L"Melee_Attack_3_Right", _Image, Vector2(0, (48 * 26)), _col, _row, 11, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Melee_Attack_3_Left", _Image, Vector2(0, (48 * 27)), _col, _row, 11, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Melee_Attack_3_Right", _Image, Vector2(0, (48 * 26)), _col, _row, 11, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Melee_Attack_3_Left", _Image, Vector2(0, (48 * 27)), _col, _row, 11, Vector2::Zero, 0.08);
 		//Leder_Up
-		_animator->CreateAnimation(L"Leader_Up", _Image, Vector2(0, (48 * 28)), _col, _row, 6, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Leader_Up", _Image, Vector2(0, (48 * 28)), _col, _row, 6, Vector2::Zero, 0.08);
 		//Leder_Down
-		_animator->CreateAnimation(L"Leader_Down", _Image, Vector2(0, (48 * 29)), _col, _row, 3, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Leader_Down", _Image, Vector2(0, (48 * 29)), _col, _row, 3, Vector2::Zero, 0.08);
 		//Use_Item
-		_animator->CreateAnimation(L"Use_Item_Right", _Image, Vector2(0, (48 * 30)), _col, _row, 11, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Use_Iteem_Left", _Image, Vector2(0, (48 * 31)), _col, _row, 11, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Use_Item_Right", _Image, Vector2(0, (48 * 30)), _col, _row, 11, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Use_Item_Left", _Image, Vector2(0, (48 * 31)), _col, _row, 11, Vector2::Zero, 0.08);
 		//Dash
-		_animator->CreateAnimation(L"Dash_Right", _Image, Vector2(192, (48 * 4)), _col, _row, 1, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Dash_Left", _Image, Vector2(240, (48 * 4)), _col, _row, 1, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Dash_Right", _Image, Vector2(192, (48 * 4)), _col, _row, 1, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Dash_Left", _Image, Vector2(240, (48 * 4)), _col, _row, 1, Vector2::Zero, 0.08);
 		//preDash
-		_animator->CreateAnimation(L"PreDash_Right", _Image, Vector2(0, (48 * 32)), _col, _row, 3, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"PostDash_Right", _Image, Vector2(144, (48 * 32)), _col, _row, 3, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"PreDash_Left", _Image, Vector2(0, (48 * 33)), _col, _row, 3, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"PostDash_Left", _Image, Vector2(144, (48 * 33)), _col, _row, 3, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"PreDash_Right", _Image, Vector2(0, (48 * 32)), _col, _row, 3, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"PostDash_Right", _Image, Vector2(144, (48 * 32)), _col, _row, 3, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"PreDash_Left", _Image, Vector2(0, (48 * 33)), _col, _row, 3, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"PostDash_Left", _Image, Vector2(144, (48 * 33)), _col, _row, 3, Vector2::Zero, 0.08);
 		//soft_Landing
-		_animator->CreateAnimation(L"soft_Landing_Right", _Image, Vector2(0, (48 * 34)), _col, _row, 11, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"soft_Landing_Left", _Image, Vector2(0, (48 * 35)), _col, _row, 11, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"soft_Landing_Right", _Image, Vector2(0, (48 * 34)), _col, _row, 11, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"soft_Landing_Left", _Image, Vector2(0, (48 * 35)), _col, _row, 11, Vector2::Zero, 0.08);
 		//Hard_Landing
-		_animator->CreateAnimation(L"Hard_Landing_Right", _Image, Vector2(0, (48 * 36)), _col, _row, 11, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Hard_Landing_Left", _Image, Vector2(0, (48 * 37)), _col, _row, 11, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Hard_Landing_Right", _Image, Vector2(0, (48 * 36)), _col, _row, 11, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Hard_Landing_Left", _Image, Vector2(0, (48 * 37)), _col, _row, 11, Vector2::Zero, 0.08);
 		//Look_Around
-		_animator->CreateAnimation(L"Look_Around_Right", _Image, Vector2(0, (48 * 38)), _col, _row, 11, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Look_Around_Left", _Image, Vector2(0, (48 * 39)), _col, _row, 11, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Look_Around_Right", _Image, Vector2(0, (48 * 38)), _col, _row, 11, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Look_Around_Left", _Image, Vector2(0, (48 * 39)), _col, _row, 11, Vector2::Zero, 0.08);
 		//Spin
-		_animator->CreateAnimation(L"Spin_Right", _Image, Vector2(0, (48 * 40)), _col, _row, 11, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Spin_Left", _Image, Vector2(0, (48 * 41)), _col, _row, 11, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Spin_Right", _Image, Vector2(0, (48 * 40)), _col, _row, 11, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Spin_Left", _Image, Vector2(0, (48 * 41)), _col, _row, 11, Vector2::Zero, 0.08);
 
 		//Death
-		_animator->CreateAnimation(L"Death_Right", _Image, Vector2(0, (48 * 42)), _col, _row, 24, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Death_Left", _Image, Vector2(0, (48 * 43)), _col, _row, 24, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Death_Right", _Image, Vector2(0, (48 * 42)), _col, _row, 24, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Death_Left", _Image, Vector2(0, (48 * 43)), _col, _row, 24, Vector2::Zero, 0.08);
 
 		_animator->Play(L"Idle_Right", true);
 
 		//-------------------------------------------------------------------------------------------------------------------------
 		// 
-		//								 ---     ^        ------
-		//								|	   /___|         |
-		//								 ---  /    |         |
+		//												 ---     ^        ------
+		//												|	   /___|         |
+		//												 ---  /    |         |
+		// 
 		//-------------------------------------------------------------------------------------------------------------------------
 		_Image = Resources::Load<Image>(L"Kaho_Cat", L"..\\Resources\\Kaho_Cat.bmp");
-		_animator->CreateAnimation(L"Cat_Attack_1_Right", _Image, Vector2(0, 0), 12, 6, 7, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Cat_Attack_1_Left", _Image, Vector2(0, 80), 12, 6, 7, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Cat_Attack_2_Right", _Image, Vector2(0, 80*2), 12, 6, 7, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Cat_Attack_2_Left", _Image, Vector2(0, 80*3), 12, 6, 7, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Cat_Attack_3_Right", _Image, Vector2(0, 80*4), 12, 6, 12, Vector2::Zero, 0.1);
-		_animator->CreateAnimation(L"Cat_Attack_3_Left", _Image, Vector2(0, 80*5), 12, 6, 12, Vector2::Zero, 0.1);
+		_animator->CreateAnimation(L"Cat_Attack_1_Right", _Image, Vector2(0, 0), 12, 6, 7, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Attack_1_Left", _Image, Vector2(0, 80), 12, 6, 7, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Attack_2_Right", _Image, Vector2(0, 80*2), 12, 6, 7, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Attack_2_Left", _Image, Vector2(0, 80*3), 12, 6, 7, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Attack_3_Right", _Image, Vector2(0, 80*4), 12, 6, 12, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Attack_3_Left", _Image, Vector2(0, 80*5), 12, 6, 12, Vector2::Zero, 0.08);
 
+		_Image = Resources::Load<Image>(L"Kaho_Cat2", L"..\\Resources\\Kaho_Cat_Move.bmp");
+		_animator->CreateAnimation(L"Cat_Idle_Right", _Image, Vector2(0,0), 13, 8, 12, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Idle_Left", _Image, Vector2(0, 32), 13, 8, 12, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Hurt_Right", _Image, Vector2(32 * 12, 0), 13, 8, 1, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Hurt_Left", _Image, Vector2(32 * 12, 32), 13, 8, 1, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Death_Right", _Image, Vector2(0, 32 * 2), 13, 8, 9, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Death_Left", _Image, Vector2(0, 32 * 3), 13, 8, 9, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_to_Crouch_Right",_Image, Vector2(0, 32 * 4), 13, 8, 4, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_to_Crouch_Right", _Image, Vector2(0, 32 * 5), 13, 8, 4, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_to_Idle_Right", _Image, Vector2(32*4, 32 * 4), 13, 8, 4, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_to_Idle_Right", _Image, Vector2(32*4, 32 * 4), 13, 8, 4, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Crouch_Right", _Image, Vector2(0, 32 * 6), 13, 8, 9, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Crouch_Right", _Image, Vector2(0, 32 * 7), 13, 8, 9, Vector2::Zero, 0.08);
+
+		//11*9
+		_Image = Resources::Load<Image>(L"Kaho_Cat3", L"..\\Resources\\Kaho_Cat_Move2.bmp");
+		_animator->CreateAnimation(L"Cat_Jump_Right", _Image, Vector2(0, 0), 11, 9, 1, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Jump_Left", _Image, Vector2(32, 0), 11, 9, 1, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_to_Run_Right", _Image, Vector2(32*2, 0), 11, 9, 2, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_to_Run_Left", _Image, Vector2(32 * 4, 0), 11, 9, 2, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Fall_Right", _Image, Vector2(0, 32), 11, 9, 3, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Fall_Left", _Image, Vector2(32*3, 32), 11, 9, 3, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Land_Right", _Image, Vector2(0, 32*2), 11, 9, 4, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Land_Left", _Image, Vector2(32*4, 32 * 2), 11, 9, 4, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Roll_Right", _Image, Vector2(0, 32*3), 11, 9, 8, Vector2::Zero, 0.08);
+		_animator->CreateAnimation(L"Cat_Roll_Left", _Image, Vector2(0, 32*4), 11, 9, 8, Vector2::Zero, 0.08);
 
 
 		GameObject::Initialize();

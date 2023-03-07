@@ -146,6 +146,7 @@
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="MnAnimation.h" />
     <ClInclude Include="MnAnimator.h" />
+    <ClInclude Include="MnArsonist.h" />
     <ClInclude Include="MnBG.h" />
     <ClInclude Include="MnCollider.h" />
     <ClInclude Include="MnEntity.h" />
@@ -157,6 +158,9 @@
     <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnImp.h" />
     <ClInclude Include="MnInput.h" />
+    <ClInclude Include="MnKaho.h" />
+    <ClInclude Include="MnKaho_Cat.h" />
+    <ClInclude Include="MnKaho_Human.h" />
     <ClInclude Include="MnLayer.h" />
     <ClInclude Include="MnMainMenuBG.h" />
     <ClInclude Include="MnMainMenuScene.h" />
@@ -177,6 +181,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnKaho_Human.cpp" />
+    <ClCompile Include="MnKaho.cpp" />
+    <ClCompile Include="MnArsonist.cpp" />
     <ClCompile Include="MnCollider.cpp" />
     <ClCompile Include="MnAnimator.cpp" />
     <ClCompile Include="MnAnimation.cpp" />
@@ -189,6 +196,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MnComponent.cpp" />
     <ClCompile Include="MnGameObject.cpp" />
+    <ClCompile Include="MnKaho_Cat.cpp" />
     <ClCompile Include="MnLayer.cpp" />
     <ClCompile Include="MnMainMenuBG.cpp" />
     <ClCompile Include="MnMainMenuScene.cpp" />
