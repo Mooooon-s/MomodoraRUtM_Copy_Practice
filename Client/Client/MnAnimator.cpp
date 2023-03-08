@@ -26,6 +26,11 @@ namespace Mn
 			_ActiveAnimation->Update();
 			if (_bLoop == true && _ActiveAnimation->IsComplete())
 			{
+				Animator::Events* events
+					= FindEvents(_ActiveAnimation->GetName());
+
+				if (events != nullptr)
+					events->_CompleteEvent();
 				_ActiveAnimation->Reset();
 			}
 		}
@@ -56,6 +61,8 @@ namespace Mn
 		animation->SetAnimator(this);
 
 		_Animations.insert(std::make_pair(name, animation));
+		Events* event = new Events();
+		_Events.insert(std::make_pair(name, event));
 	}
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
@@ -67,9 +74,55 @@ namespace Mn
 	}
 	void Animator::Play(const std::wstring& name, bool loop)
 	{
+		if (_ActiveAnimation != nullptr)
+		{
+			Animator::Events* preEvents
+				= FindEvents(_ActiveAnimation->GetName());
+			if (preEvents != nullptr)
+				preEvents->_EndEvent();
+		}
+
 		_ActiveAnimation = FindAnimation(name);
 		_bLoop = loop;
 		if(!_bLoop)
 			_ActiveAnimation->Reset();
+
+		Animator::Events* events
+			= FindEvents(_ActiveAnimation->GetName());
+
+		if (events != nullptr)
+			events->_StartEvent();
+
+	}
+	Animator::Events* Animator::FindEvents(const std::wstring& name)
+	{
+		std::map<std::wstring, Events*>::iterator iter = _Events.find(name);
+		if (iter == _Events.end())
+			return nullptr;
+		return iter->second;
+	}
+	std::function<void()>& Animator::GetStartEvent(const std::wstring& name)
+	{
+		Animation* animation = FindAnimation(name);
+
+		Animator::Events* events = FindEvents(animation->GetName());
+
+		return events->_StartEvent._Event;
+	}
+	std::function<void()>& Animator::GetCompleteEvent(const std::wstring& name)
+	{
+		Animation* animation = FindAnimation(name);
+
+		Animator::Events* events = FindEvents(animation->GetName());
+
+		return events->_CompleteEvent._Event;
+	}
+	std::function<void()>& Animator::GetEndEvent(const std::wstring& name)
+	{
+		Animation* animation = FindAnimation(name);
+
+		Animator::Events* events = FindEvents(animation->GetName());
+
+		return events->_EndEvent._Event;
 	}
 }

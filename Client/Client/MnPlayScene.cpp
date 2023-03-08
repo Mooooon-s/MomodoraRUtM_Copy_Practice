@@ -1,8 +1,9 @@
 #include "MnPlayScene.h"
 #include "MnBG.h"
 #include "MnMomodora.h"
-#include "MnKaho_Human.h"
-#include "MnKaho_Cat.h"
+//#include "MnKaho_Human.h"
+//#include "MnKaho_Cat.h"
+#include "MnKaho.h"
 #include "MnImp.h"
 #include "MnArsonist.h"
 #include "MnInput.h"
@@ -29,11 +30,14 @@ namespace Mn
 		//Momodora* momodora = new Momodora();
 		//AddGameObject(momodora, eLayerType::Player);
 
-		Kaho_Cat* kahoCat = new Kaho_Cat();
-		AddGameObject(kahoCat, eLayerType::Player);
+		//Kaho_Cat* kahoCat = new Kaho_Cat();
+		//AddGameObject(kahoCat, eLayerType::Player);
 
-		Kaho_Human* kahoHuman = new Kaho_Human();
-		AddGameObject(kahoHuman, eLayerType::Player);
+		//Kaho_Human* kahoHuman = new Kaho_Human();
+		//AddGameObject(kahoHuman, eLayerType::Player);
+
+		Kaho* kaho = new Kaho();
+		AddGameObject(kaho, eLayerType::Player);
 
 		Imp* imp = new Imp();
 		AddGameObject(imp, eLayerType::Monster);

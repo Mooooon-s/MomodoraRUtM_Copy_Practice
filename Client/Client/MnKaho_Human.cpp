@@ -1,15 +1,23 @@
 #include "MnKaho_Human.h"
 #include "MnResources.h"
+#include "MnInput.h"
+#include "MnTime.h"
 #include "MnComponent.h"
 #include "MnTransform.h"
 #include "MnAnimator.h"
 #include "MnCollider.h"
+#include "MnSceneManager.h"
+#include "MnScene.h"
+#include "MnArrow.h"
 
 namespace Mn
 {
 	Kaho_Human::Kaho_Human()
-		:_Animator(nullptr)
+		:_PlayerStatus(ePlayerStatus::Idle)
+		,_Animator(nullptr)
 		, _Image(nullptr)
+		,_Combo(false)
+		,_Dir(eDir::R)
 		, _col(24)
 		, _row(44)
 	{
@@ -108,11 +116,43 @@ namespace Mn
 		_Animator->CreateAnimation(L"Death_Right", _Image, Vector2(0, (48 * 42)), _col, _row, 24, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Death_Left", _Image, Vector2(0, (48 * 43)), _col, _row, 24, Vector2::Zero, 0.08);
 
+		
+		_Animator->GetStartEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackStart, this);
+		_Animator->GetCompleteEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackEnd, this);
+
+		_Animator->GetStartEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::beforeRange, this);
+		_Animator->GetCompleteEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::afterRange, this);
+
 		_Animator->Play(L"Idle_Right", true);
+
+
+
 		GameObject::Initialize();
 	}
 	void Kaho_Human::Update()
 	{
+		Transform* tr = GetComponent<Transform>();
+		_pos = tr->Pos();
+
+		switch (_PlayerStatus)
+		{
+		case ePlayerStatus::Idle:
+			idle();
+			break;
+		case ePlayerStatus::Move:
+			move();
+			break;
+		case ePlayerStatus::Attack:
+			attack();
+			break;
+		case ePlayerStatus::Shoot:
+			shoot();
+			break;
+		default:
+			break;
+		}
+		
+		tr->Pos(_pos);
 		GameObject::Update();
 	}
 	void Kaho_Human::Render(HDC hdc)
@@ -122,5 +162,135 @@ namespace Mn
 	void Kaho_Human::Release()
 	{
 		GameObject::Release();
+	}
+	void Kaho_Human::idle()
+	{
+		animationCtrl();
+		if (Input::GetKeyUp(eKeyCode::D))
+		{
+			_PlayerStatus = ePlayerStatus::Shoot;
+		}
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+			_PlayerStatus = ePlayerStatus::Move;
+			animationCtrl();
+		}
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+			_PlayerStatus = ePlayerStatus::Move;
+			animationCtrl();
+		}
+	}
+	void Kaho_Human::move()
+	{
+		//Run_to_Idle
+		if (Input::GetKeyUp(eKeyCode::Left)
+			|| Input::GetKeyUp(eKeyCode::Right))
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+		//Move pos
+
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
+
+		if (_Dir == eDir::L)
+			_pos.x -= 100.0f * Time::DeltaTime();
+		else
+			_pos.x += 100.0f * Time::DeltaTime();
+		animationCtrl();
+	}
+	void Kaho_Human::attack()
+	{
+	}
+	void Kaho_Human::animationCtrl()
+	{
+		switch (_PlayerStatus)
+		{
+		case ePlayerStatus::Idle:
+			if (_Dir == eDir::R)
+			{
+				_Animator->Play(L"Idle_Right", true);
+			}
+			else
+				_Animator->Play(L"Idle_Left", true);
+			break;
+		case ePlayerStatus::Move:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Run_Right", true);
+			else
+				_Animator->Play(L"Run_Left", true);
+			break;
+		case ePlayerStatus::Attack:
+			if (_Dir == eDir::R)
+			{
+				_Animator->Play(L"Melee_Attack_1_Right", true);
+			}
+			break;
+		case ePlayerStatus::Shoot:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Range_Attack_Right", true);
+			else
+				_Animator->Play(L"Range_Attack_Left", false);
+		default:
+			break;
+		}
+	}
+	void Kaho_Human::shoot()
+	{
+		animationCtrl();
+	}
+
+	void Kaho_Human::attackStart()
+	{
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			//_Combo = true;
+		}
+	}
+
+	void Kaho_Human::attackEnd()
+	{
+		if (_Combo == true)
+		{
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Melee_Attack_2_Right", false);
+			else
+				_Animator->Play(L"Melee_Attack_2_Left", false);
+		}
+		else
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+		}
+	}
+
+	void Kaho_Human::beforeRange()
+	{
+
+	}
+
+	void Kaho_Human::afterRange()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Scene* curscene = SceneManager::ActiveScene();
+		Arrow* arrow = new Arrow();
+		arrow->GetComponent<Transform>()->Pos(tr->Pos());
+		curscene->AddGameObject(arrow, eLayerType::Attack);
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
 	}
 }

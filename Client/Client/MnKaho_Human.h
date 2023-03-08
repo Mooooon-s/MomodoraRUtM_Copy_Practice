@@ -8,11 +8,26 @@ namespace Mn
 	class Kaho_Human : public GameObject
 	{
 	private:
-		//static Vector2		_Pos;
-		Animator* _Animator;
-		Image* _Image;
-		int					_col;
-		int					_row;
+		enum class ePlayerStatus
+		{
+			Idle,
+			Move,
+			Attack,
+			Shoot,
+		};
+		enum class eDir
+		{
+			R,
+			L,
+		};
+		ePlayerStatus	_PlayerStatus;
+		Animator*		_Animator;
+		Vector2			_pos;
+		Image*			_Image;
+		eDir			_Dir;
+		bool			_Combo;
+		int				_col;
+		int				_row;
 	public:
 		Kaho_Human();
 		~Kaho_Human();
@@ -21,6 +36,18 @@ namespace Mn
 		void Update() override;
 		void Render(HDC hdc) override;
 		void Release() override;
+	private:
+		void idle();
+		void move();
+		void attack();
+		void animationCtrl();
+		void shoot();
+
+		void attackStart();
+		void attackEnd();
+
+		void beforeRange();
+		void afterRange();
 	};
 }
 

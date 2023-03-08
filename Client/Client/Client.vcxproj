@@ -146,6 +146,7 @@
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="MnAnimation.h" />
     <ClInclude Include="MnAnimator.h" />
+    <ClInclude Include="MnArrow.h" />
     <ClInclude Include="MnArsonist.h" />
     <ClInclude Include="MnBG.h" />
     <ClInclude Include="MnCollider.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnArrow.cpp" />
     <ClCompile Include="MnKaho_Human.cpp" />
     <ClCompile Include="MnKaho.cpp" />
     <ClCompile Include="MnArsonist.cpp" />

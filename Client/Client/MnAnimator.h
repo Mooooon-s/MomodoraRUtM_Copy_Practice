@@ -7,10 +7,35 @@ namespace Mn
 {
 	class Animator : public Component
 	{
+	public:
+		
+		struct Event
+		{
+			void operator=(std::function<void()> func)
+			{
+				_Event = std::move(func);
+			}
+			void operator()()
+			{
+				if (_Event)
+					_Event();
+			}
+			std::function<void()> _Event;
+		};
+
+		struct Events
+		{
+			Event _StartEvent;
+			Event _CompleteEvent;
+			Event _EndEvent;
+		};
+
 	private:
-		std::map<std::wstring, Animation*> _Animations;
-		Animation* _ActiveAnimation;
-		bool _bLoop;
+		std::map<std::wstring, Animation*>	_Animations;
+		std::map<std::wstring, Events*>		_Events;
+		Animation*							_ActiveAnimation;
+		bool								_bLoop;
+
 	public:
 		Animator();
 		~Animator();
@@ -27,6 +52,11 @@ namespace Mn
 			, Vector2 offset, float duration);
 		Animation* FindAnimation(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop);
+	public:
+		Events* FindEvents(const std::wstring& name);
+		std::function<void()>& GetStartEvent(const std::wstring& name);
+		std::function<void()>& GetCompleteEvent(const std::wstring& name);
+		std::function<void()>& GetEndEvent(const std::wstring& name);
 	};
 }
 

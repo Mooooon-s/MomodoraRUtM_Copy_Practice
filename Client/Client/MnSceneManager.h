@@ -16,5 +16,6 @@ namespace Mn {
 		static void Release();
 	public:
 		static void LoadScene(eSceneType SceneType);
+		static Scene* ActiveScene() { return _ActiveScene; }
 	};
 }
