@@ -43,11 +43,11 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Death_Right", _Image, Vector2(0, 32 * 2), 12, 8, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Death_Left", _Image, Vector2(0, 32 * 3), 12, 8, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Crouch_Right", _Image, Vector2(0, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_to_Crouch_Right", _Image, Vector2(0, 32 * 5), 12, 8, 4, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_to_Crouch_Left", _Image, Vector2(0, 32 * 5), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Idle_Right", _Image, Vector2(32 * 4, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_to_Idle_Right", _Image, Vector2(32 * 4, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_to_Idle_Left", _Image, Vector2(32 * 4, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Crouch_Right", _Image, Vector2(0, 32 * 6), 12, 8, 9, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Crouch_Right", _Image, Vector2(0, 32 * 7), 12, 8, 9, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Crouch_Left", _Image, Vector2(0, 32 * 7), 12, 8, 9, Vector2::Zero, 0.08);
 
 		_Image = Resources::Load<Image>(L"Kaho_Cat3", L"..\\Resources\\Kaho_Cat_Move2.bmp");
 		_Animator->CreateAnimation(L"Cat_Jump_Right", _Image, Vector2(0, 0), 9,11, 1, Vector2::Zero, 0.08);
@@ -82,6 +82,9 @@ namespace Mn
 		case ePlayerStatus::Attack:
 			attack();
 			break;
+		case ePlayerStatus::Crouch:
+			crouch();
+			break;
 		default:
 			break;
 		}
@@ -98,47 +101,49 @@ namespace Mn
 	}
 	void Kaho_Cat::idle()
 	{
-		if (Input::GetKeyDown(eKeyCode::Right))
-		{
-			_Dir = eDir::R;
-			_PlayerStatus = ePlayerStatus::Move;
-			animationCtrl();
-		}
-		if (Input::GetKeyDown(eKeyCode::Left))
-		{
-			_Dir = eDir::L;
-			_PlayerStatus = ePlayerStatus::Move;
-			animationCtrl();
-		}
-	}
-	void Kaho_Cat::move()
-	{
-		//Run_to_Idle
-		if (Input::GetKeyUp(eKeyCode::Left)
-			|| Input::GetKeyUp(eKeyCode::Right))
-		{
-			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
-		}
-		//Move pos
-
-		if (Input::GetKey(eKeyCode::Left))
-		{
-			_Dir = eDir::L;
-		}
+		animationCtrl();
 		if (Input::GetKey(eKeyCode::Right))
 		{
 			_Dir = eDir::R;
+			_PlayerStatus = ePlayerStatus::Move;
 		}
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+			_PlayerStatus = ePlayerStatus::Move;
+		}
+		if (Input::GetKeyDown(eKeyCode::Down))
+			_PlayerStatus = ePlayerStatus::Crouch;
+		
+	}
+	void Kaho_Cat::move()
+	{
+		animationCtrl();
+		//Run_to_Idle
+		if (Input::GetKeyUp(eKeyCode::Left)
+			|| Input::GetKeyUp(eKeyCode::Right))
+			_PlayerStatus = ePlayerStatus::Idle;
+
+		//Move pos
+		if (Input::GetKey(eKeyCode::Left))
+			_Dir = eDir::L;
+		if (Input::GetKey(eKeyCode::Right))
+			_Dir = eDir::R;
 
 		if (_Dir == eDir::L)
 			_Pos.x -= 100.0f * Time::DeltaTime();
 		else
 			_Pos.x += 100.0f * Time::DeltaTime();
-		animationCtrl();
+	
 	}
 	void Kaho_Cat::attack()
 	{
+	}
+	void Kaho_Cat::crouch()
+	{
+		animationCtrl();
+		if (Input::GetKeyUp(eKeyCode::Down))
+			_PlayerStatus = ePlayerStatus::Idle;
 	}
 	void Kaho_Cat::animationCtrl()
 	{
@@ -157,6 +162,12 @@ namespace Mn
 				_Animator->Play(L"Cat_Run_Left", true);
 			break;
 		case ePlayerStatus::Attack:
+			break;
+		case ePlayerStatus::Crouch:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Crouch_Right", true);
+			else
+				_Animator->Play(L"Cat_Crouch_Left", true);
 			break;
 		default:
 			break;

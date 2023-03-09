@@ -11,6 +11,7 @@ namespace Mn
 		{
 			Idle,
 			Move,
+			Crouch,
 			Attack,
 		};
 		enum class eDir
@@ -34,6 +35,8 @@ namespace Mn
 		void idle();
 		void move();
 		void attack();
+		void crouch();
+
 		void animationCtrl();
 
 	};
