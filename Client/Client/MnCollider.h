@@ -21,6 +21,9 @@ namespace Mn
 		void Center(Vector2 center);
 		void Size(Vector2 size);
 		void Scale(Vector2 scale);
+	public:
+		Vector2 Pos() { return _Pos; }
+		Vector2 Size() { return _Size; }
 	};
 }
 
