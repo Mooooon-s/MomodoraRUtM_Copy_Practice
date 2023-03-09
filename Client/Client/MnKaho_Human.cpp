@@ -120,13 +120,13 @@ namespace Mn
 		
 		_Animator->GetStartEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackStart, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackEnd, this);
+		_Animator->GetStartEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackStart, this);
+		_Animator->GetCompleteEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackEnd, this);
 
 		_Animator->GetStartEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::beforeRange, this);
 		_Animator->GetCompleteEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::afterRange, this);
 
 		_Animator->Play(L"Idle_Right", true);
-
-
 
 		GameObject::Initialize();
 	}
@@ -218,52 +218,61 @@ namespace Mn
 	}
 	void Kaho_Human::idle()
 	{
-		animationCtrl();
 		if (Input::GetKeyUp(eKeyCode::D))
 		{
 			_PlayerStatus = ePlayerStatus::Shoot;
+			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
 			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
 		}
 		if (Input::GetKey(eKeyCode::Right))
 		{
 			_Dir = eDir::R;
 			_PlayerStatus = ePlayerStatus::Move;
+			animationCtrl();
+
 		}
 		if (Input::GetKey(eKeyCode::Left))
 		{
 			_Dir = eDir::L;
 			_PlayerStatus = ePlayerStatus::Move;
+			animationCtrl();
+
 		}
 		if (Input::GetKeyDown(eKeyCode::Down))
 		{
 			_PlayerStatus = ePlayerStatus::Crouch;
+			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			_PlayerStatus = ePlayerStatus::Jump;
+			animationCtrl();
 		}
 	}
 	void Kaho_Human::move()
 	{
-		animationCtrl();
 		//Run_to_Idle
 		if (Input::GetKeyUp(eKeyCode::Left)
 			|| Input::GetKeyUp(eKeyCode::Right))
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
 		}
 		//Move pos
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
 			_Dir = eDir::L;
+			animationCtrl();
 		}
 		if (Input::GetKey(eKeyCode::Right))
 		{
 			_Dir = eDir::R;
+			animationCtrl();
 		}
 
 		if (_Dir == eDir::L)
@@ -273,35 +282,41 @@ namespace Mn
 	}
 	void Kaho_Human::attack()
 	{
+		if (_Animator->GetActiveAnim()->IsComplete()==false)
+		{
+			if (Input::GetKeyDown(eKeyCode::S))
+				_Combo = true;
+		}
 	}
 	void Kaho_Human::shoot()
 	{
-		animationCtrl();
 	}
 	void Kaho_Human::crouch()
 	{
-		animationCtrl();
 		if (Input::GetKeyUp(eKeyCode::Down))
+		{
 			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
 	}
 	void Kaho_Human::jump()
 	{
-		animationCtrl();
 		if (Input::GetKeyUp(eKeyCode::A))
+		{
 			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
 	}
 	void Kaho_Human::attackStart()
 	{
-		if (Input::GetKeyDown(eKeyCode::S))
-		{
-			//_Combo = true;
-		}
+
 	}
 
 	void Kaho_Human::attackEnd()
 	{
 		if (_Combo == true)
 		{
+			_Combo = false;
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Melee_Attack_2_Right", false);
 			else
@@ -310,6 +325,7 @@ namespace Mn
 		else
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
 		}
 	}
 

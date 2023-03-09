@@ -29,15 +29,16 @@ namespace Mn
 		if (_ActiveAnimation)
 		{
 			_ActiveAnimation->Update();
-			if (_bLoop == true && _ActiveAnimation->IsComplete())
+			if (_ActiveAnimation->IsComplete())
 			{
 				Animator::Events* events
 					= FindEvents(_ActiveAnimation->GetName());
-
 				if (events != nullptr)
 					events->_CompleteEvent();
-				_ActiveAnimation->Reset();
 			}
+
+			if (_bLoop == true && _ActiveAnimation->IsComplete())
+				_ActiveAnimation->Reset();
 		}
 	}
 	void Animator::Render(HDC hdc)
@@ -97,8 +98,9 @@ namespace Mn
 			= FindEvents(_ActiveAnimation->GetName());
 
 		if (events != nullptr)
+		{
 			events->_StartEvent();
-
+		}
 
 	}
 	Animator::Events* Animator::FindEvents(const std::wstring& name)

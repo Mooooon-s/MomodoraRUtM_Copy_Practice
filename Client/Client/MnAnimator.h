@@ -52,6 +52,7 @@ namespace Mn
 			, Vector2 offset, float duration);
 		Animation* FindAnimation(const std::wstring& name);
 		void Play(const std::wstring& name, bool loop);
+		Animation* GetActiveAnim() { return _ActiveAnimation; }
 	public:
 		Events* FindEvents(const std::wstring& name);
 		std::function<void()>& GetStartEvent(const std::wstring& name);
