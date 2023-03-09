@@ -65,6 +65,9 @@
     <Filter Include="Contents\Arrow">
       <UniqueIdentifier>{e2fd270f-6121-4f7b-9df9-3f224f0e1816}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engin\Component\Collider">
+      <UniqueIdentifier>{44baf467-a984-437f-807d-d353bb2aaffb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -163,9 +166,6 @@
     <ClInclude Include="MnAnimator.h">
       <Filter>Engin\Component</Filter>
     </ClInclude>
-    <ClInclude Include="MnCollider.h">
-      <Filter>Engin\Component</Filter>
-    </ClInclude>
     <ClInclude Include="MnImp.h">
       <Filter>Contents\Monster</Filter>
     </ClInclude>
@@ -183,6 +183,12 @@
     </ClInclude>
     <ClInclude Include="MnArrow.h">
       <Filter>Contents\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="MnCollisionManager.h">
+      <Filter>Engin\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="MnCollider.h">
+      <Filter>Engin\Component\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -280,9 +286,6 @@
     <ClCompile Include="MnAnimator.cpp">
       <Filter>Engin\Component</Filter>
     </ClCompile>
-    <ClCompile Include="MnCollider.cpp">
-      <Filter>Engin\Component</Filter>
-    </ClCompile>
     <ClCompile Include="MnImp.cpp">
       <Filter>Contents\Monster</Filter>
     </ClCompile>
@@ -300,6 +303,12 @@
     </ClCompile>
     <ClCompile Include="MnArrow.cpp">
       <Filter>Contents\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="MnCollisionManager.cpp">
+      <Filter>Engin\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="MnCollider.cpp">
+      <Filter>Engin\Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

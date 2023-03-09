@@ -15,6 +15,11 @@ namespace Mn
 			delete animation.second;
 			animation.second = nullptr;
 		}
+		for (auto e : _Events)
+		{
+			delete e.second;
+			e.second = nullptr;
+		}
 	}
 	void Animator::Initialize()
 	{
@@ -84,6 +89,7 @@ namespace Mn
 
 		_ActiveAnimation = FindAnimation(name);
 		_bLoop = loop;
+
 		if(!_bLoop)
 			_ActiveAnimation->Reset();
 
@@ -92,6 +98,7 @@ namespace Mn
 
 		if (events != nullptr)
 			events->_StartEvent();
+
 
 	}
 	Animator::Events* Animator::FindEvents(const std::wstring& name)

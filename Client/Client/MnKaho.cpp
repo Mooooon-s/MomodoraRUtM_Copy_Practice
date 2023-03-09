@@ -34,11 +34,11 @@ namespace Mn
 	void Kaho::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		if (Input::GetKeyDown(eKeyCode::A)&& _bIsCat==false)
+		if (Input::GetKeyDown(eKeyCode::M)&& _bIsCat==false)
 		{
 			_bIsCat = true;
 		}
-		else if(Input::GetKeyDown(eKeyCode::A) && _bIsCat == true)
+		else if(Input::GetKeyDown(eKeyCode::M) && _bIsCat == true)
 		{
 			_bIsCat = false;
 		}

@@ -20,7 +20,7 @@ namespace Mn
 		virtual void OnExit();
 	public:
 		void AddGameObject(GameObject* obj, eLayerType layer);
-		GameObject* GetGameObject(eLayerType layer);
+		const std::vector<GameObject*>& GetGameObject(eLayerType layer);
 	};
 }
 

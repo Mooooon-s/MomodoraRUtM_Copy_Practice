@@ -24,6 +24,7 @@ namespace Mn
 	}
 	Kaho_Human::~Kaho_Human()
 	{
+		
 	}
 	void Kaho_Human::Initialize()
 	{
@@ -148,6 +149,12 @@ namespace Mn
 		case ePlayerStatus::Shoot:
 			shoot();
 			break;
+		case ePlayerStatus::Crouch:
+			crouch();
+			break;
+		case ePlayerStatus::Jump:
+			jump();
+			break;
 		default:
 			break;
 		}
@@ -162,60 +169,6 @@ namespace Mn
 	void Kaho_Human::Release()
 	{
 		GameObject::Release();
-	}
-	void Kaho_Human::idle()
-	{
-		animationCtrl();
-		if (Input::GetKeyUp(eKeyCode::D))
-		{
-			_PlayerStatus = ePlayerStatus::Shoot;
-		}
-		if (Input::GetKeyDown(eKeyCode::S))
-		{
-			_PlayerStatus = ePlayerStatus::Attack;
-			animationCtrl();
-		}
-		if (Input::GetKey(eKeyCode::Right))
-		{
-			_Dir = eDir::R;
-			_PlayerStatus = ePlayerStatus::Move;
-			animationCtrl();
-		}
-		if (Input::GetKey(eKeyCode::Left))
-		{
-			_Dir = eDir::L;
-			_PlayerStatus = ePlayerStatus::Move;
-			animationCtrl();
-		}
-	}
-	void Kaho_Human::move()
-	{
-		//Run_to_Idle
-		if (Input::GetKeyUp(eKeyCode::Left)
-			|| Input::GetKeyUp(eKeyCode::Right))
-		{
-			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
-		}
-		//Move pos
-
-		if (Input::GetKey(eKeyCode::Left))
-		{
-			_Dir = eDir::L;
-		}
-		if (Input::GetKey(eKeyCode::Right))
-		{
-			_Dir = eDir::R;
-		}
-
-		if (_Dir == eDir::L)
-			_pos.x -= 100.0f * Time::DeltaTime();
-		else
-			_pos.x += 100.0f * Time::DeltaTime();
-		animationCtrl();
-	}
-	void Kaho_Human::attack()
-	{
 	}
 	void Kaho_Human::animationCtrl()
 	{
@@ -237,24 +190,106 @@ namespace Mn
 			break;
 		case ePlayerStatus::Attack:
 			if (_Dir == eDir::R)
-			{
-				_Animator->Play(L"Melee_Attack_1_Right", true);
-			}
+				_Animator->Play(L"Melee_Attack_1_Right", false);
+			else
+				_Animator->Play(L"Melee_Attack_1_Left", false);
 			break;
 		case ePlayerStatus::Shoot:
 			if (_Dir == eDir::R)
-				_Animator->Play(L"Range_Attack_Right", true);
+				_Animator->Play(L"Range_Attack_Right", false);
 			else
 				_Animator->Play(L"Range_Attack_Left", false);
+			break;
+		case ePlayerStatus::Crouch:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Crouch_Right", false);
+			else
+				_Animator->Play(L"Crouch_Left", false);
+			break;
+		case ePlayerStatus::Jump:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Jump_Right", false);
+			else
+				_Animator->Play(L"Jump_Left", false);
+			break;
 		default:
 			break;
 		}
+	}
+	void Kaho_Human::idle()
+	{
+		animationCtrl();
+		if (Input::GetKeyUp(eKeyCode::D))
+		{
+			_PlayerStatus = ePlayerStatus::Shoot;
+		}
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+			_PlayerStatus = ePlayerStatus::Move;
+		}
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+			_PlayerStatus = ePlayerStatus::Move;
+		}
+		if (Input::GetKeyDown(eKeyCode::Down))
+		{
+			_PlayerStatus = ePlayerStatus::Crouch;
+		}
+		if (Input::GetKeyDown(eKeyCode::A))
+		{
+			_PlayerStatus = ePlayerStatus::Jump;
+		}
+	}
+	void Kaho_Human::move()
+	{
+		animationCtrl();
+		//Run_to_Idle
+		if (Input::GetKeyUp(eKeyCode::Left)
+			|| Input::GetKeyUp(eKeyCode::Right))
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+		}
+		//Move pos
+
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
+
+		if (_Dir == eDir::L)
+			_pos.x -= 100.0f * Time::DeltaTime();
+		else
+			_pos.x += 100.0f * Time::DeltaTime();
+	}
+	void Kaho_Human::attack()
+	{
 	}
 	void Kaho_Human::shoot()
 	{
 		animationCtrl();
 	}
-
+	void Kaho_Human::crouch()
+	{
+		animationCtrl();
+		if (Input::GetKeyUp(eKeyCode::Down))
+			_PlayerStatus = ePlayerStatus::Idle;
+	}
+	void Kaho_Human::jump()
+	{
+		animationCtrl();
+		if (Input::GetKeyUp(eKeyCode::A))
+			_PlayerStatus = ePlayerStatus::Idle;
+	}
 	void Kaho_Human::attackStart()
 	{
 		if (Input::GetKeyDown(eKeyCode::S))

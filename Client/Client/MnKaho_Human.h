@@ -9,10 +9,13 @@ namespace Mn
 	{
 	private:
 		enum class ePlayerStatus
+
 		{
 			Idle,
 			Move,
 			Attack,
+			Crouch,
+			Jump,
 			Shoot,
 		};
 		enum class eDir
@@ -42,6 +45,8 @@ namespace Mn
 		void attack();
 		void animationCtrl();
 		void shoot();
+		void crouch();
+		void jump();
 
 		void attackStart();
 		void attackEnd();

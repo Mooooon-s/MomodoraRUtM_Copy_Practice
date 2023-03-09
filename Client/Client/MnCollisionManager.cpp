@@ -1,8 +1,11 @@
 #include "MnCollisionManager.h"
 #include "MnSceneManager.h"
-#include "MnCollider.h"
+#include "MnScene.h"
+
 namespace Mn
 {
+	WORD CollisionManager::_Matrix[(UINT)eLayerType::Max] = {};
+
 	void CollisionManager::Update()
 	{
 		Scene* scene = SceneManager::ActiveScene();
