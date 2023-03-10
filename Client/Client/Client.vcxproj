@@ -149,6 +149,7 @@
     <ClInclude Include="MnArrow.h" />
     <ClInclude Include="MnArsonist.h" />
     <ClInclude Include="MnBG.h" />
+    <ClInclude Include="MnCamera.h" />
     <ClInclude Include="MnCollider.h" />
     <ClInclude Include="MnCollisionManager.h" />
     <ClInclude Include="MnEntity.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnCamera.cpp" />
     <ClCompile Include="MnCollisionManager.cpp" />
     <ClCompile Include="MnArrow.cpp" />
     <ClCompile Include="MnKaho_Human.cpp" />

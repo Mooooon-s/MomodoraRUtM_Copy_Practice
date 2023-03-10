@@ -17,6 +17,10 @@ namespace Mn
 		virtual void Render(HDC hdc);
 		virtual void Release();
 	public:
+		virtual void OnCollisionEnter(class Collider* other);
+		virtual void OnCollisionStay(class Collider* other);
+		virtual void OnCollisionExit(class Collider* other);
+	public:
 		template<typename T>
 		T* AddComponent()
 		{

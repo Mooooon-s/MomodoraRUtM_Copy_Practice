@@ -5,6 +5,7 @@
 namespace Mn
 {
 	WORD CollisionManager::_Matrix[(UINT)eLayerType::Max] = {};
+	std::map<UINT64, bool> CollisionManager::_CollisionMap;
 
 	void CollisionManager::Update()
 	{
@@ -40,15 +41,54 @@ namespace Mn
 
 				if (leftObj == rightObj)
 					continue;
-				if (Intersect(leftCollider, rightCollider))
-				{
-					//충돌
-				}
-				else
-				{
-					//미충돌
-				}
-				
+
+				ColliderCollision(leftCollider, rightCollider, left, right);
+			}
+		}
+	}
+
+	void CollisionManager::ColliderCollision(Collider* leftCol, Collider* rightCol, eLayerType left, eLayerType right)
+	{
+		ColliderID colliderID = {};
+		colliderID.left = (UINT)leftCol->GetID();
+		colliderID.right = (UINT)rightCol->GetID();
+
+		std::map<UINT64, bool>::iterator iter
+			= _CollisionMap.find(colliderID.id);
+
+		if (iter == _CollisionMap.end())
+		{
+			_CollisionMap.insert(std::make_pair(colliderID.id, false));
+			iter = _CollisionMap.find(colliderID.id);
+		}
+
+		if (Intersect(leftCol, rightCol))
+		{
+			// 최초 충돌 시작했을때 enter
+			if (iter->second == false)
+			{
+				leftCol->OnCollisionEnter(rightCol);
+				rightCol->OnCollisionEnter(leftCol);
+
+				iter->second = true;
+			}
+			else // 충돌 중인상태 stay
+			{
+				leftCol->OnCollisionStay(rightCol);
+				rightCol->OnCollisionStay(leftCol);
+			}
+		}
+		else
+		{
+			// Exit
+			// 이전프레임 충돌 O
+			// 현재는 충돌 X 
+			if (iter->second == true)
+			{
+				leftCol->OnCollisionExit(rightCol);
+				rightCol->OnCollisionExit(leftCol);
+
+				iter->second = false;
 			}
 		}
 	}
@@ -99,6 +139,8 @@ namespace Mn
 
 	void CollisionManager::Clear()
 	{
+		memset(_Matrix, 0, sizeof(WORD) * (UINT)eLayerType::Max);
+		_CollisionMap.clear();
 	}
 
 

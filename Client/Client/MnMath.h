@@ -71,6 +71,13 @@ struct Vector2 {
 		tmp.y = y * other.y;
 		return tmp;
 	}
+	Vector2 operator/(const float ratio)
+	{
+		Vector2 tmp;
+		tmp.x = x / ratio;
+		tmp.y = y / ratio;
+		return tmp;
+	}
 
 	float Length()
 	{

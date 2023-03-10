@@ -1,6 +1,7 @@
 #include "MnCollider.h"
 #include "MnGameObject.h"
 #include "MnTransform.h"
+#include "MnCamera.h"
 
 namespace Mn
 {
@@ -31,7 +32,8 @@ namespace Mn
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 
-		Rectangle(hdc, _Pos.x, _Pos.y, _Pos.x + _Size.x, _Pos.y + _Size.y);
+		Vector2 pos = Camera::ComputePos(_Pos);
+		Rectangle(hdc, pos.x, pos.y, pos.x + _Size.x, pos.y + _Size.y);
 		(HPEN)SelectObject(hdc, oldPen);
 		(HBRUSH)SelectObject(hdc, oldBrush);
 		DeleteObject(pen);
@@ -39,14 +41,16 @@ namespace Mn
 	void Collider::Release()
 	{
 	}
-	void Collider::Center(Vector2 center)
+	void Collider::OnCollisionEnter(Collider* other)
 	{
-		_Center = center;
+		Owner()->OnCollisionEnter(other);
 	}
-	void Collider::Size(Vector2 size)
+	void Collider::OnCollisionStay(Collider* other)
 	{
+		Owner()->OnCollisionStay(other);
 	}
-	void Collider::Scale(Vector2 scale)
+	void Collider::OnCollisionExit(Collider* other)
 	{
+		Owner()->OnCollisionExit(other);
 	}
 }

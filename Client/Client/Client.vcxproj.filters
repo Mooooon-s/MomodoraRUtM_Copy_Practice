@@ -68,6 +68,9 @@
     <Filter Include="Engin\Component\Collider">
       <UniqueIdentifier>{44baf467-a984-437f-807d-d353bb2aaffb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engin\Camera">
+      <UniqueIdentifier>{98f000ec-a59b-4788-b8ca-2aca758a69e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -190,6 +193,9 @@
     <ClInclude Include="MnCollider.h">
       <Filter>Engin\Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="MnCamera.h">
+      <Filter>Engin\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -309,6 +315,9 @@
     </ClCompile>
     <ClCompile Include="MnCollider.cpp">
       <Filter>Engin\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="MnCamera.cpp">
+      <Filter>Engin\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -29,6 +29,8 @@ namespace Mn {
 
 		HWND GetHwnd() { return _Hwnd; }
 		HDC	 GetHdc()  { return _Hdc; }
+		UINT Width() { return _Width; }
+		UINT Height() { return _Height; }
 
 	};
 

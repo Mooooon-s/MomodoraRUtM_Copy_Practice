@@ -4,6 +4,7 @@
 #include "MnKaho_Human.h"
 #include "MnComponent.h"
 #include "MnTransform.h"
+#include "MnCamera.h"
 
 namespace Mn
 {
@@ -49,13 +50,16 @@ namespace Mn
 			catTr->Pos(_Pos);
 			kahoCat->Update();
 			_Pos = catTr->Pos();
+			Camera::SetTarget(kahoCat);
 		}
 		else
 		{
+
 			Transform* humanTr = kahoHuman->GetComponent<Transform>();
 			humanTr->Pos(_Pos);
 			kahoHuman->Update();
 			_Pos = humanTr->Pos();
+			Camera::SetTarget(kahoHuman);
 		}
 	
 	}

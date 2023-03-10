@@ -1,8 +1,6 @@
 #include "MnPlayScene.h"
 #include "MnBG.h"
 #include "MnMomodora.h"
-//#include "MnKaho_Human.h"
-//#include "MnKaho_Cat.h"
 #include "MnKaho.h"
 #include "MnImp.h"
 #include "MnArsonist.h"

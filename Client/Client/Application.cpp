@@ -1,5 +1,6 @@
 #include "Application.h"
-
+#include "MnCamera.h"
+#include "MnCollisionManager.h"
 namespace Mn {
 	Application::Application() 
 		:_Hwnd(NULL)
@@ -39,6 +40,7 @@ namespace Mn {
 		Time::Initialize();
 		Input::Initialize();
 		SceneManager::Initialize();
+		Camera::Initiailize();
 	}
 	void Application::Run() 
 	{
@@ -51,8 +53,10 @@ namespace Mn {
 	{
 		Time::Update();
 		Input::Updatae();
-		SceneManager::Update();
+		Camera::Update();
 
+		SceneManager::Update();
+		CollisionManager::Update();
 	}
 
 	//그림을 그리는 역할

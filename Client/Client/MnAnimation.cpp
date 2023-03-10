@@ -4,6 +4,7 @@
 #include "MnAnimator.h"
 #include "MnGameObject.h"
 #include "MnTime.h"
+#include "MnCamera.h"
 
 namespace Mn
 {
@@ -42,6 +43,7 @@ namespace Mn
 		Vector2 scale = tr->Scale();
 
 		Vector2 pos = tr->Pos();
+		pos = Camera::ComputePos(pos);
 		pos += _SpriteSheet[_SpriteIndex].offset;
 		pos.x -= ((_SpriteSheet[_SpriteIndex].size.x / 2.0f)*scale.x);
 		pos.y -= ((_SpriteSheet[_SpriteIndex].size.y)*scale.y);
