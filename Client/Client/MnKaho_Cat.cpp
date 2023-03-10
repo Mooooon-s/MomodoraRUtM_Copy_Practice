@@ -179,9 +179,10 @@ namespace Mn
 	}
 	void Kaho_Cat::crouch()
 	{
-		animationCtrl();
-		if (Input::GetKeyUp(eKeyCode::Down))
+		if (Input::GetKeyUp(eKeyCode::Down)) {
 			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
 	}
 	void Kaho_Cat::attackComplete()
 	{

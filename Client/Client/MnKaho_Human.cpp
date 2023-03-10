@@ -142,6 +142,9 @@ namespace Mn
 		_Animator->GetStartEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::beforeRange, this);
 		_Animator->GetCompleteEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::afterRange, this);
 
+		_Animator->GetStartEvent(L"Range_Attack_Left") = std::bind(&Kaho_Human::beforeRange, this);
+		_Animator->GetCompleteEvent(L"Range_Attack_Left") = std::bind(&Kaho_Human::afterRange, this);
+
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Right") = std::bind(&Kaho_Human::airAttackComplete, this);
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Left") = std::bind(&Kaho_Human::airAttackComplete, this);
 
