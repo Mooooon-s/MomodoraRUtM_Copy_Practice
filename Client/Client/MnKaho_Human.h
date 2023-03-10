@@ -29,6 +29,8 @@ namespace Mn
 		Image*			_Image;
 		eDir			_Dir;
 		bool			_Combo;
+		bool			_IsCrouch;
+		bool			_IsJump;
 		int				_col;
 		int				_row;
 	public:
@@ -47,9 +49,13 @@ namespace Mn
 		void shoot();
 		void crouch();
 		void jump();
+	private:
+		void attackComplete();
+		void attackCombo1Complete();
+		void attackCombo2Complete();
 
-		void attackStart();
-		void attackEnd();
+		void airAttackComplete();
+		void CrouchRangeComplete();
 
 		void beforeRange();
 		void afterRange();

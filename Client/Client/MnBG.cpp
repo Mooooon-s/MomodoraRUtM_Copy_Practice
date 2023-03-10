@@ -42,6 +42,7 @@ namespace Mn {
 	}
 	void BG::Render(HDC hdc)
 	{
+		
 		GdiTransparentBlt(hdc, 0, 0, (_image->Width()/4)*3, _image->Height() * 3, _PreHDC,0,0, _image->Width()/4, _image->Height(), SRCCOPY);
 		GameObject::Render(hdc);
 	}

@@ -17,6 +17,8 @@ namespace Mn
 		,_Animator(nullptr)
 		, _Image(nullptr)
 		,_Combo(false)
+		, _IsCrouch(false)
+		, _IsJump(false)
 		,_Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -36,7 +38,11 @@ namespace Mn
 
 		Image* _Image = Resources::Load<Image>(L"Kaho", L"..\\Resources\\Kaho_Human.bmp");
 		_Animator = AddComponent<Animator>();
-		//Kaho_Human------------------------------------------------------------------------------------------
+		//-------------------------------------------------------------------------------------------------------------
+		//												
+		//														Kaho_Human Animation
+		// 
+		// ------------------------------------------------------------------------------------------------------------
 		//Move Right
 		_Animator->CreateAnimation(L"Idle_Right", _Image, Vector2::Zero, _col, _row, 6, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Run_Right", _Image, Vector2(0, 48), _col, _row, 8, Vector2::Zero, 0.08);
@@ -117,17 +123,32 @@ namespace Mn
 		_Animator->CreateAnimation(L"Death_Right", _Image, Vector2(0, (48 * 42)), _col, _row, 24, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Death_Left", _Image, Vector2(0, (48 * 43)), _col, _row, 24, Vector2::Zero, 0.08);
 
-		
-		_Animator->GetStartEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackStart, this);
-		_Animator->GetCompleteEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackEnd, this);
-		_Animator->GetStartEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackStart, this);
-		_Animator->GetCompleteEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackEnd, this);
+		//-------------------------------------------------------------------------------------------------------------------
+		//
+		//													Events
+		// 
+		//-------------------------------------------------------------------------------------------------------------------
+		//ComboAttack
+		_Animator->GetCompleteEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackComplete, this);
+		_Animator->GetCompleteEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackComplete, this);
+
+		_Animator->GetCompleteEvent(L"Melee_Attack_2_Right") = std::bind(&Kaho_Human::attackCombo1Complete, this);
+		_Animator->GetCompleteEvent(L"Melee_Attack_2_Left") = std::bind(&Kaho_Human::attackCombo1Complete, this);
+
+		_Animator->GetCompleteEvent(L"Melee_Attack_3_Right") = std::bind(&Kaho_Human::attackCombo2Complete, this);
+		_Animator->GetCompleteEvent(L"Melee_Attack_3_Left") = std::bind(&Kaho_Human::attackCombo2Complete, this);
 
 		_Animator->GetStartEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::beforeRange, this);
 		_Animator->GetCompleteEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::afterRange, this);
 
-		_Animator->Play(L"Idle_Right", true);
+		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Right") = std::bind(&Kaho_Human::airAttackComplete, this);
+		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Left") = std::bind(&Kaho_Human::airAttackComplete, this);
 
+		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
+		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
+		
+
+		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
 	}
 	void Kaho_Human::Update()
@@ -195,10 +216,20 @@ namespace Mn
 				_Animator->Play(L"Melee_Attack_1_Left", false);
 			break;
 		case ePlayerStatus::Shoot:
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Range_Attack_Right", false);
+			if (!_IsCrouch)
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Range_Attack_Right", false);
+				else
+					_Animator->Play(L"Range_Attack_Left", false);
+			}
 			else
-				_Animator->Play(L"Range_Attack_Left", false);
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Crouch_Range_Attack_Right", false);
+				else
+					_Animator->Play(L"Crouch_Range_Attack_Left", false);
+			}
 			break;
 		case ePlayerStatus::Crouch:
 			if (_Dir == eDir::R)
@@ -244,11 +275,13 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::Down))
 		{
+			_IsCrouch = true;
 			_PlayerStatus = ePlayerStatus::Crouch;
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			//_IsJump = true;
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
 		}
@@ -295,7 +328,14 @@ namespace Mn
 	{
 		if (Input::GetKeyUp(eKeyCode::Down))
 		{
+			_IsCrouch = false;
 			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+
+		if (Input::GetKeyDown(eKeyCode::D))
+		{
+			_PlayerStatus = ePlayerStatus::Shoot;
 			animationCtrl();
 		}
 	}
@@ -307,12 +347,8 @@ namespace Mn
 			animationCtrl();
 		}
 	}
-	void Kaho_Human::attackStart()
-	{
 
-	}
-
-	void Kaho_Human::attackEnd()
+	void Kaho_Human::attackComplete()
 	{
 		if (_Combo == true)
 		{
@@ -328,6 +364,46 @@ namespace Mn
 			animationCtrl();
 		}
 	}
+	void Kaho_Human::attackCombo1Complete()
+	{
+		if (_Combo == true)
+		{
+			_Combo = false;
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Melee_Attack_3_Right", false);
+			else
+				_Animator->Play(L"Melee_Attack_3_Left", false);
+		}
+		else
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+	}
+	void Kaho_Human::attackCombo2Complete()
+	{
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+	}
+
+	void Kaho_Human::airAttackComplete()
+	{
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+	}
+
+	void Kaho_Human::CrouchRangeComplete()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Scene* curscene = SceneManager::ActiveScene();
+		Arrow* arrow = new Arrow();
+		arrow->GetComponent<Transform>()->Pos(tr->Pos());
+		curscene->AddGameObject(arrow, eLayerType::Attack);
+		_PlayerStatus = ePlayerStatus::Crouch;
+		animationCtrl();
+	}
+
+
 
 	void Kaho_Human::beforeRange()
 	{
