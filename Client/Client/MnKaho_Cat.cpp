@@ -24,7 +24,8 @@ namespace Mn
 		tr->Pos(Vector2(600.0f,400.0f));
 
 		Collider* col = AddComponent<Collider>();
-		col->Center(Vector2::Zero);
+		col->Size(Vector2(32.0f * 3, 32.0f * 3));
+		col->Center(Vector2(-16.0f*3,-32.0f*3));
 		
 		_Animator = AddComponent<Animator>();
 		Image* _Image = Resources::Load<Image>(L"Kaho_Cat", L"..\\Resources\\Kaho_Cat.bmp");
@@ -63,6 +64,20 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Run_Right", _Image, Vector2(0, 32 * 5), 9, 11, 6, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Run_Left", _Image, Vector2(0, 32 * 6), 9, 11, 6, Vector2::Zero, 0.08);
 
+		//-------------------------------------------------------------------------------------------------------------------
+		// 
+		//													Events
+		// 
+		//-------------------------------------------------------------------------------------------------------------------
+		_Animator->GetCompleteEvent(L"Cat_Attack_1_Right") = std::bind(&Kaho_Cat::attackComplete,this);
+		_Animator->GetCompleteEvent(L"Cat_Attack_1_Left") = std::bind(&Kaho_Cat::attackComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Attack_2_Right") = std::bind(&Kaho_Cat::attackCombo1Complete, this);
+		_Animator->GetCompleteEvent(L"Cat_Attack_2_Left") = std::bind(&Kaho_Cat::attackCombo1Complete, this);
+		_Animator->GetCompleteEvent(L"Cat_Attack_3_Right") = std::bind(&Kaho_Cat::attackCombo2Complete, this);
+		_Animator->GetCompleteEvent(L"Cat_Attack_3_Left") = std::bind(&Kaho_Cat::attackCombo2Complete, this);
+
+		
+		
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
 	}
@@ -101,28 +116,48 @@ namespace Mn
 	}
 	void Kaho_Cat::idle()
 	{
-		animationCtrl();
 		if (Input::GetKey(eKeyCode::Right))
 		{
 			_Dir = eDir::R;
 			_PlayerStatus = ePlayerStatus::Move;
+			animationCtrl();
+
 		}
 		if (Input::GetKey(eKeyCode::Left))
 		{
 			_Dir = eDir::L;
 			_PlayerStatus = ePlayerStatus::Move;
+			animationCtrl();
+
 		}
 		if (Input::GetKeyDown(eKeyCode::Down))
+		{
 			_PlayerStatus = ePlayerStatus::Crouch;
+			animationCtrl();
+
+		}
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
 		
 	}
 	void Kaho_Cat::move()
 	{
-		animationCtrl();
 		//Run_to_Idle
 		if (Input::GetKeyUp(eKeyCode::Left)
 			|| Input::GetKeyUp(eKeyCode::Right))
+		{
 			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
 
 		//Move pos
 		if (Input::GetKey(eKeyCode::Left))
@@ -134,16 +169,58 @@ namespace Mn
 			_Pos.x -= 100.0f * Time::DeltaTime();
 		else
 			_Pos.x += 100.0f * Time::DeltaTime();
-	
 	}
 	void Kaho_Cat::attack()
 	{
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_Combo = true;
+		}
 	}
 	void Kaho_Cat::crouch()
 	{
 		animationCtrl();
 		if (Input::GetKeyUp(eKeyCode::Down))
 			_PlayerStatus = ePlayerStatus::Idle;
+	}
+	void Kaho_Cat::attackComplete()
+	{
+
+		if (_Combo)
+		{
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Attack_2_Right", false);
+			else
+				_Animator->Play(L"Cat_Attack_2_Left", false);
+		}
+		else
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+		_Combo = false;
+	}
+	void Kaho_Cat::attackCombo1Complete()
+	{
+		if (_Combo)
+		{
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Attack_3_Right", false);
+			else
+				_Animator->Play(L"Cat_Attack_3_Left", false);
+		}
+		else
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+		_Combo = false;
+	}
+	void Kaho_Cat::attackCombo2Complete()
+	{
+		_Combo=false;
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
 	}
 	void Kaho_Cat::animationCtrl()
 	{
@@ -162,6 +239,10 @@ namespace Mn
 				_Animator->Play(L"Cat_Run_Left", true);
 			break;
 		case ePlayerStatus::Attack:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Attack_1_Right", false);
+			else
+				_Animator->Play(L"Cat_Attack_1_Left", false);
 			break;
 		case ePlayerStatus::Crouch:
 			if (_Dir == eDir::R)

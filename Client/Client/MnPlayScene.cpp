@@ -6,7 +6,7 @@
 #include "MnArsonist.h"
 #include "MnInput.h"
 #include "MnSceneManager.h"
-
+#include "MnCamera.h"
 
 
 namespace Mn 
@@ -43,6 +43,8 @@ namespace Mn
 
 		Arsonist* arsonist = new Arsonist();
 		AddGameObject(arsonist, eLayerType::Monster);
+
+		//Camera::SetTarget(kaho);
 
 		Scene::Initialize();
 	}

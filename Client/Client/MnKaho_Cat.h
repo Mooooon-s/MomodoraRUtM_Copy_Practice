@@ -23,6 +23,7 @@ namespace Mn
 		Animator*		_Animator;
 		Vector2			_Pos;
 		eDir			_Dir;
+		bool			_Combo;
 	public:
 		Kaho_Cat();
 		~Kaho_Cat();
@@ -36,7 +37,10 @@ namespace Mn
 		void move();
 		void attack();
 		void crouch();
-
+	private:
+		void attackComplete();
+		void attackCombo1Complete();
+		void attackCombo2Complete();
 		void animationCtrl();
 
 	};

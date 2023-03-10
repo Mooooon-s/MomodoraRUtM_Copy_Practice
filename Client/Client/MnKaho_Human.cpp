@@ -34,7 +34,8 @@ namespace Mn
 		tr->Pos(Vector2(200.0f,400.0f));
 
 		Collider* collider = AddComponent<Collider>();
-		collider->Center(Vector2(-24.0f * 3, -48.0f * 3));
+		collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
+		collider->Size(Vector2(24.0f * 3, 40.0f * 3));
 
 		Image* _Image = Resources::Load<Image>(L"Kaho", L"..\\Resources\\Kaho_Human.bmp");
 		_Animator = AddComponent<Animator>();
@@ -296,6 +297,11 @@ namespace Mn
 			animationCtrl();
 		}
 		//Move pos
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
@@ -407,16 +413,16 @@ namespace Mn
 
 	void Kaho_Human::beforeRange()
 	{
-
-	}
-
-	void Kaho_Human::afterRange()
-	{
 		Transform* tr = GetComponent<Transform>();
 		Scene* curscene = SceneManager::ActiveScene();
 		Arrow* arrow = new Arrow();
 		arrow->GetComponent<Transform>()->Pos(tr->Pos());
 		curscene->AddGameObject(arrow, eLayerType::Attack);
+	}
+
+	void Kaho_Human::afterRange()
+	{
+
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
