@@ -17,6 +17,8 @@ namespace Mn
 			Crouch,
 			Jump,
 			Shoot,
+			Roll,
+			UseItem,
 		};
 		enum class eDir
 		{
@@ -49,6 +51,8 @@ namespace Mn
 		void shoot();
 		void crouch();
 		void jump();
+		void roll();
+		void useItem();
 	private:
 		void attackComplete();
 		void attackCombo1Complete();
@@ -59,6 +63,12 @@ namespace Mn
 
 		void beforeRange();
 		void afterRange();
+
+		void afterRoll();
+		void afterUseItem();
+
+		void riseUp();
+
 	};
 }
 

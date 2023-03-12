@@ -150,7 +150,16 @@ namespace Mn
 
 		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
 		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
-		
+
+		_Animator->GetCompleteEvent(L"Roll_Right") = std::bind(&Kaho_Human::afterRoll, this);
+		_Animator->GetCompleteEvent(L"Roll_Left") = std::bind(&Kaho_Human::afterRoll, this);
+
+
+		_Animator->GetCompleteEvent(L"Use_Item_Right") = std::bind(&Kaho_Human::afterUseItem, this);
+		_Animator->GetCompleteEvent(L"Use_Item_Left") = std::bind(&Kaho_Human::afterUseItem, this);
+
+		_Animator->GetCompleteEvent(L"Rise_Right") = std::bind(&Kaho_Human::riseUp, this);
+		_Animator->GetCompleteEvent(L"Rise_Left") = std::bind(&Kaho_Human::riseUp, this);
 
 		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
@@ -179,6 +188,12 @@ namespace Mn
 			break;
 		case ePlayerStatus::Jump:
 			jump();
+			break;
+		case ePlayerStatus::Roll:
+			roll();
+			break;
+		case ePlayerStatus::UseItem:
+			useItem();
 			break;
 		default:
 			break;
@@ -247,6 +262,18 @@ namespace Mn
 			else
 				_Animator->Play(L"Jump_Left", false);
 			break;
+		case ePlayerStatus::Roll:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Roll_Right", false);
+			else
+				_Animator->Play(L"Roll_Left", false);
+			break;
+		case ePlayerStatus::UseItem:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Use_Item_Right", false);
+			else
+				_Animator->Play(L"Use_Item_Left", false);
+			break;
 		default:
 			break;
 		}
@@ -289,6 +316,16 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
 		}
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			_PlayerStatus = ePlayerStatus::Roll;
+			animationCtrl();
+		}
+		if (Input::GetKeyDown(eKeyCode::W))
+		{
+			_PlayerStatus = ePlayerStatus::UseItem;
+			animationCtrl();
+		}
 	}
 	void Kaho_Human::move()
 	{
@@ -316,6 +353,16 @@ namespace Mn
 			_Dir = eDir::R;
 			animationCtrl();
 		}
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			_PlayerStatus = ePlayerStatus::Roll;
+			animationCtrl();
+		}
+		if (Input::GetKeyDown(eKeyCode::W))
+		{
+			_PlayerStatus = ePlayerStatus::UseItem;
+			animationCtrl();
+		}
 
 		if (_Dir == eDir::L)
 			_pos.x -= 100.0f * Time::DeltaTime();
@@ -337,9 +384,10 @@ namespace Mn
 	{
 		if (Input::GetKeyUp(eKeyCode::Down))
 		{
-			_IsCrouch = false;
-			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Rise_Right", false);
+			else
+				_Animator->Play(L"Rise_Left", false);
 		}
 
 		if (Input::GetKeyDown(eKeyCode::D))
@@ -355,6 +403,14 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
+	}
+
+	void Kaho_Human::roll()
+	{
+	}
+
+	void Kaho_Human::useItem()
+	{
 	}
 
 	void Kaho_Human::attackComplete()
@@ -426,6 +482,22 @@ namespace Mn
 	void Kaho_Human::afterRange()
 	{
 
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+	}
+	void Kaho_Human::afterRoll()
+	{
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+	}
+	void Kaho_Human::afterUseItem()
+	{
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+	}
+	void Kaho_Human::riseUp()
+	{
+		_IsCrouch = false;
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
