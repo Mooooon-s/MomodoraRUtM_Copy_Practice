@@ -6,8 +6,16 @@ namespace Mn
 {
 	class GameObject : public Entity
 	{
+	public:
+		enum class eState
+		{
+			Active,
+			Pause,
+			Death,
+		};
 	private:
 		std::vector<Component*> _Components;
+		eState _State;
 	public:
 		GameObject();
 		virtual ~GameObject();
@@ -20,6 +28,10 @@ namespace Mn
 		virtual void OnCollisionEnter(class Collider* other);
 		virtual void OnCollisionStay(class Collider* other);
 		virtual void OnCollisionExit(class Collider* other);
+
+		eState State() { return _State; }
+		void State(eState state) { _State = state; }
+
 	public:
 		template<typename T>
 		T* AddComponent()

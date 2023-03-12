@@ -14,13 +14,14 @@ namespace Mn
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC hdc);
+		virtual void Destroy();
 		virtual void Release();
 	public:
 		virtual void OnEnter();
 		virtual void OnExit();
 	public:
 		void AddGameObject(GameObject* obj, eLayerType layer);
-		const std::vector<GameObject*>& GetGameObject(eLayerType layer);
+		std::vector<GameObject*>& GetGameObject(eLayerType layer);
 	};
 }
 

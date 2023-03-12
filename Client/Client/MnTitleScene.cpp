@@ -4,6 +4,7 @@
 #include "MnTitleBG.h"
 #include "MnTitleUI.h"
 #include "MnTitle_Letter.h"
+#include "MnObject.h"
 
 namespace Mn
 {
@@ -15,16 +16,16 @@ namespace Mn
 	}
 	void TitleScene::Initialize()
 	{
-		TitleBG* BackGround = new TitleBG;
-		AddGameObject(BackGround, eLayerType::BG);
+		object::Instantiate<TitleBG>(eLayerType::BG);
+		object::Instantiate<TitleUI>(eLayerType::UI);
+		object::Instantiate<Title_Letter>(eLayerType::UI);
+		//TitleBG* BackGround = new TitleBG;
+		//AddGameObject(BackGround, eLayerType::BG);
+		//TitleUI* TitleAnima = new TitleUI;
+		//AddGameObject(TitleAnima, eLayerType::UI);
+		//Title_Letter* TitleName = new Title_Letter;
+		//AddGameObject(TitleName, eLayerType::UI);
 
-		TitleUI* TitleAnima = new TitleUI;
-		AddGameObject(TitleAnima, eLayerType::UI);
-
-		Title_Letter* TitleName = new Title_Letter;
-		AddGameObject(TitleName, eLayerType::UI);
-
-		Scene::Initialize();
 	}
 	void TitleScene::Update()
 	{
@@ -38,6 +39,10 @@ namespace Mn
 	void TitleScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
+	}
+	void TitleScene::Release()
+	{
+		Scene::Release();
 	}
 	void TitleScene::OnEnter()
 	{

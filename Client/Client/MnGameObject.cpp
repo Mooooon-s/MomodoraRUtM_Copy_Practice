@@ -4,6 +4,7 @@
 namespace Mn
 {
 	GameObject::GameObject()
+		:_State(eState::Active)
 	{
 		_Components.resize((UINT)eComponentType::Max);
 		AddComponent<Transform>();
@@ -20,7 +21,7 @@ namespace Mn
 
 	void GameObject::Initialize()
 	{
-		for (auto comp : _Components) {
+		for (Component* comp : _Components) {
 			if (comp == nullptr)
 				continue;
 			comp->Initialize();
@@ -41,6 +42,7 @@ namespace Mn
 		for (auto comp : _Components) {
 			if (comp == nullptr)
 				continue;
+
 			comp->Render(hdc);
 		}
 	}

@@ -32,6 +32,33 @@ namespace Mn
 			layer.Render(hdc);
 		}
 	}
+	void Scene::Destroy()
+	{
+		std::vector<GameObject*> deleteGameObjects = {};
+		for (Layer& layer : _Layers)
+		{
+			std::vector<GameObject*>& gameobjects = layer.GetGameObjects();
+
+			for (std::vector<GameObject*>::iterator iter = gameobjects.begin(); iter != gameobjects.end();)
+			{
+				if ((*iter)->State() == GameObject::eState::Death)
+				{
+					deleteGameObjects.push_back((*iter));
+					iter = gameobjects.erase(iter);
+				}
+				else
+				{
+					iter++;
+				}
+			}
+		}
+
+		for (GameObject* deathobj : deleteGameObjects)
+		{
+			delete deathobj;
+			deathobj = nullptr;
+		}
+	}
 	void Scene::Release()
 	{
 	}
@@ -45,7 +72,7 @@ namespace Mn
 	{
 		_Layers[(UINT)layer].AddGameObject(obj);
 	}
-	const std::vector<GameObject*>& Scene::GetGameObject(eLayerType layer)
+	std::vector<GameObject*>& Scene::GetGameObject(eLayerType layer)
 	{
 		return _Layers[(UINT)layer].GetGameObjects();
 	}

@@ -15,9 +15,15 @@ namespace Mn {
 
 	void Layer::Initialize()
 	{
-		for (auto gameObj : _GameObject) {
+		for (auto gameObj : _GameObject) 
+		{
 			if (gameObj == nullptr)
 				continue;
+
+			if (gameObj->State()
+				!= GameObject::eState::Active)
+				continue;
+
 			gameObj->Initialize();
 		}
 	}
@@ -27,14 +33,24 @@ namespace Mn {
 			if (gameObj == nullptr)
 				continue;
 
+			if (gameObj->State()
+				!= GameObject::eState::Active)
+				continue;
+
 			gameObj->Update();
 		}
 	}
 	void Layer::Render(HDC hdc)
 	{
-		for (auto gameObj : _GameObject) {
+		for (auto gameObj : _GameObject) 
+		{
 			if (gameObj == nullptr)
 				continue;
+
+			if (gameObj->State()
+				!= GameObject::eState::Active)
+				continue;
+
 			gameObj->Render(hdc);
 		}
 	}

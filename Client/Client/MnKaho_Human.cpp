@@ -371,6 +371,14 @@ namespace Mn
 	}
 	void Kaho_Human::attack()
 	{
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
 		if (_Animator->GetActiveAnim()->IsComplete()==false)
 		{
 			if (Input::GetKeyDown(eKeyCode::S))
@@ -389,6 +397,19 @@ namespace Mn
 			else
 				_Animator->Play(L"Rise_Left", false);
 		}
+
+		if (Input::GetKeyDown(eKeyCode::Down))
+		{
+			_PlayerStatus=ePlayerStatus::Crouch;
+			animationCtrl();
+		}
+
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
+
 
 		if (Input::GetKeyDown(eKeyCode::D))
 		{
@@ -425,6 +446,7 @@ namespace Mn
 		}
 		else
 		{
+			
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
@@ -481,7 +503,6 @@ namespace Mn
 
 	void Kaho_Human::afterRange()
 	{
-
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}

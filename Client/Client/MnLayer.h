@@ -19,7 +19,7 @@ namespace Mn
 		virtual void Release();
 	public:
 		void AddGameObject(GameObject* obj);
-		const std::vector<GameObject*>& GetGameObjects() { return _GameObject; }
+		std::vector<GameObject*>& GetGameObjects() { return _GameObject; }
 
 	};
 }

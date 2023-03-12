@@ -7,6 +7,8 @@
 #include "MnInput.h"
 #include "MnSceneManager.h"
 #include "MnCamera.h"
+#include "MnObject.h"
+#include "MnCollisionManager.h"
 
 
 namespace Mn 
@@ -22,31 +24,12 @@ namespace Mn
 	void PlayScene::Initialize()
 	{
 		//배경 객체 생성
-		BG* BackGround = new BG();
-		AddGameObject(BackGround, eLayerType::BG);
+		object::Instantiate<BG>(eLayerType::BG);
 
 		//플레이어 객체 생성
-		//Momodora* momodora = new Momodora();
-		//AddGameObject(momodora, eLayerType::Player);
-
-		//Kaho_Cat* kahoCat = new Kaho_Cat();
-		//AddGameObject(kahoCat, eLayerType::Player);
-
-		//Kaho_Human* kahoHuman = new Kaho_Human();
-		//AddGameObject(kahoHuman, eLayerType::Player);
-
-		Kaho* kaho = new Kaho();
-		AddGameObject(kaho, eLayerType::Player);
-
-		Imp* imp = new Imp();
-		AddGameObject(imp, eLayerType::Monster);
-
-		Arsonist* arsonist = new Arsonist();
-		AddGameObject(arsonist, eLayerType::Monster);
-
-		//Camera::SetTarget(kaho);
-
-		Scene::Initialize();
+		object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
+		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
+		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f),eLayerType::Monster);
 	}
 	void PlayScene::Update()
 	{
@@ -66,6 +49,7 @@ namespace Mn
 	}
 	void PlayScene::OnEnter()
 	{
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 	}
 	void PlayScene::OnExit()
 	{

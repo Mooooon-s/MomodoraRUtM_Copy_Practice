@@ -5,12 +5,14 @@
 
 namespace Mn
 {
+	UINT Collider::ColliderNumber = 0;
 	Collider::Collider()
 		:Component(eComponentType::Collider)
 		,_Pos(Vector2::Zero)
 		,_Center(Vector2::Zero)
 		,_Size(48.0f*3,48.0f*3)
 		,_Scale(Vector2::One)
+		,_ID(ColliderNumber++)
 	{
 	}
 	Collider::~Collider()

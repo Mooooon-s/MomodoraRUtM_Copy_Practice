@@ -169,6 +169,7 @@
     <ClInclude Include="MnMainMenuScene.h" />
     <ClInclude Include="MnMath.h" />
     <ClInclude Include="MnMomodora.h" />
+    <ClInclude Include="MnObject.h" />
     <ClInclude Include="MnPlayScene.h" />
     <ClInclude Include="MnResource.h" />
     <ClInclude Include="MnResources.h" />

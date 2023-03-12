@@ -196,6 +196,9 @@
     <ClInclude Include="MnCamera.h">
       <Filter>Engin\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="MnObject.h">
+      <Filter>Engin\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
