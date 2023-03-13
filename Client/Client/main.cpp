@@ -35,7 +35,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //메모리 릭 검사
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(2620); // 추가
+    //_CrtSetBreakAlloc(4630); // 추가
 
 
     //1.윈도우의 정보를 담고 있는 클래스를 저으이(메모리 등록)해주어야한다.

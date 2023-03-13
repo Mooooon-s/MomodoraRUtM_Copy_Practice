@@ -1,8 +1,10 @@
 #pragma once
 #include "MnGameObject.h"
+#include "MnEnum.h"
 
 namespace Mn
 {
+	class Kaho;
 	class Animator;
 	class Kaho_Cat : public GameObject
 	{
@@ -14,14 +16,10 @@ namespace Mn
 			Crouch,
 			Attack,
 		};
-		enum class eDir
-		{
-			R,
-			L,
-		};
+
 		ePlayerStatus	_PlayerStatus;
-		Animator*		_Animator;
 		Vector2			_Pos;
+		Animator*		_Animator;
 		eDir			_Dir;
 		bool			_Combo;
 	public:

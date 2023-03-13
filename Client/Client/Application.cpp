@@ -19,8 +19,8 @@ namespace Mn {
 	{
 		_Hwnd = hwnd;
 		_Hdc = GetDC(_Hwnd);
-		_Width = 1600;
-		_Height = 900;
+		_Width = 960;
+		_Height = 720;
 
 		//비트맵 해상도를 설정하기 위한 실제 윈도우 크기를 계산해준다.
 		RECT rect = { 0,0,_Width,_Height };

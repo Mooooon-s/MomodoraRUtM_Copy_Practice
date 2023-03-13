@@ -1,6 +1,6 @@
 #include "MnTitle_Letter.h"
 #include "MnResources.h"
-
+#include "MnCamera.h"
 namespace Mn
 {
 	Title_Letter::Title_Letter()
@@ -21,7 +21,9 @@ namespace Mn
 	}
 	void Title_Letter::Render(HDC hdc)
 	{
-		GdiTransparentBlt(hdc, 70*3, 65*3, _Image->Width()*3, _Image->Height()*3, _Image->Hdc(), 0, 0, 155, 46, RGB(0, 128, 128));
+		Vector2 pos = Vector2(70 * 3, 65 * 3);
+		pos = Camera::ComputePos(pos);
+		GdiTransparentBlt(hdc, pos.x, pos.y, _Image->Width()*3, _Image->Height()*3, _Image->Hdc(), 0, 0, 155, 46, RGB(0, 128, 128));
 		GameObject::Render(hdc);
 	}
 	void Title_Letter::Release()

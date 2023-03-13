@@ -25,6 +25,7 @@ namespace Mn
 		Transform* tr = GetComponent<Transform>();
 		_Pos=tr->Pos();
 		_Pos = Vector2(400.0f, 400.0f);
+		tr->Pos(_Pos);
 		kahoCat = new Kaho_Cat();
 		kahoHuman = new Kaho_Human();
 		kahoCat->Initialize();
@@ -50,7 +51,7 @@ namespace Mn
 			catTr->Pos(_Pos);
 			kahoCat->Update();
 			_Pos = catTr->Pos();
-			Camera::SetTarget(kahoCat);
+			tr->Pos(_Pos);
 		}
 		else
 		{
@@ -59,7 +60,7 @@ namespace Mn
 			humanTr->Pos(_Pos);
 			kahoHuman->Update();
 			_Pos = humanTr->Pos();
-			Camera::SetTarget(kahoHuman);
+			tr->Pos(_Pos);
 		}
 	
 	}

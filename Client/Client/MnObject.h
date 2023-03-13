@@ -26,4 +26,10 @@ namespace Mn::object
 		gameobj->GameObject::GetComponent<Transform>()->Pos(pos);
 		return gameobj;
 	}
+
+	static void Destory(GameObject* obj)
+	{
+		obj->State(GameObject::eState::Death);
+	}
+
 }

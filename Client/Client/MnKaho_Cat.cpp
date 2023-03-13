@@ -7,6 +7,8 @@
 #include "MnAnimator.h"
 #include "MnTransform.h"
 #include "MnCollider.h"
+#include "MnKaho.h"
+
 namespace Mn
 {
 	Kaho_Cat::Kaho_Cat()
@@ -21,7 +23,7 @@ namespace Mn
 	void Kaho_Cat::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
-		tr->Pos(Vector2(600.0f,400.0f));
+		tr->Pos();
 
 		Collider* col = AddComponent<Collider>();
 		col->Size(Vector2(32.0f * 3, 32.0f * 3));
@@ -85,7 +87,6 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 		_Pos = tr->Pos();
-
 		switch (_PlayerStatus)
 		{
 		case ePlayerStatus::Idle:

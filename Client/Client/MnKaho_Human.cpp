@@ -9,6 +9,7 @@
 #include "MnSceneManager.h"
 #include "MnScene.h"
 #include "MnArrow.h"
+#include "MnObject.h"
 
 namespace Mn
 {
@@ -26,12 +27,10 @@ namespace Mn
 	}
 	Kaho_Human::~Kaho_Human()
 	{
-		
 	}
 	void Kaho_Human::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
-		tr->Pos(Vector2(200.0f,400.0f));
 
 		Collider* collider = AddComponent<Collider>();
 		collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
@@ -210,6 +209,8 @@ namespace Mn
 	{
 		GameObject::Release();
 	}
+
+	//status
 	void Kaho_Human::animationCtrl()
 	{
 		switch (_PlayerStatus)
@@ -425,15 +426,14 @@ namespace Mn
 			animationCtrl();
 		}
 	}
-
 	void Kaho_Human::roll()
 	{
 	}
-
 	void Kaho_Human::useItem()
 	{
 	}
 
+	//Animation Event
 	void Kaho_Human::attackComplete()
 	{
 		if (_Combo == true)
@@ -472,13 +472,11 @@ namespace Mn
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
-
 	void Kaho_Human::airAttackComplete()
 	{
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
-
 	void Kaho_Human::CrouchRangeComplete()
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -489,18 +487,11 @@ namespace Mn
 		_PlayerStatus = ePlayerStatus::Crouch;
 		animationCtrl();
 	}
-
-
-
 	void Kaho_Human::beforeRange()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Scene* curscene = SceneManager::ActiveScene();
-		Arrow* arrow = new Arrow();
-		arrow->GetComponent<Transform>()->Pos(tr->Pos());
-		curscene->AddGameObject(arrow, eLayerType::Attack);
+		object::Instantiate<Arrow>(tr->Pos(),eLayerType::Attack);
 	}
-
 	void Kaho_Human::afterRange()
 	{
 		_PlayerStatus = ePlayerStatus::Idle;

@@ -5,6 +5,7 @@
 #include "MnImage.h"
 #include "MnComponent.h"
 #include "MnAnimator.h"
+#include "MnObject.h"
 namespace Mn
 {
 	Arrow::Arrow()
@@ -26,7 +27,7 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
-		pos.x += 100.0f * Time::DeltaTime();
+		pos.x += 1000.0f * Time::DeltaTime();
 		tr->Pos(pos);
 		_Animator->Play(L"Arrow_Right", false);
 	}

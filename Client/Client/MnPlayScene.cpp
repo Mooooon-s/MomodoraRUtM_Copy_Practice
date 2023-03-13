@@ -26,11 +26,13 @@ namespace Mn
 		Scene::Initialize();
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
-
 		//플레이어 객체 생성
-		object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
+		Kaho* kaho =object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
 		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
 		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f),eLayerType::Monster);
+
+		Camera::SetTarget(kaho);
+
 	}
 	void PlayScene::Update()
 	{

@@ -4,6 +4,7 @@
 #include "MnAnimator.h"
 #include "MnImage.h"
 #include "MnTransform.h"
+#include "MnCamera.h"
 
 namespace Mn
 {
@@ -22,7 +23,9 @@ namespace Mn
 		animator->CreateAnimation(L"Title_Animation", _Image, Vector2::Zero, 5, 2, 5, Vector2((324 - 118), (244 - 82)), 0.1f);
 		
 		Transform* tr = animator->Owner()->GetComponent<Transform>();
+		Vector2 pos = Vector2::Zero;
 		tr->Pos(Vector2((324-137)*3,(244-54)*3));
+		pos = Camera::ComputePos(tr->Pos());
 		animator->Play(L"Title_Animation", true);
 
 		GameObject::Initialize();
