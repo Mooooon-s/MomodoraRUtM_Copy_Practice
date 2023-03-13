@@ -160,6 +160,9 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Rise_Right") = std::bind(&Kaho_Human::riseUp, this);
 		_Animator->GetCompleteEvent(L"Rise_Left") = std::bind(&Kaho_Human::riseUp, this);
 
+		_Animator->GetCompleteEvent(L"End_Run_Right") = std::bind(&Kaho_Human::EndRun, this);
+		_Animator->GetCompleteEvent(L"End_Run_Left") = std::bind(&Kaho_Human::EndRun, this);
+
 		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
 	}
@@ -335,7 +338,10 @@ namespace Mn
 			|| Input::GetKeyUp(eKeyCode::Right))
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
+			if (_Dir == eDir::R)
+				_Animator->Play(L"End_Run_Right", false);
+			else
+				_Animator->Play(L"End_Run_Left", false);
 		}
 		//Move pos
 		if (Input::GetKeyDown(eKeyCode::S))
@@ -344,16 +350,6 @@ namespace Mn
 			animationCtrl();
 		}
 
-		if (Input::GetKey(eKeyCode::Left))
-		{
-			_Dir = eDir::L;
-			animationCtrl();
-		}
-		if (Input::GetKey(eKeyCode::Right))
-		{
-			_Dir = eDir::R;
-			animationCtrl();
-		}
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
 			_PlayerStatus = ePlayerStatus::Roll;
@@ -365,6 +361,26 @@ namespace Mn
 			animationCtrl();
 		}
 
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+			if (Input::GetKeyDown(eKeyCode::Right))
+			{
+				_Animator->Play(L"Idle_Left", true);
+			}
+			else
+				animationCtrl();
+		}
+		else if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+			if (Input::GetKeyDown(eKeyCode::Left))
+			{
+				_Animator->Play(L"Idle_Right", true);
+			}
+			else
+				animationCtrl();
+		}
 		if (_Dir == eDir::L)
 			_pos.x -= 100.0f * Time::DeltaTime();
 		else
@@ -388,6 +404,15 @@ namespace Mn
 	}
 	void Kaho_Human::shoot()
 	{
+		if (Input::GetKeyUp(eKeyCode::Down))
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+		}
+
+		if (Input::GetKey(eKeyCode::Down))
+		{
+			_PlayerStatus = ePlayerStatus::Crouch;
+		}
 	}
 	void Kaho_Human::crouch()
 	{
@@ -477,14 +502,15 @@ namespace Mn
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
-	void Kaho_Human::CrouchRangeComplete()
+
+	void Kaho_Human::CrouchRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Scene* curscene = SceneManager::ActiveScene();
-		Arrow* arrow = new Arrow();
-		arrow->GetComponent<Transform>()->Pos(tr->Pos());
-		curscene->AddGameObject(arrow, eLayerType::Attack);
-		_PlayerStatus = ePlayerStatus::Crouch;
+		object::Instantiate<Arrow>(tr->Pos(), eLayerType::Attack);
+	}
+
+	void Kaho_Human::CrouchRangeComplete()
+	{
 		animationCtrl();
 	}
 	void Kaho_Human::beforeRange()
@@ -511,6 +537,10 @@ namespace Mn
 	{
 		_IsCrouch = false;
 		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+	}
+	void Kaho_Human::EndRun()
+	{
 		animationCtrl();
 	}
 }

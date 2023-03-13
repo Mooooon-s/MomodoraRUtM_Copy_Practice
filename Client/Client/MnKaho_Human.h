@@ -59,6 +59,8 @@ namespace Mn
 		void attackCombo2Complete();
 
 		void airAttackComplete();
+
+		void CrouchRangeStart();
 		void CrouchRangeComplete();
 
 		void beforeRange();
@@ -68,6 +70,8 @@ namespace Mn
 		void afterUseItem();
 
 		void riseUp();
+
+		void EndRun();
 
 	};
 }
