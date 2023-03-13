@@ -1,5 +1,5 @@
 #include "MnScene.h"
-
+#include "MnSceneManager.h"
 
 namespace Mn
 {
@@ -13,10 +13,7 @@ namespace Mn
 
 	void Scene::Initialize()
 	{
-		for (Layer& layer : _Layers)
-		{
-			layer.Initialize();
-		}
+		SceneManager::ActiveScene(this);
 	}
 	void Scene::Update()
 	{

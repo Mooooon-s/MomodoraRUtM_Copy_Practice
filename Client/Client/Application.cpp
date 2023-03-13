@@ -1,6 +1,10 @@
 #include "Application.h"
 #include "MnCamera.h"
 #include "MnCollisionManager.h"
+#include "MnSceneManager.h"
+#include "MnTime.h"
+#include "MnInput.h"
+
 namespace Mn {
 	Application::Application() 
 		:_Hwnd(NULL)
@@ -46,6 +50,7 @@ namespace Mn {
 	{
 		Update();
 		Render();
+		SceneManager::Destroy();
 	}
 
 	//로직을 담당하는 역할

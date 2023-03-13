@@ -15,6 +15,7 @@ namespace Mn
 		static void Initiailize();
 		static void Update();
 		static void CamMove();
+		static void Clear();
 
 		static void SetTarget(GameObject* target) { _Target = target; }
 		static Vector2 ComputePos(Vector2 pos) { return pos - _Distance; }

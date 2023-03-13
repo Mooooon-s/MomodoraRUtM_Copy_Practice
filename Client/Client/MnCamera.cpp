@@ -47,6 +47,14 @@ namespace Mn
 
 	}
 
+	void Camera::Clear()
+	{
+		_Resolution.x = application.Width();
+		_Resolution.y = application.Height();
+		_LookPosition = (_Resolution / 2.0f);
+		_Distance = Vector2::Zero;
+	}
+
 	
 
 

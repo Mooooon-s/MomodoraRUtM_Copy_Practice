@@ -23,6 +23,7 @@ namespace Mn
 	}
 	void PlayScene::Initialize()
 	{
+		Scene::Initialize();
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
 

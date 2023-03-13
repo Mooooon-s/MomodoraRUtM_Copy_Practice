@@ -16,6 +16,8 @@ namespace Mn
 	}
 	void TitleScene::Initialize()
 	{
+		Scene::Initialize();
+
 		object::Instantiate<TitleBG>(eLayerType::BG);
 		object::Instantiate<TitleUI>(eLayerType::UI);
 		object::Instantiate<Title_Letter>(eLayerType::UI);

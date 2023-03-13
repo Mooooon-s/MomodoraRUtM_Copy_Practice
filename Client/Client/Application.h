@@ -1,8 +1,6 @@
 #pragma once
 #include"MnEngine.h"
-#include "MnSceneManager.h"
-#include "MnTime.h"
-#include "MnInput.h"
+
 
 namespace Mn {
 	class Application

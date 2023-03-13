@@ -13,9 +13,11 @@ namespace Mn {
 		static void Initialize();
 		static void Update();
 		static void Render(HDC hdc);
+		static void Destroy();
 		static void Release();
 	public:
 		static void LoadScene(eSceneType SceneType);
 		static Scene* ActiveScene() { return _ActiveScene; }
+		static void ActiveScene(Scene* scene) { _ActiveScene = scene; }
 	};
 }

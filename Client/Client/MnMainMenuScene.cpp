@@ -2,6 +2,7 @@
 #include "MnSceneManager.h"
 #include "MnMainMenuBG.h"
 #include "MnInput.h"
+#include "MnObject.h"
 
 namespace Mn
 {
@@ -13,9 +14,10 @@ namespace Mn
 	}
 	void MainMenuScene::Initialize()
 	{
-		MainMenuBG* mainMenuBG = new MainMenuBG();
-		Scene::AddGameObject(mainMenuBG, eLayerType::BG);
+
 		Scene::Initialize();
+		object::Instantiate< MainMenuBG>(eLayerType::BG);
+
 	}
 	void MainMenuScene::Update()
 	{
