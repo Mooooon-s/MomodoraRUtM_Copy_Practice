@@ -1,10 +1,13 @@
 #pragma once
 #include"MnScene.h"
+#include "MnKaho.h"
 
 namespace Mn 
 {
 	class PlayScene :public Scene
 	{
+	private:
+		Kaho* _kaho;
 	public:
 		PlayScene();
 		~PlayScene();

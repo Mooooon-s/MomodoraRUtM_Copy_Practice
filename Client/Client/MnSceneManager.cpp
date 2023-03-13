@@ -59,7 +59,6 @@ namespace Mn {
 	void SceneManager::LoadScene(eSceneType SceneType)
 	{
 		Camera::Clear();
-		
 		_ActiveScene->OnExit();
 		CollisionManager::Clear();
 		_ActiveScene = _Scenes[(UINT)SceneType];

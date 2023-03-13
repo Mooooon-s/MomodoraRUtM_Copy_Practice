@@ -19,6 +19,9 @@ namespace Mn
 	{
 		_Image = Resources::Load<Image>(L"Title_BackGround", L"..\\Resources\\Title_Scene.bmp");
 		GameObject::Initialize();
+		Transform* tr = GetComponent<Transform>();
+		tr->Pos(Vector2::Zero);
+
 	}
 	void TitleBG::Update()
 	{
@@ -26,6 +29,7 @@ namespace Mn
 	}
 	void TitleBG::Render(HDC hdc)
 	{
+	
 		Vector2 pos = Vector2::Zero;
 		pos = Camera::ComputePos(Vector2::Zero);
 		GdiTransparentBlt(hdc, pos.x, pos.y, _Image->Width()*3.0f, _Image->Height()*3.0f, _Image->Hdc(), 0, 0, _Image->Width(), _Image->Height(), RGB(0, 128, 128));

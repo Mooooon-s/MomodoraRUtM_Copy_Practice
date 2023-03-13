@@ -1,5 +1,6 @@
 #include "MnScene.h"
 #include "MnSceneManager.h"
+#include "MnCamera.h"
 
 namespace Mn
 {

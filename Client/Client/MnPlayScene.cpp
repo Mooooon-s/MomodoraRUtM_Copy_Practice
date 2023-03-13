@@ -27,12 +27,9 @@ namespace Mn
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
 		//플레이어 객체 생성
-		Kaho* kaho =object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
+		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
 		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
 		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f),eLayerType::Monster);
-
-		Camera::SetTarget(kaho);
-
 	}
 	void PlayScene::Update()
 	{
@@ -52,9 +49,11 @@ namespace Mn
 	}
 	void PlayScene::OnEnter()
 	{
+		Camera::SetTarget(_kaho);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 	}
 	void PlayScene::OnExit()
 	{
+		Camera::SetTarget(nullptr);
 	}
 }

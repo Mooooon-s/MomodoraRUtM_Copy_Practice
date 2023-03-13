@@ -18,6 +18,7 @@ namespace Mn
 		static void Clear();
 
 		static void SetTarget(GameObject* target) { _Target = target; }
+		static GameObject* GetTarget() { return _Target; }
 		static Vector2 ComputePos(Vector2 pos) { return pos - _Distance; }
 
 

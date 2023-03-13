@@ -28,7 +28,7 @@ namespace Mn
 		//AddGameObject(TitleAnima, eLayerType::UI);
 		//Title_Letter* TitleName = new Title_Letter;
 		//AddGameObject(TitleName, eLayerType::UI);
-		Camera::SetTarget(BackGround);
+		//Camera::SetTarget(BackGround);
 	}
 	void TitleScene::Update()
 	{
