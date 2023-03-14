@@ -157,6 +157,7 @@
     <ClInclude Include="MnComponent.h" />
     <ClInclude Include="MnEngine.h" />
     <ClInclude Include="MnEnum.h" />
+    <ClInclude Include="MnFadeInOut.h" />
     <ClInclude Include="MnGameObject.h" />
     <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnImp.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnFadeInOut.cpp" />
     <ClCompile Include="MnCamera.cpp" />
     <ClCompile Include="MnCollisionManager.cpp" />
     <ClCompile Include="MnArrow.cpp" />

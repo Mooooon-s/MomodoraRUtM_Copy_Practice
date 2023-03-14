@@ -9,6 +9,7 @@
 #include "MnCamera.h"
 #include "MnObject.h"
 #include "MnCollisionManager.h"
+#include "MnFadeInOut.h"
 
 
 namespace Mn 
@@ -49,6 +50,7 @@ namespace Mn
 	}
 	void PlayScene::OnEnter()
 	{
+		object::Instantiate<FadeInOut>(eLayerType::UI);
 		Camera::SetTarget(_kaho);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 	}

@@ -8,11 +8,12 @@ namespace Mn
 	UINT Collider::ColliderNumber = 0;
 	Collider::Collider()
 		:Component(eComponentType::Collider)
-		,_Pos(Vector2::Zero)
-		,_Center(Vector2::Zero)
-		,_Size(48.0f*3,48.0f*3)
-		,_Scale(Vector2::One)
-		,_ID(ColliderNumber++)
+		, _Pos(Vector2::Zero)
+		, _Center(Vector2::Zero)
+		, _Size(48.0f * 3, 48.0f * 3)
+		, _Scale(Vector2::One)
+		, _ID(ColliderNumber++)
+		, _CollisionCount(0)
 	{
 	}
 	Collider::~Collider()
@@ -20,7 +21,8 @@ namespace Mn
 	}
 	void Collider::Initialize()
 	{
-	
+		Transform* tr = Owner()->GetComponent<Transform>();
+		_Pos = tr->Pos() + _Center;
 	}
 	void Collider::Update()
 	{
@@ -29,7 +31,12 @@ namespace Mn
 	}
 	void Collider::Render(HDC hdc)
 	{
-		HPEN pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+		HPEN pen = NULL;
+		if(_CollisionCount<=0)
+			pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+		else
+			pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 0));
+
 		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
@@ -45,6 +52,7 @@ namespace Mn
 	}
 	void Collider::OnCollisionEnter(Collider* other)
 	{
+		_CollisionCount++;
 		Owner()->OnCollisionEnter(other);
 	}
 	void Collider::OnCollisionStay(Collider* other)
@@ -53,6 +61,7 @@ namespace Mn
 	}
 	void Collider::OnCollisionExit(Collider* other)
 	{
+		_CollisionCount--;
 		Owner()->OnCollisionExit(other);
 	}
 }

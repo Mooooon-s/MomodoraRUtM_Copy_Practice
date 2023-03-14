@@ -199,6 +199,9 @@
     <ClInclude Include="MnObject.h">
       <Filter>Engin\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="MnFadeInOut.h">
+      <Filter>Contents\BG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -321,6 +324,9 @@
     </ClCompile>
     <ClCompile Include="MnCamera.cpp">
       <Filter>Engin\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MnFadeInOut.cpp">
+      <Filter>Contents\BG</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

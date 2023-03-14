@@ -5,6 +5,7 @@
 #include "MnComponent.h"
 #include "MnTransform.h"
 #include "MnCamera.h"
+#include "MnCollisionManager.h"
 
 namespace Mn
 {
@@ -24,12 +25,18 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 		_Pos=tr->Pos();
-		_Pos = Vector2(400.0f, 400.0f);
+		_Pos = Vector2(600.0f, 450.0f);
 		tr->Pos(_Pos);
+
+
 		kahoCat = new Kaho_Cat();
 		kahoHuman = new Kaho_Human();
 		kahoCat->Initialize();
 		kahoHuman->Initialize();
+
+		KahoColl = AddComponent<Collider>();
+		KahoColl = kahoHuman->GetComponent<Collider>();
+		KahoColl->Center(kahoHuman->GetComponent<Collider>()->Center());
 		GameObject::Initialize();
 	}
 
@@ -38,15 +45,18 @@ namespace Mn
 		Transform* tr = GetComponent<Transform>();
 		if (Input::GetKeyDown(eKeyCode::M)&& _bIsCat==false)
 		{
+			KahoColl = kahoHuman->GetComponent<Collider>();
 			_bIsCat = true;
 		}
 		else if(Input::GetKeyDown(eKeyCode::M) && _bIsCat == true)
 		{
+			KahoColl = kahoCat->GetComponent<Collider>();
 			_bIsCat = false;
 		}
 
 		if (_bIsCat)
 		{
+			
 			Transform* catTr = kahoCat->GetComponent<Transform>();
 			catTr->Pos(_Pos);
 			kahoCat->Update();
@@ -55,7 +65,7 @@ namespace Mn
 		}
 		else
 		{
-
+			KahoColl = GetComponent<Collider>();
 			Transform* humanTr = kahoHuman->GetComponent<Transform>();
 			humanTr->Pos(_Pos);
 			kahoHuman->Update();

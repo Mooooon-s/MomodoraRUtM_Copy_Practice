@@ -6,6 +6,7 @@
 #include "MnTitle_Letter.h"
 #include "MnObject.h"
 #include "MnCamera.h"
+#include "MnFadeInOut.h"
 
 namespace Mn
 {
@@ -22,13 +23,9 @@ namespace Mn
 		TitleBG* BackGround= object::Instantiate<TitleBG>(eLayerType::BG);
 		TitleUI* TitleAnima= object::Instantiate<TitleUI>(eLayerType::UI);
 		object::Instantiate<Title_Letter>(eLayerType::UI);
-		//TitleBG* BackGround = new TitleBG;
-		//AddGameObject(BackGround, eLayerType::BG);
-		//TitleUI* TitleAnima = new TitleUI;
-		//AddGameObject(TitleAnima, eLayerType::UI);
-		//Title_Letter* TitleName = new Title_Letter;
-		//AddGameObject(TitleName, eLayerType::UI);
-		//Camera::SetTarget(BackGround);
+		fadeInOut = object::Instantiate<FadeInOut>(Vector2::Zero, eLayerType::UI);
+
+
 	}
 	void TitleScene::Update()
 	{
@@ -49,8 +46,11 @@ namespace Mn
 	}
 	void TitleScene::OnEnter()
 	{
+		object::Instantiate<FadeInOut>(eLayerType::UI);
+		fadeInOut->IsFade(false);
 	}
 	void TitleScene::OnExit()
 	{
+
 	}
 }

@@ -1,12 +1,12 @@
 #pragma once
 #include "MnScene.h"
-
+#include "MnFadeInOut.h"
 namespace Mn
 {
 	class TitleScene: public Scene
 	{
 	private:
-
+		FadeInOut* fadeInOut;
 	public:
 		TitleScene();
 		~TitleScene();

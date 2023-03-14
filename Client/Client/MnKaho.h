@@ -6,6 +6,7 @@ namespace Mn
 {
 	class Kaho_Cat;
 	class Kaho_Human;
+	class CollisionManager;
 	class Kaho : public GameObject
 	{
 	private:
@@ -13,6 +14,7 @@ namespace Mn
 		bool			_bIsCat;
 		Kaho_Cat*		kahoCat;
 		Kaho_Human*		kahoHuman;
+		Collider*		KahoColl;
 		eDir			_Dir;
 	public:
 		Kaho();

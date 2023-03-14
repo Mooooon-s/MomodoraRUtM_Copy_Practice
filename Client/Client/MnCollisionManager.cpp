@@ -101,6 +101,12 @@ namespace Mn
 		Vector2 leftSize = left->Size();
 		Vector2 rightSize = right->Size();
 
+		leftPos.x = leftPos.x + leftSize.x / 2.0f;
+		leftPos.y = leftPos.y + leftSize.y / 2.0f;
+
+		rightPos.x = rightPos.x+ rightSize.x / 2.0f;
+		rightPos.y = rightPos.y+ rightSize.y / 2.0f;
+
 		if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
 			&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))
 		{
