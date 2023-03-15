@@ -23,9 +23,6 @@ namespace Mn
 		TitleBG* BackGround= object::Instantiate<TitleBG>(eLayerType::BG);
 		TitleUI* TitleAnima= object::Instantiate<TitleUI>(eLayerType::UI);
 		object::Instantiate<Title_Letter>(eLayerType::UI);
-		fadeInOut = object::Instantiate<FadeInOut>(Vector2::Zero, eLayerType::UI);
-
-
 	}
 	void TitleScene::Update()
 	{
@@ -46,11 +43,8 @@ namespace Mn
 	}
 	void TitleScene::OnEnter()
 	{
-		object::Instantiate<FadeInOut>(eLayerType::UI);
-		fadeInOut->IsFade(false);
 	}
 	void TitleScene::OnExit()
 	{
-
 	}
 }

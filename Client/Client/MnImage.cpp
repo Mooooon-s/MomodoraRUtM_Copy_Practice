@@ -1,10 +1,45 @@
 #include "MnImage.h"
 #include "Application.h"
+#include "MnResources.h"
 
 extern Mn::Application application;
 
 namespace Mn
 {
+	Image* Image::Create(const std::wstring& name, UINT widht, UINT height, COLORREF rgb)
+	{
+		if (widht == 0 || height == 0)
+			return nullptr;
+
+		Image* image = Resources::Find<Image>(name);
+		if (image != nullptr)
+			return image;
+
+		image = new Image();
+		HDC mainHdc = application.GetHdc();
+
+		image->_bitmap = CreateCompatibleBitmap(mainHdc, widht, height);
+
+		image->_hdc = CreateCompatibleDC(mainHdc);
+
+		HBITMAP oldBitmap = (HBITMAP)SelectObject(image->_hdc, image->_bitmap);
+		DeleteObject(oldBitmap);
+
+		image->_Width = widht;
+		image->_Height = height;
+
+		image->Key(name);
+		Resources::Insert<Image>(name, image);
+
+		// Setting Image Color
+		HBRUSH brush = CreateSolidBrush(rgb);
+		HBRUSH oldBrush = (HBRUSH)SelectObject(image->Hdc(), brush);
+		Rectangle(image->Hdc(), -1, -1, image->_Width + 1, image->_Height + 1);
+		SelectObject(image->Hdc(), oldBrush);
+		DeleteObject(oldBrush);
+
+		return image;
+	}
 	Image::Image()
 		: _bitmap(NULL)
 		, _hdc(NULL)

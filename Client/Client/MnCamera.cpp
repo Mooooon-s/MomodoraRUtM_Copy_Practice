@@ -4,6 +4,7 @@
 #include "MnTransform.h"
 #include "MnTime.h"
 #include "MnInput.h"
+#include "MnImage.h"
 
 extern Mn::Application application;
 
@@ -14,12 +15,22 @@ namespace Mn
 	Vector2 Camera::_Distance = Vector2::Zero;
 	GameObject* Camera::_Target = nullptr;
 
+	Camera::CameraState	Camera::_Type = Camera::CameraState::None;
+	Image* Camera::_Cutton=nullptr;
+	float Camera::_CuttonAlpha=1.0f;
+	float Camera::_AlphaTime=0;
+	float Camera::_EndTime=5;
+
 	void Camera::Initiailize()
 	{
 		_Resolution.x = application.Width();
 		_Resolution.y = application.Height();
 		_LookPosition = (_Resolution / 2.0f);
+
+		_Type = CameraState::FadeIN;
+		_Cutton = Image::Create(L"Cutton", _Resolution.x, _Resolution.y, RGB(0, 0, 0));
 	}
+
 	void Camera::Update()
 	{
 		if (Input::GetKey(eKeyCode::G))
@@ -39,7 +50,47 @@ namespace Mn
 			_LookPosition = _Target->GetComponent<Transform>()->Pos();
 		}
 
+		if (_AlphaTime < _EndTime)
+		{
+			//255 - > 1
+			_AlphaTime += Time::DeltaTime();
+			float ratio = (_AlphaTime / _EndTime);
+
+			if (_Type == CameraState::FadeIN)
+			{
+				_CuttonAlpha = 1.0f - ratio;
+			}
+			else if (_Type == CameraState::FadeOUT)
+			{
+				_CuttonAlpha = ratio;
+			}
+			else
+			{
+
+			}
+		}
+
 		_Distance = _LookPosition - (_Resolution / 2.0f);
+	}
+
+	void Camera::Render(HDC hdc)
+	{
+		if (_AlphaTime < _EndTime
+			&& _Type == CameraState::FadeIN)
+		{
+			BLENDFUNCTION func = {};
+			func.BlendOp = AC_SRC_OVER;
+			func.BlendFlags = 0;
+			func.AlphaFormat = 0;
+			func.SourceConstantAlpha = (BYTE)(255.0f * _CuttonAlpha);
+
+			AlphaBlend(hdc, 0, 0
+				, _Resolution.x, _Resolution.y
+				, _Cutton->Hdc()
+				, 0, 0
+				, _Cutton->Width(), _Cutton->Height()
+				, func);
+		}
 	}
 
 	void Camera::CamMove()
@@ -54,9 +105,5 @@ namespace Mn
 		_LookPosition = (_Resolution / 2.0f);
 		_Distance = Vector2::Zero;
 	}
-
-	
-
-
 
 }

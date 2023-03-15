@@ -73,7 +73,7 @@ namespace Mn {
 		Time::Render(_BackHDC);
 		Input::Render(_BackHDC);
 		SceneManager::Render(_BackHDC);
-
+		Camera::Render(_BackHDC);
 		BitBlt(_Hdc, 0, 0, _Width, _Height, _BackHDC, 0, 0, SRCCOPY);
 	}
 }

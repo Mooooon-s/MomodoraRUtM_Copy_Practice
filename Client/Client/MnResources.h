@@ -42,6 +42,12 @@ namespace Mn {
 
 		}
 
+		template <typename T>
+		static void Insert(const std::wstring& key, T* resource)
+		{
+			_Resources.insert(std::make_pair(key, resource));
+		}
+
 		static void Release()
 		{
 			for (auto resouse : _Resources)
