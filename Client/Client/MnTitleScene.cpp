@@ -43,8 +43,10 @@ namespace Mn
 	}
 	void TitleScene::OnEnter()
 	{
+		Camera::CamReset();
 	}
 	void TitleScene::OnExit()
 	{
+		
 	}
 }

@@ -93,9 +93,21 @@ namespace Mn
 		}
 	}
 
-	void Camera::CamMove()
+	void Camera::CamReset()
 	{
+		if (_Type == CameraState::FadeIN)
+			_AlphaTime = 0;
+		else if (_Type == CameraState::FadeOUT)
+			_AlphaTime = 1;
+	}
 
+	void Camera::CamReset(float alphatime)
+	{
+		if (_Type == CameraState::FadeIN)
+			_AlphaTime = 0;
+		else if (_Type == CameraState::FadeOUT)
+			_AlphaTime = 1;
+		_EndTime = alphatime;
 	}
 
 	void Camera::Clear()

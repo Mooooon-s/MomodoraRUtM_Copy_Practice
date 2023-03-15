@@ -27,7 +27,8 @@ namespace Mn
 		static void Initiailize();
 		static void Update();
 		static void Render(HDC hdc);
-		static void CamMove();
+		static void CamReset();
+		static void CamReset(float alphatime);
 		static void Clear();
 
 		static void SetTarget(GameObject* target) { _Target = target; }

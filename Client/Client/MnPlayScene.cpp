@@ -50,6 +50,7 @@ namespace Mn
 	void PlayScene::OnEnter()
 	{
 		Camera::SetTarget(_kaho);
+		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 	}
 	void PlayScene::OnExit()
