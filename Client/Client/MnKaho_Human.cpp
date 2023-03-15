@@ -32,15 +32,15 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		Collider* collider = AddComponent<Collider>();
-		collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
-		collider->Size(Vector2(24.0f * 3, 40.0f * 3));
+		//Collider* collider = AddComponent<Collider>();
+		//collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
+		//collider->Size(Vector2(24.0f * 3, 40.0f * 3));
 
 		Image* _Image = Resources::Load<Image>(L"Kaho", L"..\\Resources\\Kaho_Human.bmp");
 		_Animator = AddComponent<Animator>();
 		//-------------------------------------------------------------------------------------------------------------
 		//												
-		//														Kaho_Human Animation
+		//												Kaho_Human Animation
 		// 
 		// ------------------------------------------------------------------------------------------------------------
 		//Move Right
@@ -147,8 +147,12 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Right") = std::bind(&Kaho_Human::airAttackComplete, this);
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Left") = std::bind(&Kaho_Human::airAttackComplete, this);
 
+
+		_Animator->GetStartEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeStart, this);
+		_Animator->GetStartEvent(L"Crouch_Range_Attack_Left") = std::bind(&Kaho_Human::CrouchRangeStart, this);
+
 		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
-		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
+		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Left") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
 
 		_Animator->GetCompleteEvent(L"Roll_Right") = std::bind(&Kaho_Human::afterRoll, this);
 		_Animator->GetCompleteEvent(L"Roll_Left") = std::bind(&Kaho_Human::afterRoll, this);

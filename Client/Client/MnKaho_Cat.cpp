@@ -78,8 +78,6 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Attack_3_Right") = std::bind(&Kaho_Cat::attackCombo2Complete, this);
 		_Animator->GetCompleteEvent(L"Cat_Attack_3_Left") = std::bind(&Kaho_Cat::attackCombo2Complete, this);
 
-		
-		
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
 	}

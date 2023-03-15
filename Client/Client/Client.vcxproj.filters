@@ -202,6 +202,9 @@
     <ClInclude Include="MnFadeInOut.h">
       <Filter>Contents\BG</Filter>
     </ClInclude>
+    <ClInclude Include="MnPlayerEnum.h">
+      <Filter>Contents\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">

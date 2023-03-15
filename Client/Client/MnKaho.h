@@ -1,12 +1,12 @@
 #pragma once
 #include "MnGameObject.h"
-#include "MnEnum.h"
+#include "MnPlayerEnum.h"
 
 namespace Mn
 {
 	class Kaho_Cat;
 	class Kaho_Human;
-	class CollisionManager;
+	class Collider;
 	class Kaho : public GameObject
 	{
 	private:
@@ -14,7 +14,7 @@ namespace Mn
 		bool			_bIsCat;
 		Kaho_Cat*		kahoCat;
 		Kaho_Human*		kahoHuman;
-		Collider*		KahoColl;
+		Collider*		_KahoColl;
 		eDir			_Dir;
 	public:
 		Kaho();
@@ -25,6 +25,7 @@ namespace Mn
 		void Render(HDC hdc)override;
 		void Release() override;
 	public:
+		void  UpdateStatus();
 		const Vector2 KahoPos() { return _Pos; }
 		const Vector2 KahoPos(Vector2 pos) { _Pos = pos; }
 	};

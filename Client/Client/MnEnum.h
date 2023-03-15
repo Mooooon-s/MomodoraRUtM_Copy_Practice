@@ -26,9 +26,3 @@ enum class eComponentType
 	Audio,
 	Max,
 };
-
-enum class eDir
-{
-	R,
-	L,
-};

@@ -21,8 +21,6 @@ namespace Mn
 	}
 	void Collider::Initialize()
 	{
-		Transform* tr = Owner()->GetComponent<Transform>();
-		_Pos = tr->Pos() + _Center;
 	}
 	void Collider::Update()
 	{

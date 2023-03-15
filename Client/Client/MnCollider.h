@@ -29,11 +29,13 @@ namespace Mn
 		void Center(Vector2 center) {_Center =center;}
 		void Size(Vector2 size) { _Size = size; }
 		void Scale(Vector2 scale) { _Scale = scale; }
+		void Pos(Vector2 pos) { _Pos = pos; }
 	public:
 		Vector2 Center() { return _Center; }
 		Vector2 Pos() { return _Pos; }
 		Vector2 Size() { return _Size; }
 		UINT GetID() { return _ID; }
+		
 	};
 }
 

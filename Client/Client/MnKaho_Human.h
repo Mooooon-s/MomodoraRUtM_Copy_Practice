@@ -1,5 +1,6 @@
 #pragma once
 #include "MnGameObject.h"
+#include "MnPlayerEnum.h"
 #include "MnImage.h"
 
 namespace Mn
@@ -8,23 +9,6 @@ namespace Mn
 	class Kaho_Human : public GameObject
 	{
 	private:
-		enum class ePlayerStatus
-
-		{
-			Idle,
-			Move,
-			Attack,
-			Crouch,
-			Jump,
-			Shoot,
-			Roll,
-			UseItem,
-		};
-		enum class eDir
-		{
-			R,
-			L,
-		};
 		ePlayerStatus	_PlayerStatus;
 		Animator*		_Animator;
 		Vector2			_pos;
@@ -43,6 +27,10 @@ namespace Mn
 		void Update() override;
 		void Render(HDC hdc) override;
 		void Release() override;
+	public:
+		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
+		void Dir(eDir dir) { _Dir = dir; }
+		eDir Dir() { return _Dir; }
 	private:
 		void idle();
 		void move();
@@ -57,22 +45,15 @@ namespace Mn
 		void attackComplete();
 		void attackCombo1Complete();
 		void attackCombo2Complete();
-
 		void airAttackComplete();
-
 		void CrouchRangeStart();
 		void CrouchRangeComplete();
-
 		void beforeRange();
 		void afterRange();
-
 		void afterRoll();
 		void afterUseItem();
-
 		void riseUp();
-
 		void EndRun();
-
 	};
 }
 

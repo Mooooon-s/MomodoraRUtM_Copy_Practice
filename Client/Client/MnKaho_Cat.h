@@ -1,6 +1,6 @@
 #pragma once
 #include "MnGameObject.h"
-#include "MnEnum.h"
+#include "MnPlayerEnum.h"
 
 namespace Mn
 {
@@ -9,14 +9,6 @@ namespace Mn
 	class Kaho_Cat : public GameObject
 	{
 	private:
-		enum class ePlayerStatus
-		{
-			Idle,
-			Move,
-			Crouch,
-			Attack,
-		};
-
 		ePlayerStatus	_PlayerStatus;
 		Vector2			_Pos;
 		Animator*		_Animator;
@@ -30,6 +22,10 @@ namespace Mn
 		 void Update()override;
 		 void Render(HDC hdc)override;
 		 void Release() override;
+	public:
+		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
+		void Dir(eDir dir) { _Dir = dir; }
+		eDir Dir() { return _Dir; }
 	private:
 		void idle();
 		void move();
