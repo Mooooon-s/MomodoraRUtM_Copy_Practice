@@ -33,7 +33,7 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		_Rigidbody = GetComponent<Rigidbody>();
+		_Rigidbody = AddComponent<Rigidbody>();
 		_Rigidbody->SetMass(1.0f);
 
 		//Collider* collider = AddComponent<Collider>();
@@ -407,9 +407,11 @@ namespace Mn
 				animationCtrl();
 		}
 		if (_Dir == eDir::L)
-			_pos.x -= 100.0f * Time::DeltaTime();
+			_Rigidbody->AddForce(Vector2(-200.0f, 0.0f));
+			//_pos.x -= 100.0f * Time::DeltaTime();
 		else
-			_pos.x += 100.0f * Time::DeltaTime();
+			_Rigidbody->AddForce(Vector2(200.0f, 0.0f));
+			//_pos.x += 100.0f * Time::DeltaTime();
 	}
 	void Kaho_Human::attack()
 	{
