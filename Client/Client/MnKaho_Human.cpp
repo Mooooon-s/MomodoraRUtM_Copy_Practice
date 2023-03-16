@@ -10,6 +10,7 @@
 #include "MnScene.h"
 #include "MnArrow.h"
 #include "MnObject.h"
+#include "MnRigidbody.h"
 
 namespace Mn
 {
@@ -31,6 +32,9 @@ namespace Mn
 	void Kaho_Human::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
+
+		_Rigidbody = GetComponent<Rigidbody>();
+		_Rigidbody->SetMass(1.0f);
 
 		//Collider* collider = AddComponent<Collider>();
 		//collider->Center(Vector2(-12.0f * 3, -40.0f * 3));

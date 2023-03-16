@@ -71,6 +71,16 @@ struct Vector2 {
 		tmp.y = y * other.y;
 		return tmp;
 	}
+
+	Vector2 operator*(const float ratio)
+	{
+		Vector2 temp;
+		temp.x = x * ratio;
+		temp.y = y * ratio;
+
+		return temp;
+	}
+
 	Vector2 operator/(const float ratio)
 	{
 		Vector2 tmp;
@@ -82,6 +92,12 @@ struct Vector2 {
 	float Length()
 	{
 		return sqrtf(x * x + y * y);
+	}
+
+	void Clear()
+	{
+		x = 0.0f;
+		y = 0.0f;
 	}
 
 	Vector2& Normalize()

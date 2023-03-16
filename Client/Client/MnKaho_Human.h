@@ -6,11 +6,13 @@
 namespace Mn
 {
 	class Animator;
+	class Rigidbody;
 	class Kaho_Human : public GameObject
 	{
 	private:
 		ePlayerStatus	_PlayerStatus;
 		Animator*		_Animator;
+		Rigidbody*		_Rigidbody;
 		Vector2			_pos;
 		Image*			_Image;
 		eDir			_Dir;
