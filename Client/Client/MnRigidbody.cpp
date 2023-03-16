@@ -13,6 +13,7 @@ namespace Mn
 		, _Velocity(Vector2::Zero)
 		, _IsGround(false)
 	{
+		_Gravity = Vector2(0.0f, 800.0f);
 	}
 	Rigidbody::~Rigidbody()
 	{

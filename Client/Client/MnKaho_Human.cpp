@@ -20,7 +20,7 @@ namespace Mn
 		, _Image(nullptr)
 		,_Combo(false)
 		, _IsCrouch(false)
-		, _IsGround(false)
+		, _IsGround(true)
 		,_Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -170,7 +170,6 @@ namespace Mn
 
 		_Animator->GetCompleteEvent(L"End_Run_Right") = std::bind(&Kaho_Human::EndRun, this);
 		_Animator->GetCompleteEvent(L"End_Run_Left") = std::bind(&Kaho_Human::EndRun, this);
-
 		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
 	}
@@ -336,6 +335,8 @@ namespace Mn
 		{
 			//_IsJump = true;
 			_PlayerStatus = ePlayerStatus::Jump;
+			_IsGround = false;
+			_Rigidbody->SetGround(_IsGround);
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
@@ -365,6 +366,7 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			_PlayerStatus = ePlayerStatus::Jump;
+			_Rigidbody->SetGround(false);
 			animationCtrl();
 		}
 
@@ -475,6 +477,8 @@ namespace Mn
 		if (Input::GetKeyUp(eKeyCode::A))
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
+			_IsGround = true;
+			_Rigidbody->SetGround(_IsGround);
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::S))
