@@ -111,7 +111,7 @@ struct Vector2 {
 
 };
 
-namespace ya::math
+namespace Mn::math
 {
 	inline static Vector2 Rotate(Vector2 vector, float degree)
 	{
@@ -121,6 +121,16 @@ namespace ya::math
 		float x = vector.x * cosf(radian) - vector.y * sinf(radian);
 		float y = vector.x * sinf(radian) + vector.y * cosf(radian);
 		return Vector2(x, y);
+	}
+
+	inline static float Dot(Vector2& v1, Vector2& v2)
+	{
+		return v1.x * v2.x + v1.y * v2.y;
+	}
+
+	inline static float Cross(Vector2& v1, Vector2& v2)
+	{
+		return v1.x * v2.y - v1.y * v2.x;
 	}
 }
 

@@ -9,7 +9,13 @@ namespace Mn
 		Vector2 _Force;
 		Vector2 _Accelation;
 		Vector2 _Velocity;
+		Vector2 _LimitedVelocity;
+		Vector2 _Gravity;
 		float	_Mass;
+		float	_Friction;
+		bool	_IsGround;
+
+
 	public:
 		Rigidbody();
 		~Rigidbody();
@@ -21,6 +27,7 @@ namespace Mn
 	public:
 		void SetMass(float mass) { _Mass = mass; }
 		void AddForce(Vector2 force);
+		void SetGround(bool ground) { _IsGround = ground; }
 	};
 }
 

@@ -11,6 +11,7 @@ namespace Mn
 		, _Force(Vector2::Zero)
 		, _Accelation(Vector2::Zero)
 		, _Velocity(Vector2::Zero)
+		, _IsGround(false)
 	{
 	}
 	Rigidbody::~Rigidbody()
@@ -26,6 +27,19 @@ namespace Mn
 		_Accelation = _Force / _Mass;
 
 		_Velocity += _Accelation * Time::DeltaTime();
+
+		if (_IsGround)
+		{
+			Vector2 gravity = _Gravity;
+			gravity.Normalize();
+
+			float dot = math::Dot(_Velocity, gravity);
+			_Velocity -= gravity * dot;
+		}
+		else
+		{
+			_Velocity += _Gravity * Time::DeltaTime();
+		}
 
 		Transform* tr = Owner()->GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
