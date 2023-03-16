@@ -101,6 +101,16 @@ struct Vector2 {
 		return tmp;
 	}
 
+	Vector2 operator-()
+	{
+		return Vector2(-x, -y);
+	}
+
+	bool operator==(Vector2& other)
+	{
+		return(x == other.x && y == other.y);
+	}
+
 	float Length()
 	{
 		return sqrtf(x * x + y * y);

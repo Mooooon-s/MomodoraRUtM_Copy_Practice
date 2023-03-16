@@ -336,6 +336,7 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Jump;
 			_IsGround = false;
 			_Rigidbody->SetGround(_IsGround);
+			_Rigidbody->AddForce(Vector2(0.0f, 200.0f));
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
@@ -365,7 +366,9 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			_PlayerStatus = ePlayerStatus::Jump;
+			_IsGround = false;
 			_Rigidbody->SetGround(false);
+			_Rigidbody->AddForce(Vector2(0.0f, 200.0f));
 			animationCtrl();
 		}
 
@@ -408,10 +411,10 @@ namespace Mn
 				animationCtrl();
 		}
 		if (_Dir == eDir::L)
-			_Rigidbody->AddForce(Vector2(-200.0f, 0.0f));
+			_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
 			//_pos.x -= 100.0f * Time::DeltaTime();
 		else
-			_Rigidbody->AddForce(Vector2(200.0f, 0.0f));
+			_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
 			//_pos.x += 100.0f * Time::DeltaTime();
 	}
 	void Kaho_Human::attack()

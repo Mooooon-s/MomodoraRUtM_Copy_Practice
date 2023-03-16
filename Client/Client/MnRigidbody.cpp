@@ -14,7 +14,7 @@ namespace Mn
 	{
 		_Gravity = Vector2(0.0f, 800.0f);
 		_LimitedVelocity = Vector2(200.0f, 1000.0f);
-		_Friction = 100.0f;
+		_Friction = 150.0f;
 		_IsGround = true;
 	}
 	Rigidbody::~Rigidbody()
@@ -62,9 +62,25 @@ namespace Mn
 			sideVelocity *= _LimitedVelocity.x;
 		}
 
+		if (!(_Velocity == Vector2::Zero))
+		{
+			Vector2 friction = -_Velocity;
+			friction = friction.Normalize() * _Friction * _Mass * Time::DeltaTime();
+
+			if (_Velocity.Length() < friction.Length())
+				_Velocity = Vector2::Zero;
+			else
+			{
+				_Velocity += friction;
+			}
+		}
+
+		//move
 		Transform* tr = Owner()->GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		pos += _Velocity * Time::DeltaTime();
+		if (pos.y < 700.0f)
+			_IsGround = true;
 		tr->Pos(pos);
 		_Force.Clear();
 	}
