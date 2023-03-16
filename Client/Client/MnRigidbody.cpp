@@ -11,9 +11,11 @@ namespace Mn
 		, _Force(Vector2::Zero)
 		, _Accelation(Vector2::Zero)
 		, _Velocity(Vector2::Zero)
-		, _IsGround(false)
 	{
 		_Gravity = Vector2(0.0f, 800.0f);
+		_LimitedVelocity = Vector2(200.0f, 1000.0f);
+		_Friction = 100.0f;
+		_IsGround = true;
 	}
 	Rigidbody::~Rigidbody()
 	{
@@ -40,6 +42,24 @@ namespace Mn
 		else
 		{
 			_Velocity += _Gravity * Time::DeltaTime();
+		}
+
+		Vector2 gravity = _Gravity;
+		gravity.Normalize();
+		float dot = math::Dot(_Velocity, gravity);
+		gravity = gravity * dot;
+
+		if (_LimitedVelocity.y < gravity.Length())
+		{
+			gravity.Normalize();
+			gravity *= _LimitedVelocity.y;
+		}
+
+		Vector2 sideVelocity = _Velocity - gravity;
+		if (_LimitedVelocity.x < sideVelocity.Length())
+		{
+			sideVelocity.Normalize();
+			sideVelocity *= _LimitedVelocity.x;
 		}
 
 		Transform* tr = Owner()->GetComponent<Transform>();

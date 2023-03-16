@@ -64,6 +64,18 @@ struct Vector2 {
 		y -= other.y;
 	}
 
+	void operator*=(const Vector2& other)
+	{
+		x *= other.x;
+		y *= other.y;
+	}
+
+	void operator*=(const float ratio)
+	{
+		x *= ratio;
+		y *= ratio;
+	}
+
 	Vector2 operator*(Vector2 other)
 	{
 		Vector2 tmp;

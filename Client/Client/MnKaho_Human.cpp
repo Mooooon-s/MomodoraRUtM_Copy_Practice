@@ -333,7 +333,6 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
-			//_IsJump = true;
 			_PlayerStatus = ePlayerStatus::Jump;
 			_IsGround = false;
 			_Rigidbody->SetGround(_IsGround);
