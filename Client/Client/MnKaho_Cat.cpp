@@ -49,7 +49,7 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_to_Crouch_Right", _Image, Vector2(0, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Crouch_Left", _Image, Vector2(0, 32 * 5), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Idle_Right", _Image, Vector2(32 * 4, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_to_Idle_Left", _Image, Vector2(32 * 4, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_to_Idle_Left", _Image, Vector2(32 * 4, 32 * 5), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Crouch_Right", _Image, Vector2(0, 32 * 6), 12, 8, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Crouch_Left", _Image, Vector2(0, 32 * 7), 12, 8, 9, Vector2::Zero, 0.08);
 
@@ -87,6 +87,11 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Attack_3_Left") = std::bind(&Kaho_Cat::attackCombo2Complete, this);
 		_Animator->GetCompleteEvent(L"Cat_Roll_Right") = std::bind(&Kaho_Cat::rollComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_Roll_Left") = std::bind(&Kaho_Cat::rollComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_to_Crouch_Right") = std::bind(&Kaho_Cat::preCrouchComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_to_Crouch_Left") = std::bind(&Kaho_Cat::preCrouchComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_to_Idle_Right") = std::bind(&Kaho_Cat::postCrouchComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_to_Idle_Left") = std::bind(&Kaho_Cat::postCrouchComplete, this);
+		
 
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
@@ -148,8 +153,10 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::Down))
 		{
 			_PlayerStatus = ePlayerStatus::Crouch;
-			animationCtrl();
-
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_to_Crouch_Right",false);
+			else
+				_Animator->Play(L"Cat_to_Crouch_Left", false);
 		}
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
@@ -198,16 +205,28 @@ namespace Mn
 	}
 	void Kaho_Cat::attack()
 	{
-		if (Input::GetKeyDown(eKeyCode::S))
+		if (Input::GetKey(eKeyCode::Left))
 		{
-			_Combo = true;
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
+		if (_Animator->GetActiveAnim()->IsComplete() == false && _IsGround == true)
+		{
+			if (Input::GetKeyDown(eKeyCode::S))
+				_Combo = true;
 		}
 	}
 	void Kaho_Cat::crouch()
 	{
 		if (Input::GetKeyUp(eKeyCode::Down)) {
 			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_to_Idle_Right", false);
+			else
+				_Animator->Play(L"Cat_to_Idle_Left", false);
 		}
 	}
 	void Kaho_Cat::roll()
@@ -288,6 +307,14 @@ namespace Mn
 	}
 	void Kaho_Cat::postDashComplete()
 	{
+	}
+	void Kaho_Cat::preCrouchComplete()
+	{
+		animationCtrl();
+	}
+	void Kaho_Cat::postCrouchComplete()
+	{
+		animationCtrl();
 	}
 	void Kaho_Cat::animationCtrl()
 	{

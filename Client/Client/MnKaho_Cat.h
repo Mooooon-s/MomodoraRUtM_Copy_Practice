@@ -43,6 +43,10 @@ namespace Mn
 		void preDashComplete();
 		void dashComplete();
 		void postDashComplete();
+
+		void preCrouchComplete();
+		void postCrouchComplete();
+
 		void animationCtrl();
 
 	};
