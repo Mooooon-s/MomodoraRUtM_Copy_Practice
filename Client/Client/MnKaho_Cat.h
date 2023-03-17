@@ -13,7 +13,9 @@ namespace Mn
 		Vector2			_Pos;
 		Animator*		_Animator;
 		eDir			_Dir;
+		float			_Dashtime;
 		bool			_Combo;
+		bool			_IsGround;
 	public:
 		Kaho_Cat();
 		~Kaho_Cat();
@@ -38,6 +40,9 @@ namespace Mn
 		void attackCombo1Complete();
 		void attackCombo2Complete();
 		void rollComplete();
+		void preDashComplete();
+		void dashComplete();
+		void postDashComplete();
 		void animationCtrl();
 
 	};
