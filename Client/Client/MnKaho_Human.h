@@ -33,11 +33,11 @@ namespace Mn
 		void Dir(eDir dir) { _Dir = dir; }
 		eDir Dir() { return _Dir; }
 		void Active(bool active) { _IsActive = active; }
+		void animationCtrl();
 	private:
 		void idle();
 		void move();
 		void attack();
-		void animationCtrl();
 		void shoot();
 		void crouch();
 		void jump();

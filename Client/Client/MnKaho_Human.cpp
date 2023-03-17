@@ -173,43 +173,45 @@ namespace Mn
 	}
 	void Kaho_Human::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-		_pos = tr->Pos();
-
-		switch (_PlayerStatus)
+		if (_IsActive)
 		{
-		case ePlayerStatus::Idle:
-			idle();
-			break;
-		case ePlayerStatus::Move:
-			move();
-			break;
-		case ePlayerStatus::Attack:
-			attack();
-			break;
-		case ePlayerStatus::Shoot:
-			shoot();
-			break;
-		case ePlayerStatus::Crouch:
-			crouch();
-			break;
-		case ePlayerStatus::Jump:
-			jump();
-			break;
-		case ePlayerStatus::Roll:
-			roll();
-			break;
-		case ePlayerStatus::UseItem:
-			useItem();
-			break;
-		default:
-			break;
-		}
-		
-		tr->Pos(_pos);
+			Transform* tr = GetComponent<Transform>();
+			_pos = tr->Pos();
 
-		if(_IsActive)
+			switch (_PlayerStatus)
+			{
+			case ePlayerStatus::Idle:
+				idle();
+				break;
+			case ePlayerStatus::Move:
+				move();
+				break;
+			case ePlayerStatus::Attack:
+				attack();
+				break;
+			case ePlayerStatus::Shoot:
+				shoot();
+				break;
+			case ePlayerStatus::Crouch:
+				crouch();
+				break;
+			case ePlayerStatus::Jump:
+				jump();
+				break;
+			case ePlayerStatus::Roll:
+				roll();
+				break;
+			case ePlayerStatus::UseItem:
+				useItem();
+				break;
+			default:
+				break;
+			}
+
+			tr->Pos(_pos);
+
 			GameObject::Update();
+		}
 	}
 	void Kaho_Human::Render(HDC hdc)
 	{

@@ -105,36 +105,39 @@ namespace Mn
 	}
 	void Kaho_Cat::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-		_Pos = tr->Pos();
-		switch (_PlayerStatus)
+		if (_IsActive)
 		{
-		case ePlayerStatus::Idle:
-			idle();
-			break;
-		case ePlayerStatus::Move:
-			move();
-			break;
-		case ePlayerStatus::Attack:
-			attack();
-			break;
-		case ePlayerStatus::Jump:
-			jump();
-			break;
-		case ePlayerStatus::Crouch:
-			crouch();
-			break;
-		case ePlayerStatus::Roll:
-			roll();
-			break;
-		default:
-			break;
-		}
+			Transform* tr = GetComponent<Transform>();
+			_Pos = tr->Pos();
+			switch (_PlayerStatus)
+			{
+			case ePlayerStatus::Idle:
+				idle();
+				break;
+			case ePlayerStatus::Move:
+				move();
+				break;
+			case ePlayerStatus::Attack:
+				attack();
+				break;
+			case ePlayerStatus::Jump:
+				jump();
+				break;
+			case ePlayerStatus::Crouch:
+				crouch();
+				break;
+			case ePlayerStatus::Roll:
+				roll();
+				break;
+			default:
+				break;
+			}
 
-		tr->Pos(_Pos);
+			tr->Pos(_Pos);
 
-		if(_IsActive)
+
 			GameObject::Update();
+		}
 	}
 	void Kaho_Cat::Render(HDC hdc)
 	{
