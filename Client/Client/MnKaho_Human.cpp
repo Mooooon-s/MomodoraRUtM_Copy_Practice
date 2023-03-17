@@ -19,7 +19,7 @@ namespace Mn
 		, _Image(nullptr)
 		,_Combo(false)
 		, _IsCrouch(false)
-		, _IsGround(false)
+		, _IsJump(false)
 		,_Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -237,20 +237,10 @@ namespace Mn
 				_Animator->Play(L"Run_Left", true);
 			break;
 		case ePlayerStatus::Attack:
-			if (_IsGround == true)
-			{
-				if (_Dir == eDir::R)
-					_Animator->Play(L"Melee_Attack_1_Right", false);
-				else
-					_Animator->Play(L"Melee_Attack_1_Left", false);
-			}
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Melee_Attack_1_Right", false);
 			else
-			{
-				if (_Dir == eDir::R)
-					_Animator->Play(L"Air_Melee_Attack_Right", false);
-				else
-					_Animator->Play(L"Air_Melee_Attack_Left", false);
-			}
+				_Animator->Play(L"Melee_Attack_1_Left", false);
 			break;
 		case ePlayerStatus::Shoot:
 			if (!_IsCrouch)
@@ -357,13 +347,6 @@ namespace Mn
 			else
 				_Animator->Play(L"End_Run_Left", false);
 		}
-
-		if (Input::GetKeyDown(eKeyCode::A))
-		{
-			_PlayerStatus = ePlayerStatus::Jump;
-			animationCtrl();
-		}
-
 		//Move pos
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
@@ -417,7 +400,7 @@ namespace Mn
 		{
 			_Dir = eDir::R;
 		}
-		if (_Animator->GetActiveAnim()->IsComplete()==false && _IsGround == true)
+		if (_Animator->GetActiveAnim()->IsComplete()==false)
 		{
 			if (Input::GetKeyDown(eKeyCode::S))
 				_Combo = true;
@@ -469,11 +452,6 @@ namespace Mn
 		if (Input::GetKeyUp(eKeyCode::A))
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
-		}
-		if (Input::GetKeyDown(eKeyCode::S))
-		{
-			_PlayerStatus = ePlayerStatus::Attack;
 			animationCtrl();
 		}
 	}
