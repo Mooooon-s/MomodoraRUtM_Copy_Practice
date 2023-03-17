@@ -16,7 +16,7 @@ namespace Mn
 		eDir			_Dir;
 		bool			_Combo;
 		bool			_IsCrouch;
-		bool			_IsJump;
+		bool			_IsGround;
 		int				_col;
 		int				_row;
 	public:
