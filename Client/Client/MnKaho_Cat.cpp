@@ -55,7 +55,7 @@ namespace Mn
 
 		_Image = Resources::Load<Image>(L"Kaho_Cat3", L"..\\Resources\\Kaho_Cat_Move2.bmp");
 		_Animator->CreateAnimation(L"Cat_Jump_Right", _Image, Vector2(0, 0), 9,11, 1, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Jump_Left", _Image, Vector2(32, 0), 9, 11, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Jump_Left", _Image, Vector2(48, 0), 9, 11, 1, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Run_Right", _Image, Vector2(32 * 2, 0), 9, 11, 2, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Run_Left", _Image, Vector2(32 * 4, 0), 9, 11, 2, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Fall_Right", _Image, Vector2(0, 32), 9, 11, 3, Vector2::Zero, 0.08);
@@ -68,12 +68,12 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Run_Left", _Image, Vector2(0, 32 * 6), 9, 11, 6, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Break_Right", _Image, Vector2(0, 32 * 7), 9, 11, 6, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Break_Right", _Image, Vector2(0, 32 * 8), 9, 11, 6, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_PreDash_Right", _Image, Vector2(0, 32 * 9), 9, 11, 3, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_PreDash_Left", _Image, Vector2(0, 32 * 10), 9, 11, 3, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Dash_Right", _Image, Vector2(32*3, 32 * 9), 9, 11, 1, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Dash_Left", _Image, Vector2(32*3, 32 * 10), 9, 11, 1, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_PostDash_Right", _Image, Vector2(32*4, 32 * 9), 9, 11, 3, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_PostDash_Left", _Image, Vector2(32*4, 32 * 10), 9, 11, 3, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_PreDash_Right", _Image, Vector2(0, 32 * 9), 9, 11, 2, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_PreDash_Left", _Image, Vector2(0, 32 * 10), 9, 11, 2, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Dash_Right", _Image, Vector2(48*2, 32 * 9), 9, 11, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Dash_Left", _Image, Vector2(48*2, 32 * 10), 9, 11, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_PostDash_Right", _Image, Vector2(32*3, 32 * 9), 9, 11, 2, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_PostDash_Left", _Image, Vector2(32*3, 32 * 10), 9, 11, 2, Vector2::Zero, 0.08);
 		//-------------------------------------------------------------------------------------------------------------------
 		// 
 		//													Events
@@ -91,6 +91,15 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_to_Crouch_Left") = std::bind(&Kaho_Cat::preCrouchComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_to_Idle_Right") = std::bind(&Kaho_Cat::postCrouchComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_to_Idle_Left") = std::bind(&Kaho_Cat::postCrouchComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_PreDash_Right") = std::bind(&Kaho_Cat::preDashComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_PreDash_Left") = std::bind(&Kaho_Cat::preDashComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Dash_Right") = std::bind(&Kaho_Cat::dashComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Dash_Right") = std::bind(&Kaho_Cat::dashComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
+
+
+		
 		
 
 		_Animator->Play(L"Cat_Idle_Right", true);
@@ -150,6 +159,13 @@ namespace Mn
 			animationCtrl();
 
 		}
+		if (Input::GetKeyDown(eKeyCode::A))
+		{
+			_IsGround = false;
+			_PlayerStatus = ePlayerStatus::Jump;
+			animationCtrl();
+		}
+
 		if (Input::GetKeyDown(eKeyCode::Down))
 		{
 			_PlayerStatus = ePlayerStatus::Crouch;
@@ -192,6 +208,12 @@ namespace Mn
 			animationCtrl();
 		}
 
+		if (Input::GetKeyDown(eKeyCode::A))
+		{
+			_PlayerStatus = ePlayerStatus::Jump;
+			animationCtrl();
+		}
+
 		//Move pos
 		if (Input::GetKey(eKeyCode::Left))
 			_Dir = eDir::L;
@@ -221,12 +243,19 @@ namespace Mn
 	}
 	void Kaho_Cat::crouch()
 	{
-		if (Input::GetKeyUp(eKeyCode::Down)) {
+		if (Input::GetKeyUp(eKeyCode::Down)) 
+		{
 			_PlayerStatus = ePlayerStatus::Idle;
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Cat_to_Idle_Right", false);
 			else
 				_Animator->Play(L"Cat_to_Idle_Left", false);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
 		}
 	}
 	void Kaho_Cat::roll()
@@ -238,6 +267,12 @@ namespace Mn
 	}
 	void Kaho_Cat::jump()
 	{
+		if (Input::GetKeyUp(eKeyCode::A))
+		{
+			_IsGround = true;
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
 			_PlayerStatus = ePlayerStatus::Roll;
@@ -290,14 +325,17 @@ namespace Mn
 	}
 	void Kaho_Cat::preDashComplete()
 	{
-		if (_Dir == eDir::R)
-			_Animator->Play(L"Cat_Dash_Right", true);
-		else
-			_Animator->Play(L"Cat_Dash_Left", true);
+		if (_Dashtime >= 0.3)
+		{
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Dash_Right", true);
+			else
+				_Animator->Play(L"Cat_Dash_Left", true);
+		}
 	}
 	void Kaho_Cat::dashComplete()
 	{
-		if (_Dashtime >= 1.0)
+		if (_Dashtime >= 0.3)
 		{
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Cat_PostDash_Right", false);
@@ -307,6 +345,12 @@ namespace Mn
 	}
 	void Kaho_Cat::postDashComplete()
 	{
+		if (_Dashtime >= 0.3)
+		{
+			_Dashtime = 0.0f;
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
 	}
 	void Kaho_Cat::preCrouchComplete()
 	{
@@ -339,18 +383,12 @@ namespace Mn
 				_Animator->Play(L"Cat_Attack_1_Left", false);
 			break;
 		case ePlayerStatus::Roll:
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Cat_Roll_Right", false);
-			else
-				_Animator->Play(L"Cat_Roll_Left", false);
-			break;
-		case ePlayerStatus::Jump:
 			if (_IsGround == true)
 			{
 				if (_Dir == eDir::R)
-					_Animator->Play(L"Cat_Jump_Right", false);
+					_Animator->Play(L"Cat_Roll_Right", false);
 				else
-					_Animator->Play(L"Cat_Jump_Left", false);
+					_Animator->Play(L"Cat_Roll_Left", false);
 			}
 			else
 			{
@@ -359,6 +397,12 @@ namespace Mn
 				else
 					_Animator->Play(L"Cat_PreDash_Right", false);
 			}
+			break;
+		case ePlayerStatus::Jump:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Jump_Right", false);
+			else
+				_Animator->Play(L"Cat_Jump_Left", false);
 			break;
 		case ePlayerStatus::Crouch:
 			if (_Dir == eDir::R)

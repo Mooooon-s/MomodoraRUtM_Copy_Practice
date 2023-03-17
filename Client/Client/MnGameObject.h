@@ -54,7 +54,5 @@ namespace Mn
 			}
 			return nullptr;
 		}
-
-
 	};
 }
