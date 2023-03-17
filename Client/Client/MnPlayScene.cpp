@@ -3,6 +3,8 @@
 #include "MnMomodora.h"
 #include "MnKaho.h"
 #include "MnImp.h"
+#include "MnKaho_Cat.h"
+#include "MnKaho_Human.h"
 #include "MnArsonist.h"
 #include "MnInput.h"
 #include "MnSceneManager.h"
@@ -27,9 +29,13 @@ namespace Mn
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
 		//플레이어 객체 생성
+		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(200.0f, 400.0f), eLayerType::Player);
+		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
 		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
 		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f),eLayerType::Monster);
+
+		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void PlayScene::Update()
 	{
@@ -49,7 +55,7 @@ namespace Mn
 	}
 	void PlayScene::OnEnter()
 	{
-		Camera::SetTarget(_kaho);
+		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 	}

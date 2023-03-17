@@ -7,7 +7,9 @@ namespace Mn
 	class PlayScene :public Scene
 	{
 	private:
-		Kaho* _kaho;
+		Kaho*		_kaho;
+		Kaho_Human* _KahoHuman;
+		Kaho_Cat*	_KahoCat;
 	public:
 		PlayScene();
 		~PlayScene();

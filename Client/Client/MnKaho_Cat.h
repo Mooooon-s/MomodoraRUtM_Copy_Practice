@@ -16,6 +16,7 @@ namespace Mn
 		float			_Dashtime;
 		bool			_Combo;
 		bool			_IsGround;
+		bool			_IsActive;
 	public:
 		Kaho_Cat();
 		~Kaho_Cat();
@@ -28,6 +29,7 @@ namespace Mn
 		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
 		void Dir(eDir dir) { _Dir = dir; }
 		eDir Dir() { return _Dir; }
+		void Active(bool active) { _IsActive = active; }
 	private:
 		void idle();
 		void move();

@@ -31,7 +31,6 @@ namespace Mn
 
 		eState State() { return _State; }
 		void State(eState state) { _State = state; }
-
 	public:
 		template<typename T>
 		T* AddComponent()

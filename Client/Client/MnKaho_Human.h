@@ -17,6 +17,7 @@ namespace Mn
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsJump;
+		bool			_IsActive;
 		int				_col;
 		int				_row;
 	public:
@@ -31,6 +32,7 @@ namespace Mn
 		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
 		void Dir(eDir dir) { _Dir = dir; }
 		eDir Dir() { return _Dir; }
+		void Active(bool active) { _IsActive = active; }
 	private:
 		void idle();
 		void move();

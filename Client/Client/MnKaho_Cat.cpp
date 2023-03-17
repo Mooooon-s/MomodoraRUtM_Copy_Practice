@@ -16,6 +16,7 @@ namespace Mn
 		,_Animator(nullptr)
 		,_Dir(eDir::R)
 		,_IsGround(true)
+		,_IsActive(false)
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -97,9 +98,6 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Dash_Right") = std::bind(&Kaho_Cat::dashComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
-
-
-		
 		
 
 		_Animator->Play(L"Cat_Idle_Right", true);
@@ -134,11 +132,14 @@ namespace Mn
 		}
 
 		tr->Pos(_Pos);
-		GameObject::Update();
+
+		if(_IsActive)
+			GameObject::Update();
 	}
 	void Kaho_Cat::Render(HDC hdc)
 	{
-		GameObject::Render(hdc);
+		if(_IsActive)
+			GameObject::Render(hdc);
 	}
 	void Kaho_Cat::Release()
 	{

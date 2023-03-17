@@ -20,6 +20,7 @@ namespace Mn
 		,_Combo(false)
 		, _IsCrouch(false)
 		, _IsJump(false)
+		,_IsActive(true)
 		,_Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -206,11 +207,14 @@ namespace Mn
 		}
 		
 		tr->Pos(_pos);
-		GameObject::Update();
+
+		if(_IsActive)
+			GameObject::Update();
 	}
 	void Kaho_Human::Render(HDC hdc)
 	{
-		GameObject::Render(hdc);
+		if(_IsActive)
+			GameObject::Render(hdc);
 	}
 	void Kaho_Human::Release()
 	{
