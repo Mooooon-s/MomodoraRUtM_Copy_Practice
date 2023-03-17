@@ -31,10 +31,13 @@ namespace Mn
 		void move();
 		void attack();
 		void crouch();
+		void roll();
+		void jump();
 	private:
 		void attackComplete();
 		void attackCombo1Complete();
 		void attackCombo2Complete();
+		void rollComplete();
 		void animationCtrl();
 
 	};

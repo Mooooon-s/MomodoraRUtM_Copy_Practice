@@ -77,6 +77,8 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Attack_2_Left") = std::bind(&Kaho_Cat::attackCombo1Complete, this);
 		_Animator->GetCompleteEvent(L"Cat_Attack_3_Right") = std::bind(&Kaho_Cat::attackCombo2Complete, this);
 		_Animator->GetCompleteEvent(L"Cat_Attack_3_Left") = std::bind(&Kaho_Cat::attackCombo2Complete, this);
+		_Animator->GetCompleteEvent(L"Cat_Roll_Right") = std::bind(&Kaho_Cat::rollComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Roll_Left") = std::bind(&Kaho_Cat::rollComplete, this);
 
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
@@ -96,8 +98,14 @@ namespace Mn
 		case ePlayerStatus::Attack:
 			attack();
 			break;
+		case ePlayerStatus::Jump:
+			jump();
+			break;
 		case ePlayerStatus::Crouch:
 			crouch();
+			break;
+		case ePlayerStatus::Roll:
+			roll();
 			break;
 		default:
 			break;
@@ -140,6 +148,11 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Attack;
 			animationCtrl();
 		}
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			_PlayerStatus = ePlayerStatus::Roll;
+			animationCtrl();
+		}
 		
 	}
 	void Kaho_Cat::move()
@@ -155,6 +168,12 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
 			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
 		}
 
@@ -182,6 +201,10 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
+	}
+	void Kaho_Cat::roll()
+	{
+		
 	}
 	void Kaho_Cat::attackComplete()
 	{
@@ -219,6 +242,11 @@ namespace Mn
 	void Kaho_Cat::attackCombo2Complete()
 	{
 		_Combo=false;
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+	}
+	void Kaho_Cat::rollComplete()
+	{
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
