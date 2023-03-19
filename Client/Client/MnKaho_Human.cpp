@@ -10,6 +10,7 @@
 #include "MnScene.h"
 #include "MnArrow.h"
 #include "MnObject.h"
+#include "MnRigidbody.h"
 
 namespace Mn
 {
@@ -19,8 +20,7 @@ namespace Mn
 		, _Image(nullptr)
 		,_Combo(false)
 		, _IsCrouch(false)
-		, _IsJump(false)
-		,_IsActive(true)
+		, _IsGround(true)
 		,_Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -32,6 +32,9 @@ namespace Mn
 	void Kaho_Human::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
+
+		_Rigidbody = AddComponent<Rigidbody>();
+		_Rigidbody->SetMass(1.0f);
 
 		//Collider* collider = AddComponent<Collider>();
 		//collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
@@ -167,7 +170,6 @@ namespace Mn
 
 		_Animator->GetCompleteEvent(L"End_Run_Right") = std::bind(&Kaho_Human::EndRun, this);
 		_Animator->GetCompleteEvent(L"End_Run_Left") = std::bind(&Kaho_Human::EndRun, this);
-
 		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
 	}
@@ -326,8 +328,10 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
-			//_IsJump = true;
 			_PlayerStatus = ePlayerStatus::Jump;
+			_IsGround = false;
+			_Rigidbody->SetGround(_IsGround);
+			_Rigidbody->AddForce(Vector2(0.0f, 1000.0f));
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
@@ -353,6 +357,16 @@ namespace Mn
 			else
 				_Animator->Play(L"End_Run_Left", false);
 		}
+
+		if (Input::GetKeyDown(eKeyCode::A))
+		{
+			_PlayerStatus = ePlayerStatus::Jump;
+			_IsGround = false;
+			_Rigidbody->SetGround(false);
+			_Rigidbody->AddForce(Vector2(0.0f, 200.0f));
+			animationCtrl();
+		}
+
 		//Move pos
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
@@ -392,9 +406,11 @@ namespace Mn
 				animationCtrl();
 		}
 		if (_Dir == eDir::L)
-			_pos.x -= 100.0f * Time::DeltaTime();
+			_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
+			//_pos.x -= 100.0f * Time::DeltaTime();
 		else
-			_pos.x += 100.0f * Time::DeltaTime();
+			_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
+			//_pos.x += 100.0f * Time::DeltaTime();
 	}
 	void Kaho_Human::attack()
 	{
@@ -458,6 +474,8 @@ namespace Mn
 		if (Input::GetKeyUp(eKeyCode::A))
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
+			_IsGround = true;
+			_Rigidbody->SetGround(_IsGround);
 			animationCtrl();
 		}
 	}

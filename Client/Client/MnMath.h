@@ -64,6 +64,18 @@ struct Vector2 {
 		y -= other.y;
 	}
 
+	void operator*=(const Vector2& other)
+	{
+		x *= other.x;
+		y *= other.y;
+	}
+
+	void operator*=(const float& value)
+	{
+		x *= value;
+		y *= value;
+	}
+
 	Vector2 operator*(Vector2 other)
 	{
 		Vector2 tmp;
@@ -71,6 +83,16 @@ struct Vector2 {
 		tmp.y = y * other.y;
 		return tmp;
 	}
+
+	Vector2 operator*(const float ratio)
+	{
+		Vector2 temp;
+		temp.x = x * ratio;
+		temp.y = y * ratio;
+
+		return temp;
+	}
+
 	Vector2 operator/(const float ratio)
 	{
 		Vector2 tmp;
@@ -79,9 +101,25 @@ struct Vector2 {
 		return tmp;
 	}
 
+	Vector2 operator-()
+	{
+		return Vector2(-x, -y);
+	}
+
+	bool operator==(Vector2& other)
+	{
+		return(x == other.x && y == other.y);
+	}
+
 	float Length()
 	{
 		return sqrtf(x * x + y * y);
+	}
+
+	void Clear()
+	{
+		x = 0.0f;
+		y = 0.0f;
 	}
 
 	Vector2& Normalize()
@@ -95,7 +133,7 @@ struct Vector2 {
 
 };
 
-namespace ya::math
+namespace Mn::math
 {
 	inline static Vector2 Rotate(Vector2 vector, float degree)
 	{
@@ -105,6 +143,16 @@ namespace ya::math
 		float x = vector.x * cosf(radian) - vector.y * sinf(radian);
 		float y = vector.x * sinf(radian) + vector.y * cosf(radian);
 		return Vector2(x, y);
+	}
+
+	inline static float Dot(Vector2& v1, Vector2& v2)
+	{
+		return v1.x * v2.x + v1.y * v2.y;
+	}
+
+	inline static float Cross(Vector2& v1, Vector2& v2)
+	{
+		return v1.x * v2.y - v1.y * v2.x;
 	}
 }
 

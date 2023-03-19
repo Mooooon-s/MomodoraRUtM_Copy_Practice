@@ -71,6 +71,15 @@
     <Filter Include="Engin\Camera">
       <UniqueIdentifier>{98f000ec-a59b-4788-b8ca-2aca758a69e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engin\Component\RigidBody">
+      <UniqueIdentifier>{26f5eb5f-3c21-4876-b842-109cb0c65f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Component\Animator">
+      <UniqueIdentifier>{b3155bd4-2880-44d5-805e-5a1317b388b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engin\Component\Transform">
+      <UniqueIdentifier>{27c32eea-49d6-4de2-bd81-78a039841839}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -145,9 +154,6 @@
     <ClInclude Include="MnImage.h">
       <Filter>Engin\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="MnTransform.h">
-      <Filter>Engin\Component</Filter>
-    </ClInclude>
     <ClInclude Include="MnTitleBG.h">
       <Filter>Contents\BG</Filter>
     </ClInclude>
@@ -162,12 +168,6 @@
     </ClInclude>
     <ClInclude Include="MnTitle_Letter.h">
       <Filter>Contents\Letters</Filter>
-    </ClInclude>
-    <ClInclude Include="MnAnimation.h">
-      <Filter>Engin\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="MnAnimator.h">
-      <Filter>Engin\Component</Filter>
     </ClInclude>
     <ClInclude Include="MnImp.h">
       <Filter>Contents\Monster</Filter>
@@ -204,6 +204,18 @@
     </ClInclude>
     <ClInclude Include="MnPlayerEnum.h">
       <Filter>Contents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MnRigidbody.h">
+      <Filter>Engin\Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="MnAnimation.h">
+      <Filter>Engin\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="MnAnimator.h">
+      <Filter>Engin\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="MnTransform.h">
+      <Filter>Engin\Component\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -277,9 +289,6 @@
     <ClCompile Include="MnImage.cpp">
       <Filter>Engin\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="MnTransform.cpp">
-      <Filter>Engin\Component</Filter>
-    </ClCompile>
     <ClCompile Include="MnTitleBG.cpp">
       <Filter>Contents\BG</Filter>
     </ClCompile>
@@ -294,12 +303,6 @@
     </ClCompile>
     <ClCompile Include="MnTitle_Letter.cpp">
       <Filter>Contents\Letters</Filter>
-    </ClCompile>
-    <ClCompile Include="MnAnimation.cpp">
-      <Filter>Engin\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="MnAnimator.cpp">
-      <Filter>Engin\Component</Filter>
     </ClCompile>
     <ClCompile Include="MnImp.cpp">
       <Filter>Contents\Monster</Filter>
@@ -330,6 +333,18 @@
     </ClCompile>
     <ClCompile Include="MnFadeInOut.cpp">
       <Filter>Contents\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="MnRigidbody.cpp">
+      <Filter>Engin\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="MnAnimation.cpp">
+      <Filter>Engin\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="MnAnimator.cpp">
+      <Filter>Engin\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTransform.cpp">
+      <Filter>Engin\Component\Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
