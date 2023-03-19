@@ -15,14 +15,15 @@
 namespace Mn
 {
 	Kaho_Human::Kaho_Human()
-		:_PlayerStatus(ePlayerStatus::Idle)
-		,_Animator(nullptr)
+		: _PlayerStatus(ePlayerStatus::Idle)
+		, _Animator(nullptr)
+		, _Rigidbody(nullptr)
 		, _Image(nullptr)
-		,_Combo(false)
+		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
-		,_IsActive(true)
-		,_Dir(eDir::R)
+		, _IsActive(true)
+		, _Dir(eDir::R)
 		, _col(24)
 		, _row(44)
 	{
@@ -37,9 +38,9 @@ namespace Mn
 		_Rigidbody = AddComponent<Rigidbody>();
 		_Rigidbody->SetMass(1.0f);
 
-		//Collider* collider = AddComponent<Collider>();
-		//collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
-		//collider->Size(Vector2(24.0f * 3, 40.0f * 3));
+		Collider* collider = AddComponent<Collider>();
+		collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
+		collider->Size(Vector2(24.0f * 3, 40.0f * 3));
 
 		Image* _Image = Resources::Load<Image>(L"Kaho", L"..\\Resources\\Kaho_Human.bmp");
 		_Animator = AddComponent<Animator>();
