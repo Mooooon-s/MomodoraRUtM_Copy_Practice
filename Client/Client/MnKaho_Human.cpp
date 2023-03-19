@@ -336,7 +336,7 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Jump;
 			_IsGround = false;
 			_Rigidbody->SetGround(_IsGround);
-			_Rigidbody->AddForce(Vector2(0.0f, 200.0f));
+			_Rigidbody->AddForce(Vector2(0.0f, 1000.0f));
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))

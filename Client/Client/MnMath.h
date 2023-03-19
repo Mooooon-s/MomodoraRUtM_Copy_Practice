@@ -70,10 +70,10 @@ struct Vector2 {
 		y *= other.y;
 	}
 
-	void operator*=(const float ratio)
+	void operator*=(const float& value)
 	{
-		x *= ratio;
-		y *= ratio;
+		x *= value;
+		y *= value;
 	}
 
 	Vector2 operator*(Vector2 other)

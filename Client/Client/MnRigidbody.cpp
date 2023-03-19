@@ -78,9 +78,11 @@ namespace Mn
 		//move
 		Transform* tr = Owner()->GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
-		pos += _Velocity * Time::DeltaTime();
-		if (pos.y < 700.0f)
+		pos = pos+ _Velocity * Time::DeltaTime();
+		
+		if (pos.y > 500.0f)
 			_IsGround = true;
+
 		tr->Pos(pos);
 		_Force.Clear();
 	}
