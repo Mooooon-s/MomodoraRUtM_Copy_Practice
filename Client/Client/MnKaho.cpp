@@ -13,6 +13,7 @@ namespace Mn
 		:_bIsCat(false)
 		,kahoCat(nullptr)
 		,kahoHuman(nullptr)
+		,_Dir(eDir::R)
 	{
 	}
 	Kaho::~Kaho()
@@ -22,10 +23,8 @@ namespace Mn
 	void Kaho::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
-		_Pos=tr->Pos();
 		_Pos = Vector2(700.0f,400.0f);
 		tr->Pos(_Pos);
-		Camera::SetTarget(kahoHuman);
 		GameObject::Initialize();
 	}
 

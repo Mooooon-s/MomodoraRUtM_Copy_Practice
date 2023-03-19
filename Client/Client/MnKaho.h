@@ -10,12 +10,11 @@ namespace Mn
 	class Kaho : public GameObject
 	{
 	private:
-		Vector2			_Pos;
-		bool			_bIsCat;
-		Kaho_Cat*		kahoCat;
 		Kaho_Human*		kahoHuman;
-		Collider*		_KahoColl;
+		Kaho_Cat*		kahoCat;
+		Vector2			_Pos;
 		eDir			_Dir;
+		bool			_bIsCat;
 	public:
 		Kaho();
 		~Kaho();

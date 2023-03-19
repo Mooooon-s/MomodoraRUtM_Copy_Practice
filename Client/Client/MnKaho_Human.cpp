@@ -21,6 +21,7 @@ namespace Mn
 		,_Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
+		,_IsActive(true)
 		,_Dir(eDir::R)
 		, _col(24)
 		, _row(44)
