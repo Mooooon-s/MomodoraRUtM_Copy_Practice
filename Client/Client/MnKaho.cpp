@@ -39,7 +39,8 @@ namespace Mn
 			_bIsCat = true;
 			kahoCat->Active(true);
 			kahoHuman->Active(false);
-			kahoHuman->animationCtrl();
+			kahoHuman->PlayerStatus(ePlayerStatus::Idle);
+			kahoCat->animationCtrl();
 			Camera::SetTarget(kahoCat);
 		}
 		else if(Input::GetKeyDown(eKeyCode::M) && _bIsCat == true)
@@ -48,6 +49,7 @@ namespace Mn
 			_bIsCat = false;
 			kahoCat->Active(false);
 			kahoHuman->Active(true);
+			kahoCat->PlayerStatus(ePlayerStatus::Idle);
 			kahoHuman->animationCtrl();
 			Camera::SetTarget(kahoHuman);
 		}

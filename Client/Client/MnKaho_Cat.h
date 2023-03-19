@@ -50,6 +50,8 @@ namespace Mn
 		void preCrouchComplete();
 		void postCrouchComplete();
 
+		void RunComplete();
+
 
 	};
 }

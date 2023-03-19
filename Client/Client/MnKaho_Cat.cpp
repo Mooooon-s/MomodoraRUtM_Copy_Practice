@@ -68,7 +68,7 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Run_Right", _Image, Vector2(0, 32 * 5), 9, 11, 6, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Run_Left", _Image, Vector2(0, 32 * 6), 9, 11, 6, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Break_Right", _Image, Vector2(0, 32 * 7), 9, 11, 6, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Break_Right", _Image, Vector2(0, 32 * 8), 9, 11, 6, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Break_Left", _Image, Vector2(0, 32 * 8), 9, 11, 6, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_PreDash_Right", _Image, Vector2(0, 32 * 9), 9, 11, 2, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_PreDash_Left", _Image, Vector2(0, 32 * 10), 9, 11, 2, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Dash_Right", _Image, Vector2(48*2, 32 * 9), 9, 11, 1, Vector2::Zero, 0.08);
@@ -98,6 +98,9 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Dash_Right") = std::bind(&Kaho_Cat::dashComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
+
+		_Animator->GetCompleteEvent(L"Cat_Break_Right") = std::bind(&Kaho_Cat::RunComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Break_Left") = std::bind(&Kaho_Cat::RunComplete, this);
 		
 
 		_Animator->Play(L"Cat_Idle_Right", true);
@@ -197,7 +200,10 @@ namespace Mn
 			|| Input::GetKeyUp(eKeyCode::Right))
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
+			if(_Dir==eDir::R)
+				_Animator->Play(L"Cat_Break_Right", false);
+			else
+				_Animator->Play(L"Cat_Break_Left", false);
 		}
 
 		if (Input::GetKeyDown(eKeyCode::S))
@@ -362,6 +368,11 @@ namespace Mn
 	}
 	void Kaho_Cat::postCrouchComplete()
 	{
+		animationCtrl();
+	}
+	void Kaho_Cat::RunComplete()
+	{
+		PlayerStatus(ePlayerStatus::Idle);
 		animationCtrl();
 	}
 	void Kaho_Cat::animationCtrl()
