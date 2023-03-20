@@ -36,8 +36,8 @@ namespace Mn
 		{
 			kahoCat->Dir(_Dir);
 			_bIsCat = true;
-			kahoCat->Active(true);
-			kahoHuman->Active(false);
+			kahoCat->Active(eState::Active);
+			kahoHuman->Active(eState::Pause);
 			kahoHuman->PlayerStatus(ePlayerStatus::Idle);
 			kahoCat->animationCtrl();
 			Camera::SetTarget(kahoCat);
@@ -46,13 +46,12 @@ namespace Mn
 		{
 			kahoHuman->Dir(_Dir);
 			_bIsCat = false;
-			kahoCat->Active(false);
-			kahoHuman->Active(true);
+			kahoCat->Active(eState::Pause);
+			kahoHuman->Active(eState::Active);
 			kahoCat->PlayerStatus(ePlayerStatus::Idle);
 			kahoHuman->animationCtrl();
 			Camera::SetTarget(kahoHuman);
 		}
-
 		tr->Pos(_Pos);
 	}
 

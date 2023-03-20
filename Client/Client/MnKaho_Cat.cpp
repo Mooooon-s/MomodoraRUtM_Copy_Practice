@@ -12,11 +12,12 @@
 namespace Mn
 {
 	Kaho_Cat::Kaho_Cat()
-		:_PlayerStatus(ePlayerStatus::Idle)
-		,_Animator(nullptr)
-		,_Dir(eDir::R)
-		,_IsGround(true)
-		,_IsActive(false)
+		: _PlayerStatus(ePlayerStatus::Idle)
+		, _Animator(nullptr)
+		, _Dir(eDir::R)
+		, _Combo(false)
+		, _IsGround(true)
+		, _Dashtime(0.0f)
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -24,6 +25,7 @@ namespace Mn
 	}
 	void Kaho_Cat::Initialize()
 	{
+		GameObject::State(eState::Pause);
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos();
 
@@ -108,7 +110,7 @@ namespace Mn
 	}
 	void Kaho_Cat::Update()
 	{
-		if (_IsActive)
+		if (GameObject::State()==eState::Active)
 		{
 			Transform* tr = GetComponent<Transform>();
 			_Pos = tr->Pos();
@@ -144,7 +146,7 @@ namespace Mn
 	}
 	void Kaho_Cat::Render(HDC hdc)
 	{
-		if(_IsActive)
+		if(GameObject::State() == eState::Active)
 			GameObject::Render(hdc);
 	}
 	void Kaho_Cat::Release()

@@ -19,7 +19,6 @@ namespace Mn
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
-		bool			_IsActive;
 		int				_col;
 		int				_row;
 	public:
@@ -34,7 +33,7 @@ namespace Mn
 		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
 		void Dir(eDir dir) { _Dir = dir; }
 		eDir Dir() { return _Dir; }
-		void Active(bool active) { _IsActive = active; }
+		void Active(eState state) { GameObject::State(state); }
 		void animationCtrl();
 	private:
 		void idle();

@@ -22,7 +22,6 @@ namespace Mn
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
-		, _IsActive(true)
 		, _Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -175,7 +174,7 @@ namespace Mn
 	}
 	void Kaho_Human::Update()
 	{
-		if (_IsActive)
+		if (GameObject::State()==eState::Active)
 		{
 			Transform* tr = GetComponent<Transform>();
 			_pos = tr->Pos();
@@ -220,7 +219,7 @@ namespace Mn
 	}
 	void Kaho_Human::Render(HDC hdc)
 	{
-		if(_IsActive)
+		if(GameObject::State()==eState::Active)
 			GameObject::Render(hdc);
 	}
 	void Kaho_Human::Release()
@@ -439,11 +438,11 @@ namespace Mn
 				animationCtrl();
 		}
 		if (_Dir == eDir::L)
-			_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
-			//_pos.x -= 100.0f * Time::DeltaTime();
+			//_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
+			_pos.x -= 100.0f * Time::DeltaTime();
 		else if(_Dir == eDir::R)
-			_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
-			//_pos.x += 100.0f * Time::DeltaTime();
+			//_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
+			_pos.x += 100.0f * Time::DeltaTime();
 	}
 	void Kaho_Human::attack()
 	{
@@ -506,11 +505,13 @@ namespace Mn
 	{
 		if (Input::GetKey(eKeyCode::Left))
 		{
+			_pos.x -= 100.0f * Time::DeltaTime();
 			_Dir = eDir::L;
 			animationCtrl();
 		}
 		else if (Input::GetKey(eKeyCode::Right))
 		{
+			_pos.x += 100.0f * Time::DeltaTime();
 			_Dir = eDir::R;
 			animationCtrl();
 		}
@@ -536,6 +537,13 @@ namespace Mn
 	void Kaho_Human::fall()
 	{
 		_IsGround = GetComponent<Rigidbody>()->GetGround();
+
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
+
 		if (_IsGround == true)
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
@@ -552,7 +560,6 @@ namespace Mn
 	void Kaho_Human::useItem()
 	{
 	}
-
 	//-------------------------------------------------------------------------------------------------------------------
 	//
 	//													Events

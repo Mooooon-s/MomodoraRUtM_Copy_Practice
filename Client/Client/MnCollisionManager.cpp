@@ -95,6 +95,9 @@ namespace Mn
 
 	bool CollisionManager::Intersect(Collider* left, Collider* right)
 	{
+		if ((int)left->Owner()->State() != 0 || (int)right->Owner()->State() != 0)
+			return false;
+
 		Vector2 leftPos = left->Pos();
 		Vector2 rightPos = right->Pos();
 
