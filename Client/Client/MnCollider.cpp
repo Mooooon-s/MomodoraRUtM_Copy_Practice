@@ -21,6 +21,8 @@ namespace Mn
 	}
 	void Collider::Initialize()
 	{
+		Transform* tr = Owner()->GetComponent<Transform>();
+		_Pos = tr->Pos() + _Center;
 	}
 	void Collider::Update()
 	{
@@ -44,22 +46,24 @@ namespace Mn
 		(HPEN)SelectObject(hdc, oldPen);
 		(HBRUSH)SelectObject(hdc, oldBrush);
 		DeleteObject(pen);
+
+		_CollisionCount = 0;
 	}
 	void Collider::Release()
 	{
 	}
 	void Collider::OnCollisionEnter(Collider* other)
 	{
-		_CollisionCount++;
+		
 		Owner()->OnCollisionEnter(other);
 	}
 	void Collider::OnCollisionStay(Collider* other)
 	{
+		_CollisionCount = 1;
 		Owner()->OnCollisionStay(other);
 	}
 	void Collider::OnCollisionExit(Collider* other)
 	{
-		_CollisionCount--;
 		Owner()->OnCollisionExit(other);
 	}
 }

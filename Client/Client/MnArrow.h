@@ -1,5 +1,6 @@
 #pragma once
 #include "MnGameObject.h"
+#include "MnPlayerEnum.h"
 
 namespace Mn
 {
@@ -7,7 +8,8 @@ namespace Mn
 	class Arrow : public GameObject
 	{
 	private:
-		Animator* _Animator;
+		Animator*	_Animator;
+		eDir		_Dir;
 	public:
 		Arrow();
 		~Arrow();
@@ -16,6 +18,8 @@ namespace Mn
 		void Update() override;
 		void Render(HDC hdc) override;
 		void Release() override;
+	public:
+		void Dir(eDir dir) { _Dir = dir; }
 	};
 }
 

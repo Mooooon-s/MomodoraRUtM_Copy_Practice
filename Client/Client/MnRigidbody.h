@@ -28,6 +28,9 @@ namespace Mn
 		void SetMass(float mass) { _Mass = mass; }
 		void AddForce(Vector2 force);
 		void SetGround(bool ground) { _IsGround = ground; }
+		bool GetGround() { return _IsGround; }
+		Vector2 Velocity() { return _Velocity; }
+		void Velocity(Vector2 velocity) { _Velocity = velocity; }
 	};
 }
 

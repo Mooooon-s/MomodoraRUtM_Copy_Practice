@@ -27,9 +27,18 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
-		pos.x += 1000.0f * Time::DeltaTime();
-		tr->Pos(pos);
-		_Animator->Play(L"Arrow_Right", false);
+		if(_Dir==eDir::R)
+		{
+			pos.x += 1000.0f * Time::DeltaTime();
+			tr->Pos(pos);
+			_Animator->Play(L"Arrow_Right", false);
+		}
+		else
+		{
+			pos.x -= 1000.0f * Time::DeltaTime();
+			tr->Pos(pos);
+			_Animator->Play(L"Arrow_Left", false);
+		}
 	}
 	void Arrow::Render(HDC hdc)
 	{

@@ -137,41 +137,39 @@ namespace Mn
 		//ComboAttack
 		_Animator->GetCompleteEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackComplete, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackComplete, this);
-
 		_Animator->GetCompleteEvent(L"Melee_Attack_2_Right") = std::bind(&Kaho_Human::attackCombo1Complete, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_2_Left") = std::bind(&Kaho_Human::attackCombo1Complete, this);
-
 		_Animator->GetCompleteEvent(L"Melee_Attack_3_Right") = std::bind(&Kaho_Human::attackCombo2Complete, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_3_Left") = std::bind(&Kaho_Human::attackCombo2Complete, this);
-
-		_Animator->GetStartEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::beforeRange, this);
-		_Animator->GetCompleteEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::afterRange, this);
-
-		_Animator->GetStartEvent(L"Range_Attack_Left") = std::bind(&Kaho_Human::beforeRange, this);
-		_Animator->GetCompleteEvent(L"Range_Attack_Left") = std::bind(&Kaho_Human::afterRange, this);
-
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Right") = std::bind(&Kaho_Human::airAttackComplete, this);
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Left") = std::bind(&Kaho_Human::airAttackComplete, this);
-
-
-		_Animator->GetStartEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeStart, this);
-		_Animator->GetStartEvent(L"Crouch_Range_Attack_Left") = std::bind(&Kaho_Human::CrouchRangeStart, this);
-
-		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
-		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Left") = std::bind(&Kaho_Human::CrouchRangeComplete, this);
-
+		//RangeAttack
+		_Animator->GetStartEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::beforeRange, this);
+		_Animator->GetCompleteEvent(L"Range_Attack_Right") = std::bind(&Kaho_Human::afterRange, this);
+		_Animator->GetStartEvent(L"Range_Attack_Left") = std::bind(&Kaho_Human::beforeRange, this);
+		_Animator->GetCompleteEvent(L"Range_Attack_Left") = std::bind(&Kaho_Human::afterRange, this);
+		_Animator->GetStartEvent(L"Air_Range_Attack_Right") = std::bind(&Kaho_Human::airRangeStart, this);
+		_Animator->GetCompleteEvent(L"Air_Range_Attack_Right") = std::bind(&Kaho_Human::airRangeComplete, this);
+		_Animator->GetStartEvent(L"Air_Range_Attack_Left") = std::bind(&Kaho_Human::airRangeStart, this);
+		_Animator->GetCompleteEvent(L"Air_Range_Attack_Left") = std::bind(&Kaho_Human::airRangeComplete, this);
+		_Animator->GetStartEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::crouchRangeStart, this);
+		_Animator->GetStartEvent(L"Crouch_Range_Attack_Left") = std::bind(&Kaho_Human::crouchRangeStart, this);
+		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Right") = std::bind(&Kaho_Human::crouchRangeComplete, this);
+		_Animator->GetCompleteEvent(L"Crouch_Range_Attack_Left") = std::bind(&Kaho_Human::crouchRangeComplete, this);
+		//Roll
 		_Animator->GetCompleteEvent(L"Roll_Right") = std::bind(&Kaho_Human::afterRoll, this);
 		_Animator->GetCompleteEvent(L"Roll_Left") = std::bind(&Kaho_Human::afterRoll, this);
-
-
+		//useItem
 		_Animator->GetCompleteEvent(L"Use_Item_Right") = std::bind(&Kaho_Human::afterUseItem, this);
 		_Animator->GetCompleteEvent(L"Use_Item_Left") = std::bind(&Kaho_Human::afterUseItem, this);
-
+		//Rise Up
 		_Animator->GetCompleteEvent(L"Rise_Right") = std::bind(&Kaho_Human::riseUp, this);
 		_Animator->GetCompleteEvent(L"Rise_Left") = std::bind(&Kaho_Human::riseUp, this);
-
+		//Stop Run
 		_Animator->GetCompleteEvent(L"End_Run_Right") = std::bind(&Kaho_Human::EndRun, this);
 		_Animator->GetCompleteEvent(L"End_Run_Left") = std::bind(&Kaho_Human::EndRun, this);
+		//----------------------------------------------------------------------------------------------------------------
+		
 		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
 	}
@@ -202,6 +200,9 @@ namespace Mn
 			case ePlayerStatus::Jump:
 				jump();
 				break;
+			case ePlayerStatus::Fall:
+				fall();
+				break;
 			case ePlayerStatus::Roll:
 				roll();
 				break;
@@ -226,7 +227,6 @@ namespace Mn
 	{
 		GameObject::Release();
 	}
-
 	//status
 	void Kaho_Human::animationCtrl()
 	{
@@ -247,18 +247,35 @@ namespace Mn
 				_Animator->Play(L"Run_Left", true);
 			break;
 		case ePlayerStatus::Attack:
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Melee_Attack_1_Right", false);
+			if (_IsGround)
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Melee_Attack_1_Right", false);
+				else
+					_Animator->Play(L"Melee_Attack_1_Left", false);
+			}
 			else
-				_Animator->Play(L"Melee_Attack_1_Left", false);
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Air_Melee_Attack_Right", false);
+				else
+					_Animator->Play(L"Air_Melee_Attack_Left", false);
+			}
 			break;
 		case ePlayerStatus::Shoot:
-			if (!_IsCrouch)
+			if (!_IsCrouch && _Rigidbody->GetGround() == true)
 			{
 				if (_Dir == eDir::R)
 					_Animator->Play(L"Range_Attack_Right", false);
 				else
 					_Animator->Play(L"Range_Attack_Left", false);
+			}
+			else if (_Rigidbody->GetGround() == false)
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Air_Range_Attack_Right", false);
+				else
+					_Animator->Play(L"Air_Range_Attack_Left", false);
 			}
 			else
 			{
@@ -291,6 +308,12 @@ namespace Mn
 				_Animator->Play(L"Use_Item_Right", false);
 			else
 				_Animator->Play(L"Use_Item_Left", false);
+			break;
+		case ePlayerStatus::Fall:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Fall_Right", false);
+			else
+				_Animator->Play(L"Fall_Left", false);
 			break;
 		default:
 			break;
@@ -330,10 +353,14 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
-			_PlayerStatus = ePlayerStatus::Jump;
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y -= 500.0f;
+
+			_Rigidbody->Velocity(velocity);
 			_IsGround = false;
 			_Rigidbody->SetGround(_IsGround);
-			_Rigidbody->AddForce(Vector2(0.0f, 1000.0f));
+
+			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
@@ -362,10 +389,14 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
-			_PlayerStatus = ePlayerStatus::Jump;
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y -= 500.0f;
+
+			_Rigidbody->Velocity(velocity);
 			_IsGround = false;
-			_Rigidbody->SetGround(false);
-			_Rigidbody->AddForce(Vector2(0.0f, 200.0f));
+			_Rigidbody->SetGround(_IsGround);
+
+			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
 		}
 
@@ -410,7 +441,7 @@ namespace Mn
 		if (_Dir == eDir::L)
 			_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
 			//_pos.x -= 100.0f * Time::DeltaTime();
-		else
+		else if(_Dir == eDir::R)
 			_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
 			//_pos.x += 100.0f * Time::DeltaTime();
 	}
@@ -473,21 +504,54 @@ namespace Mn
 	}
 	void Kaho_Human::jump()
 	{
-		if (Input::GetKeyUp(eKeyCode::A))
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+			animationCtrl();
+		}
+		else if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+			animationCtrl();
+		}
+
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
+		if (Input::GetKeyDown(eKeyCode::D))
+		{
+			_PlayerStatus = ePlayerStatus::Shoot;
+			animationCtrl();
+		}
+
+		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
+		if (velocity.y > 0)
+		{
+			_PlayerStatus = ePlayerStatus::Fall;
+			animationCtrl();
+		}
+	}
+	void Kaho_Human::fall()
+	{
+		_IsGround = GetComponent<Rigidbody>()->GetGround();
+		if (_IsGround == true)
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
-			_IsGround = true;
-			_Rigidbody->SetGround(_IsGround);
 			animationCtrl();
 		}
 	}
 	void Kaho_Human::roll()
 	{
+		if(_Dir==eDir::R)
+			_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
+		else
+			_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
 	}
 	void Kaho_Human::useItem()
 	{
 	}
-
 	//Animation Event
 	void Kaho_Human::attackComplete()
 	{
@@ -529,24 +593,36 @@ namespace Mn
 	}
 	void Kaho_Human::airAttackComplete()
 	{
-		_PlayerStatus = ePlayerStatus::Idle;
+		_PlayerStatus = ePlayerStatus::Fall;
 		animationCtrl();
 	}
-
-	void Kaho_Human::CrouchRangeStart()
+	void Kaho_Human::crouchRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		object::Instantiate<Arrow>(tr->Pos(), eLayerType::Attack);
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos(), eLayerType::Attack);
+		arrow->Dir(_Dir);
 	}
-
-	void Kaho_Human::CrouchRangeComplete()
+	void Kaho_Human::crouchRangeComplete()
 	{
+		animationCtrl();
+	}
+	void Kaho_Human::airRangeStart()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f), eLayerType::Attack);
+		arrow->Dir(_Dir);
+	}
+	void Kaho_Human::airRangeComplete()
+	{
+		if (_Rigidbody->GetGround() == false)
+			_PlayerStatus = ePlayerStatus::Fall;
 		animationCtrl();
 	}
 	void Kaho_Human::beforeRange()
 	{
 		Transform* tr = GetComponent<Transform>();
-		object::Instantiate<Arrow>(tr->Pos(),eLayerType::Attack);
+		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f),eLayerType::Attack);
+		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::afterRange()
 	{

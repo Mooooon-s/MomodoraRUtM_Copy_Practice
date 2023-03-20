@@ -27,6 +27,7 @@ namespace Mn
 		void  UpdateStatus();
 		const Vector2 KahoPos() { return _Pos; }
 		const Vector2 KahoPos(Vector2 pos) { _Pos = pos; }
+		bool IsCat() { return _bIsCat; }
 		void GetCatHunam(Kaho_Cat* c, Kaho_Human* h) 
 		{ 
 			kahoCat = c; 

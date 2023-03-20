@@ -217,6 +217,7 @@
     <ClInclude Include="MnTransform.h">
       <Filter>Engin\Component\Transform</Filter>
     </ClInclude>
+    <ClInclude Include="MnGround.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -346,5 +347,6 @@
     <ClCompile Include="MnTransform.cpp">
       <Filter>Engin\Component\Transform</Filter>
     </ClCompile>
+    <ClCompile Include="MnGround.cpp" />
   </ItemGroup>
 </Project>

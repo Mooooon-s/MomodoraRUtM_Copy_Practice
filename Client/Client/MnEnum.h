@@ -12,6 +12,7 @@ enum class eLayerType {
 	Monster,
 	Player,
 	Effect,
+	Ground,
 	Attack,
 	UI,
 	Max,

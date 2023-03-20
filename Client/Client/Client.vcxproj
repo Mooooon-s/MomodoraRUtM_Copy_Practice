@@ -159,6 +159,7 @@
     <ClInclude Include="MnEnum.h" />
     <ClInclude Include="MnFadeInOut.h" />
     <ClInclude Include="MnGameObject.h" />
+    <ClInclude Include="MnGround.h" />
     <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnImp.h" />
     <ClInclude Include="MnInput.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="MnCamera.cpp" />
     <ClCompile Include="MnCollisionManager.cpp" />
     <ClCompile Include="MnArrow.cpp" />
+    <ClCompile Include="MnGround.cpp" />
     <ClCompile Include="MnKaho_Human.cpp" />
     <ClCompile Include="MnKaho.cpp" />
     <ClCompile Include="MnArsonist.cpp" />

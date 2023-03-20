@@ -6,6 +6,7 @@
 #include "MnKaho_Cat.h"
 #include "MnKaho_Human.h"
 #include "MnArsonist.h"
+#include "MnGround.h"
 #include "MnInput.h"
 #include "MnSceneManager.h"
 #include "MnCamera.h"
@@ -34,6 +35,7 @@ namespace Mn
 		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
 		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
 		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f),eLayerType::Monster);
+		object::Instantiate<Ground>(Vector2(0.0f, 500.0f), eLayerType::Ground);
 
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
@@ -58,6 +60,7 @@ namespace Mn
 		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 	}
 	void PlayScene::OnExit()
 	{

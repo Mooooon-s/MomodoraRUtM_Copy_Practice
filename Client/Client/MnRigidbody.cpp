@@ -14,7 +14,7 @@ namespace Mn
 	{
 		_Gravity = Vector2(0.0f, 800.0f);
 		_LimitedVelocity = Vector2(200.0f, 1000.0f);
-		_Friction = 150.0f;
+		_Friction = 250.0f;
 		_IsGround = true;
 	}
 	Rigidbody::~Rigidbody()
@@ -79,9 +79,6 @@ namespace Mn
 		Transform* tr = Owner()->GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		pos = pos+ _Velocity * Time::DeltaTime();
-		
-		if (pos.y > 500.0f)
-			_IsGround = true;
 
 		tr->Pos(pos);
 		_Force.Clear();

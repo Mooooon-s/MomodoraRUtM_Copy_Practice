@@ -76,6 +76,12 @@ struct Vector2 {
 		y *= value;
 	}
 
+	void operator-=(const float& value)
+	{
+		x -= value;
+		y -= value;
+	}
+
 	Vector2 operator*(Vector2 other)
 	{
 		Vector2 tmp;

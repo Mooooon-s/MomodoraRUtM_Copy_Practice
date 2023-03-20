@@ -43,6 +43,7 @@ namespace Mn
 		void shoot();
 		void crouch();
 		void jump();
+		void fall();
 		void roll();
 		void useItem();
 	private:
@@ -50,8 +51,10 @@ namespace Mn
 		void attackCombo1Complete();
 		void attackCombo2Complete();
 		void airAttackComplete();
-		void CrouchRangeStart();
-		void CrouchRangeComplete();
+		void crouchRangeStart();
+		void crouchRangeComplete();
+		void airRangeStart();
+		void airRangeComplete();
 		void beforeRange();
 		void afterRange();
 		void afterRoll();
