@@ -6,12 +6,14 @@ namespace Mn
 {
 	class Kaho;
 	class Animator;
+	class Rigidbody;
 	class Kaho_Cat : public GameObject
 	{
 	private:
 		ePlayerStatus	_PlayerStatus;
 		Vector2			_Pos;
 		Animator*		_Animator;
+		Rigidbody*		_Rigidbody;
 		eDir			_Dir;
 		float			_Dashtime;
 		bool			_Combo;

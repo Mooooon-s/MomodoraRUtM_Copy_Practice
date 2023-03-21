@@ -8,6 +8,7 @@
 #include "MnTransform.h"
 #include "MnCollider.h"
 #include "MnKaho.h"
+#include "MnRigidbody.h"
 
 namespace Mn
 {
@@ -32,6 +33,9 @@ namespace Mn
 		Collider* col = AddComponent<Collider>();
 		col->Size(Vector2(32.0f * 3, 32.0f * 3));
 		col->Center(Vector2(-16.0f*3,-32.0f*3));
+
+		_Rigidbody = AddComponent<Rigidbody>();
+		_Rigidbody->SetMass(1.0f);
 		
 		_Animator = AddComponent<Animator>();
 		Image* _Image = Resources::Load<Image>(L"Kaho_Cat", L"..\\Resources\\Kaho_Cat.bmp");

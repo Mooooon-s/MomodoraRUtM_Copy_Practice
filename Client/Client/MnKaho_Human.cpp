@@ -19,6 +19,7 @@ namespace Mn
 		, _Animator(nullptr)
 		, _Rigidbody(nullptr)
 		, _Image(nullptr)
+		, _DashCharge(0.0f)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
@@ -39,7 +40,7 @@ namespace Mn
 
 		Collider* collider = AddComponent<Collider>();
 		collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
-		collider->Size(Vector2(24.0f * 3, 40.0f * 3));
+		collider->Size(Vector2(24.0f * 3, 38.0f * 3));
 
 		Image* _Image = Resources::Load<Image>(L"Kaho", L"..\\Resources\\Kaho_Human.bmp");
 		_Animator = AddComponent<Animator>();
@@ -104,16 +105,16 @@ namespace Mn
 		_Animator->CreateAnimation(L"Use_Item_Right", _Image, Vector2(0, (48 * 30)), _col, _row, 11, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Use_Item_Left", _Image, Vector2(0, (48 * 31)), _col, _row, 11, Vector2::Zero, 0.08);
 		//Dash
-		_Animator->CreateAnimation(L"Dash_Right", _Image, Vector2(192, (48 * 4)), _col, _row, 1, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Dash_Left", _Image, Vector2(240, (48 * 4)), _col, _row, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Dash_Right", _Image, Vector2(48*4, (48 * 2)), _col, _row, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Dash_Left", _Image, Vector2(48*5, (48 * 2)), _col, _row, 1, Vector2::Zero, 0.08);
 		//preDash
 		_Animator->CreateAnimation(L"PreDash_Right", _Image, Vector2(0, (48 * 32)), _col, _row, 3, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"PostDash_Right", _Image, Vector2(144, (48 * 32)), _col, _row, 3, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"PreDash_Left", _Image, Vector2(0, (48 * 33)), _col, _row, 3, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"PostDash_Left", _Image, Vector2(144, (48 * 33)), _col, _row, 3, Vector2::Zero, 0.08);
 		//soft_Landing
-		_Animator->CreateAnimation(L"soft_Landing_Right", _Image, Vector2(0, (48 * 34)), _col, _row, 11, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"soft_Landing_Left", _Image, Vector2(0, (48 * 35)), _col, _row, 11, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"soft_Landing_Right", _Image, Vector2(0, (48 * 34)), _col, _row, 4, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"soft_Landing_Left", _Image, Vector2(0, (48 * 35)), _col, _row, 4, Vector2::Zero, 0.08);
 		//Hard_Landing
 		_Animator->CreateAnimation(L"Hard_Landing_Right", _Image, Vector2(0, (48 * 36)), _col, _row, 11, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Hard_Landing_Left", _Image, Vector2(0, (48 * 37)), _col, _row, 11, Vector2::Zero, 0.08);
@@ -165,8 +166,21 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Rise_Right") = std::bind(&Kaho_Human::riseUp, this);
 		_Animator->GetCompleteEvent(L"Rise_Left") = std::bind(&Kaho_Human::riseUp, this);
 		//Stop Run
-		_Animator->GetCompleteEvent(L"End_Run_Right") = std::bind(&Kaho_Human::EndRun, this);
-		_Animator->GetCompleteEvent(L"End_Run_Left") = std::bind(&Kaho_Human::EndRun, this);
+		_Animator->GetCompleteEvent(L"End_Run_Right") = std::bind(&Kaho_Human::endRun, this);
+		_Animator->GetCompleteEvent(L"End_Run_Left") = std::bind(&Kaho_Human::endRun, this);
+
+		_Animator->GetCompleteEvent(L"soft_Landing_Right") = std::bind(&Kaho_Human::landingComplete, this);
+		_Animator->GetCompleteEvent(L"soft_Landing_Left") = std::bind(&Kaho_Human::landingComplete, this);
+
+		_Animator->GetCompleteEvent(L"PreDash_Right") = std::bind(&Kaho_Human::preDashComplete, this);
+		_Animator->GetCompleteEvent(L"PreDash_Left") = std::bind(&Kaho_Human::preDashComplete, this);
+		_Animator->GetCompleteEvent(L"Dash_Right") = std::bind(&Kaho_Human::DashComplete, this);
+		_Animator->GetCompleteEvent(L"Dash_Left") = std::bind(&Kaho_Human::DashComplete, this);
+		_Animator->GetCompleteEvent(L"PostDash_Right") = std::bind(&Kaho_Human::postDashComplete, this);
+		_Animator->GetCompleteEvent(L"PostDash_Left") = std::bind(&Kaho_Human::postDashComplete, this);
+
+		
+
 		//----------------------------------------------------------------------------------------------------------------
 		
 		_Animator->Play(L"Idle_Right", true);
@@ -297,10 +311,20 @@ namespace Mn
 				_Animator->Play(L"Jump_Left", false);
 			break;
 		case ePlayerStatus::Roll:
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Roll_Right", false);
+			if (_Rigidbody->GetGround() == true)
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Roll_Right", false);
+				else
+					_Animator->Play(L"Roll_Left", false);
+			}
 			else
-				_Animator->Play(L"Roll_Left", false);
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Dash_Right", false);
+				else
+					_Animator->Play(L"Dash_Left", false);
+			}
 			break;
 		case ePlayerStatus::UseItem:
 			if (_Dir == eDir::R)
@@ -438,11 +462,9 @@ namespace Mn
 				animationCtrl();
 		}
 		if (_Dir == eDir::L)
-			//_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
-			_pos.x -= 100.0f * Time::DeltaTime();
+			_pos.x -= 200.0f * Time::DeltaTime();
 		else if(_Dir == eDir::R)
-			//_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
-			_pos.x += 100.0f * Time::DeltaTime();
+			_pos.x += 200.0f * Time::DeltaTime();
 	}
 	void Kaho_Human::attack()
 	{
@@ -527,6 +549,15 @@ namespace Mn
 			animationCtrl();
 		}
 
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			_PlayerStatus = ePlayerStatus::Roll;
+			if (_Dir == eDir::R)
+				_Animator->Play(L"PreDash_Right", false);
+			else
+				_Animator->Play(L"PreDash_Left", false);
+		}
+
 		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
 		if (velocity.y > 0)
 		{
@@ -536,6 +567,17 @@ namespace Mn
 	}
 	void Kaho_Human::fall()
 	{
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_pos.x -= 100.0f * Time::DeltaTime();
+			_Dir = eDir::L;
+		}
+		else if (Input::GetKey(eKeyCode::Right))
+		{
+			_pos.x += 100.0f * Time::DeltaTime();
+			_Dir = eDir::R;
+		}
+
 		_IsGround = GetComponent<Rigidbody>()->GetGround();
 
 		if (Input::GetKeyDown(eKeyCode::S))
@@ -547,15 +589,34 @@ namespace Mn
 		if (_IsGround == true)
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
+			if (_Dir == eDir::R)
+				_Animator->Play(L"soft_Landing_Right", false);
+			else
+				_Animator->Play(L"soft_Landing_Left", false);
 		}
 	}
 	void Kaho_Human::roll()
 	{
-		if(_Dir==eDir::R)
-			_Rigidbody->AddForce(Vector2(500.0f, 0.0f));
+		if (_Rigidbody->GetGround() == true)
+		{
+			if (_Dir == eDir::R)
+				_pos.x += 300.0f * Time::DeltaTime();
+			else
+				_pos.x -= 300.0f * Time::DeltaTime();
+		}
 		else
-			_Rigidbody->AddForce(Vector2(-500.0f, 0.0f));
+		{
+			_Rigidbody->Velocity(Vector2(0.0f, 0.0f));
+			_DashCharge += Time::DeltaTime();
+
+			if (_DashCharge >= 0.3f)
+			{
+				if (_Dir == eDir::R)
+					_pos.x += 500.0f * Time::DeltaTime();
+				else
+					_pos.x -= 500.0f * Time::DeltaTime();
+			}
+		}
 	}
 	void Kaho_Human::useItem()
 	{
@@ -657,8 +718,32 @@ namespace Mn
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
-	void Kaho_Human::EndRun()
+	void Kaho_Human::endRun()
 	{
 		animationCtrl();
+	}
+	void Kaho_Human::landingComplete()
+	{
+		animationCtrl();
+	}
+	void Kaho_Human::preDashComplete()
+	{
+		if (_DashCharge >= 0.3f)
+		{
+			animationCtrl();
+		}
+	}
+	void Kaho_Human::DashComplete()
+	{
+		if (_Dir == eDir::R)
+			_Animator->Play(L"PostDash_Right", false);
+		else
+			_Animator->Play(L"PostDash_Left", false);
+	}
+	void Kaho_Human::postDashComplete()
+	{
+		_PlayerStatus = ePlayerStatus::Fall;
+		animationCtrl();
+		_DashCharge = 0.0f;
 	}
 }

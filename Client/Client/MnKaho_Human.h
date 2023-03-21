@@ -16,6 +16,7 @@ namespace Mn
 		Vector2			_pos;
 		Image*			_Image;
 		eDir			_Dir;
+		float			_DashCharge;
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
@@ -59,7 +60,11 @@ namespace Mn
 		void afterRoll();
 		void afterUseItem();
 		void riseUp();
-		void EndRun();
+		void endRun();
+		void landingComplete();
+		void preDashComplete();
+		void DashComplete();
+		void postDashComplete();
 	};
 }
 
