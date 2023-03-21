@@ -17,7 +17,6 @@ namespace Mn
 		eDir			_Dir;
 		float			_Dashtime;
 		bool			_Combo;
-		bool			_IsGround;
 		eState			_State;
 	public:
 		Kaho_Cat();

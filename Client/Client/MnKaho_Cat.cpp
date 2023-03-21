@@ -17,7 +17,6 @@ namespace Mn
 		, _Animator(nullptr)
 		, _Dir(eDir::R)
 		, _Combo(false)
-		, _IsGround(true)
 		, _Dashtime(0.0f)
 	{
 	}
@@ -102,9 +101,9 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_PreDash_Right") = std::bind(&Kaho_Cat::preDashComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_PreDash_Left") = std::bind(&Kaho_Cat::preDashComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_Dash_Right") = std::bind(&Kaho_Cat::dashComplete, this);
-		_Animator->GetCompleteEvent(L"Cat_Dash_Right") = std::bind(&Kaho_Cat::dashComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Dash_Left") = std::bind(&Kaho_Cat::dashComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
-		_Animator->GetCompleteEvent(L"Cat_PostDash_Right") = std::bind(&Kaho_Cat::postDashComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_PostDash_Left") = std::bind(&Kaho_Cat::postDashComplete, this);
 
 		_Animator->GetCompleteEvent(L"Cat_Break_Right") = std::bind(&Kaho_Cat::RunComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_Break_Left") = std::bind(&Kaho_Cat::RunComplete, this);
@@ -266,7 +265,7 @@ namespace Mn
 		{
 			_Dir = eDir::R;
 		}
-		if (_Animator->GetActiveAnim()->IsComplete() == false && _IsGround == true)
+		if (_Animator->GetActiveAnim()->IsComplete() == false && _Rigidbody->GetGround()==true)
 		{
 			if (Input::GetKeyDown(eKeyCode::S))
 				_Combo = true;
@@ -291,9 +290,25 @@ namespace Mn
 	}
 	void Kaho_Cat::roll()
 	{
-		if (_IsGround == false)
+		if (_Rigidbody->GetGround() == true)
 		{
+			if (_Dir == eDir::R)
+				_Pos.x += 300.0f * Time::DeltaTime();
+			else
+				_Pos.x -= 300.0f * Time::DeltaTime();
+		}
+		else
+		{
+			_Rigidbody->Velocity(Vector2(0.0f, 0.0f));
 			_Dashtime += Time::DeltaTime();
+
+			if (_Dashtime >= 0.3f)
+			{
+				if (_Dir == eDir::R)
+					_Pos.x += 1000.0f * Time::DeltaTime();
+				else
+					_Pos.x -= 1000.0f * Time::DeltaTime();
+			}
 		}
 	}
 	void Kaho_Cat::jump()
@@ -314,7 +329,10 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
 			_PlayerStatus = ePlayerStatus::Roll;
-			animationCtrl();
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_PreDash_Right", false);
+			else
+				_Animator->Play(L"Cat_PreDash_Left", false);
 		}
 
 		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
@@ -387,30 +405,21 @@ namespace Mn
 	{
 		if (_Dashtime >= 0.3)
 		{
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Cat_Dash_Right", true);
-			else
-				_Animator->Play(L"Cat_Dash_Left", true);
+			animationCtrl();
 		}
 	}
 	void Kaho_Cat::dashComplete()
 	{
-		if (_Dashtime >= 0.3)
-		{
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Cat_PostDash_Right", false);
-			else
-				_Animator->Play(L"Cat_PostDash_Left", false);
-		}
+		if (_Dir == eDir::R)
+			_Animator->Play(L"Cat_PostDash_Right", false);
+		else
+			_Animator->Play(L"Cat_PostDash_Left", false);
 	}
 	void Kaho_Cat::postDashComplete()
 	{
-		if (_Dashtime >= 0.3)
-		{
-			_Dashtime = 0.0f;
-			_PlayerStatus = ePlayerStatus::Idle;
-			animationCtrl();
-		}
+		_Dashtime = 0.0f;
+		_PlayerStatus = ePlayerStatus::Fall;
+		animationCtrl();
 	}
 	void Kaho_Cat::preCrouchComplete()
 	{
@@ -452,7 +461,7 @@ namespace Mn
 				_Animator->Play(L"Cat_Attack_1_Left", false);
 			break;
 		case ePlayerStatus::Roll:
-			if (_IsGround == true)
+			if (_Rigidbody->GetGround()==true)
 			{
 				if (_Dir == eDir::R)
 					_Animator->Play(L"Cat_Roll_Right", false);
@@ -462,9 +471,9 @@ namespace Mn
 			else
 			{
 				if (_Dir == eDir::R)
-					_Animator->Play(L"Cat_PreDash_Right", false);
+					_Animator->Play(L"Cat_Dash_Right", false);
 				else
-					_Animator->Play(L"Cat_PreDash_Right", false);
+					_Animator->Play(L"Cat_Dash_Left", false);
 			}
 			break;
 		case ePlayerStatus::Jump:
