@@ -25,6 +25,7 @@ namespace Mn
 	}
 	void Kaho_Cat::Initialize()
 	{
+		GameObject::SetName(L"Player");
 		GameObject::State(eState::Pause);
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos();

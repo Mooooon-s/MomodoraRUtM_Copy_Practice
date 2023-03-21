@@ -33,6 +33,7 @@ namespace Mn
 	}
 	void Kaho_Human::Initialize()
 	{
+		GameObject::SetName(L"Player");
 		Transform* tr = GetComponent<Transform>();
 
 		_Rigidbody = AddComponent<Rigidbody>();
