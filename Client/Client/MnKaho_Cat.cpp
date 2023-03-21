@@ -326,6 +326,12 @@ namespace Mn
 			animationCtrl();
 		}
 
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
+
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
 			_PlayerStatus = ePlayerStatus::Roll;
@@ -348,6 +354,13 @@ namespace Mn
 			_Pos.x -= 300.0f * Time::DeltaTime();
 		else if (Input::GetKey(eKeyCode::Right))
 			_Pos.x += 300.0f * Time::DeltaTime();
+		
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			_PlayerStatus = ePlayerStatus::Attack;
+			animationCtrl();
+		}
+		
 		if (_Rigidbody->GetGround() == true)
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
@@ -360,7 +373,7 @@ namespace Mn
 	void Kaho_Cat::attackComplete()
 	{
 
-		if (_Combo)
+		if (_Combo && _Rigidbody->GetGround()==true)
 		{
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Cat_Attack_2_Right", false);
@@ -455,10 +468,20 @@ namespace Mn
 				_Animator->Play(L"Cat_Run_Left", true);
 			break;
 		case ePlayerStatus::Attack:
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Cat_Attack_1_Right", false);
+			if (_Rigidbody->GetGround() == true)
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Cat_Attack_1_Right", false);
+				else
+					_Animator->Play(L"Cat_Attack_1_Left", false);
+			}
 			else
-				_Animator->Play(L"Cat_Attack_1_Left", false);
+			{
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Cat_Attack_1_Right", false);
+				else
+					_Animator->Play(L"Cat_Attack_1_Left", false);
+			}
 			break;
 		case ePlayerStatus::Roll:
 			if (_Rigidbody->GetGround()==true)
