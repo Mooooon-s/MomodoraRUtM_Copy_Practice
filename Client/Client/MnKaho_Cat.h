@@ -40,6 +40,7 @@ namespace Mn
 		void crouch();
 		void roll();
 		void jump();
+		void fall();
 	private:
 		void attackComplete();
 		void attackCombo1Complete();
@@ -53,6 +54,8 @@ namespace Mn
 		void postCrouchComplete();
 
 		void RunComplete();
+
+		void landingComplete();
 
 
 	};

@@ -33,32 +33,32 @@ namespace Mn
 	}
 	void Ground::OnCollisionEnter(Collider* other)
 	{
-		Kaho_Human* kahoHuman = dynamic_cast<Kaho_Human*>(other->Owner());
-		if (kahoHuman == nullptr)
+		GameObject* obj = dynamic_cast<GameObject*>(other->Owner());
+		if (obj == nullptr)
 			return;
 
-		Rigidbody* rb = kahoHuman->GetComponent<Rigidbody>();
+		Rigidbody* rb = obj->GetComponent<Rigidbody>();
 		rb->SetGround(true);
 
-		Collider* kahoHumanColl = kahoHuman->GetComponent<Collider>();
-		Vector2 kahoHumanPos = kahoHumanColl->Pos();
+		Collider* objColl = obj->GetComponent<Collider>();
+		Vector2 objPos = objColl->Pos();
 
 		Collider* groundColl = this->GetComponent<Collider>();
 		Vector2 groundPos = groundColl->Pos();
 
-		float fLen = fabs(kahoHumanPos.y - groundPos.y);
-		float fSize = (kahoHumanColl->Size().y / 2.0f + groundColl->Size().y / 2.0f);
+		float fLen = fabs(objPos.y - groundPos.y);
+		float fSize = (objColl->Size().y / 2.0f + groundColl->Size().y / 2.0f);
 
 		if (fLen < fSize)
 		{
-			Transform* kahoHumanTr = kahoHuman->GetComponent<Transform>();
+			Transform* objTr = obj->GetComponent<Transform>();
 			Transform* grTr = this->GetComponent<Transform>();
 
-			Vector2 kahoHumanPos = kahoHumanTr->Pos();
+			Vector2 objPos = objTr->Pos();
 			Vector2 grPos = grTr->Pos();
 
-			kahoHumanPos -= (fSize - fLen) - 1.0f;
-			kahoHumanTr->Pos(kahoHumanPos);
+			objPos -= (fSize - fLen) - 1.0f;
+			objTr->Pos(objPos);
 		}
 
 	}
@@ -67,11 +67,11 @@ namespace Mn
 	}
 	void Ground::OnCollisionExit(Collider* other)
 	{
-		Kaho_Human* kahoHuman = dynamic_cast<Kaho_Human*>(other->Owner());
-		if (kahoHuman == nullptr)
+		GameObject* obj = dynamic_cast<GameObject*>(other->Owner());
+		if (obj == nullptr)
 			return;
 
-		Rigidbody* rb = kahoHuman->GetComponent<Rigidbody>();
+		Rigidbody* rb = obj->GetComponent<Rigidbody>();
 		rb->SetGround(false);
 	}
 }

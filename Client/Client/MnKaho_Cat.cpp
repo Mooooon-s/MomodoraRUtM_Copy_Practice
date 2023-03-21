@@ -31,11 +31,12 @@ namespace Mn
 		tr->Pos();
 
 		Collider* col = AddComponent<Collider>();
-		col->Size(Vector2(32.0f * 3, 32.0f * 3));
-		col->Center(Vector2(-16.0f*3,-32.0f*3));
+		col->Size(Vector2(20.0f * 3, 20.0f * 3));
+		col->Center(Vector2(-10.0f*3,-20.0f*3));
 
 		_Rigidbody = AddComponent<Rigidbody>();
 		_Rigidbody->SetMass(1.0f);
+		_Rigidbody->SetGround(false);
 		
 		_Animator = AddComponent<Animator>();
 		Image* _Image = Resources::Load<Image>(L"Kaho_Cat", L"..\\Resources\\Kaho_Cat.bmp");
@@ -66,9 +67,9 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_to_Run_Right", _Image, Vector2(32 * 2, 0), 9, 11, 2, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Run_Left", _Image, Vector2(32 * 4, 0), 9, 11, 2, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Fall_Right", _Image, Vector2(0, 32), 9, 11, 3, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Fall_Left", _Image, Vector2(32 * 3, 32), 9, 11, 3, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Fall_Left", _Image, Vector2(48 * 3, 32), 9, 11, 3, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Land_Right", _Image, Vector2(0, 32 * 2), 9,11, 4, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Land_Left", _Image, Vector2(32 * 4, 32 * 2), 9, 11, 4, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Land_Left", _Image, Vector2(48 * 4, 32 * 2), 9, 11, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Roll_Right", _Image, Vector2(0, 32 * 3), 9, 11, 8, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Roll_Left", _Image, Vector2(0, 32 * 4), 9, 11, 8, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Run_Right", _Image, Vector2(0, 32 * 5), 9, 11, 6, Vector2::Zero, 0.08);
@@ -107,6 +108,10 @@ namespace Mn
 
 		_Animator->GetCompleteEvent(L"Cat_Break_Right") = std::bind(&Kaho_Cat::RunComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_Break_Left") = std::bind(&Kaho_Cat::RunComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Land_Right") = std::bind(&Kaho_Cat::landingComplete, this);
+		_Animator->GetCompleteEvent(L"Cat_Land_Left") = std::bind(&Kaho_Cat::landingComplete, this);
+
+
 		
 
 		_Animator->Play(L"Cat_Idle_Right", true);
@@ -137,6 +142,9 @@ namespace Mn
 				break;
 			case ePlayerStatus::Roll:
 				roll();
+				break;
+			case ePlayerStatus::Fall:
+				fall();
 				break;
 			default:
 				break;
@@ -174,7 +182,11 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
-			_IsGround = false;
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y -= 500.0f;
+
+			_Rigidbody->Velocity(velocity);
+			_Rigidbody->SetGround(false);
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
 		}
@@ -223,13 +235,16 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
 		}
-
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y -= 500.0f;
+
+			_Rigidbody->Velocity(velocity);
+			_Rigidbody->SetGround(false);
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
 		}
-
 		//Move pos
 		if (Input::GetKey(eKeyCode::Left))
 			_Dir = eDir::L;
@@ -237,9 +252,9 @@ namespace Mn
 			_Dir = eDir::R;
 
 		if (_Dir == eDir::L)
-			_Pos.x -= 100.0f * Time::DeltaTime();
+			_Pos.x -= 500.0f * Time::DeltaTime();
 		else
-			_Pos.x += 100.0f * Time::DeltaTime();
+			_Pos.x += 500.0f * Time::DeltaTime();
 	}
 	void Kaho_Cat::attack()
 	{
@@ -283,16 +298,45 @@ namespace Mn
 	}
 	void Kaho_Cat::jump()
 	{
-		if (Input::GetKeyUp(eKeyCode::A))
+		if (Input::GetKey(eKeyCode::Left))
 		{
-			_IsGround = true;
-			_PlayerStatus = ePlayerStatus::Idle;
+			_Pos.x -= 300.0f * Time::DeltaTime();
+			_Dir = eDir::L;
 			animationCtrl();
 		}
+		else if (Input::GetKey(eKeyCode::Right))
+		{
+			_Pos.x += 300.0f * Time::DeltaTime();
+			_Dir = eDir::R;
+			animationCtrl();
+		}
+
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
 			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
+		}
+
+		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
+		if (velocity.y > 0)
+		{
+			_PlayerStatus = ePlayerStatus::Fall;
+			animationCtrl();
+		}
+	}
+	void Kaho_Cat::fall()
+	{
+		if (Input::GetKey(eKeyCode::Left))
+			_Pos.x -= 300.0f * Time::DeltaTime();
+		else if (Input::GetKey(eKeyCode::Right))
+			_Pos.x += 300.0f * Time::DeltaTime();
+		if (_Rigidbody->GetGround() == true)
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Land_Right", false);
+			else
+				_Animator->Play(L"Cat_Land_Left", false);
 		}
 	}
 	void Kaho_Cat::attackComplete()
@@ -381,6 +425,10 @@ namespace Mn
 		PlayerStatus(ePlayerStatus::Idle);
 		animationCtrl();
 	}
+	void Kaho_Cat::landingComplete()
+	{
+		animationCtrl();
+	}
 	void Kaho_Cat::animationCtrl()
 	{
 		switch (_PlayerStatus)
@@ -431,6 +479,11 @@ namespace Mn
 			else
 				_Animator->Play(L"Cat_Crouch_Left", true);
 			break;
+		case ePlayerStatus::Fall:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Fall_Right", false);
+			else
+				_Animator->Play(L"Cat_Fall_Left", false);
 		default:
 			break;
 		}

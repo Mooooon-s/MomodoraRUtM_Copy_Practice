@@ -37,6 +37,7 @@ namespace Mn
 
 		_Rigidbody = AddComponent<Rigidbody>();
 		_Rigidbody->SetMass(1.0f);
+		_Rigidbody->SetGround(false);
 
 		Collider* collider = AddComponent<Collider>();
 		collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
@@ -260,7 +261,7 @@ namespace Mn
 				_Animator->Play(L"Run_Left", true);
 			break;
 		case ePlayerStatus::Attack:
-			if (_IsGround)
+			if (_Rigidbody->GetGround()==true)
 			{
 				if (_Dir == eDir::R)
 					_Animator->Play(L"Melee_Attack_1_Right", false);
@@ -380,8 +381,7 @@ namespace Mn
 			velocity.y -= 500.0f;
 
 			_Rigidbody->Velocity(velocity);
-			_IsGround = false;
-			_Rigidbody->SetGround(_IsGround);
+			_Rigidbody->SetGround(false);
 
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
@@ -576,6 +576,15 @@ namespace Mn
 		{
 			_pos.x += 100.0f * Time::DeltaTime();
 			_Dir = eDir::R;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			_PlayerStatus = ePlayerStatus::Roll;
+			if (_Dir == eDir::R)
+				_Animator->Play(L"PreDash_Right", false);
+			else
+				_Animator->Play(L"PreDash_Left", false);
 		}
 
 		_IsGround = GetComponent<Rigidbody>()->GetGround();
