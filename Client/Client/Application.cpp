@@ -6,9 +6,16 @@
 #include "MnInput.h"
 
 namespace Mn {
-	Application::Application() 
-		:_Hwnd(NULL)
-		,_Hdc(NULL)
+	Application::Application()
+		: _Hwnd(NULL)
+		, _Hdc(NULL)
+		, _ToolHwnd(NULL)
+		, _ToolHdc(NULL)
+		, _BackBuffer(NULL)
+		, _BackHDC(NULL)
+		, _Width(0)
+		, _Height(0)
+		, _Pos(Vector2::Zero)
 	{
 	}
 	Application::~Application()
@@ -27,7 +34,7 @@ namespace Mn {
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 		//윈도우 크기 변경 및 출력 설정
-		SetWindowPos(hwnd, nullptr, 100, 50
+		SetWindowPos(hwnd, nullptr, 0, 0
 			, rect.right - rect.left
 			, rect.bottom - rect.top
 			, 0);
@@ -68,12 +75,20 @@ namespace Mn {
 	void Application::Render()
 	{
 		//clear
-		Rectangle(_BackHDC,-1, -1, 1602, 902);
+		clear();
 
 		Time::Render(_BackHDC);
 		Input::Render(_BackHDC);
 		SceneManager::Render(_BackHDC);
 		Camera::Render(_BackHDC);
 		BitBlt(_Hdc, 0, 0, _Width, _Height, _BackHDC, 0, 0, SRCCOPY);
+	}
+	void Application::clear()
+	{
+		HBRUSH grayBrush = CreateSolidBrush(RGB(121, 121, 121));
+		HBRUSH oldBrush = (HBRUSH)SelectObject(_BackHDC, grayBrush);
+		Rectangle(_BackHDC, -1, -1, 1602, 902);
+		SelectObject(_BackHDC, oldBrush);
+		DeleteObject(grayBrush);
 	}
 }

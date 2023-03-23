@@ -17,9 +17,10 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 Mn::Application application;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
+ATOM                MyRegisterClass(HINSTANCE hInstance,LPCWSTR name,WNDPROC proc);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK    AtlasWndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 
@@ -53,7 +54,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
 
     //윈도우의 정보를 메모리에 올려줌
-    MyRegisterClass(hInstance);
+    //main window
+    MyRegisterClass(hInstance, szWindowClass, WndProc);
+
+    //Tile window
+    MyRegisterClass(hInstance,L"AtlasWindow", AtlasWndProc);
 
     // 애플리케이션 초기화를 수행합니다:
     //윈도우를 초기화 하고 화면에 띄움
@@ -95,14 +100,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 //  용도: 창 클래스를 등록합니다.
 //
-ATOM MyRegisterClass(HINSTANCE hInstance)
+ATOM MyRegisterClass(HINSTANCE hInstance,LPCWSTR name, WNDPROC proc)
 {
     WNDCLASSEXW wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
     wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc;
+    wcex.lpfnWndProc    = proc;
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
@@ -110,7 +115,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName   = NULL;
-    wcex.lpszClassName  = szWindowClass;
+    wcex.lpszClassName  = name;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     //함수형 포인터
@@ -144,7 +149,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    //윈도우 ID를 생성
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      0, 0, 920, 720, nullptr, nullptr, hInstance, nullptr);
+
+   HWND hWnd2 = CreateWindowW(L"AtlasWindow", szTitle, WS_OVERLAPPEDWINDOW,
+       0, 0, 1500, 1500, nullptr, nullptr, hInstance, nullptr);
 
    //HWND hWnd2 = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 //    CW_USEDEFAULT, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
@@ -161,10 +169,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    //해당 ID의 윈도우를 최신화
    UpdateWindow(hWnd);
 
+   ShowWindow(hWnd2, nCmdShow);
+   UpdateWindow(hWnd2);
 
    //윈도우를 생성하고 나서 게임을 초기화
    application.Initialize(hWnd);
-
+   application.SetToolHwnd(hWnd2);
    //SetTimer(hWnd, 0, 1000, nullptr);
 
    return TRUE;
@@ -225,6 +235,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     return 0;
 }
+
+
 
 // 정보 대화 상자의 메시지 처리기입니다.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)

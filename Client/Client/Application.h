@@ -9,6 +9,9 @@ namespace Mn {
 		HWND		_Hwnd;
 		HDC			_Hdc;
 
+		HWND		_ToolHwnd;
+		HDC			_ToolHdc;
+
 		HBITMAP		_BackBuffer;
 		HDC			_BackHDC;
 
@@ -26,10 +29,15 @@ namespace Mn {
 		void Render();
 
 		HWND GetHwnd() { return _Hwnd; }
+		HWND GetToolHwnd() { return _ToolHwnd; }
 		HDC	 GetHdc()  { return _Hdc; }
+		HDC	 GetToolHdc() { return _ToolHdc; }
 		UINT Width() { return _Width; }
 		UINT Height() { return _Height; }
 
+		void SetToolHwnd(HWND hwnd){ _ToolHwnd = hwnd; }
+	private:
+		void clear();
 	};
 
 }

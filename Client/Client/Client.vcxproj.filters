@@ -80,6 +80,9 @@
     <Filter Include="Engin\Component\Transform">
       <UniqueIdentifier>{27c32eea-49d6-4de2-bd81-78a039841839}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Tile">
+      <UniqueIdentifier>{ae45f822-f55b-4624-9e02-98dad33e5abc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -217,7 +220,18 @@
     <ClInclude Include="MnTransform.h">
       <Filter>Engin\Component\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="MnGround.h" />
+    <ClInclude Include="MnGround.h">
+      <Filter>Engin</Filter>
+    </ClInclude>
+    <ClInclude Include="MnToolScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnTilePalatte.h">
+      <Filter>Contents\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="MnTile.h">
+      <Filter>Contents\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -347,6 +361,17 @@
     <ClCompile Include="MnTransform.cpp">
       <Filter>Engin\Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="MnGround.cpp" />
+    <ClCompile Include="MnGround.cpp">
+      <Filter>Engin</Filter>
+    </ClCompile>
+    <ClCompile Include="MnToolScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTilePalatte.cpp">
+      <Filter>Contents\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTile.cpp">
+      <Filter>Contents\Tile</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

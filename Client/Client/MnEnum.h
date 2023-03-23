@@ -4,11 +4,13 @@ enum class eSceneType {
 	MainMenu,
 	play,
 	end,
+	Tool,
 	Max,
 };
 
 enum class eLayerType {
 	BG,
+	Tile,
 	Monster,
 	Player,
 	Effect,

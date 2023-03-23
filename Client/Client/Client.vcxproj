@@ -181,11 +181,14 @@
     <ClInclude Include="MnRigidbody.h" />
     <ClInclude Include="MnScene.h" />
     <ClInclude Include="MnSceneManager.h" />
+    <ClInclude Include="MnTile.h" />
+    <ClInclude Include="MnTilePalatte.h" />
     <ClInclude Include="MnTime.h" />
     <ClInclude Include="MnTitleBG.h" />
     <ClInclude Include="MnTitleScene.h" />
     <ClInclude Include="MnTitleUI.h" />
     <ClInclude Include="MnTitle_Letter.h" />
+    <ClInclude Include="MnToolScene.h" />
     <ClInclude Include="MnTransform.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -220,6 +223,7 @@
     <ClCompile Include="MnSceneManager.cpp" />
     <ClCompile Include="MnPlayScene.cpp" />
     <ClCompile Include="MnMomodora.cpp" />
+    <ClCompile Include="MnTile.cpp" />
     <ClCompile Include="MnTime.cpp" />
     <ClCompile Include="MnResource.cpp" />
     <ClCompile Include="MnResources.cpp" />
@@ -229,6 +233,8 @@
     <ClCompile Include="MnTitleBG.cpp" />
     <ClCompile Include="MnTitleUI.cpp" />
     <ClCompile Include="MnRigidbody.cpp" />
+    <ClCompile Include="MnToolScene.cpp" />
+    <ClCompile Include="MnTilePalatte.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

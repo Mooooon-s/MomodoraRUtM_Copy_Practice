@@ -8,7 +8,9 @@ namespace Mn {
 		Q, W, E, R, T, Y, U, I, O, P,
 		A, S, D, F, G, H, J, K, L,
 		Z, X, C, V, B, N, M
+
 		,Left,Up,Right,Down,Shift,Tab,
+		LBUTTON,RBUTTON,
 		END,
 	};
 
@@ -52,7 +54,10 @@ namespace Mn {
 			return _Keys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
 		}
 
+		static __forceinline Vector2 GetMousePos() { return _MousePos; }
+
 	private:
 		static std::vector<Key> _Keys;
+		static Vector2 _MousePos;
 	};
 }
