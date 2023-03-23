@@ -30,6 +30,7 @@ namespace Mn
 		int _SpriteIndex;
 		float _Time;
 		bool _bComplete;
+		int		_Alpha;
 	public:
 		Animation();
 		~Animation();
@@ -43,6 +44,7 @@ namespace Mn
 	public:
 		bool IsComplete() { return _bComplete; }
 		void SetAnimator(Animator* animator) { _Animator = animator; }
+		void Alpha(int alpha) { _Alpha = alpha; }
 	};
 }
 

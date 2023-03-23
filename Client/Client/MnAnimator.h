@@ -39,7 +39,7 @@ namespace Mn
 	public:
 		Animator();
 		~Animator();
-
+	public:
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
@@ -58,6 +58,8 @@ namespace Mn
 		std::function<void()>& GetStartEvent(const std::wstring& name);
 		std::function<void()>& GetCompleteEvent(const std::wstring& name);
 		std::function<void()>& GetEndEvent(const std::wstring& name);
+	public:
+		void animationAlpha(int alpha) { _ActiveAnimation->Alpha(alpha); }
 	};
 }
 

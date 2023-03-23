@@ -44,7 +44,7 @@ namespace Mn
 		collider->Center(Vector2(-12.0f * 3, -40.0f * 3));
 		collider->Size(Vector2(24.0f * 3, 38.0f * 3));
 
-		Image* _Image = Resources::Load<Image>(L"Kaho", L"..\\Resources\\Kaho_Human.bmp");
+		Image* _Image = Resources::Load<Image>(L"Kaho", L"..\\Resources\\Kaho_Human_alpha_1.bmp");
 		_Animator = AddComponent<Animator>();
 		//-------------------------------------------------------------------------------------------------------------
 		//												

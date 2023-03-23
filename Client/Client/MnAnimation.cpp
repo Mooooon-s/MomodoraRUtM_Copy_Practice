@@ -55,11 +55,11 @@ namespace Mn
 			func.BlendOp = AC_SRC_OVER;
 			func.BlendFlags = 0;
 			func.AlphaFormat = AC_SRC_ALPHA;
-			func.SourceConstantAlpha = 255.0f;
+			func.SourceConstantAlpha = 255;
 
 			AlphaBlend(hdc, pos.x, pos.y
 				, _SpriteSheet[_SpriteIndex].size.x * scale.x
-				, _SpriteSheet[_SpriteIndex].size.x*scale.y
+				, _SpriteSheet[_SpriteIndex].size.y *scale.y
 				, _ImageSheet->Hdc()
 				, _SpriteSheet[_SpriteIndex].leftTop.x
 				, _SpriteSheet[_SpriteIndex].leftTop.y
