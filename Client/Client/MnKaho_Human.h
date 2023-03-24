@@ -18,12 +18,15 @@ namespace Mn
 		eDir			_Dir;
 		float			_DashCharge;
 		float			_HurtTime;
+		float			_AlphaTime;
+		float			_DamageTime;
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
 		bool			_GetDamage;
 		int				_col;
 		int				_row;
+		int				_AlphaDegree;
 	public:
 		Kaho_Human();
 		~Kaho_Human();

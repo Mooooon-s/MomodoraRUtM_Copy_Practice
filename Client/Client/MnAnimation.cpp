@@ -14,6 +14,7 @@ namespace Mn
 		,_SpriteIndex(0)
 		,_Time(0)
 		,_bComplete(false)
+		, _Alpha(255)
 	{
 	}
 	Animation::~Animation()
@@ -55,7 +56,7 @@ namespace Mn
 			func.BlendOp = AC_SRC_OVER;
 			func.BlendFlags = 0;
 			func.AlphaFormat = AC_SRC_ALPHA;
-			func.SourceConstantAlpha = 255;
+			func.SourceConstantAlpha = _Alpha;
 
 			AlphaBlend(hdc, pos.x, pos.y
 				, _SpriteSheet[_SpriteIndex].size.x * scale.x

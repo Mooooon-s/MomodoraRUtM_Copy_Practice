@@ -21,6 +21,7 @@ namespace Mn
 		, _Image(nullptr)
 		, _DashCharge(0.0f)
 		, _HurtTime(0.0f)
+		, _AlphaTime(0.0f)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
@@ -28,6 +29,7 @@ namespace Mn
 		, _Dir(eDir::R)
 		, _col(24)
 		, _row(44)
+		, _AlphaDegree(90)
 	{
 	}
 	Kaho_Human::~Kaho_Human()
@@ -39,7 +41,7 @@ namespace Mn
 		Transform* tr = GetComponent<Transform>();
 
 		_Rigidbody = AddComponent<Rigidbody>();
-		_Rigidbody->SetMass(1.0f);
+		_Rigidbody->SetMass(0.3f);
 		_Rigidbody->SetGround(false);
 
 		Collider* collider = AddComponent<Collider>();
@@ -89,18 +91,18 @@ namespace Mn
 		_Animator->CreateAnimation(L"Crouch_Range_Attack_Right", _Image, Vector2(576, (48 * 18)), _col, _row, 6, Vector2(0.0f, 12.0f), 0.08);
 		_Animator->CreateAnimation(L"Crouch_Range_Attack_Left", _Image, Vector2(576, (48 * 19)), _col, _row, 6, Vector2(0.0f, 12.0f), 0.08);
 		//Melee Attack_1
-		_Animator->CreateAnimation(L"Melee_Attack_1_Right", _Image, Vector2(0, (48 * 20)), _col, _row, 7, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Melee_Attack_1_Left", _Image, Vector2(0, (48 * 21)), _col, _row, 7, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Melee_Attack_1_Right", _Image, Vector2(0, (48 * 20)), _col, _row, 7, Vector2::Zero, 0.06);
+		_Animator->CreateAnimation(L"Melee_Attack_1_Left", _Image, Vector2(0, (48 * 21)), _col, _row, 7, Vector2::Zero, 0.06);
 		//Air_Melee_Attack_1
 		_Animator->CreateAnimation(L"Air_Melee_Attack_Right", _Image, Vector2(0, (48 * 22)), _col, _row, 7, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Air_Melee_Attack_Left", _Image, Vector2(0, (48 * 23)), _col, _row, 7, Vector2::Zero, 0.08);
 
 		//Melee_Attack_2
-		_Animator->CreateAnimation(L"Melee_Attack_2_Right", _Image, Vector2(0, (48 * 24)), _col, _row, 7, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Melee_Attack_2_Left", _Image, Vector2(0, (48 * 25)), _col, _row, 7, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Melee_Attack_2_Right", _Image, Vector2(0, (48 * 24)), _col, _row, 7, Vector2::Zero, 0.06);
+		_Animator->CreateAnimation(L"Melee_Attack_2_Left", _Image, Vector2(0, (48 * 25)), _col, _row, 7, Vector2::Zero, 0.06);
 		//Melee_Attack_3
-		_Animator->CreateAnimation(L"Melee_Attack_3_Right", _Image, Vector2(0, (48 * 26)), _col, _row, 11, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Melee_Attack_3_Left", _Image, Vector2(0, (48 * 27)), _col, _row, 11, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Melee_Attack_3_Right", _Image, Vector2(0, (48 * 26)), _col, _row, 11, Vector2::Zero, 0.06);
+		_Animator->CreateAnimation(L"Melee_Attack_3_Left", _Image, Vector2(0, (48 * 27)), _col, _row, 11, Vector2::Zero, 0.06);
 		//Leder_Up
 		_Animator->CreateAnimation(L"Leader_Up", _Image, Vector2(0, (48 * 28)), _col, _row, 6, Vector2::Zero, 0.08);
 		//Leder_Down
@@ -234,14 +236,21 @@ namespace Mn
 			}
 
 			tr->Pos(_pos);
-
+			_AlphaTime += Time::DeltaTime();
 			GameObject::Update();
 		}
 	}
 	void Kaho_Human::Render(HDC hdc)
 	{
-		if(GameObject::State()==eState::Active)
+		if (GameObject::State() == eState::Active)
+		{
+			if (_GetDamage == false)
+			{
+				alpha();
+				_DamageTime += Time::DeltaTime();
+			}
 			GameObject::Render(hdc);
+		}
 	}
 	void Kaho_Human::Release()
 	{
@@ -257,6 +266,7 @@ namespace Mn
 
 		if (other->Owner()->GetName() == L"Enemy")
 		{
+			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;
 			animationCtrl();
 		}
@@ -382,6 +392,24 @@ namespace Mn
 			break;
 		}
 	}
+	void Kaho_Human::alpha()
+	{
+		int a = cos(_AlphaDegree*PI/180);
+		if (a < 0)
+			a *= (-1);
+		int alpha = 255 *a;
+		_Animator->animationAlpha(alpha);
+		if (_AlphaTime > 0.05)
+		{
+			_AlphaDegree += 90;
+			_AlphaTime = 0;
+		}
+		if (_DamageTime > 2)
+		{
+			_GetDamage = true;
+			_DamageTime = 0;
+		}
+	}
 	void Kaho_Human::idle()
 	{
 		if (Input::GetKeyUp(eKeyCode::D))
@@ -455,8 +483,7 @@ namespace Mn
 			velocity.y -= 500.0f;
 
 			_Rigidbody->Velocity(velocity);
-			_IsGround = false;
-			_Rigidbody->SetGround(_IsGround);
+			_Rigidbody->SetGround(false);
 
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
@@ -677,17 +704,18 @@ namespace Mn
 			if (_Dir == eDir::R)
 			{
 				_pos.x -= 100.0f * Time::DeltaTime();
-				_pos.y -= 200.0f * Time::DeltaTime();
+				_pos.y -= 100.0f * Time::DeltaTime();
 			}
 			else
 			{
 				_pos.x += 100.0f * Time::DeltaTime();
-				_pos.y -= 200.0f * Time::DeltaTime();
+				_pos.y -= 100.0f * Time::DeltaTime();
 			}
 		}
 		else
 		{
 			_HurtTime = 0.0;
+			_AlphaDegree = 0;
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
