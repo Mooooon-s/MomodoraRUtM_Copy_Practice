@@ -31,7 +31,7 @@ namespace Mn
 		Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
 		tile->InitializeTile(_Image, index);
 
-		Vector2 tilePos(pos.x * TILE_SIZE_X/3, pos.y * TILE_SIZE_Y/3);
+		Vector2 tilePos(pos.x * TILE_SIZE_X, pos.y * TILE_SIZE_Y);
 		tile->GetComponent<Transform>()->Pos(tilePos);
 
 		TileID id;
@@ -90,8 +90,8 @@ namespace Mn
 	}
 	Vector2 TilePalatte::TilePos(Vector2 mousePos)
 	{
-		int indexY = mousePos.y / TILE_SIZE_Y*3;
-		int indexX = mousePos.x / TILE_SIZE_X*3;
+		int indexY = mousePos.y / TILE_SIZE_Y;
+		int indexX = mousePos.x / TILE_SIZE_X;
 
 		return Vector2(indexX, indexY);
 	}
