@@ -20,9 +20,11 @@ namespace Mn
 		, _Rigidbody(nullptr)
 		, _Image(nullptr)
 		, _DashCharge(0.0f)
+		, _HurtTime(0.0f)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
+		, _GetDamage(true)
 		, _Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -224,6 +226,9 @@ namespace Mn
 			case ePlayerStatus::UseItem:
 				useItem();
 				break;
+			case ePlayerStatus::Hurt:
+				hurt();
+				break;
 			default:
 				break;
 			}
@@ -242,7 +247,34 @@ namespace Mn
 	{
 		GameObject::Release();
 	}
-	//status
+	//-------------------------------------------------------------------------------------------------------------------
+	//
+	//													Collider
+	// 
+	//-------------------------------------------------------------------------------------------------------------------
+	void Kaho_Human::OnCollisionEnter(Collider* other)
+	{
+
+		if (other->Owner()->GetName() == L"Enemy")
+		{
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
+		
+	}
+	void Kaho_Human::OnCollisionStay(Collider* other)
+	{
+
+	}
+	void Kaho_Human::OnCollisionExit(Collider* other)
+	{
+
+	}
+	//-------------------------------------------------------------------------------------------------------------------
+	//
+	//													FSM
+	// 
+	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Human::animationCtrl()
 	{
 		switch (_PlayerStatus)
@@ -339,6 +371,12 @@ namespace Mn
 				_Animator->Play(L"Fall_Right", false);
 			else
 				_Animator->Play(L"Fall_Left", false);
+			break;
+		case ePlayerStatus::Hurt:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Hurt_Right", false);
+			else
+				_Animator->Play(L"Hurt_Left", false);
 			break;
 		default:
 			break;
@@ -630,6 +668,30 @@ namespace Mn
 	}
 	void Kaho_Human::useItem()
 	{
+	}
+	void Kaho_Human::hurt()
+	{
+		_HurtTime += Time::DeltaTime();
+		if (_HurtTime<0.7)
+		{
+			if (_Dir == eDir::R)
+			{
+				_pos.x -= 100.0f * Time::DeltaTime();
+				_pos.y -= 200.0f * Time::DeltaTime();
+			}
+			else
+			{
+				_pos.x += 100.0f * Time::DeltaTime();
+				_pos.y -= 200.0f * Time::DeltaTime();
+			}
+		}
+		else
+		{
+			_HurtTime = 0.0;
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+
 	}
 	//-------------------------------------------------------------------------------------------------------------------
 	//

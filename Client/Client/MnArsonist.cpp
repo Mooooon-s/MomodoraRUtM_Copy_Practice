@@ -20,6 +20,8 @@ namespace Mn
 	}
 	void Arsonist::Initialize()
 	{
+		GameObject::SetName(L"Enemy");
+
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos(Vector2(400.0f, 400.0f));
 		_Animator = AddComponent<Animator>();
