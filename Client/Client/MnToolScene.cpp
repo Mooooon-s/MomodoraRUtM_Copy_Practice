@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "MnTilePalatte.h"
 #include "MnInput.h"
+#include "MnCamera.h"
 
 extern Mn::Application application;
 
@@ -31,14 +32,23 @@ namespace Mn
 		Scene::Update();
 		Vector2  temp = Input::GetMousePos();
 
-
-		if (Input::GetKey(eKeyCode::LBUTTON))
+		if (Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
 			Vector2 pos = Input::GetMousePos();
+			pos -= Camera::ComputePos(Vector2::Zero);
 			pos = TilePalatte::TilePos(pos);
 
 			UINT tileIndxe = TilePalatte::Index();
 			TilePalatte::CreateTile(tileIndxe, pos);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+
+		}
+		if (Input::GetKeyDown(eKeyCode::L))
+		{
+
 		}
 	}
 
@@ -47,17 +57,20 @@ namespace Mn
 		HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
 		HPEN oldPen = (HPEN)SelectObject(hdc, redPen);
 
+		Vector2 startPos(0, 0);
+		startPos = Camera::ComputePos(startPos);
+
 		int maxRow = application.Height() / TILE_SIZE_Y + 1;
-		for (size_t y = 0; y < maxRow; y++)
+		for (size_t y = 0; y < maxRow*3; y++)
 		{
-			MoveToEx(hdc, 0, TILE_SIZE_Y * y, NULL);
-			LineTo(hdc, application.Width(), TILE_SIZE_Y * y);
+			MoveToEx(hdc, startPos.x, TILE_SIZE_Y * y+ startPos.y, NULL);
+			LineTo(hdc, application.Width(), TILE_SIZE_Y * y+ startPos.y);
 		}
 		int maxColumn = application.Width() / TILE_SIZE_X + 1;
-		for (size_t x = 0; x < maxColumn; x++)
+		for (size_t x = 0; x < maxColumn*3; x++)
 		{
-			MoveToEx(hdc, TILE_SIZE_X * x, 0, NULL);
-			LineTo(hdc, TILE_SIZE_X * x, application.Height());
+			MoveToEx(hdc, TILE_SIZE_X * x+ startPos.x, startPos.y, NULL);
+			LineTo(hdc, TILE_SIZE_X * x+ startPos.x, application.Height());
 		}
 		(HPEN)SelectObject(hdc, oldPen);
 		DeleteObject(redPen);
