@@ -44,7 +44,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
-
+			TilePalatte::Save();
 		}
 		if (Input::GetKeyDown(eKeyCode::L))
 		{
@@ -101,19 +101,6 @@ namespace Mn
 		{
 			Mn::Image* tile = Mn::Resources::Load<Mn::Image>(L"TileAtlas", L"..\\Resources\\tile.bmp");
 
-			HDC tilehdc;
-			tilehdc = CreateCompatibleDC(application.GetHdc());
-
-			HBITMAP tilebitmap = CreateCompatibleBitmap(tilehdc, (tile->Width()*3), (tile->Height()*3));
-
-			HBITMAP defaultbitmap
-				= (HBITMAP)SelectObject(tilehdc, tilebitmap);
-			DeleteObject(defaultbitmap);
-
-			TransparentBlt(tilehdc, 0, 0, tile->Width() * 3, tile->Height() * 3, tile->Hdc(), 0, 0, tile->Width(), tile->Height(), SRCCOPY);
-			Mn::ToolScene::THdc(tilehdc);
-
-
 			RECT rect = { 0, 0, tile->Width(), tile->Height() };
 			AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
@@ -148,7 +135,6 @@ namespace Mn
 			int wmId = LOWORD(wParam);
 			switch (wmId)
 			{
-				break;
 			default:
 				return DefWindowProc(hWnd, message, wParam, lParam);
 			}
@@ -159,7 +145,6 @@ namespace Mn
 			PAINTSTRUCT ps;
 			HDC hdc = BeginPaint(hWnd, &ps);
 
-			HDC tilehdc =Mn::ToolScene::THdc();
 			Mn::Image* tile = Mn::Resources::Find<Mn::Image>(L"TileAtlas");
 			TransparentBlt(hdc, 0, 0, tile->Width()*3, tile->Height()*3, tile->Hdc(), 0, 0, tile->Width(), tile->Height(), SRCCOPY);
 			EndPaint(hWnd, &ps);

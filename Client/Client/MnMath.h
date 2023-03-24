@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include <basetsd.h>
 #define PI 3.14159265358979
 
 struct Vector2 {
@@ -25,6 +26,13 @@ struct Vector2 {
 
 	}
 	Vector2(float x, float y)
+		: x(x)
+		, y(y)
+	{
+
+	}
+
+	Vector2(UINT32 x, UINT32 y)
 		: x(x)
 		, y(y)
 	{

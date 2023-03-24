@@ -21,6 +21,10 @@ namespace Mn
 
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
+
+		UINT Y() { return _Y; }
+		UINT X() { return _X; }
+		UINT Index() { return _Index; }
 	};
 }
 
