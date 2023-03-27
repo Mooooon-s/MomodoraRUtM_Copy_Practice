@@ -1,13 +1,14 @@
+#include "MnKaho.h"
 #include "MnKaho_Cat.h"
 #include "MnResources.h"
 #include "MnImage.h"
 #include "MnInput.h"
 #include "MnTime.h"
+
 #include "MnComponent.h"
-#include "MnAnimator.h"
 #include "MnTransform.h"
+#include "MnAnimator.h"
 #include "MnCollider.h"
-#include "MnKaho.h"
 #include "MnRigidbody.h"
 
 namespace Mn
@@ -18,6 +19,11 @@ namespace Mn
 		, _Dir(eDir::R)
 		, _Combo(false)
 		, _Dashtime(0.0f)
+		, _HurtTime(0.0f)
+		, _AlphaTime(0.0f)
+		, _DamageTime(0.0f)
+		, _GetDamage(true)
+		, _AlphaDegree(90)
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -25,6 +31,7 @@ namespace Mn
 	}
 	void Kaho_Cat::Initialize()
 	{
+		GameObject::SetName(L"Player");
 		GameObject::State(eState::Pause);
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos();
@@ -38,7 +45,7 @@ namespace Mn
 		_Rigidbody->SetGround(false);
 		
 		_Animator = AddComponent<Animator>();
-		Image* _Image = Resources::Load<Image>(L"Kaho_Cat", L"..\\Resources\\Kaho_Cat.bmp");
+		Image* _Image = Resources::Load<Image>(L"Kaho_Cat", L"..\\Resources\\Kaho_Cat_alpha.bmp");
 		_Animator->CreateAnimation(L"Cat_Attack_1_Right", _Image, Vector2(0, 0), 12, 6, 7, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Attack_1_Left", _Image, Vector2(0, 80), 12, 6, 7, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Attack_2_Right", _Image, Vector2(0, 80 * 2), 12, 6, 7, Vector2::Zero, 0.08);
@@ -46,11 +53,11 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Attack_3_Right", _Image, Vector2(0, 80 * 4), 12, 6, 12, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Attack_3_Left", _Image, Vector2(0, 80 * 5), 12, 6, 12, Vector2::Zero, 0.08);
 
-		_Image = Resources::Load<Image>(L"Kaho_Cat2", L"..\\Resources\\Kaho_Cat_Move.bmp");
+		_Image = Resources::Load<Image>(L"Kaho_Cat2", L"..\\Resources\\Kaho_Cat_Move_alpha.bmp");
 		_Animator->CreateAnimation(L"Cat_Idle_Right", _Image, Vector2(0, 0), 12, 8, 11, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Idle_Left", _Image, Vector2(0, 32), 12, 8, 11, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Hurt_Right", _Image, Vector2(32 * 12, 0), 12, 8, 1, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Hurt_Left", _Image, Vector2(32 * 12, 32), 12, 8, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Hurt_Right", _Image, Vector2(32 * 11, 0), 12, 8, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Hurt_Left", _Image, Vector2(32 * 11, 32), 12, 8, 1, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Death_Right", _Image, Vector2(0, 32 * 2), 12, 8, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Death_Left", _Image, Vector2(0, 32 * 3), 12, 8, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Crouch_Right", _Image, Vector2(0, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
@@ -60,7 +67,7 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Crouch_Right", _Image, Vector2(0, 32 * 6), 12, 8, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Crouch_Left", _Image, Vector2(0, 32 * 7), 12, 8, 9, Vector2::Zero, 0.08);
 
-		_Image = Resources::Load<Image>(L"Kaho_Cat3", L"..\\Resources\\Kaho_Cat_Move2.bmp");
+		_Image = Resources::Load<Image>(L"Kaho_Cat3", L"..\\Resources\\Kaho_Cat_Move2_alpha.bmp");
 		_Animator->CreateAnimation(L"Cat_Jump_Right", _Image, Vector2(0, 0), 9,11, 1, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Jump_Left", _Image, Vector2(48, 0), 9, 11, 1, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Run_Right", _Image, Vector2(32 * 2, 0), 9, 11, 2, Vector2::Zero, 0.08);
@@ -79,8 +86,8 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_PreDash_Left", _Image, Vector2(0, 32 * 10), 9, 11, 2, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Dash_Right", _Image, Vector2(48*2, 32 * 9), 9, 11, 1, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Dash_Left", _Image, Vector2(48*2, 32 * 10), 9, 11, 1, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_PostDash_Right", _Image, Vector2(32*3, 32 * 9), 9, 11, 2, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_PostDash_Left", _Image, Vector2(32*3, 32 * 10), 9, 11, 2, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_PostDash_Right", _Image, Vector2(48*3, 32 * 9), 9, 11, 2, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_PostDash_Left", _Image, Vector2(48*3, 32 * 10), 9, 11, 2, Vector2::Zero, 0.08);
 		//-------------------------------------------------------------------------------------------------------------------
 		// 
 		//													Events
@@ -145,24 +152,54 @@ namespace Mn
 			case ePlayerStatus::Fall:
 				fall();
 				break;
+			case ePlayerStatus::UseItem:
+				break;
+			case ePlayerStatus::Hurt:
+				hurt();
+				break;
 			default:
 				break;
 			}
 
 			tr->Pos(_Pos);
-
-
+			_AlphaTime += Time::DeltaTime();
 			GameObject::Update();
 		}
 	}
 	void Kaho_Cat::Render(HDC hdc)
 	{
-		if(GameObject::State() == eState::Active)
+		if (GameObject::State() == eState::Active)
+		{
+			if (_GetDamage == false)
+			{
+				alpha();
+				_DamageTime += Time::DeltaTime();
+			}
 			GameObject::Render(hdc);
+		}
 	}
 	void Kaho_Cat::Release()
 	{
 	}
+	//-------------------------------------------------------------------------------------------------------------------
+	//
+	//													Collider
+	// 
+	//-------------------------------------------------------------------------------------------------------------------
+	void Kaho_Cat::OnCollisionEnter(Collider* other)
+	{
+		if (other->Owner()->GetName() == L"Enemy")
+		{
+			_GetDamage = false;
+			_PlayerStatus=ePlayerStatus::Hurt;
+			animationCtrl();
+		}
+	}
+	//-------------------------------------------------------------------------------------------------------------------
+	//
+	//													FSM
+	// 
+	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Cat::idle()
 	{
 		if (Input::GetKey(eKeyCode::Right))
@@ -370,6 +407,53 @@ namespace Mn
 				_Animator->Play(L"Cat_Land_Left", false);
 		}
 	}
+	void Kaho_Cat::hurt()
+	{
+		_HurtTime += Time::DeltaTime();
+		if (_HurtTime < 0.7)
+		{
+			if (_Dir == eDir::R)
+			{
+				_Pos.x -= 100.0f * Time::DeltaTime();
+				_Pos.y -= 100.0f * Time::DeltaTime();
+			}
+			else
+			{
+				_Pos.x += 100.0f * Time::DeltaTime();
+				_Pos.y -= 100.0f * Time::DeltaTime();
+			}
+		}
+		else
+		{
+			_HurtTime = 0.0;
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
+	}
+	void Kaho_Cat::alpha()
+	{
+		int a = cos(_AlphaDegree * PI / 180);
+		if (a < 0)
+			a *= (-1);
+		int alpha = 255 * a;
+		_Animator->animationAlpha(alpha);
+		if (_AlphaTime > 0.05)
+		{
+			_AlphaDegree += 90;
+			_AlphaTime = 0;
+		}
+		if (_DamageTime > 2)
+		{
+			_GetDamage = true;
+			_DamageTime = 0;
+			_Animator->animationAlpha(255);
+		}
+	}
+	//-------------------------------------------------------------------------------------------------------------------
+	//
+	//													Events
+	// 
+	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Cat::attackComplete()
 	{
 
@@ -516,6 +600,13 @@ namespace Mn
 				_Animator->Play(L"Cat_Fall_Right", false);
 			else
 				_Animator->Play(L"Cat_Fall_Left", false);
+			break;
+		case ePlayerStatus::Hurt:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Hurt_Right", false);
+			else
+				_Animator->Play(L"Cat_Hurt_Left", false);
+			break;
 		default:
 			break;
 		}

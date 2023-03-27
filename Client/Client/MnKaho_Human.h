@@ -17,11 +17,16 @@ namespace Mn
 		Image*			_Image;
 		eDir			_Dir;
 		float			_DashCharge;
+		float			_HurtTime;
+		float			_AlphaTime;
+		float			_DamageTime;
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
+		bool			_GetDamage;
 		int				_col;
 		int				_row;
+		int				_AlphaDegree;
 	public:
 		Kaho_Human();
 		~Kaho_Human();
@@ -30,12 +35,18 @@ namespace Mn
 		void Update() override;
 		void Render(HDC hdc) override;
 		void Release() override;
+
+		void OnCollisionEnter(class Collider* other) override;
+		void OnCollisionStay(class Collider* other) override;
+		void OnCollisionExit(class Collider* other) override;
 	public:
 		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
 		void Dir(eDir dir) { _Dir = dir; }
 		eDir Dir() { return _Dir; }
 		void Active(eState state) { GameObject::State(state); }
 		void animationCtrl();
+	private:
+		void alpha();
 	private:
 		void idle();
 		void move();
@@ -46,6 +57,7 @@ namespace Mn
 		void fall();
 		void roll();
 		void useItem();
+		void hurt();
 	private:
 		void attackComplete();
 		void attackCombo1Complete();

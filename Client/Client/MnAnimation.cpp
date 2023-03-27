@@ -14,6 +14,7 @@ namespace Mn
 		,_SpriteIndex(0)
 		,_Time(0)
 		,_bComplete(false)
+		, _Alpha(255)
 	{
 	}
 	Animation::~Animation()
@@ -49,13 +50,37 @@ namespace Mn
 		pos.x -= ((_SpriteSheet[_SpriteIndex].size.x / 2.0f)*scale.x);
 		pos.y -= ((_SpriteSheet[_SpriteIndex].size.y)*scale.y);
 		
-		GdiTransparentBlt(hdc, pos.x, pos.y
-			, _SpriteSheet[_SpriteIndex].size.x*scale.x
-			, _SpriteSheet[_SpriteIndex].size.y*scale.y
-			, _ImageSheet->Hdc()
-			, _SpriteSheet[_SpriteIndex].leftTop.x, _SpriteSheet[_SpriteIndex].leftTop.y
-			, _SpriteSheet[_SpriteIndex].size.x, _SpriteSheet[_SpriteIndex].size.y,
-			RGB(0, 128, 128));
+		if (_Animator->Owner()->GetName() == L"Player")
+		{
+			BLENDFUNCTION func = {};
+			func.BlendOp = AC_SRC_OVER;
+			func.BlendFlags = 0;
+			func.AlphaFormat = AC_SRC_ALPHA;
+			func.SourceConstantAlpha = _Alpha;
+
+			AlphaBlend(hdc, pos.x, pos.y
+				, _SpriteSheet[_SpriteIndex].size.x * scale.x
+				, _SpriteSheet[_SpriteIndex].size.y *scale.y
+				, _ImageSheet->Hdc()
+				, _SpriteSheet[_SpriteIndex].leftTop.x
+				, _SpriteSheet[_SpriteIndex].leftTop.y
+				, _SpriteSheet[_SpriteIndex].size.x
+				, _SpriteSheet[_SpriteIndex].size.y
+				, func);
+			
+			if(func.SourceConstantAlpha==0)
+				func.SourceConstantAlpha = 255;
+		}
+		else
+		{
+			GdiTransparentBlt(hdc, pos.x, pos.y
+				, _SpriteSheet[_SpriteIndex].size.x * scale.x
+				, _SpriteSheet[_SpriteIndex].size.y * scale.y
+				, _ImageSheet->Hdc()
+				, _SpriteSheet[_SpriteIndex].leftTop.x, _SpriteSheet[_SpriteIndex].leftTop.y
+				, _SpriteSheet[_SpriteIndex].size.x, _SpriteSheet[_SpriteIndex].size.y,
+				RGB(0, 128, 128));
+		}
 	}
 	void Animation::Create(Image* sheet, Vector2 leftTop, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
 	{
