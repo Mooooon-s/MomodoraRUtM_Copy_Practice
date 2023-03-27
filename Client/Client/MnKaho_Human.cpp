@@ -22,6 +22,7 @@ namespace Mn
 		, _DashCharge(0.0f)
 		, _HurtTime(0.0f)
 		, _AlphaTime(0.0f)
+		, _DamageTime(0.0f)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
@@ -408,6 +409,7 @@ namespace Mn
 		{
 			_GetDamage = true;
 			_DamageTime = 0;
+			_Animator->animationAlpha(255);
 		}
 	}
 	void Kaho_Human::idle()
