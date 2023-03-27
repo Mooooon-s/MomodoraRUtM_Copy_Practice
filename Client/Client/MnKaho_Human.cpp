@@ -2,15 +2,17 @@
 #include "MnResources.h"
 #include "MnInput.h"
 #include "MnTime.h"
+
 #include "MnComponent.h"
 #include "MnTransform.h"
 #include "MnAnimator.h"
 #include "MnCollider.h"
+#include "MnRigidbody.h"
+
 #include "MnSceneManager.h"
 #include "MnScene.h"
 #include "MnArrow.h"
 #include "MnObject.h"
-#include "MnRigidbody.h"
 
 namespace Mn
 {
@@ -717,7 +719,6 @@ namespace Mn
 		else
 		{
 			_HurtTime = 0.0;
-			_AlphaDegree = 0;
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}

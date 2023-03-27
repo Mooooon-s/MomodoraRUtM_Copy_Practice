@@ -11,13 +11,18 @@ namespace Mn
 	{
 	private:
 		ePlayerStatus	_PlayerStatus;
-		Vector2			_Pos;
-		Animator*		_Animator;
 		Rigidbody*		_Rigidbody;
+		Animator*		_Animator;
+		Vector2			_Pos;
+		eState			_State;
 		eDir			_Dir;
 		float			_Dashtime;
+		float			_HurtTime;
+		float			_DamageTime;
+		float			_AlphaTime;
+		bool			_GetDamage;
 		bool			_Combo;
-		eState			_State;
+		int				_AlphaDegree;
 	public:
 		Kaho_Cat();
 		~Kaho_Cat();
@@ -26,6 +31,8 @@ namespace Mn
 		 void Update()override;
 		 void Render(HDC hdc)override;
 		 void Release() override;
+		 
+		 void OnCollisionEnter(class Collider* other) override;
 	public:
 		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
 		void Dir(eDir dir) { _Dir = dir; }
@@ -40,6 +47,9 @@ namespace Mn
 		void roll();
 		void jump();
 		void fall();
+		void hurt();
+
+		void alpha();
 	private:
 		void attackComplete();
 		void attackCombo1Complete();
