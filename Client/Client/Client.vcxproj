@@ -172,6 +172,7 @@
     <ClInclude Include="MnMainMenuBG.h" />
     <ClInclude Include="MnMainMenuScene.h" />
     <ClInclude Include="MnMath.h" />
+    <ClInclude Include="MnMeleeEffect.h" />
     <ClInclude Include="MnMomodora.h" />
     <ClInclude Include="MnObject.h" />
     <ClInclude Include="MnPlayerEnum.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="MnMainMenuBG.cpp" />
     <ClCompile Include="MnMainMenuScene.cpp" />
     <ClCompile Include="MnMath.cpp" />
+    <ClCompile Include="MnMeleeEffect.cpp" />
     <ClCompile Include="MnScene.cpp" />
     <ClCompile Include="MnSceneManager.cpp" />
     <ClCompile Include="MnPlayScene.cpp" />
