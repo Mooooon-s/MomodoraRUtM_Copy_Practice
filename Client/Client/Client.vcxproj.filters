@@ -83,6 +83,9 @@
     <Filter Include="Contents\Tile">
       <UniqueIdentifier>{ae45f822-f55b-4624-9e02-98dad33e5abc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Effect">
+      <UniqueIdentifier>{6ff034fb-7faf-4ed2-b722-d92be41c4785}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -232,6 +235,12 @@
     <ClInclude Include="MnTile.h">
       <Filter>Contents\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="MnMeleeEffect.h">
+      <Filter>Contents\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MnEffect.h">
+      <Filter>Contents\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -372,6 +381,12 @@
     </ClCompile>
     <ClCompile Include="MnTile.cpp">
       <Filter>Contents\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMeleeEffect.cpp">
+      <Filter>Contents\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MnEffect.cpp">
+      <Filter>Contents\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

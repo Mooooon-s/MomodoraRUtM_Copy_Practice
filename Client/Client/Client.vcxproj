@@ -154,6 +154,7 @@
     <ClInclude Include="MnCamera.h" />
     <ClInclude Include="MnCollider.h" />
     <ClInclude Include="MnCollisionManager.h" />
+    <ClInclude Include="MnEffect.h" />
     <ClInclude Include="MnEntity.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MnComponent.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="MnMainMenuBG.h" />
     <ClInclude Include="MnMainMenuScene.h" />
     <ClInclude Include="MnMath.h" />
+    <ClInclude Include="MnMeleeEffect.h" />
     <ClInclude Include="MnMomodora.h" />
     <ClInclude Include="MnObject.h" />
     <ClInclude Include="MnPlayerEnum.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnEffect.cpp" />
     <ClCompile Include="MnFadeInOut.cpp" />
     <ClCompile Include="MnCamera.cpp" />
     <ClCompile Include="MnCollisionManager.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="MnMainMenuBG.cpp" />
     <ClCompile Include="MnMainMenuScene.cpp" />
     <ClCompile Include="MnMath.cpp" />
+    <ClCompile Include="MnMeleeEffect.cpp" />
     <ClCompile Include="MnScene.cpp" />
     <ClCompile Include="MnSceneManager.cpp" />
     <ClCompile Include="MnPlayScene.cpp" />

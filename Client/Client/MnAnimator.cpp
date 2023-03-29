@@ -134,4 +134,14 @@ namespace Mn
 
 		return events->_EndEvent._Event;
 	}
+
+	std::function<void()>& Animator::GetFrameEvent(const std::wstring& name, int frame)
+	{
+		Animation* animation = FindAnimation(name);
+
+		Animator::Events* events = FindEvents(animation->GetName());
+
+		return events->_EndEvent._Event;
+	}
+
 }
