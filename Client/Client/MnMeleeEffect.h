@@ -1,5 +1,6 @@
 #pragma once
 #include "MnGameObject.h"
+#include "MnPlayerEnum.h"
 
 namespace Mn
 {
@@ -8,7 +9,11 @@ namespace Mn
 	class MeleeEffect : public GameObject
 	{
 	private:
-		Animator* _Animator;
+		Animator*	_Animator;
+		eDir		_Dir;
+		int			_Attack;
+		bool		_IsEnd;
+		bool		_IsPlaying;
 	public:
 		MeleeEffect();
 		~MeleeEffect();
@@ -21,6 +26,14 @@ namespace Mn
 		void OnCollisionEnter(class Collider* other) override;
 		void OnCollisionStay(class Collider* other) override;
 		void OnCollisionExit(class Collider* other) override;
+	public:
+		void Dir(eDir dir) { _Dir = dir; }
+		void attack(int attack) { _Attack = attack; }
+	private:
+		void melee1Complete();
+		void melee2Complete();
+		void melee3Complete();
+		void airmeleeComplete();
 	};
 }
 

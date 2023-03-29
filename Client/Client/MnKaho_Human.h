@@ -59,8 +59,11 @@ namespace Mn
 		void useItem();
 		void hurt();
 	private:
+		void attackStart();
 		void attackComplete();
+		void attackCombo1Start();
 		void attackCombo1Complete();
+		void attackCombo2Start();
 		void attackCombo2Complete();
 		void airAttackComplete();
 		void crouchRangeStart();

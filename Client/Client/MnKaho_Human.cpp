@@ -11,8 +11,10 @@
 
 #include "MnSceneManager.h"
 #include "MnScene.h"
-#include "MnArrow.h"
+
 #include "MnObject.h"
+#include "MnArrow.h"
+#include "MnMeleeEffect.h"
 
 namespace Mn
 {
@@ -144,10 +146,18 @@ namespace Mn
 		// 
 		//-------------------------------------------------------------------------------------------------------------------
 		//ComboAttack
+		_Animator->GetStartEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackStart, this);
+		_Animator->GetStartEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackStart, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_1_Right") = std::bind(&Kaho_Human::attackComplete, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_1_Left") = std::bind(&Kaho_Human::attackComplete, this);
+		
+		_Animator->GetStartEvent(L"Melee_Attack_2_Right") = std::bind(&Kaho_Human::attackCombo1Start, this);
+		_Animator->GetStartEvent(L"Melee_Attack_2_Left") = std::bind(&Kaho_Human::attackCombo1Start, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_2_Right") = std::bind(&Kaho_Human::attackCombo1Complete, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_2_Left") = std::bind(&Kaho_Human::attackCombo1Complete, this);
+		
+		_Animator->GetStartEvent(L"Melee_Attack_3_Right") = std::bind(&Kaho_Human::attackCombo2Start, this);
+		_Animator->GetStartEvent(L"Melee_Attack_3_Left") = std::bind(&Kaho_Human::attackCombo2Start, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_3_Right") = std::bind(&Kaho_Human::attackCombo2Complete, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_3_Left") = std::bind(&Kaho_Human::attackCombo2Complete, this);
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Right") = std::bind(&Kaho_Human::airAttackComplete, this);
@@ -729,6 +739,14 @@ namespace Mn
 	//													Events
 	// 
 	//-------------------------------------------------------------------------------------------------------------------
+	void Kaho_Human::attackStart()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos() + Vector2(65.0f,0.0f);
+		MeleeEffect* melee=object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(1);
+	}
 	void Kaho_Human::attackComplete()
 	{
 		if (_Combo == true)
@@ -746,6 +764,14 @@ namespace Mn
 			animationCtrl();
 		}
 	}
+	void Kaho_Human::attackCombo1Start()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos() + Vector2(65.0f, 0.0f);
+		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(2);
+	}
 	void Kaho_Human::attackCombo1Complete()
 	{
 		if (_Combo == true)
@@ -761,6 +787,14 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
+	}
+	void Kaho_Human::attackCombo2Start()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos() + Vector2(65.0f, 0.0f);
+		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(3);
 	}
 	void Kaho_Human::attackCombo2Complete()
 	{

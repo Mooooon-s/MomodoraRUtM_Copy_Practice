@@ -238,6 +238,9 @@
     <ClInclude Include="MnMeleeEffect.h">
       <Filter>Contents\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="MnEffect.h">
+      <Filter>Contents\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -380,6 +383,9 @@
       <Filter>Contents\Tile</Filter>
     </ClCompile>
     <ClCompile Include="MnMeleeEffect.cpp">
+      <Filter>Contents\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MnEffect.cpp">
       <Filter>Contents\Effect</Filter>
     </ClCompile>
   </ItemGroup>
