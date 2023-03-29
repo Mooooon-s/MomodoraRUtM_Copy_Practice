@@ -30,6 +30,7 @@ namespace Mn
 		static void CreateTiles(int index, UINT width, UINT height);
 		static void Save();
 		static void Load();
+		static void Load(const wchar_t* name);
 		static Vector2 TilePos(Vector2 mousePos);
 		static void Index(UINT index) { _Index = index; }
 		static UINT Index() { return _Index; }

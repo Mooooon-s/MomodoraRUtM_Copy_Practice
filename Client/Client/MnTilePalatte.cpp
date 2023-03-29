@@ -88,6 +88,30 @@ namespace Mn
 	void TilePalatte::Load()
 	{
 	}
+	void TilePalatte::Load(const wchar_t* name)
+	{
+		FILE* file = nullptr;
+		_wfopen_s(&file, name, L"rb");
+
+		if (file == nullptr)
+			return;
+
+		while (true)
+		{
+			int index = -1;
+			TileID id;
+
+			if (fread(&index, sizeof(int), 1, file) == NULL)
+				break;
+
+			if (fread(&id.id, sizeof(TileID), 1, file) == NULL)
+				break;
+
+			CreateTile(index, Vector2(id.x, id.y));
+		}
+
+		fclose(file);
+	}
 	Vector2 TilePalatte::TilePos(Vector2 mousePos)
 	{
 		int indexY = mousePos.y / TILE_SIZE_Y;
