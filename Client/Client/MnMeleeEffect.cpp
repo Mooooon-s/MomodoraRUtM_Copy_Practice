@@ -49,6 +49,8 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Kaho_Human_Air_Melee_Attack_1_Right") = std::bind(&MeleeEffect::airmeleeComplete, this);
 		_Animator->GetCompleteEvent(L"Kaho_Human_Air_Melee_Attack_1_Left") = std::bind(&MeleeEffect::airmeleeComplete, this);
 
+		_Animator->FindAnimation(L"Kaho_Human_Melee_Attack_1_Right")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&MeleeEffect::meleeCollider, this);
+		//_Animator->GetFrameEvent(L"Kaho_Human_Melee_Attack_1_Right", 3)= std::bind(&MeleeEffect::meleeCollider, this);
 		_kaho = PlayScene::GetKaho();
 	}
 	void MeleeEffect::Update()
@@ -191,5 +193,9 @@ namespace Mn
 
 		}
 
+	}
+	void MeleeEffect::meleeCollider()
+	{
+		_Collider = AddComponent<Collider>();
 	}
 }

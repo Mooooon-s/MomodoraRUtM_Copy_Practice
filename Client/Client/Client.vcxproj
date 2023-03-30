@@ -154,7 +154,6 @@
     <ClInclude Include="MnCamera.h" />
     <ClInclude Include="MnCollider.h" />
     <ClInclude Include="MnCollisionManager.h" />
-    <ClInclude Include="MnEffect.h" />
     <ClInclude Include="MnEntity.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MnComponent.h" />
@@ -196,7 +195,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MnEffect.cpp" />
     <ClCompile Include="MnFadeInOut.cpp" />
     <ClCompile Include="MnCamera.cpp" />
     <ClCompile Include="MnCollisionManager.cpp" />

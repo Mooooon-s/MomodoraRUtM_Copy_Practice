@@ -28,6 +28,12 @@ namespace Mn
 		if (_bComplete)
 			return;
 
+		if (_SpriteSheet[_SpriteIndex]._Events._FrameEvent._Event != nullptr)
+		{
+			_SpriteSheet[_SpriteIndex]._Events._FrameEvent._Event();
+		}
+
+
 		_Time += Time::DeltaTime();
 		if (_SpriteSheet[_SpriteIndex].duration < _Time)
 		{
@@ -37,6 +43,7 @@ namespace Mn
 			else
 				_SpriteIndex++;
 		}
+
 	}
 	void Animation::Render(HDC hdc)
 	{
@@ -52,6 +59,7 @@ namespace Mn
 		
 		if (_Animator->Owner()->GetName() == L"Player")
 		{
+
 			BLENDFUNCTION func = {};
 			func.BlendOp = AC_SRC_OVER;
 			func.BlendFlags = 0;
@@ -101,7 +109,6 @@ namespace Mn
 
 			_SpriteSheet.push_back(spriteInfo);
 		}
-
 	}
 	void Animation::Reset()
 	{

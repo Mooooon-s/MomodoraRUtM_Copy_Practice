@@ -28,7 +28,6 @@ namespace Mn
 			Event _StartEvent;
 			Event _CompleteEvent;
 			Event _EndEvent;
-			Event _FrameEvent;
 		};
 
 	private:
@@ -59,7 +58,7 @@ namespace Mn
 		std::function<void()>& GetStartEvent(const std::wstring& name);
 		std::function<void()>& GetCompleteEvent(const std::wstring& name);
 		std::function<void()>& GetEndEvent(const std::wstring& name);
-		std::function<void()>& GetFrameEvent(const std::wstring& name, int frame);
+		std::function<void()>& GetFrameEvent(const std::wstring& name,int frame);
 	public:
 		void animationAlpha(int alpha) { _ActiveAnimation->Alpha(alpha); }
 	};
