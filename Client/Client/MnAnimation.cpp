@@ -67,9 +67,8 @@ namespace Mn
 				, _SpriteSheet[_SpriteIndex].size.x
 				, _SpriteSheet[_SpriteIndex].size.y
 				, func);
-			
-			if(func.SourceConstantAlpha==0)
-				func.SourceConstantAlpha = 255;
+			if (_Alpha == 0)
+				_Alpha = 255;
 		}
 		else
 		{
