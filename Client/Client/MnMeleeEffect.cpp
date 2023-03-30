@@ -50,7 +50,11 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Kaho_Human_Air_Melee_Attack_1_Left") = std::bind(&MeleeEffect::airmeleeComplete, this);
 
 		_Animator->FindAnimation(L"Kaho_Human_Melee_Attack_1_Right")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&MeleeEffect::meleeCollider, this);
-		//_Animator->GetFrameEvent(L"Kaho_Human_Melee_Attack_1_Right", 3)= std::bind(&MeleeEffect::meleeCollider, this);
+		_Animator->FindAnimation(L"Kaho_Human_Melee_Attack_1_Left")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&MeleeEffect::meleeCollider, this);
+		_Animator->FindAnimation(L"Kaho_Human_Melee_Attack_2_Right")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&MeleeEffect::meleeCollider, this);
+		_Animator->FindAnimation(L"Kaho_Human_Melee_Attack_2_Left")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&MeleeEffect::meleeCollider, this);
+		_Animator->FindAnimation(L"Kaho_Human_Melee_Attack_3_Right")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&MeleeEffect::meleeCollider, this);
+		_Animator->FindAnimation(L"Kaho_Human_Melee_Attack_3_Left")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&MeleeEffect::meleeCollider, this);
 		_kaho = PlayScene::GetKaho();
 	}
 	void MeleeEffect::Update()
@@ -115,9 +119,9 @@ namespace Mn
 			break;
 		case 3:
 			if (_Dir == eDir::R)
-				tr->Pos(ktr->Pos() + Vector2(65.0f, -10.0f));
+				tr->Pos(ktr->Pos() + Vector2(65.0f, -5.0f));
 			else
-				tr->Pos(ktr->Pos() + Vector2(-70.0f, -10.0f));
+				tr->Pos(ktr->Pos() + Vector2(-70.0f, -5.0f));
 			break;
 		case 4:
 			if (_Dir == eDir::R)
@@ -197,5 +201,36 @@ namespace Mn
 	void MeleeEffect::meleeCollider()
 	{
 		_Collider = AddComponent<Collider>();
+		switch (_Attack)
+		{
+		case 1:
+			_Collider->Scale(Vector2(3, 3));
+			if(_Dir==eDir::R)
+				_Collider->Center(Vector2(-30,-110));
+			else
+				_Collider->Center(Vector2(-70, -110));
+			_Collider->Size(Vector2(35, 32));
+			break;
+		case 2:
+			_Collider->Scale(Vector2(3, 3));
+			if (_Dir == eDir::R)
+				_Collider->Center(Vector2(-30, -110));
+			else
+				_Collider->Center(Vector2(-70, -110));
+			_Collider->Size(Vector2(35, 32));
+			break;
+		case 3:
+			_Collider->Scale(Vector2(3, 3));
+			if (_Dir == eDir::R)
+				_Collider->Center(Vector2(-30, -120));
+			else
+				_Collider->Center(Vector2(-70, -120));
+			_Collider->Size(Vector2(40, 40));
+			break;
+		case 4:
+			break;
+		default:
+			break;
+		}
 	}
 }

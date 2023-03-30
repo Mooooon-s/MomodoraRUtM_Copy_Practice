@@ -26,8 +26,8 @@ namespace Mn
 	}
 	void Collider::Update()
 	{
-			Transform* tr = Owner()->GetComponent<Transform>();
-			_Pos = tr->Pos()+ _Center;
+		Transform* tr = Owner()->GetComponent<Transform>();
+		_Pos = tr->Pos()+ _Center;
 	}
 	void Collider::Render(HDC hdc)
 	{
@@ -42,7 +42,7 @@ namespace Mn
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 
 		Vector2 pos = Camera::ComputePos(_Pos);
-		Rectangle(hdc, pos.x, pos.y, pos.x + _Size.x, pos.y + _Size.y);
+		Rectangle(hdc, pos.x, pos.y, pos.x + _Size.x*_Scale.x, pos.y + _Size.y*_Scale.y);
 		(HPEN)SelectObject(hdc, oldPen);
 		(HBRUSH)SelectObject(hdc, oldBrush);
 		DeleteObject(pen);
@@ -54,7 +54,6 @@ namespace Mn
 	}
 	void Collider::OnCollisionEnter(Collider* other)
 	{
-		
 		Owner()->OnCollisionEnter(other);
 	}
 	void Collider::OnCollisionStay(Collider* other)

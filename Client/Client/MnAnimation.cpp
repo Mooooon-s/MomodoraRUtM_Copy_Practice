@@ -28,15 +28,13 @@ namespace Mn
 		if (_bComplete)
 			return;
 
-		if (_SpriteSheet[_SpriteIndex]._Events._FrameEvent._Event != nullptr)
-		{
-			_SpriteSheet[_SpriteIndex]._Events._FrameEvent._Event();
-		}
-
-
 		_Time += Time::DeltaTime();
 		if (_SpriteSheet[_SpriteIndex].duration < _Time)
 		{
+			if (_SpriteSheet[_SpriteIndex]._Events._FrameEvent._Event != nullptr)
+			{
+				_SpriteSheet[_SpriteIndex]._Events._FrameEvent._Event();
+			}
 			_Time = 0.0f;
 			if(_SpriteSheet.size() <= _SpriteIndex+1)
 				_bComplete = true;
