@@ -65,6 +65,7 @@ namespace Mn
 		void attackCombo1Complete();
 		void attackCombo2Start();
 		void attackCombo2Complete();
+		void airAttackStart();
 		void airAttackComplete();
 		void crouchRangeStart();
 		void crouchRangeComplete();

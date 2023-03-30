@@ -160,6 +160,9 @@ namespace Mn
 		_Animator->GetStartEvent(L"Melee_Attack_3_Left") = std::bind(&Kaho_Human::attackCombo2Start, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_3_Right") = std::bind(&Kaho_Human::attackCombo2Complete, this);
 		_Animator->GetCompleteEvent(L"Melee_Attack_3_Left") = std::bind(&Kaho_Human::attackCombo2Complete, this);
+
+		_Animator->GetStartEvent(L"Air_Melee_Attack_Right") = std::bind(&Kaho_Human::airAttackStart, this);
+		_Animator->GetStartEvent(L"Air_Melee_Attack_Left") = std::bind(&Kaho_Human::airAttackStart, this);
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Right") = std::bind(&Kaho_Human::airAttackComplete, this);
 		_Animator->GetCompleteEvent(L"Air_Melee_Attack_Left") = std::bind(&Kaho_Human::airAttackComplete, this);
 		//RangeAttack
@@ -800,6 +803,14 @@ namespace Mn
 	{
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
+	}
+	void Kaho_Human::airAttackStart()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos() + Vector2(65.0f, 0.0f);
+		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(4);
 	}
 	void Kaho_Human::airAttackComplete()
 	{

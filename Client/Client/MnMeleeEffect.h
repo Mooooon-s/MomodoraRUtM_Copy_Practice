@@ -1,6 +1,7 @@
 #pragma once
 #include "MnGameObject.h"
 #include "MnPlayerEnum.h"
+#include "MnKaho.h"
 
 namespace Mn
 {
@@ -9,6 +10,8 @@ namespace Mn
 	class MeleeEffect : public GameObject
 	{
 	private:
+		Kaho*		_kaho;
+		Collider*	_Collider;
 		Animator*	_Animator;
 		eDir		_Dir;
 		int			_Attack;
@@ -34,6 +37,8 @@ namespace Mn
 		void melee2Complete();
 		void melee3Complete();
 		void airmeleeComplete();
+		void effectpos();
+		void animation();
 	};
 }
 

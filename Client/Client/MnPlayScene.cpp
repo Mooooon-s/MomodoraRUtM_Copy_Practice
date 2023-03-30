@@ -16,8 +16,7 @@
 
 namespace Mn 
 {
-	
-
+	Kaho* PlayScene::_kaho = nullptr;
 	PlayScene::PlayScene()
 	{
 	}

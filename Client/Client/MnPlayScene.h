@@ -7,9 +7,9 @@ namespace Mn
 	class PlayScene :public Scene
 	{
 	private:
-		Kaho*		_kaho;
-		Kaho_Human* _KahoHuman;
-		Kaho_Cat*	_KahoCat;
+		static Kaho*	_kaho;
+		Kaho_Human*		_KahoHuman;
+		Kaho_Cat*		_KahoCat;
 	public:
 		PlayScene();
 		~PlayScene();
@@ -21,6 +21,8 @@ namespace Mn
 	public:
 		void OnEnter() override;
 		void OnExit() override;
+	public:
+		static Kaho* GetKaho() { return _kaho; }
 	};
 }
 
