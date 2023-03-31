@@ -26,6 +26,7 @@ namespace Mn
 	}
 	void MeleeEffect::Initialize()
 	{
+		GameObject::SetName(L"meleeAttack");
 		//-------------------------------------------------------------------------------------------------------------------
 		//
 		//											Kaho Human Effect Animation
