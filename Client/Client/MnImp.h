@@ -27,7 +27,8 @@ namespace Mn
 		Animator*	_Animator;
 		Vector2		_Pos;
 		eDir		_Dir;
-		double		_Time;
+		double		_HurtTime;
+		double		_ThinkTime;
 		int			_Hp;
 	public:
 		Imp();

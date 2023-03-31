@@ -8,6 +8,7 @@
 #include "MnCollider.h"
 #include "MnRigidbody.h"
 #include "MnKaho.h"
+#include "MnPlayScene.h"
 
 namespace Mn
 {
@@ -17,8 +18,9 @@ namespace Mn
 		,_Rigidbody(nullptr)
 		,_Pos(Vector2::Zero)
 		,_Status(eMonStatus::Move)
-		,_Time(0)
+		,_HurtTime(0)
 		,_Hp(3)
+		,_Dir(eDir::R)
 	{
 	}
 	Imp::~Imp()
@@ -57,6 +59,13 @@ namespace Mn
 	}
 	void Imp::Update()
 	{
+		Transform* tr = GetComponent<Transform>();
+		_Pos = tr->Pos();
+		_ThinkTime += Time::DeltaTime();
+		if (_ThinkTime == 0.5f)
+		{
+			think();
+		}
 		switch (_Status)
 		{
 		case eMonStatus::Move:
@@ -88,12 +97,22 @@ namespace Mn
 	}
 	void Imp::OnCollisionEnter(Collider* other)
 	{
+		Kaho* kaho = PlayScene::GetKaho();
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
-			_Status=eMonStatus::Hurt;
-			animationCntrl();
-			_Hp -= 1;
-			_Time = 0;
+			Vector2 dir = _Pos - kaho->KahoPos();
+			if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
+			{
+				_Status = eMonStatus::Hurt;
+				animationCntrl();
+				_Hp -= 1;
+				_HurtTime = 0;
+			}
+			else
+			{
+				_Status = eMonStatus::Defence;
+				animationCntrl();
+			}
 		}
 	}
 	void Imp::OnCollisionStay(Collider* other)
@@ -116,12 +135,12 @@ namespace Mn
 	}
 	void Imp::hurt()
 	{
-		_Time += Time::DeltaTime();
-		if (_Time >= 0.5)
+		_HurtTime += Time::DeltaTime();
+		if (_HurtTime >= 0.5)
 		{
 			_Status = eMonStatus::Defence;
 			animationCntrl();
-			_Time = 0;
+			_HurtTime = 0;
 		}
 	}
 	void Imp::animationCntrl()
