@@ -43,6 +43,7 @@ namespace Mn
 	}
 	void TitleScene::OnEnter()
 	{
+		Camera::SetTarget(nullptr);
 		Camera::CamReset();
 	}
 	void TitleScene::OnExit()

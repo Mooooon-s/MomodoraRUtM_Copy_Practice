@@ -223,9 +223,6 @@
     <ClInclude Include="MnTransform.h">
       <Filter>Engin\Component\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="MnGround.h">
-      <Filter>Engin</Filter>
-    </ClInclude>
     <ClInclude Include="MnToolScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
@@ -237,6 +234,9 @@
     </ClInclude>
     <ClInclude Include="MnMeleeEffect.h">
       <Filter>Contents\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MnGround.h">
+      <Filter>Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -367,9 +367,6 @@
     <ClCompile Include="MnTransform.cpp">
       <Filter>Engin\Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="MnGround.cpp">
-      <Filter>Engin</Filter>
-    </ClCompile>
     <ClCompile Include="MnToolScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
@@ -381,6 +378,9 @@
     </ClCompile>
     <ClCompile Include="MnMeleeEffect.cpp">
       <Filter>Contents\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MnGround.cpp">
+      <Filter>Contents</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -33,7 +33,7 @@ namespace Mn
 			Vector2 offset;
 			Vector2	size;
 			float	duration;
-			Events _Events;
+			Events	_Events;
 
 			Sprite()
 				: leftTop(Vector2::Zero)
@@ -45,13 +45,13 @@ namespace Mn
 		};
 
 	private:
-		Image* _ImageSheet;
-		Animator* _Animator;
 		std::vector<Sprite> _SpriteSheet;
-		int _SpriteIndex;
-		float _Time;
-		bool _bComplete;
-		int		_Alpha;
+		Animator*			_Animator;
+		Image*				_ImageSheet;
+		float				_Time;
+		bool				_bComplete;
+		int					_SpriteIndex;
+		int					_Alpha;
 	public:
 		Animation();
 		~Animation();

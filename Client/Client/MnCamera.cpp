@@ -64,10 +64,6 @@ namespace Mn
 			{
 				_CuttonAlpha = ratio;
 			}
-			else
-			{
-
-			}
 		}
 
 		_Distance = _LookPosition - (_Resolution / 2.0f);

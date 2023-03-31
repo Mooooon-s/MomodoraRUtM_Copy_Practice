@@ -58,6 +58,6 @@ namespace Mn {
 
 	private:
 		static std::vector<Key> _Keys;
-		static Vector2 _MousePos;
+		static Vector2			_MousePos;
 	};
 }

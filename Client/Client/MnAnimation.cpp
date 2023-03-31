@@ -57,7 +57,6 @@ namespace Mn
 		
 		if (_Animator->Owner()->GetName() == L"Player")
 		{
-
 			BLENDFUNCTION func = {};
 			func.BlendOp = AC_SRC_OVER;
 			func.BlendFlags = 0;

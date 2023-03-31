@@ -28,7 +28,7 @@ namespace Mn
 		virtual void OnCollisionEnter(class Collider* other);
 		virtual void OnCollisionStay(class Collider* other);
 		virtual void OnCollisionExit(class Collider* other);
-
+	public:
 		eState State() { return _State; }
 		void State(eState state) { _State = state; }
 	public:

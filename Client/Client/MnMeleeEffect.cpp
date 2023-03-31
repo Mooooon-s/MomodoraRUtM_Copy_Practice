@@ -13,6 +13,8 @@ namespace Mn
 {
 	MeleeEffect::MeleeEffect()
 		: _Animator(nullptr)
+		, _Collider(nullptr)
+		, _kaho(nullptr)
 		,_Dir(eDir::R)
 		,_Attack(0)
 		,_IsEnd(false)

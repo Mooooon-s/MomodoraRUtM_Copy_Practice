@@ -7,8 +7,8 @@ namespace Mn
 	class Component : public Entity
 	{
 	private:
-		const eComponentType _Type;
-		GameObject* _Owner;
+		const eComponentType	_Type;
+		GameObject*				_Owner;
 	public:
 		Component(eComponentType Type);
 		~Component();

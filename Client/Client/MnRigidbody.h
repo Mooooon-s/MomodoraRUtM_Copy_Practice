@@ -25,8 +25,9 @@ namespace Mn
 		void Render(HDC hdc) override;
 		void Release() override;
 	public:
-		void SetMass(float mass) { _Mass = mass; }
 		void AddForce(Vector2 force);
+	public:
+		void SetMass(float mass) { _Mass = mass; }
 		void SetGround(bool ground) { _IsGround = ground; }
 		bool GetGround() { return _IsGround; }
 		Vector2 Velocity() { return _Velocity; }
