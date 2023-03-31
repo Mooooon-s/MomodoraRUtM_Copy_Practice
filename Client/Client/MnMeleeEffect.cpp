@@ -285,30 +285,30 @@ namespace Mn
 		{
 		case 1:
 			if(_Dir==eDir::R)
-				_Collider->Center(Vector2(-30,-110));
+				_Collider->Center(Vector2(35,-110));
 			else
-				_Collider->Center(Vector2(-70, -110));
+				_Collider->Center(Vector2(-140, -110));
 			_Collider->Size(Vector2(35*3, 32*3));
 			break;
 		case 2:
 			if (_Dir == eDir::R)
-				_Collider->Center(Vector2(-30, -110));
+				_Collider->Center(Vector2(35, -110));
 			else
-				_Collider->Center(Vector2(-70, -110));
+				_Collider->Center(Vector2(-140, -110));
 			_Collider->Size(Vector2(35*3, 32*3));
 			break;
 		case 3:
 			if (_Dir == eDir::R)
-				_Collider->Center(Vector2(-30, -120));
+				_Collider->Center(Vector2(35, -130));
 			else
-				_Collider->Center(Vector2(-70, -120));
+				_Collider->Center(Vector2(-155, -130));
 			_Collider->Size(Vector2(40*3, 40*3));
 			break;
 		case 4:
 			if (_Dir == eDir::R)
 				_Collider->Center(Vector2(-30, -120));
 			else
-				_Collider->Center(Vector2(-70, -120));
+				_Collider->Center(Vector2(-155, -120));
 			_Collider->Size(Vector2(40*3, 40*3));
 			break;
 		default:
@@ -325,21 +325,21 @@ namespace Mn
 				_Collider->Center(Vector2(30, -110));
 			else
 				_Collider->Center(Vector2(-135, -110));
-			_Collider->Size(Vector2(35*3, 32*3));
+			_Collider->Size(Vector2(35*3, 35*3));
 			break;
 		case 2:
-			if (_Dir == eDir::R)
-				_Collider->Center(Vector2(30, -110));
-			else
-				_Collider->Center(Vector2(-135, -110));
-			_Collider->Size(Vector2(35*3, 32*3));
-			break;
-		case 3:
 			if (_Dir == eDir::R)
 				_Collider->Center(Vector2(30, -120));
 			else
 				_Collider->Center(Vector2(-135, -120));
-			_Collider->Size(Vector2(40*3, 40*3));
+			_Collider->Size(Vector2(35*3, 40*3));
+			break;
+		case 3:
+			if (_Dir == eDir::R)
+				_Collider->Center(Vector2(30, -150));
+			else
+				_Collider->Center(Vector2(-148, -150));
+			_Collider->Size(Vector2(40*3, 50*3));
 			break;
 		case 4:
 			if (_Dir == eDir::R)
