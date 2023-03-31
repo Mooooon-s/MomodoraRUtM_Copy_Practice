@@ -306,7 +306,7 @@ namespace Mn
 			break;
 		case 4:
 			if (_Dir == eDir::R)
-				_Collider->Center(Vector2(-30, -120));
+				_Collider->Center(Vector2(35, -120));
 			else
 				_Collider->Center(Vector2(-155, -120));
 			_Collider->Size(Vector2(40*3, 40*3));

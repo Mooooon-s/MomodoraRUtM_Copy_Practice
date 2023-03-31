@@ -91,7 +91,14 @@ namespace Mn
 	void TilePalatte::Load(const wchar_t* name)
 	{
 		FILE* file = nullptr;
-		_wfopen_s(&file, name, L"rb");
+
+		const wchar_t* path = L"..\\Resources\\";
+
+		wchar_t pathname[80] = {};
+		wcscat_s(pathname, path);
+		wcscat_s(pathname, name);
+
+		_wfopen_s(&file, pathname, L"rb");
 
 		if (file == nullptr)
 			return;

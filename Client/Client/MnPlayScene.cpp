@@ -12,6 +12,7 @@
 #include "MnCamera.h"
 #include "MnObject.h"
 #include "MnCollisionManager.h"
+#include "MnTilePalatte.h"
 
 
 namespace Mn 
@@ -56,6 +57,7 @@ namespace Mn
 	}
 	void PlayScene::OnEnter()
 	{
+		TilePalatte::Load(L"TestStage");
 		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);

@@ -704,9 +704,9 @@ namespace Mn
 			if (_DashCharge >= 0.3f)
 			{
 				if (_Dir == eDir::R)
-					_pos.x += 500.0f * Time::DeltaTime();
+					_pos.x += 800.0f * Time::DeltaTime();
 				else
-					_pos.x -= 500.0f * Time::DeltaTime();
+					_pos.x -= 800.0f * Time::DeltaTime();
 			}
 		}
 	}
