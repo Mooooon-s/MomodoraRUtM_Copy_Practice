@@ -39,7 +39,8 @@ namespace Mn
 		void airmeleeComplete();
 		void effectpos();
 		void animation();
-		void meleeCollider();
+		void kahoHumanMeleeCollider();
+		void kahoCatMeleeCollider();
 	};
 }
 

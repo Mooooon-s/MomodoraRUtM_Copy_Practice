@@ -51,6 +51,11 @@ namespace Mn
 
 		void alpha();
 	private:
+		void attackStart();
+		void attackCombo1Start();
+		void attackCombo2Start();
+		void attackAirStart();
+	private:
 		void attackComplete();
 		void attackCombo1Complete();
 		void attackCombo2Complete();

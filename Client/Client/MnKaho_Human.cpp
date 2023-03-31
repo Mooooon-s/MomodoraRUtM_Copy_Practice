@@ -745,7 +745,7 @@ namespace Mn
 	void Kaho_Human::attackStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->Pos() + Vector2(65.0f,0.0f);
+		Vector2 pos = tr->Pos();
 		MeleeEffect* melee=object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(1);
@@ -770,7 +770,7 @@ namespace Mn
 	void Kaho_Human::attackCombo1Start()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->Pos() + Vector2(65.0f, 0.0f);
+		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(2);
@@ -794,7 +794,7 @@ namespace Mn
 	void Kaho_Human::attackCombo2Start()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->Pos() + Vector2(65.0f, 0.0f);
+		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(3);
@@ -807,7 +807,7 @@ namespace Mn
 	void Kaho_Human::airAttackStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->Pos() + Vector2(65.0f, 0.0f);
+		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(4);

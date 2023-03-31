@@ -4,6 +4,8 @@
 #include "MnImage.h"
 #include "MnInput.h"
 #include "MnTime.h"
+#include "MnMeleeEffect.h"
+#include "MnObject.h"
 
 #include "MnComponent.h"
 #include "MnTransform.h"
@@ -93,6 +95,13 @@ namespace Mn
 		//													Events
 		// 
 		//-------------------------------------------------------------------------------------------------------------------
+		_Animator->GetStartEvent(L"Cat_Attack_1_Right") = std::bind(&Kaho_Cat::attackStart, this);
+		_Animator->GetStartEvent(L"Cat_Attack_1_Left") = std::bind(&Kaho_Cat::attackStart, this);
+		_Animator->GetStartEvent(L"Cat_Attack_2_Right") = std::bind(&Kaho_Cat::attackCombo1Start, this);
+		_Animator->GetStartEvent(L"Cat_Attack_2_Left") = std::bind(&Kaho_Cat::attackCombo1Start, this);
+		_Animator->GetStartEvent(L"Cat_Attack_3_Right") = std::bind(&Kaho_Cat::attackCombo2Start, this);
+		_Animator->GetStartEvent(L"Cat_Attack_3_Left") = std::bind(&Kaho_Cat::attackCombo2Start, this);
+
 		_Animator->GetCompleteEvent(L"Cat_Attack_1_Right") = std::bind(&Kaho_Cat::attackComplete,this);
 		_Animator->GetCompleteEvent(L"Cat_Attack_1_Left") = std::bind(&Kaho_Cat::attackComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_Attack_2_Right") = std::bind(&Kaho_Cat::attackCombo1Complete, this);
@@ -448,6 +457,38 @@ namespace Mn
 			_DamageTime = 0;
 			_Animator->animationAlpha(255);
 		}
+	}
+	void Kaho_Cat::attackStart()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(1);
+	}
+	void Kaho_Cat::attackCombo1Start()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(2);
+	}
+	void Kaho_Cat::attackCombo2Start()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(3);
+	}
+	void Kaho_Cat::attackAirStart()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
+		melee->Dir(_Dir);
+		melee->attack(1);
 	}
 	//-------------------------------------------------------------------------------------------------------------------
 	//
