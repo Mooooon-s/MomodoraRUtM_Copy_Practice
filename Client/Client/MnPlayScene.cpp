@@ -60,6 +60,7 @@ namespace Mn
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 	}
 	void PlayScene::OnExit()
 	{
