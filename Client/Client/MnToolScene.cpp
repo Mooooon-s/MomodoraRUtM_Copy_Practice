@@ -99,7 +99,7 @@ namespace Mn
 		{
 		case WM_CREATE:
 		{
-			Mn::Image* tile = Mn::Resources::Load<Mn::Image>(L"TileAtlas", L"..\\Resources\\tile.bmp");
+			Mn::Image* tile = Mn::Resources::Load<Mn::Image>(L"TileAtlas", L"..\\Resources\\Tile_Map.bmp");
 
 			RECT rect = { 0, 0, tile->Width(), tile->Height() };
 			AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
@@ -125,7 +125,7 @@ namespace Mn
 				int x = mousePos.x / TILE_SIZE_X;
 				int y = mousePos.y / TILE_SIZE_Y;
 
-				int index = (y * 31) + (x % 31);
+				int index = (y * 25) + (x % 25);
 				Mn::TilePalatte::Index(index);
 			}
 		}

@@ -1,6 +1,8 @@
 #include "MnTilePalatte.h"
 #include "MnResources.h"
 #include "MnInput.h"
+#include "MnCollider.h"
+#include "MnGround.h"
 #include <commdlg.h>
 
 namespace Mn
@@ -33,6 +35,12 @@ namespace Mn
 
 		Vector2 tilePos(pos.x * TILE_SIZE_X, pos.y * TILE_SIZE_Y);
 		tile->GetComponent<Transform>()->Pos(tilePos);
+
+		if (index <=75 )
+		{
+			Vector2 tilePos = tile->GetComponent<Transform>()->Pos();
+			object::Instantiate<Ground>(tilePos,eLayerType::Ground);
+		}
 
 		TileID id;
 		id.x = (UINT32)pos.x;

@@ -17,7 +17,7 @@ namespace Mn
 	void Ground::Initialize()
 	{
 		_Collider = AddComponent<Collider>();
-		_Collider->Size(Vector2(920.0f, 50.0f));
+		_Collider->Size(Vector2(16.0f*3, 16.0f*3));
 		GameObject::Initialize();
 	}
 	void Ground::Update()
@@ -38,29 +38,31 @@ namespace Mn
 			return;
 
 		Rigidbody* rb = obj->GetComponent<Rigidbody>();
-		rb->SetGround(true);
-
-		Collider* objColl = obj->GetComponent<Collider>();
-		Vector2 objPos = objColl->Pos();
-
-		Collider* groundColl = this->GetComponent<Collider>();
-		Vector2 groundPos = groundColl->Pos();
-
-		float fLen = fabs(objPos.y - groundPos.y);
-		float fSize = (objColl->Size().y / 2.0f + groundColl->Size().y / 2.0f);
-
-		if (fLen < fSize)
+		if (rb != nullptr)
 		{
-			Transform* objTr = obj->GetComponent<Transform>();
-			Transform* grTr = this->GetComponent<Transform>();
+			rb->SetGround(true);
 
-			Vector2 objPos = objTr->Pos();
-			Vector2 grPos = grTr->Pos();
+			Collider* objColl = obj->GetComponent<Collider>();
+			Vector2 objPos = objColl->Pos();
 
-			objPos -= (fSize - fLen) - 1.0f;
-			objTr->Pos(objPos);
+			Collider* groundColl = this->GetComponent<Collider>();
+			Vector2 groundPos = groundColl->Pos();
+
+			float fLen = fabs(objPos.y - groundPos.y);
+			float fSize = (objColl->Size().y / 2.0f + groundColl->Size().y / 2.0f);
+
+			if (fLen < fSize)
+			{
+				Transform* objTr = obj->GetComponent<Transform>();
+				Transform* grTr = this->GetComponent<Transform>();
+
+				Vector2 objPos = objTr->Pos();
+				Vector2 grPos = grTr->Pos();
+
+				objPos -= (fSize - fLen) - 1.0f;
+				objTr->Pos(objPos);
+			}
 		}
-
 	}
 	void Ground::OnCollisionStay(Collider* other)
 	{
@@ -72,6 +74,7 @@ namespace Mn
 			return;
 
 		Rigidbody* rb = obj->GetComponent<Rigidbody>();
-		rb->SetGround(false);
+		if(rb!=nullptr)
+			rb->SetGround(false);
 	}
 }
