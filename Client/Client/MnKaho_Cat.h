@@ -20,9 +20,11 @@ namespace Mn
 		float			_HurtTime;
 		float			_DamageTime;
 		float			_AlphaTime;
+		float			_Jumpforce;
 		bool			_GetDamage;
 		bool			_Combo;
 		int				_AlphaDegree;
+		int				_DoubleJump;
 	public:
 		Kaho_Cat();
 		~Kaho_Cat();

@@ -62,9 +62,11 @@ namespace Mn
 		Transform* tr = GetComponent<Transform>();
 		_Pos = tr->Pos();
 		_ThinkTime += Time::DeltaTime();
-		if (_ThinkTime == 0.5f)
+		if (_ThinkTime >= 1.0f)
 		{
-			think();
+			_Status = think();
+			animationCntrl();
+			_ThinkTime = 0;
 		}
 		switch (_Status)
 		{
@@ -107,6 +109,7 @@ namespace Mn
 				animationCntrl();
 				_Hp -= 1;
 				_HurtTime = 0;
+				_ThinkTime = 0;
 			}
 			else
 			{
@@ -123,7 +126,14 @@ namespace Mn
 	}
 	void Imp::move()
 	{
-
+		if (_Dir == eDir::R)
+		{
+			_Pos.x += 100.0f * Time::DeltaTime();
+		}
+		else
+		{
+			_Pos.x -= 100.0f * Time::DeltaTime();
+		}
 	}
 	void Imp::attack()
 	{

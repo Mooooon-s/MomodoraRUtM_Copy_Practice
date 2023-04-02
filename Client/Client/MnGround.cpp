@@ -9,6 +9,7 @@
 namespace Mn
 {
 	Ground::Ground()
+		: _Collider(nullptr)
 	{
 	}
 	Ground::~Ground()
@@ -18,6 +19,7 @@ namespace Mn
 	{
 		_Collider = AddComponent<Collider>();
 		_Collider->Size(Vector2(16.0f*3, 16.0f*3));
+		GameObject::SetName(L"Ground");
 		GameObject::Initialize();
 	}
 	void Ground::Update()

@@ -20,10 +20,12 @@ namespace Mn
 		float			_HurtTime;
 		float			_AlphaTime;
 		float			_DamageTime;
+		float			_Jumpforce;
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
 		bool			_GetDamage;
+		int			_DoubleJump;
 		int				_col;
 		int				_row;
 		int				_AlphaDegree;

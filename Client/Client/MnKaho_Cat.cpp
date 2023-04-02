@@ -17,6 +17,8 @@ namespace Mn
 {
 	Kaho_Cat::Kaho_Cat()
 		: _PlayerStatus(ePlayerStatus::Idle)
+		, _Rigidbody(nullptr)
+		, _State(eState::Pause)
 		, _Animator(nullptr)
 		, _Dir(eDir::R)
 		, _Combo(false)
@@ -24,8 +26,10 @@ namespace Mn
 		, _HurtTime(0.0f)
 		, _AlphaTime(0.0f)
 		, _DamageTime(0.0f)
+		, _Jumpforce(700.0f)
 		, _GetDamage(true)
 		, _AlphaDegree(90)
+		, _DoubleJump(0)
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -126,9 +130,6 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Land_Right") = std::bind(&Kaho_Cat::landingComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_Land_Left") = std::bind(&Kaho_Cat::landingComplete, this);
 
-
-		
-
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
 	}
@@ -172,6 +173,10 @@ namespace Mn
 
 			tr->Pos(_Pos);
 			_AlphaTime += Time::DeltaTime();
+
+			if (_DoubleJump != 0 && _Rigidbody->GetGround() == true)
+				_DoubleJump = 0;
+
 			GameObject::Update();
 		}
 	}
@@ -228,8 +233,8 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			Vector2 velocity = _Rigidbody->Velocity();
-			velocity.y -= 500.0f;
-
+			velocity.y -= _Jumpforce;
+			_DoubleJump++;
 			_Rigidbody->Velocity(velocity);
 			_Rigidbody->SetGround(false);
 			_PlayerStatus = ePlayerStatus::Jump;
@@ -258,6 +263,13 @@ namespace Mn
 	}
 	void Kaho_Cat::move()
 	{
+		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
+		if (velocity.y > 0)
+		{
+			_PlayerStatus = ePlayerStatus::Fall;
+			animationCtrl();
+		}
+
 		//Run_to_Idle
 		if (Input::GetKeyUp(eKeyCode::Left)
 			|| Input::GetKeyUp(eKeyCode::Right))
@@ -283,7 +295,7 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			Vector2 velocity = _Rigidbody->Velocity();
-			velocity.y -= 500.0f;
+			velocity.y -= _Jumpforce;
 
 			_Rigidbody->Velocity(velocity);
 			_Rigidbody->SetGround(false);
@@ -359,6 +371,19 @@ namespace Mn
 	}
 	void Kaho_Cat::jump()
 	{
+
+		if (Input::GetKeyDown(eKeyCode::A)&&_DoubleJump<=1)
+		{
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y = 0;
+			velocity.y -= _Jumpforce;
+			_DoubleJump++;
+			_Rigidbody->Velocity(velocity);
+			_Rigidbody->SetGround(false);
+			_PlayerStatus = ePlayerStatus::Jump;
+			animationCtrl();
+		}
+
 		if (Input::GetKey(eKeyCode::Left))
 		{
 			_Pos.x -= 300.0f * Time::DeltaTime();
@@ -396,6 +421,18 @@ namespace Mn
 	}
 	void Kaho_Cat::fall()
 	{
+		if (Input::GetKeyDown(eKeyCode::A) && _DoubleJump <= 1)
+		{
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y = 0;
+			velocity.y -= _Jumpforce;
+			_DoubleJump++;
+			_Rigidbody->Velocity(velocity);
+			_Rigidbody->SetGround(false);
+			_PlayerStatus = ePlayerStatus::Jump;
+			animationCtrl();
+		}
+
 		if (Input::GetKey(eKeyCode::Left))
 			_Pos.x -= 300.0f * Time::DeltaTime();
 		else if (Input::GetKey(eKeyCode::Right))

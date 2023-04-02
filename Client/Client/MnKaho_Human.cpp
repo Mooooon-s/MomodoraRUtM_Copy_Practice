@@ -27,6 +27,7 @@ namespace Mn
 		, _HurtTime(0.0f)
 		, _AlphaTime(0.0f)
 		, _DamageTime(0.0f)
+		, _Jumpforce(550.0f)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
@@ -35,6 +36,7 @@ namespace Mn
 		, _col(24)
 		, _row(44)
 		, _AlphaDegree(90)
+		, _DoubleJump(0)
 	{
 	}
 	Kaho_Human::~Kaho_Human()
@@ -253,6 +255,8 @@ namespace Mn
 
 			tr->Pos(_pos);
 			_AlphaTime += Time::DeltaTime();
+			if (_DoubleJump != 0 && _Rigidbody->GetGround() == true)
+				_DoubleJump = 0;
 			GameObject::Update();
 		}
 	}
@@ -462,7 +466,7 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			Vector2 velocity = _Rigidbody->Velocity();
-			velocity.y -= 500.0f;
+			velocity.y -= _Jumpforce;
 
 			_Rigidbody->Velocity(velocity);
 			_Rigidbody->SetGround(false);
@@ -483,6 +487,13 @@ namespace Mn
 	}
 	void Kaho_Human::move()
 	{
+		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
+		if (velocity.y > 0)
+		{
+			_PlayerStatus = ePlayerStatus::Fall;
+			animationCtrl();
+		}
+
 		//Run_to_Idle
 		if (Input::GetKeyUp(eKeyCode::Left)
 			|| Input::GetKeyUp(eKeyCode::Right))
@@ -497,10 +508,11 @@ namespace Mn
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			Vector2 velocity = _Rigidbody->Velocity();
-			velocity.y -= 500.0f;
+			velocity.y -= _Jumpforce;
 
 			_Rigidbody->Velocity(velocity);
-			_Rigidbody->SetGround(false);
+			_DoubleJump++;
+			//_Rigidbody->SetGround(false);
 
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
@@ -608,6 +620,17 @@ namespace Mn
 	}
 	void Kaho_Human::jump()
 	{
+
+		if (Input::GetKeyDown(eKeyCode::A) && _DoubleJump <= 1)
+		{
+			_DoubleJump++;
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y = 0;
+			velocity.y -= _Jumpforce;
+
+			_Rigidbody->Velocity(velocity);
+		}
+
 		if (Input::GetKey(eKeyCode::Left))
 		{
 			_pos.x -= 100.0f * Time::DeltaTime();
@@ -650,6 +673,19 @@ namespace Mn
 	}
 	void Kaho_Human::fall()
 	{
+
+		if (Input::GetKeyDown(eKeyCode::A) && _DoubleJump <= 1)
+		{
+			_PlayerStatus = ePlayerStatus::Jump;
+			_DoubleJump++;
+			Vector2 velocity = _Rigidbody->Velocity();
+			velocity.y = 0;
+			velocity.y -= _Jumpforce;
+
+			_Rigidbody->Velocity(velocity);
+			animationCtrl();
+		}
+
 		if (Input::GetKey(eKeyCode::Left))
 		{
 			_pos.x -= 100.0f * Time::DeltaTime();
@@ -762,7 +798,6 @@ namespace Mn
 		}
 		else
 		{
-			
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
