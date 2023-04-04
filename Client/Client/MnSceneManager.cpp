@@ -29,7 +29,7 @@ namespace Mn {
 			scene->Initialize();
 		}
 
-		_ActiveScene = _Scenes[(UINT)eSceneType::Title];
+		_ActiveScene = _Scenes[(UINT)eSceneType::Tool];
 	}
 
 	void Mn::SceneManager::Update()
