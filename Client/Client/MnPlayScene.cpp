@@ -55,7 +55,6 @@ namespace Mn
 		{
 			SceneManager::LoadScene(_portal->PortalScene());
 		}
-
 		Scene::Update();
 	}
 	void PlayScene::Render(HDC hdc)
@@ -81,7 +80,7 @@ namespace Mn
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, false);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, false);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, false);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Ground, false);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, false);
 		Camera::SetTarget(nullptr);

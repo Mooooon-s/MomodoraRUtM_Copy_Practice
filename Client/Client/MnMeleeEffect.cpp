@@ -106,7 +106,13 @@ namespace Mn
 		_Animator->FindAnimation(L"Kaho_Cat_Melee_Attack_3_Right")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&MeleeEffect::kahoCatMeleeCollider, this);
 		_Animator->FindAnimation(L"Kaho_Cat_Melee_Attack_3_Left")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&MeleeEffect::kahoCatMeleeCollider, this);
 		
-		_kaho = PlayScene::GetKaho();
+		Scene* scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> playerobj = scene->GetGameObject(eLayerType::Player);
+		for (auto v : playerobj)
+		{
+			if(dynamic_cast<Kaho*>(v))
+				_kaho = dynamic_cast<Kaho*>(v);
+		}
 	}
 	void MeleeEffect::Update()
 	{
