@@ -5,6 +5,7 @@
 #include "MnCollisionManager.h"
 #include "MnCamera.h"
 #include "MnToolScene.h"
+#include "MnfirstStageScene.h"
 
 namespace Mn {
 	//static 변수이기 때문에 전역에 메모리 할당을 해주어야함
@@ -20,7 +21,7 @@ namespace Mn {
 		_Scenes[(UINT)eSceneType::MainMenu] = new MainMenuScene();
 		_Scenes[(UINT)eSceneType::play] = new PlayScene();
 		_Scenes[(UINT)eSceneType::Tool] = new ToolScene();
-
+		_Scenes[(UINT)eSceneType::Stage1] = new firstStageScene();
 		
 
 		for (auto scene : _Scenes) {
@@ -29,7 +30,7 @@ namespace Mn {
 			scene->Initialize();
 		}
 
-		_ActiveScene = _Scenes[(UINT)eSceneType::Tool];
+		_ActiveScene = _Scenes[(UINT)eSceneType::MainMenu];
 	}
 
 	void Mn::SceneManager::Update()

@@ -1,6 +1,5 @@
 #include "MnPlayScene.h"
 #include "MnBG.h"
-#include "MnMomodora.h"
 #include "MnKaho.h"
 #include "MnImp.h"
 #include "MnKaho_Cat.h"
@@ -13,14 +12,17 @@
 #include "MnObject.h"
 #include "MnCollisionManager.h"
 #include "MnTilePalatte.h"
+#include "MnPortal.h"
 
 
 namespace Mn 
 {
 	Kaho* PlayScene::_kaho = nullptr;
+	bool PlayScene::_Scene = false;
 	PlayScene::PlayScene()
 		: _KahoHuman(nullptr)
 		, _KahoCat(nullptr)
+		, _portal(nullptr)
 	{
 	}
 	PlayScene::~PlayScene()
@@ -37,7 +39,9 @@ namespace Mn
 		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
 		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
 		//object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f),eLayerType::Monster);
-		object::Instantiate<Ground>(Vector2(0.0f, 500.0f), eLayerType::Ground);
+		//object::Instantiate<Ground>(Vector2(0.0f, 500.0f), eLayerType::Ground);
+		_portal=object::Instantiate<Portal>(Vector2(500.0f, 200.0f),eLayerType::Portal);
+		_portal->moveToScene(eSceneType::Stage1);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void PlayScene::Update()
@@ -46,6 +50,12 @@ namespace Mn
 		{
 			SceneManager::LoadScene(eSceneType::Title);
 		}
+
+		if (_Scene)
+		{
+			SceneManager::LoadScene(_portal->PortalScene());
+		}
+
 		Scene::Update();
 	}
 	void PlayScene::Render(HDC hdc)
@@ -63,11 +73,17 @@ namespace Mn
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 	}
 	void PlayScene::OnExit()
 	{
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, false);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, false);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Ground, false);
+		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, false);
 		Camera::SetTarget(nullptr);
 	}
 }

@@ -238,6 +238,10 @@
     <ClInclude Include="MnGround.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="MnfirstStageScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnPortal.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -382,5 +386,9 @@
     <ClCompile Include="MnGround.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
+    <ClCompile Include="MnfirstStageScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnPortal.cpp" />
   </ItemGroup>
 </Project>
