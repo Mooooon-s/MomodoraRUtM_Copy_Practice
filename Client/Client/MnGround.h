@@ -7,6 +7,9 @@ namespace Mn
 	{
 	private:
 		class Collider* _Collider;
+		class Image*	_Image;
+		class Kaho*		_Player;
+		Vector2			_PlayerPos;
 	public:
 		Ground();
 		~Ground();

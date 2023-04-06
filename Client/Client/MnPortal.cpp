@@ -19,7 +19,7 @@ namespace Mn
 		GameObject::SetName(L"Portal");
 		
 		Transform* tr = GetComponent<Transform>();
-		Vector2 _Pos = Vector2(500.0f, 200.0f);
+		Vector2 _Pos = Vector2(1200.0f, 500.0f);
 		tr->Pos(_Pos);
 		
 		_Collider = AddComponent<Collider>();

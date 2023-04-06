@@ -34,13 +34,14 @@ namespace Mn
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
 		//플레이어 객체 생성
-		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,400.0f),eLayerType::Player);
+		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(500.0f, 300.0f), eLayerType::Player);
+		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(500.0f, 400.0f), eLayerType::Player);
+		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,600.0f),eLayerType::Player);
 		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
+		object::Instantiate<Ground>(Vector2(0.0f, 600.0f), eLayerType::Ground);
 		//object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f),eLayerType::Monster);
 		//object::Instantiate<Ground>(Vector2(0.0f, 500.0f), eLayerType::Ground);
-		_portal=object::Instantiate<Portal>(Vector2(500.0f, 200.0f),eLayerType::Portal);
+		_portal=object::Instantiate<Portal>(Vector2(1600.0f, 270.0f),eLayerType::Portal);
 		_portal->moveToScene(eSceneType::Stage1);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
@@ -67,7 +68,7 @@ namespace Mn
 	}
 	void PlayScene::OnEnter()
 	{
-		TilePalatte::Load(L"TestStage");
+		//TilePalatte::Load(L"TestTile");
 		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);

@@ -54,7 +54,13 @@ namespace Mn
 		_Animator->CreateAnimation(L"Imp_Attack_Left", _Image, Vector2(0, 32 * 4), 8, 5, 8, Vector2::Zero, 0.1f);
 
 		_Animator->Play(L"Imp_Idle_Right", true);
-
+		Scene* scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> playerobj = scene->GetGameObject(eLayerType::Player);
+		for (auto v : playerobj)
+		{
+			if (dynamic_cast<Kaho*>(v))
+				_kaho = dynamic_cast<Kaho*>(v);
+		}
 		GameObject::Initialize();
 	}
 	void Imp::Update()
@@ -187,8 +193,17 @@ namespace Mn
 	}
 	Imp::eMonStatus Imp::think()
 	{
-		int behave = 0;
-		behave = rand() % 3;
-		return eMonStatus(behave);
+		Vector2 playerPos = _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+
+		if(fabs(pos.x - playerPos.x) <=200)
+		{
+			return eMonStatus::Defence;
+		}
+		else if (fabs(pos.x - playerPos.x) > 200&& fabs(pos.x - playerPos.x) <500)
+		{
+			return eMonStatus::Attack;
+		}
 	}
 }

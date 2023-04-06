@@ -20,6 +20,8 @@ namespace Mn
 		UINT Height(void) { return _Height; }
 		HDC  Hdc(void)    { return _hdc; }
 		HBITMAP Bitmap(void) { return _bitmap; }
+		COLORREF GetPixel( int x,int y);
+		void SetPixel(int x, int y, COLORREF color);
 
 		virtual HRESULT Load(const std::wstring& path) override;
 	};

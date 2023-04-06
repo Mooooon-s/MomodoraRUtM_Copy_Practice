@@ -21,6 +21,7 @@ namespace Mn
 			R,
 			L,
 		};
+		class Kaho* _kaho;
 		eMonStatus	_Status;
 		Rigidbody*	_Rigidbody;
 		Collider*	_Collider;

@@ -41,6 +41,14 @@ namespace Mn
 			else
 				return dynamic_cast<T*>(kahoHuman);
 		}
+		template<typename T>
+		T* GetRigidbody()
+		{
+			if (_bIsCat)
+				return dynamic_cast<T*>(kahoCat);
+			else
+				return dynamic_cast<T*>(kahoHuman);
+		}
 	};
 }
 

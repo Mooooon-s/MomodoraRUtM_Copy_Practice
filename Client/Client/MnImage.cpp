@@ -52,6 +52,16 @@ namespace Mn
 	{
 	}
 
+	COLORREF Image::GetPixel(int x, int y)
+	{
+		return ::GetPixel(_hdc, x, y);
+	}
+
+	void Image::SetPixel(int x, int y, COLORREF color)
+	{
+		::SetPixel(_hdc, x, y, color);
+	}
+
 	HRESULT Image::Load(const std::wstring& path)
 	{
 		//이미지 받아오기

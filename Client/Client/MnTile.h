@@ -8,6 +8,7 @@ namespace Mn
 	{
 	private:
 		Image*	_Atlas;
+		Image*	_Image;
 		int		_Index;
 		int		_X;
 		int		_Y;
