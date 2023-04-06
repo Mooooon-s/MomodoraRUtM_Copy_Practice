@@ -24,7 +24,9 @@ namespace Mn
 	}
 	void Ground::Initialize()
 	{
-		_Image = Resources::Load<Image>(L"Tile_Pixel", L"..\\Resources\\Test_Ground.bmp");
+		_Collider = AddComponent<Collider>();
+		_Collider->Size(Vector2(16.0f*3, 16.0f*3));
+		_Image = Resources::Load<Image>(L"Tile_Pixel", L"..\\Resources\\Tile_Pixel.bmp");
 		GameObject::SetName(L"Ground");
 		GameObject::Initialize();
 
@@ -46,7 +48,7 @@ namespace Mn
 		{
 			Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
 			Vector2 pos = Camera::ComputePos(playerTr->Pos());
-			COLORREF color = _Image->GetPixel(10, 10);
+			COLORREF color = _Image->GetPixel(pos.x, pos.y);
 
 			Rigidbody* rb = _Player->GetRigidbody<GameObject>()->GetComponent<Rigidbody>();
 			if (color == RGB(255, 0, 255))

@@ -11,6 +11,7 @@ namespace Mn
 	Image*	TilePalatte::_Image= nullptr;
 	UINT	TilePalatte::_Index = -1;
 
+
 	void TilePalatte::Initiailize()
 	{
 		_Image = Resources::Find<Image>(L"TileAtlas");
@@ -34,6 +35,12 @@ namespace Mn
 
 		Vector2 tilePos(pos.x * TILE_SIZE_X, pos.y * TILE_SIZE_Y);
 		tile->GetComponent<Transform>()->Pos(tilePos);
+
+		if (index <=75 )
+		{
+			Ground* ground=object::Instantiate<Ground>(eLayerType::Ground);
+			ground->GetComponent<Transform>()->Pos(tilePos);
+		}
 
 		TileID id;
 		id.x = (UINT32)pos.x;
