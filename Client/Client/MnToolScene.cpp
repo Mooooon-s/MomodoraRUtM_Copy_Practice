@@ -48,7 +48,7 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::L))
 		{
-
+			TilePalatte::Load();
 		}
 	}
 

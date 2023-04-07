@@ -16,7 +16,9 @@ extern Mn::Application application;
 namespace Mn
 {
 	Ground::Ground()
-		: _Collider(nullptr)
+		: _Image(nullptr)
+		, _Player(nullptr)
+		, _PlayerPos(Vector2::Zero)
 	{
 	}
 	Ground::~Ground()
@@ -24,13 +26,14 @@ namespace Mn
 	}
 	void Ground::Initialize()
 	{
-		_Collider = AddComponent<Collider>();
-		_Collider->Size(Vector2(16.0f*3, 16.0f*3));
-		_Image = Resources::Load<Image>(L"Tile_Pixel", L"..\\Resources\\Tile_Pixel.bmp");
+		Scene* scene = SceneManager::ActiveScene();
+		if (scene->GetName() == L"PlayScene")
+			_Image = Resources::Load<Image>(L"PlayTile_Pixel", L"..\\Resources\\Test_Ground_Pixel.bmp");
+		if(scene->GetName()==L"BossScene")
+			_Image = Resources::Load<Image>(L"BossTile_Pixel", L"..\\Resources\\Underground_stage_Pixel.bmp");
 		GameObject::SetName(L"Ground");
 		GameObject::Initialize();
 
-		Scene* scene = SceneManager::ActiveScene();
 		std::vector<GameObject*> playerobj = scene->GetGameObject(eLayerType::Player);
 		for (auto v : playerobj)
 		{
@@ -41,27 +44,26 @@ namespace Mn
 	void Ground::Update()
 	{
 		GameObject::Update();
-
-		Transform* tr = GetComponent<Transform>();
-		Vector2 v = Camera::ComputePos(tr->Pos());
 		if (_Player->CameraTarget<GameObject>()->GetComponent<Transform>() != nullptr)
 		{
 			Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
-			Vector2 pos = Camera::ComputePos(playerTr->Pos());
+			Vector2 pos = playerTr->Pos();
+			Vector2 underpos = Vector2(pos.x,pos.y + 3);
+			//Vector2 pos = Camera::ComputePos(playerTr->Pos());
 			COLORREF color = _Image->GetPixel(pos.x, pos.y);
+			COLORREF Footcolor = _Image->GetPixel(underpos.x, underpos.y);
 
 			Rigidbody* rb = _Player->GetRigidbody<GameObject>()->GetComponent<Rigidbody>();
 			if (color == RGB(255, 0, 255))
 			{
 				rb->SetGround(true);
-
 				Vector2 pos = playerTr->Pos();
 				pos.y -= 1;
 				playerTr->Pos(pos);
 			}
-			else
+			else if(Footcolor!=RGB(255,0,255))
 			{
-				//rb->SetGround(false);
+				rb->SetGround(false);
 			}
 		}
 	}
@@ -70,15 +72,14 @@ namespace Mn
 		GameObject::Render(hdc);
 
 		Transform* tr = GetComponent<Transform>();
-		//Vector2 pos = tr->Pos();
 		Vector2 pos = Camera::ComputePos(tr->Pos());
 
 		TransparentBlt(hdc, pos.x, pos.y
-			, _Image->Width()*3, _Image->Height()*3
+			, _Image->Width(), _Image->Height()
 			, _Image->Hdc()
 			, 0, 0
 			, _Image->Width(), _Image->Height()
-			, RGB(255, 255, 255));
+			, RGB(0, 0, 0));
 	}
 	void Ground::Release()
 	{

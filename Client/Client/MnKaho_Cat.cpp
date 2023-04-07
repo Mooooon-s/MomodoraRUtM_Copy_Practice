@@ -296,7 +296,7 @@ namespace Mn
 		{
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y -= _Jumpforce;
-
+			_DoubleJump++;
 			_Rigidbody->Velocity(velocity);
 			_Rigidbody->SetGround(false);
 			_PlayerStatus = ePlayerStatus::Jump;

@@ -18,6 +18,7 @@ namespace Mn
 	}
 	void TitleScene::Initialize()
 	{
+		SetName(L"TitleScene");
 		Scene::Initialize();
 
 		TitleBG* BackGround= object::Instantiate<TitleBG>(eLayerType::BG);

@@ -36,12 +36,6 @@ namespace Mn
 		Vector2 tilePos(pos.x * TILE_SIZE_X, pos.y * TILE_SIZE_Y);
 		tile->GetComponent<Transform>()->Pos(tilePos);
 
-		if (index <=75 )
-		{
-			Ground* ground=object::Instantiate<Ground>(eLayerType::Ground);
-			ground->GetComponent<Transform>()->Pos(tilePos);
-		}
-
 		TileID id;
 		id.x = (UINT32)pos.x;
 		id.y = (UINT32)pos.y;
@@ -95,6 +89,47 @@ namespace Mn
 	}
 	void TilePalatte::Load()
 	{
+		OPENFILENAME ofn = {};
+
+		wchar_t szFilePath[256] = {};
+
+		ZeroMemory(&ofn, sizeof(ofn));
+		ofn.lStructSize = sizeof(ofn);
+		ofn.hwndOwner = NULL;
+		ofn.lpstrFile = szFilePath;
+		ofn.lpstrFile[0] = '\0';
+		ofn.nMaxFile = 256;
+		ofn.lpstrFilter = L"All\0*.*\0Text\0*.TXT\0";
+		ofn.nFilterIndex = 1;
+		ofn.lpstrFileTitle = NULL;
+		ofn.nMaxFileTitle = 0;
+		ofn.lpstrInitialDir = NULL;
+		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+		if (false == GetOpenFileName(&ofn))
+			return;
+
+		FILE* file = nullptr;
+		_wfopen_s(&file, szFilePath, L"rb");
+
+		if (file == nullptr)
+			return;
+
+		while (true)
+		{
+			int index = -1;
+			TileID id;
+
+			if (fread(&index, sizeof(int), 1, file) == NULL)
+				break;
+
+			if (fread(&id.id, sizeof(TileID), 1, file) == NULL)
+				break;
+
+			CreateTile(index, Vector2(id.x, id.y));
+		}
+
+		fclose(file);
 	}
 	void TilePalatte::Load(const wchar_t* name)
 	{

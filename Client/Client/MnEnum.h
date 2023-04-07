@@ -11,11 +11,11 @@ enum class eSceneType {
 
 enum class eLayerType {
 	BG,
+	Ground,
 	Tile,
 	Monster,
 	Player,
 	Effect,
-	Ground,
 	Portal,
 	Attack,
 	UI,

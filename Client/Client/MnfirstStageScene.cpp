@@ -5,7 +5,8 @@
 #include "MnCamera.h"
 #include "MnCollisionManager.h"
 #include "MnTilePalatte.h"
-
+#include "MnArsonist.h"
+#include "MnGround.h"
 namespace Mn
 {
 	Kaho* firstStageScene::_kaho = nullptr;
@@ -19,11 +20,14 @@ namespace Mn
 	}
 	void firstStageScene::Initialize()
 	{
+		SetName(L"BossScene");
 		Scene::Initialize();
 		object::Instantiate<BG>(eLayerType::BG);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);
+		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f), eLayerType::Monster);
+		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void firstStageScene::Update()
@@ -40,8 +44,8 @@ namespace Mn
 	}
 	void firstStageScene::OnEnter()
 	{
-		TilePalatte::Load(L"TestStage");
-		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
+		TilePalatte::Load(L"Arsonist_Boss_Map");
+		Camera::SetTarget(nullptr);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);

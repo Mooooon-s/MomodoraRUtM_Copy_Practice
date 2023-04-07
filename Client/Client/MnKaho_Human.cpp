@@ -511,8 +511,8 @@ namespace Mn
 			velocity.y -= _Jumpforce;
 
 			_Rigidbody->Velocity(velocity);
+			_Rigidbody->SetGround(false);
 			_DoubleJump++;
-			//_Rigidbody->SetGround(false);
 
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
