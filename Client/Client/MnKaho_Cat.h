@@ -50,7 +50,7 @@ namespace Mn
 		void jump();
 		void fall();
 		void hurt();
-
+		void useItem();
 		void alpha();
 	private:
 		void attackStart();

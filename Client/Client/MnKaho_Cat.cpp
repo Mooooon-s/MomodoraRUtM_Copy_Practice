@@ -163,6 +163,7 @@ namespace Mn
 				fall();
 				break;
 			case ePlayerStatus::UseItem:
+				useItem();
 				break;
 			case ePlayerStatus::Hurt:
 				hurt();
@@ -260,6 +261,12 @@ namespace Mn
 			animationCtrl();
 		}
 		
+		if (Input::GetKeyDown(eKeyCode::W))
+		{
+			_PlayerStatus = ePlayerStatus::UseItem;
+			animationCtrl();
+		}
+
 	}
 	void Kaho_Cat::move()
 	{
@@ -300,6 +307,11 @@ namespace Mn
 			_Rigidbody->Velocity(velocity);
 			_Rigidbody->SetGround(false);
 			_PlayerStatus = ePlayerStatus::Jump;
+			animationCtrl();
+		}
+		if (Input::GetKeyDown(eKeyCode::W))
+		{
+			_PlayerStatus = ePlayerStatus::UseItem;
 			animationCtrl();
 		}
 		//Move pos
@@ -475,6 +487,9 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
+	}
+	void Kaho_Cat::useItem()
+	{
 	}
 	void Kaho_Cat::alpha()
 	{
@@ -684,6 +699,12 @@ namespace Mn
 				_Animator->Play(L"Cat_Hurt_Right", false);
 			else
 				_Animator->Play(L"Cat_Hurt_Left", false);
+			break;
+		case ePlayerStatus::UseItem:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Crouch_Right", false);
+			else
+				_Animator->Play(L"Cat_Crouch_Left", false);
 			break;
 		default:
 			break;
