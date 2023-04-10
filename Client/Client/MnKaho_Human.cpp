@@ -37,6 +37,7 @@ namespace Mn
 		, _row(44)
 		, _AlphaDegree(90)
 		, _DoubleJump(0)
+		, _ComboCount(0)
 	{
 	}
 	Kaho_Human::~Kaho_Human()
@@ -563,13 +564,26 @@ namespace Mn
 	}
 	void Kaho_Human::attack()
 	{
-		if (Input::GetKey(eKeyCode::Left))
+		if (_ComboCount == 1)
 		{
-			_Dir = eDir::L;
+			if (_Dir == eDir::L)
+				_pos.x -= 30.0f * Time::DeltaTime();
+			else if (_Dir == eDir::R)
+				_pos.x += 30.0f * Time::DeltaTime();
 		}
-		if (Input::GetKey(eKeyCode::Right))
+		else if (_ComboCount == 2)
 		{
-			_Dir = eDir::R;
+			if (_Dir == eDir::L)
+				_pos.x -= 15.0f * Time::DeltaTime();
+			else if (_Dir == eDir::R)
+				_pos.x += 15.0f * Time::DeltaTime();
+		}
+		else if (_ComboCount == 3)
+		{
+			if (_Dir == eDir::L)
+				_pos.x -= 80.0f * Time::DeltaTime();
+			else if (_Dir == eDir::R)
+				_pos.x += 80.0f * Time::DeltaTime();
 		}
 		if (_Animator->GetActiveAnim()->IsComplete()==false)
 		{
@@ -728,9 +742,9 @@ namespace Mn
 		if (_Rigidbody->GetGround() == true)
 		{
 			if (_Dir == eDir::R)
-				_pos.x += 300.0f * Time::DeltaTime();
+				_pos.x += 400.0f * Time::DeltaTime();
 			else
-				_pos.x -= 300.0f * Time::DeltaTime();
+				_pos.x -= 400.0f * Time::DeltaTime();
 		}
 		else
 		{
@@ -740,9 +754,9 @@ namespace Mn
 			if (_DashCharge >= 0.3f)
 			{
 				if (_Dir == eDir::R)
-					_pos.x += 800.0f * Time::DeltaTime();
+					_pos.x += 1200.0f * Time::DeltaTime();
 				else
-					_pos.x -= 800.0f * Time::DeltaTime();
+					_pos.x -= 1200.0f * Time::DeltaTime();
 			}
 		}
 	}
@@ -780,6 +794,7 @@ namespace Mn
 	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Human::attackStart()
 	{
+		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		MeleeEffect* melee=object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
@@ -788,6 +803,14 @@ namespace Mn
 	}
 	void Kaho_Human::attackComplete()
 	{
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
 		if (_Combo == true)
 		{
 			_Combo = false;
@@ -800,10 +823,12 @@ namespace Mn
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
+			_ComboCount = 0;
 		}
 	}
 	void Kaho_Human::attackCombo1Start()
 	{
+		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
@@ -812,6 +837,14 @@ namespace Mn
 	}
 	void Kaho_Human::attackCombo1Complete()
 	{
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
 		if (_Combo == true)
 		{
 			_Combo = false;
@@ -824,10 +857,12 @@ namespace Mn
 		{
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
+			_ComboCount = 0;
 		}
 	}
 	void Kaho_Human::attackCombo2Start()
 	{
+		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
@@ -836,8 +871,17 @@ namespace Mn
 	}
 	void Kaho_Human::attackCombo2Complete()
 	{
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
+		_ComboCount = 0;
 	}
 	void Kaho_Human::airAttackStart()
 	{
@@ -911,7 +955,7 @@ namespace Mn
 	}
 	void Kaho_Human::preDashComplete()
 	{
-		if (_DashCharge >= 0.3f)
+		if (_DashCharge >= 0.2f)
 		{
 			animationCtrl();
 		}

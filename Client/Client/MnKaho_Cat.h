@@ -25,6 +25,7 @@ namespace Mn
 		bool			_Combo;
 		int				_AlphaDegree;
 		int				_DoubleJump;
+		int				_ComboCount;
 	public:
 		Kaho_Cat();
 		~Kaho_Cat();

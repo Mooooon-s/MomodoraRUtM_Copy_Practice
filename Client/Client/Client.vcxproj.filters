@@ -241,7 +241,9 @@
     <ClInclude Include="MnfirstStageScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="MnPortal.h" />
+    <ClInclude Include="MnPortal.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -389,6 +391,8 @@
     <ClCompile Include="MnfirstStageScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="MnPortal.cpp" />
+    <ClCompile Include="MnPortal.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -25,7 +25,8 @@ namespace Mn
 		bool			_IsCrouch;
 		bool			_IsGround;
 		bool			_GetDamage;
-		int			_DoubleJump;
+		int				_ComboCount;
+		int				_DoubleJump;
 		int				_col;
 		int				_row;
 		int				_AlphaDegree;

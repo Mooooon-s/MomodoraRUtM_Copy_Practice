@@ -30,6 +30,7 @@ namespace Mn
 		, _GetDamage(true)
 		, _AlphaDegree(90)
 		, _DoubleJump(0)
+		, _ComboCount(0)
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -327,13 +328,26 @@ namespace Mn
 	}
 	void Kaho_Cat::attack()
 	{
-		if (Input::GetKey(eKeyCode::Left))
+		if (_ComboCount == 1)
 		{
-			_Dir = eDir::L;
+			if (_Dir == eDir::L)
+				_Pos.x -= 30.0f * Time::DeltaTime();
+			else if (_Dir == eDir::R)
+				_Pos.x += 30.0f * Time::DeltaTime();
 		}
-		if (Input::GetKey(eKeyCode::Right))
+		else if (_ComboCount == 2)
 		{
-			_Dir = eDir::R;
+			if (_Dir == eDir::L)
+				_Pos.x -= 15.0f * Time::DeltaTime();
+			else if (_Dir == eDir::R)
+				_Pos.x += 15.0f * Time::DeltaTime();
+		}
+		else if (_ComboCount == 3)
+		{
+			if (_Dir == eDir::L)
+				_Pos.x -= 80.0f * Time::DeltaTime();
+			else if (_Dir == eDir::R)
+				_Pos.x += 80.0f * Time::DeltaTime();
 		}
 		if (_Animator->GetActiveAnim()->IsComplete() == false && _Rigidbody->GetGround()==true)
 		{
@@ -510,8 +524,14 @@ namespace Mn
 			_Animator->animationAlpha(255);
 		}
 	}
+	//-------------------------------------------------------------------------------------------------------------------
+	//
+	//													Events
+	// 
+	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Cat::attackStart()
 	{
+		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
@@ -520,6 +540,7 @@ namespace Mn
 	}
 	void Kaho_Cat::attackCombo1Start()
 	{
+		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
@@ -528,6 +549,7 @@ namespace Mn
 	}
 	void Kaho_Cat::attackCombo2Start()
 	{
+		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
@@ -542,14 +564,16 @@ namespace Mn
 		melee->Dir(_Dir);
 		melee->attack(1);
 	}
-	//-------------------------------------------------------------------------------------------------------------------
-	//
-	//													Events
-	// 
-	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Cat::attackComplete()
 	{
-
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
 		if (_Combo && _Rigidbody->GetGround()==true)
 		{
 			if (_Dir == eDir::R)
@@ -559,6 +583,7 @@ namespace Mn
 		}
 		else
 		{
+			_ComboCount = 0;
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
@@ -566,6 +591,14 @@ namespace Mn
 	}
 	void Kaho_Cat::attackCombo1Complete()
 	{
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
 		if (_Combo)
 		{
 			if (_Dir == eDir::R)
@@ -575,6 +608,7 @@ namespace Mn
 		}
 		else
 		{
+			_ComboCount = 0;
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 		}
@@ -582,7 +616,16 @@ namespace Mn
 	}
 	void Kaho_Cat::attackCombo2Complete()
 	{
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			_Dir = eDir::L;
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			_Dir = eDir::R;
+		}
 		_Combo=false;
+		_ComboCount = 0;
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}

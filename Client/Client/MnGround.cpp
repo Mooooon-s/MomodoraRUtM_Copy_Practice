@@ -49,7 +49,6 @@ namespace Mn
 			Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
 			Vector2 pos = playerTr->Pos();
 			Vector2 underpos = Vector2(pos.x,pos.y + 3);
-			//Vector2 pos = Camera::ComputePos(playerTr->Pos());
 			COLORREF color = _Image->GetPixel(pos.x, pos.y);
 			COLORREF Footcolor = _Image->GetPixel(underpos.x, underpos.y);
 
