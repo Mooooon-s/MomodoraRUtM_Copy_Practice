@@ -86,6 +86,9 @@
     <Filter Include="Contents\Effect">
       <UniqueIdentifier>{6ff034fb-7faf-4ed2-b722-d92be41c4785}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\NPC">
+      <UniqueIdentifier>{4d6a0685-23b3-4f22-ac74-85fb0e91f3b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -244,6 +247,10 @@
     <ClInclude Include="MnPortal.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="MnMonkey.h" />
+    <ClInclude Include="MnCath.h">
+      <Filter>Contents\NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -393,6 +400,10 @@
     </ClCompile>
     <ClCompile Include="MnPortal.cpp">
       <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMonkey.cpp" />
+    <ClCompile Include="MnCath.cpp">
+      <Filter>Contents\NPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

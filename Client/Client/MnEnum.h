@@ -14,6 +14,7 @@ enum class eLayerType {
 	Ground,
 	Tile,
 	Monster,
+	NPC,
 	Player,
 	Effect,
 	Portal,
