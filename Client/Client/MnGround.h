@@ -6,9 +6,12 @@ namespace Mn
 	class Ground : public GameObject
 	{
 	private:
-		class Image*	_Image;
-		class Kaho*		_Player;
-		Vector2			_PlayerPos;
+		class Kaho_Human*	_Human;
+		class Kaho_Cat*		_Cat;
+		class Image*		_Image;
+		class Kaho*			_Player;
+		Vector2				_PlayerPos;
+		Vector2				_Size;
 	public:
 		Ground();
 		~Ground();

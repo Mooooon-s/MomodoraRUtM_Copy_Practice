@@ -7,8 +7,8 @@
 #include "MnTransform.h"
 #include "MnResources.h"
 #include "MnSceneManager.h"
+#include "MnTime.h"
 #include "MnCamera.h"
-
 #include "Application.h"
 
 extern Mn::Application application;
@@ -30,7 +30,7 @@ namespace Mn
 		if (scene->GetName() == L"PlayScene")
 			_Image = Resources::Load<Image>(L"PlayTile_Pixel", L"..\\Resources\\Test_Ground_Pixel.bmp");
 		if(scene->GetName()==L"BossScene")
-			_Image = Resources::Load<Image>(L"BossTile_Pixel", L"..\\Resources\\Underground_stage_Pixel.bmp");
+			_Image = Resources::Load<Image>(L"BossTile_Pixel", L"..\\Resources\\Test_Map.bmp");
 		GameObject::SetName(L"Ground");
 		GameObject::Initialize();
 
@@ -39,19 +39,38 @@ namespace Mn
 		{
 			if (dynamic_cast<Kaho*>(v))
 				_Player = dynamic_cast<Kaho*>(v);
+			if (dynamic_cast<Kaho_Cat*>(v))
+				_Cat = dynamic_cast<Kaho_Cat*>(v);
+			if (dynamic_cast<Kaho_Human*>(v))
+				_Human = dynamic_cast<Kaho_Human*>(v);
 		}
 	}
 	void Ground::Update()
 	{
-		GameObject::Update();
 		if (_Player->CameraTarget<GameObject>()->GetComponent<Transform>() != nullptr)
 		{
 			Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
 			Vector2 pos = playerTr->Pos();
 			Vector2 underpos = Vector2(pos.x,pos.y + 3);
+			Vector2 sidepos = Vector2(pos.x - _Size.x/2,pos.y-_Size.y / 2.0f);
+			Vector2 upperpos = Vector2(pos.x, pos.y - _Size.y);
+
+			if (_Player->IsCat())
+			{
+				_Size = _Cat->GetComponent<Collider>()->Size();
+
+			}
+			else
+			{
+				_Size=_Human->GetComponent<Collider>()->Size();
+			}
+
+			//find color
 			COLORREF color = _Image->GetPixel(pos.x, pos.y);
 			COLORREF Footcolor = _Image->GetPixel(underpos.x, underpos.y);
-
+			COLORREF rightColor = _Image->GetPixel(pos.x-_Size.x/2.0f, pos.y-_Size.y/2.0f);
+			COLORREF leftColor = _Image->GetPixel(pos.x+_Size.x/2.0f, pos.y-_Size.y/2.0f);
+			COLORREF upColor = _Image->GetPixel(upperpos.x, upperpos.y);
 			Rigidbody* rb = _Player->GetRigidbody<GameObject>()->GetComponent<Rigidbody>();
 			if (color == RGB(255, 0, 255))
 			{
@@ -60,11 +79,56 @@ namespace Mn
 				pos.y -= 1;
 				playerTr->Pos(pos);
 			}
-			else if(Footcolor!=RGB(255,0,255))
+			if(Footcolor!=RGB(255,0,255))
 			{
 				rb->SetGround(false);
 			}
+			if (rightColor == RGB(0, 0, 255))
+			{
+				if (_Player->IsCat())
+				{
+					Vector2 pos = playerTr->Pos();
+					pos.x += 500.0f * Time::DeltaTime();
+					playerTr->Pos(pos);
+				}
+				else
+				{
+					Vector2 pos = playerTr->Pos();
+					pos.x += 200.0f * Time::DeltaTime();
+					playerTr->Pos(pos);
+				}
+			}
+			if (leftColor == RGB(0, 0, 255))
+			{
+				if (_Player->IsCat())
+				{
+					Vector2 pos = playerTr->Pos();
+					pos.x -= 500.0f * Time::DeltaTime();
+					playerTr->Pos(pos);
+				}
+				else
+				{
+					Vector2 pos = playerTr->Pos();
+					pos.x -= 200.0f * Time::DeltaTime();
+					playerTr->Pos(pos);
+				}
+			}
+			if (upColor == RGB(0, 255, 0))
+			{
+				if (_Player->IsCat())
+				{
+					_Cat->GetComponent<Rigidbody>()->Velocity(Vector2::Zero);
+					_Cat->PlayerStatus(ePlayerStatus::Fall);
+
+				}
+				else
+				{
+					_Human->GetComponent<Rigidbody>()->Velocity(Vector2::Zero);
+					_Cat->PlayerStatus(ePlayerStatus::Fall);
+				}
+			}
 		}
+		GameObject::Update();
 	}
 	void Ground::Render(HDC hdc)
 	{
@@ -79,6 +143,20 @@ namespace Mn
 			, 0, 0
 			, _Image->Width(), _Image->Height()
 			, RGB(0, 0, 0));
+
+		Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
+		Vector2 ppos = playerTr->Pos();
+		Vector2 underpos = Vector2(ppos.x, ppos.y + 3);
+		Vector2 lsidepos = Vector2(ppos.x - _Size.x/2, ppos.y - _Size.y / 2.0f);
+		Vector2 rsidepos = Vector2(ppos.x + _Size.x / 2, ppos.y - _Size.y / 2.0f);
+		Vector2 upperpos = Vector2(pos.x, pos.y - _Size.y);
+
+		Rectangle(hdc, ppos.x, ppos.y, ppos.x + 2, ppos.y + 2);
+		Rectangle(hdc, underpos.x, underpos.y, underpos.x + 5, underpos.y + 5);
+		Rectangle(hdc, lsidepos.x, lsidepos.y, lsidepos.x + 10, lsidepos.y + 10);
+		Rectangle(hdc, rsidepos.x, rsidepos.y, rsidepos.x + 10, rsidepos.y + 10);
+		Rectangle(hdc, upperpos.x, upperpos.y, upperpos.x + 10, upperpos.y + 10);
+
 	}
 	void Ground::Release()
 	{

@@ -285,7 +285,7 @@ namespace Mn
 	void Kaho_Human::OnCollisionEnter(Collider* other)
 	{
 
-		if (other->Owner()->GetName() == L"Enemy")
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage==true)
 		{
 			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;
@@ -564,6 +564,7 @@ namespace Mn
 	}
 	void Kaho_Human::attack()
 	{
+		_GetDamage = false;
 		if (_ComboCount == 1)
 		{
 			if (_Dir == eDir::L)
@@ -824,6 +825,7 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 			_ComboCount = 0;
+			_GetDamage = true;
 		}
 	}
 	void Kaho_Human::attackCombo1Start()
@@ -858,6 +860,7 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Idle;
 			animationCtrl();
 			_ComboCount = 0;
+			_GetDamage = true;
 		}
 	}
 	void Kaho_Human::attackCombo2Start()
@@ -882,6 +885,7 @@ namespace Mn
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 		_ComboCount = 0;
+		_GetDamage = true;
 	}
 	void Kaho_Human::airAttackStart()
 	{
