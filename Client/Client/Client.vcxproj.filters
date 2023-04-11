@@ -251,6 +251,7 @@
     <ClInclude Include="MnCath.h">
       <Filter>Contents\NPC</Filter>
     </ClInclude>
+    <ClInclude Include="MnLupiar.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -405,5 +406,6 @@
     <ClCompile Include="MnCath.cpp">
       <Filter>Contents\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="MnLupiar.cpp" />
   </ItemGroup>
 </Project>
