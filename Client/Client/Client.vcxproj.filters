@@ -247,11 +247,18 @@
     <ClInclude Include="MnPortal.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="MnMonkey.h" />
     <ClInclude Include="MnCath.h">
       <Filter>Contents\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="MnLupiar.h" />
+    <ClInclude Include="MnMonkey.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnLupiar.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMagnolia.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -402,10 +409,17 @@
     <ClCompile Include="MnPortal.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="MnMonkey.cpp" />
     <ClCompile Include="MnCath.cpp">
       <Filter>Contents\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="MnLupiar.cpp" />
+    <ClCompile Include="MnMonkey.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnLupiar.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMagnolia.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

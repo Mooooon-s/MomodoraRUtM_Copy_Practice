@@ -10,6 +10,7 @@
 #include "MnGround.h"
 #include "MnMonkey.h"
 #include "MnLupiar.h"
+#include "MnMagnolia.h"
 
 namespace Mn
 {
@@ -35,6 +36,7 @@ namespace Mn
 		object::Instantiate<Cath>(Vector2(500.0f, 400.0f), eLayerType::NPC);
 		object::Instantiate<Monkey>(Vector2(600.0f, 400.0f), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
+		object::Instantiate<Magnolia>(Vector2(100.0f, 400.0f), eLayerType::Monster);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void firstStageScene::Update()
