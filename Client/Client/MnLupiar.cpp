@@ -43,6 +43,7 @@ namespace Mn
 		_Animator->CreateAnimation(L"Lupiar_Attack4_Left", _Image, Vector2(0,96), 9, 2, 9, Vector2::Zero, 0.08);
 
 		_Animator->Play(L"Lupiar_Idle_Right", true);
+		GameObject::Initialize();
 	}
 	void Lupiar::Update()
 	{

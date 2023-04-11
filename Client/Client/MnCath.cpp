@@ -29,6 +29,7 @@ namespace Mn
 		_Image = Resources::Load<Image>(L"Cath_Attack", L"..\\Resources\\cath_Attack.bmp");
 		_Animator->CreateAnimation(L"Cath_Attack_Right", _Image, Vector2::Zero, 14, 2, 14, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cath_Attack_Left", _Image, Vector2(0,48), 14, 2, 14, Vector2::Zero, 0.08);
+		GameObject::Initialize();
 	}
 	void Cath::Update()
 	{

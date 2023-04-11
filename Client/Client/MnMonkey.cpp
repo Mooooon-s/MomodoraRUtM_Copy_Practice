@@ -30,6 +30,7 @@ namespace Mn
 		_Animator->CreateAnimation(L"Monkey_Attack_Left", _Image, Vector2(0,48), 9, 2, 9, Vector2::Zero, 0.08);
 
 		_Animator->Play(L"Monkey_Idle_Right", true);
+		GameObject::Initialize();
 	}
 	void Monkey::Update()
 	{
