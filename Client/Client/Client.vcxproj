@@ -181,6 +181,7 @@
     <ClInclude Include="MnMonkey.h" />
     <ClInclude Include="MnObject.h" />
     <ClInclude Include="MnPlayerEnum.h" />
+    <ClInclude Include="MnPlayerHpBar.h" />
     <ClInclude Include="MnPlayScene.h" />
     <ClInclude Include="MnPortal.h" />
     <ClInclude Include="MnResource.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="MnMath.cpp" />
     <ClCompile Include="MnMeleeEffect.cpp" />
     <ClCompile Include="MnMonkey.cpp" />
+    <ClCompile Include="MnPlayerHpBar.cpp" />
     <ClCompile Include="MnScene.cpp" />
     <ClCompile Include="MnSceneManager.cpp" />
     <ClCompile Include="MnPlayScene.cpp" />

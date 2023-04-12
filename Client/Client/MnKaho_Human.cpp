@@ -285,18 +285,21 @@ namespace Mn
 	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Human::OnCollisionEnter(Collider* other)
 	{
-
 		if (other->Owner()->GetName() == L"Enemy" && _GetDamage==true)
 		{
 			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;
 			animationCtrl();
 		}
-		
 	}
 	void Kaho_Human::OnCollisionStay(Collider* other)
 	{
-
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true)
+		{
+			_GetDamage = false;
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
 	}
 	void Kaho_Human::OnCollisionExit(Collider* other)
 	{
@@ -570,7 +573,6 @@ namespace Mn
 	}
 	void Kaho_Human::attack()
 	{
-		_GetDamage = false;
 		if (_ComboCount == 1)
 		{
 			if (_Dir == eDir::L)

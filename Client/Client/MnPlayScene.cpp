@@ -1,5 +1,6 @@
 #include "MnPlayScene.h"
 #include "MnBG.h"
+#include "MnPlayerHpBar.h"
 #include "MnKaho.h"
 #include "MnImp.h"
 #include "MnKaho_Cat.h"
@@ -34,6 +35,7 @@ namespace Mn
 		Scene::Initialize();
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
+		object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
 		//플레이어 객체 생성
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(500.0f, 300.0f), eLayerType::Player);
 		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(500.0f, 400.0f), eLayerType::Player);

@@ -259,6 +259,9 @@
     <ClInclude Include="MnMagnolia.h">
       <Filter>Contents\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="MnPlayerHpBar.h">
+      <Filter>Contents\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -420,6 +423,9 @@
     </ClCompile>
     <ClCompile Include="MnMagnolia.cpp">
       <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnPlayerHpBar.cpp">
+      <Filter>Contents\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
