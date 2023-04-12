@@ -212,6 +212,15 @@ namespace Mn
 			animationCtrl();
 		}
 	}
+	void Kaho_Cat::OnCollisionStay(Collider* other)
+	{
+		if (other->Owner()->GetName() == L"Enemy")
+		{
+			_GetDamage = false;
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
+	}
 	//-------------------------------------------------------------------------------------------------------------------
 	//
 	//													FSM

@@ -37,6 +37,7 @@ namespace Mn
 		 void Release() override;
 		 
 		 void OnCollisionEnter(class Collider* other) override;
+		 void OnCollisionStay(class Collider* other) override;
 	public:
 		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
 		void Dir(eDir dir) { _Dir = dir; }
