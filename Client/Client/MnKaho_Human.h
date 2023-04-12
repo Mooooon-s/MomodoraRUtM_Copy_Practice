@@ -21,6 +21,7 @@ namespace Mn
 		float			_AlphaTime;
 		float			_DamageTime;
 		float			_Jumpforce;
+		float			_MoveSpeed;
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
@@ -47,6 +48,7 @@ namespace Mn
 		void Dir(eDir dir) { _Dir = dir; }
 		eDir Dir() { return _Dir; }
 		void Active(eState state) { GameObject::State(state); }
+		float MoveSpeed() { return _MoveSpeed; }
 		void animationCtrl();
 	private:
 		void alpha();

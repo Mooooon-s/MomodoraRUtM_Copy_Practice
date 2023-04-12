@@ -12,6 +12,7 @@ namespace Mn
 		class Kaho*			_Player;
 		Vector2				_PlayerPos;
 		Vector2				_Size;
+		float				_MoveSpeed;
 	public:
 		Ground();
 		~Ground();

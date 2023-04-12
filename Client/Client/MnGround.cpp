@@ -18,7 +18,10 @@ namespace Mn
 	Ground::Ground()
 		: _Image(nullptr)
 		, _Player(nullptr)
+		, _Cat(nullptr)
+		, _Human(nullptr)
 		, _PlayerPos(Vector2::Zero)
+		, _MoveSpeed(0.0f)
 	{
 	}
 	Ground::~Ground()
@@ -58,11 +61,12 @@ namespace Mn
 			if (_Player->IsCat())
 			{
 				_Size = _Cat->GetComponent<Collider>()->Size();
-
+				_MoveSpeed = _Cat->MoveSpeed();
 			}
 			else
 			{
 				_Size=_Human->GetComponent<Collider>()->Size();
+				_MoveSpeed = _Human->MoveSpeed();
 			}
 
 			//find color
@@ -85,33 +89,15 @@ namespace Mn
 			}
 			if (rightColor == RGB(0, 0, 255))
 			{
-				if (_Player->IsCat())
-				{
-					Vector2 pos = playerTr->Pos();
-					pos.x += 500.0f * Time::DeltaTime();
-					playerTr->Pos(pos);
-				}
-				else
-				{
-					Vector2 pos = playerTr->Pos();
-					pos.x += 200.0f * Time::DeltaTime();
-					playerTr->Pos(pos);
-				}
+				Vector2 pos = playerTr->Pos();
+				pos.x += _MoveSpeed * Time::DeltaTime();
+				playerTr->Pos(pos);
 			}
 			if (leftColor == RGB(0, 0, 255))
 			{
-				if (_Player->IsCat())
-				{
-					Vector2 pos = playerTr->Pos();
-					pos.x -= 500.0f * Time::DeltaTime();
-					playerTr->Pos(pos);
-				}
-				else
-				{
-					Vector2 pos = playerTr->Pos();
-					pos.x -= 200.0f * Time::DeltaTime();
-					playerTr->Pos(pos);
-				}
+				Vector2 pos = playerTr->Pos();
+				pos.x -= _MoveSpeed * Time::DeltaTime();
+				playerTr->Pos(pos);
 			}
 			if (upColor == RGB(0, 255, 0))
 			{

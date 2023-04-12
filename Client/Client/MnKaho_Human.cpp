@@ -28,6 +28,7 @@ namespace Mn
 		, _AlphaTime(0.0f)
 		, _DamageTime(0.0f)
 		, _Jumpforce(550.0f)
+		, _MoveSpeed(0.0f)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
@@ -446,6 +447,7 @@ namespace Mn
 		}
 		if (Input::GetKey(eKeyCode::Right))
 		{
+			_MoveSpeed = 200.0f;
 			_Dir = eDir::R;
 			_PlayerStatus = ePlayerStatus::Move;
 			animationCtrl();
@@ -453,6 +455,7 @@ namespace Mn
 		}
 		if (Input::GetKey(eKeyCode::Left))
 		{
+			_MoveSpeed = 200.0f;
 			_Dir = eDir::L;
 			_PlayerStatus = ePlayerStatus::Move;
 			animationCtrl();
@@ -477,6 +480,7 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_MoveSpeed = 400.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
 		}
@@ -508,6 +512,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			_MoveSpeed = 100.0f;
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y -= _Jumpforce;
 
@@ -528,6 +533,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_MoveSpeed = 400.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
 		}
@@ -558,9 +564,9 @@ namespace Mn
 				animationCtrl();
 		}
 		if (_Dir == eDir::L)
-			_pos.x -= 200.0f * Time::DeltaTime();
+			_pos.x -= _MoveSpeed * Time::DeltaTime();
 		else if(_Dir == eDir::R)
-			_pos.x += 200.0f * Time::DeltaTime();
+			_pos.x += _MoveSpeed * Time::DeltaTime();
 	}
 	void Kaho_Human::attack()
 	{
@@ -648,13 +654,13 @@ namespace Mn
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			_pos.x -= 100.0f * Time::DeltaTime();
+			_pos.x -= _MoveSpeed * Time::DeltaTime();
 			_Dir = eDir::L;
 			animationCtrl();
 		}
 		else if (Input::GetKey(eKeyCode::Right))
 		{
-			_pos.x += 100.0f * Time::DeltaTime();
+			_pos.x += _MoveSpeed * Time::DeltaTime();
 			_Dir = eDir::R;
 			animationCtrl();
 		}
@@ -672,6 +678,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_MoveSpeed = 1200.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			if (_Dir == eDir::R)
 				_Animator->Play(L"PreDash_Right", false);
@@ -703,17 +710,18 @@ namespace Mn
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			_pos.x -= 100.0f * Time::DeltaTime();
+			_pos.x -= _MoveSpeed * Time::DeltaTime();
 			_Dir = eDir::L;
 		}
 		else if (Input::GetKey(eKeyCode::Right))
 		{
-			_pos.x += 100.0f * Time::DeltaTime();
+			_pos.x += _MoveSpeed * Time::DeltaTime();
 			_Dir = eDir::R;
 		}
 
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_MoveSpeed = 1200.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			if (_Dir == eDir::R)
 				_Animator->Play(L"PreDash_Right", false);
@@ -743,9 +751,9 @@ namespace Mn
 		if (_Rigidbody->GetGround() == true)
 		{
 			if (_Dir == eDir::R)
-				_pos.x += 400.0f * Time::DeltaTime();
+				_pos.x += _MoveSpeed * Time::DeltaTime();
 			else
-				_pos.x -= 400.0f * Time::DeltaTime();
+				_pos.x -= _MoveSpeed * Time::DeltaTime();
 		}
 		else
 		{
@@ -755,9 +763,9 @@ namespace Mn
 			if (_DashCharge >= 0.3f)
 			{
 				if (_Dir == eDir::R)
-					_pos.x += 1200.0f * Time::DeltaTime();
+					_pos.x += _MoveSpeed * Time::DeltaTime();
 				else
-					_pos.x -= 1200.0f * Time::DeltaTime();
+					_pos.x -= _MoveSpeed * Time::DeltaTime();
 			}
 		}
 	}
@@ -935,6 +943,7 @@ namespace Mn
 	}
 	void Kaho_Human::afterRoll()
 	{
+		_MoveSpeed = 300.0f;
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 	}
@@ -973,6 +982,7 @@ namespace Mn
 	}
 	void Kaho_Human::postDashComplete()
 	{
+		_MoveSpeed = 100.0f;
 		_PlayerStatus = ePlayerStatus::Fall;
 		animationCtrl();
 		_DashCharge = 0.0f;
