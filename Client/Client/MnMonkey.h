@@ -27,6 +27,8 @@ namespace Mn
 		Image*		_Image;
 		eDir		_Dir;
 		double		_HurtTime;
+		float		_MoveSpeed;
+		class Kaho* _Kaho;
 	public:
 		Monkey();
 		~Monkey();

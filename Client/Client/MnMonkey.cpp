@@ -5,15 +5,22 @@
 #include "MnCollider.h"
 #include "MnTime.h"
 #include "MnTransform.h"
+#include "MnSceneManager.h"
+#include "MnScene.h"
+#include "MnKaho.h"
+#include "MnTime.h"
+
 namespace Mn
 {
 	Monkey::Monkey()
 		: _Image(nullptr)
 		, _Animator(nullptr)
+		, _Kaho(nullptr)
 		, _MonStatus(eMonStatus::Idle)
 		, _Dir(eDir::R)
 		, _Collider(nullptr)
 		, _HurtTime(0.0f)
+		, _MoveSpeed(0.0f)
 	{
 	}
 	Monkey::~Monkey()
@@ -22,7 +29,6 @@ namespace Mn
 	void Monkey::Initialize()
 	{
 		GameObject::SetName(L"Enemy");
-
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = Vector2(700.0f, 400.0f);
 		tr->Pos(pos);
@@ -45,8 +51,22 @@ namespace Mn
 		_Image = Resources::Load<Image>(L"Monkey_Attack", L"..\\Resources\\Monkey_Attack.bmp");
 		_Animator->CreateAnimation(L"Monkey_Attack_Right", _Image, Vector2::Zero, 9, 2, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Monkey_Attack_Left", _Image, Vector2(0,48), 9, 2, 9, Vector2::Zero, 0.08);
-
+		_Animator->GetCompleteEvent(L"Monkey_Attack_Right") = std::bind(&Monkey::afterAttack, this);
+		_Animator->GetCompleteEvent(L"Monkey_Attack_Left") = std::bind(&Monkey::afterAttack, this);
+		_Animator->GetCompleteEvent(L"Monkey_Death_Right") = std::bind(&Monkey::afterDeath, this);
+		_Animator->GetCompleteEvent(L"Monkey_Death_Left") = std::bind(&Monkey::afterDeath, this);
 		_Animator->Play(L"Monkey_Idle_Right", true);
+
+		Scene* scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> playerObj= scene->GetGameObject(eLayerType::Player);
+		for (auto v : playerObj)
+		{
+			if (dynamic_cast<Kaho*>(v))
+			{
+				_Kaho = dynamic_cast<Kaho*>(v);
+				break;
+			}
+		}
 		GameObject::Initialize();
 	}
 	void Monkey::Update()
@@ -107,9 +127,9 @@ namespace Mn
 			break;
 		case eMonStatus::Move:
 			if (_Dir == eDir::R)
-				_Animator->Play(L"Monkey_Move_Right", false);
+				_Animator->Play(L"Monkey_Move_Right", true);
 			else
-				_Animator->Play(L"Monkey_Move_Left", false);
+				_Animator->Play(L"Monkey_Move_Left", true);
 			break;
 		case eMonStatus::Attack:
 			if (_Dir == eDir::R)
@@ -145,16 +165,49 @@ namespace Mn
 	}
 	void Monkey::idle()
 	{
+		Transform* Tr = this->GetComponent<Transform>();
+		Transform* playerTr = _Kaho->GetComponent<Transform>();
+		float distX =Tr->Pos().x-playerTr->Pos().x;
+		float distY = Tr->Pos().y - playerTr->Pos().y;
+		if (fabs(distX) <= 300 && distY >= 0)
+		{
+			_MoveSpeed = 100.0f;
+			_MonStatus = eMonStatus::Move;
+			animationCtrl();
+		}
 	}
 	void Monkey::attack()
 	{
 	}
 	void Monkey::death()
 	{
-		this->State(GameObject::eState::Death);
 	}
 	void Monkey::move()
 	{
+		Transform* Tr = this->GetComponent<Transform>();
+		Transform* playerTr = _Kaho->GetComponent<Transform>();
+		float distX = Tr->Pos().x - playerTr->Pos().x;
+		float distY = Tr->Pos().y - playerTr->Pos().y;
+		Vector2 pos = Tr->Pos();
+
+		if (distX <= 0 && distY >= -30 && distY < 150)
+		{
+			_Dir = eDir::R;
+			animationCtrl();
+			pos.x += _MoveSpeed * Time::DeltaTime();
+		}
+		else if(distX>0 && distY >- 30 && distY < 150)
+		{
+			_Dir = eDir::L;
+			animationCtrl();
+			pos.x -= _MoveSpeed * Time::DeltaTime();
+		}
+		if (fabs(distX) <= 100 && distY >= 0)
+		{
+			_MonStatus = eMonStatus::Attack;
+			animationCtrl();
+		}
+		Tr->Pos(pos);
 	}
 	void Monkey::afterHurt()
 	{
@@ -163,8 +216,11 @@ namespace Mn
 	}
 	void Monkey::afterDeath()
 	{
+		this->State(GameObject::eState::Death);
 	}
 	void Monkey::afterAttack()
 	{
+		_MonStatus = eMonStatus::Idle;
+		animationCtrl();
 	}
 }
