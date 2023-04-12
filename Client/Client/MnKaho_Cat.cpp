@@ -480,7 +480,15 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Jump;
 			animationCtrl();
 		}
-
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			_MoveSpeed = 800.0f;
+			_PlayerStatus = ePlayerStatus::Roll;
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_PreDash_Right", false);
+			else
+				_Animator->Play(L"Cat_PreDash_Left", false);
+		}
 		if (Input::GetKey(eKeyCode::Left))
 			_Pos.x -= _MoveSpeed * Time::DeltaTime();
 		else if (Input::GetKey(eKeyCode::Right))

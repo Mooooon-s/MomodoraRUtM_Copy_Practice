@@ -1,8 +1,8 @@
 #include "MnGround.h"
-#include "MnCollider.h"
 #include "MnKaho_Cat.h"
 #include "MnKaho_Human.h"
 #include "MnKaho.h"
+#include "MnCollider.h"
 #include "MnRigidbody.h"
 #include "MnTransform.h"
 #include "MnResources.h"
@@ -135,7 +135,7 @@ namespace Mn
 		Vector2 underpos = Vector2(ppos.x, ppos.y + 3);
 		Vector2 lsidepos = Vector2(ppos.x - _Size.x/2, ppos.y - _Size.y / 2.0f);
 		Vector2 rsidepos = Vector2(ppos.x + _Size.x / 2, ppos.y - _Size.y / 2.0f);
-		Vector2 upperpos = Vector2(pos.x, pos.y - _Size.y);
+		Vector2 upperpos = Vector2(ppos.x, ppos.y - _Size.y);
 
 		Rectangle(hdc, ppos.x, ppos.y, ppos.x + 2, ppos.y + 2);
 		Rectangle(hdc, underpos.x, underpos.y, underpos.x + 5, underpos.y + 5);
