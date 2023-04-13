@@ -10,6 +10,8 @@
 #include "MnTime.h"
 #include "MnCamera.h"
 #include "Application.h"
+#include "MnAnimator.h"
+#include "MnArrow.h"
 
 extern Mn::Application application;
 
@@ -119,11 +121,11 @@ namespace Mn
 				}
 			}
 		}
-		//-----------------------------------------------------------------------------------------------------
-		//
-		//											Monster
-		//
-		//-----------------------------------------------------------------------------------------------------
+		////-----------------------------------------------------------------------------------------------------
+		////
+		////											Monster
+		////
+		////-----------------------------------------------------------------------------------------------------
 		Scene* scene = SceneManager::ActiveScene();
 		std::vector<GameObject*> monObj = scene->GetGameObject(eLayerType::Monster);
 		for (auto v : monObj)
@@ -144,6 +146,25 @@ namespace Mn
 				monRb->SetGround(false);
 			}
 		}
+		//-----------------------------------------------------------------------------------------------------
+		//
+		//											Arrow
+		//
+		//-----------------------------------------------------------------------------------------------------
+		scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> attackObj = scene->GetGameObject(eLayerType::Arrow);
+		for (auto v : attackObj)
+		{
+			auto a = dynamic_cast<Arrow*>(v);
+			Transform* tr = a->GetComponent<Transform>();
+			Vector2 attackPos = tr->Pos();
+			COLORREF attackColor = ::GetPixel(_Image->Hdc(), attackPos.x, attackPos.y);
+			if (attackColor != RGB(0, 0, 0))
+			{
+				a->Hit();
+			}
+		}
+
 		GameObject::Update();
 	}
 	void Ground::Render(HDC hdc)

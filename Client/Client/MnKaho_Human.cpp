@@ -19,7 +19,8 @@
 namespace Mn
 {
 	Kaho_Human::Kaho_Human()
-		: _PlayerStatus(ePlayerStatus::Idle)
+		:GameObject()
+		, _PlayerStatus(ePlayerStatus::Idle)
 		, _Animator(nullptr)
 		, _Rigidbody(nullptr)
 		, _Image(nullptr)
@@ -913,7 +914,7 @@ namespace Mn
 	void Kaho_Human::crouchRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos(), eLayerType::Attack);
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos(), eLayerType::Arrow);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::crouchRangeComplete()
@@ -923,7 +924,7 @@ namespace Mn
 	void Kaho_Human::airRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f), eLayerType::Attack);
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f), eLayerType::Arrow);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::airRangeComplete()
@@ -935,7 +936,7 @@ namespace Mn
 	void Kaho_Human::beforeRange()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f),eLayerType::Attack);
+		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f),eLayerType::Arrow);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::afterRange()
