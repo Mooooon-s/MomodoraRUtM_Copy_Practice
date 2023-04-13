@@ -11,7 +11,7 @@
 #include "MnMonkey.h"
 #include "MnLupiar.h"
 #include "MnMagnolia.h"
-
+#include "MnPlayerHpBar.h"
 namespace Mn
 {
 	Kaho* firstStageScene::_kaho = nullptr;
@@ -28,6 +28,7 @@ namespace Mn
 		SetName(L"BossScene");
 		Scene::Initialize();
 		object::Instantiate<BG>(eLayerType::BG);
+		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f),eLayerType::UI);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);

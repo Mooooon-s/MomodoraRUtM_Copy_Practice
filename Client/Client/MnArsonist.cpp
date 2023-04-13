@@ -10,12 +10,13 @@
 namespace Mn
 {
 	Arsonist::Arsonist()
-		:_Image(nullptr)
+		: _Image(nullptr)
 		, _Animator(nullptr)
 		, _Rigidbody(nullptr)
 		, _Collider(nullptr)
-		,_Dir(eDir::R)
-		,_time(0)
+		, _MonStatus(eMonStatus::Idle)
+		, _Dir(eDir::R)
+		, _time(0)
 	{
 	}
 	Arsonist::~Arsonist()

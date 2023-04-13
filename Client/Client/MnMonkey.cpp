@@ -208,11 +208,6 @@ namespace Mn
 			animationCtrl();
 			pos.x -= _MoveSpeed * Time::DeltaTime();
 		}
-		else
-		{
-			_MonStatus = eMonStatus::Idle;
-			animationCtrl();
-		}
 		if (fabs(distX) <= 100 && distY >= 0)
 		{
 			_MonStatus = eMonStatus::Attack;

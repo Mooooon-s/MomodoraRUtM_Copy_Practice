@@ -19,6 +19,7 @@ enum class eLayerType {
 	Effect,
 	Portal,
 	Attack,
+	Arrow,
 	UI,
 	Max,
 };

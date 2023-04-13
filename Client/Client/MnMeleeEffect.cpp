@@ -12,13 +12,14 @@
 namespace Mn
 {
 	MeleeEffect::MeleeEffect()
-		: _Animator(nullptr)
+		: GameObject()
+		, _Animator(nullptr)
 		, _Collider(nullptr)
 		, _kaho(nullptr)
-		,_Dir(eDir::R)
-		,_Attack(0)
-		,_IsEnd(false)
-		,_IsPlaying(false)
+		, _Dir(eDir::R)
+		, _Attack(0)
+		, _IsEnd(false)
+		, _IsPlaying(false)
 	{
 	}
 	MeleeEffect::~MeleeEffect()
