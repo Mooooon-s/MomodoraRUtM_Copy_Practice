@@ -40,8 +40,8 @@ namespace Mn
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(500.0f, 300.0f), eLayerType::Player);
 		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(500.0f, 400.0f), eLayerType::Player);
 		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,600.0f),eLayerType::Player);
-		object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
-		object::Instantiate<Imp>(Vector2(400.0f, 200.0f), eLayerType::Monster);
+		//object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
+		//object::Instantiate<Imp>(Vector2(400.0f, 200.0f), eLayerType::Monster);
 		object::Instantiate<Imp>(Vector2(500.0f, 300.0f), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		_portal=object::Instantiate<Portal>(Vector2(1600.0f, 270.0f),eLayerType::Portal);
@@ -78,12 +78,15 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Arrow, true);
+
 	}
 	void PlayScene::OnExit()
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, false);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, false);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, false);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Arrow, false);
 		Camera::SetTarget(nullptr);
 	}
 }

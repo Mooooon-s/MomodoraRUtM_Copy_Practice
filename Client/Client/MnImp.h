@@ -30,7 +30,7 @@ namespace Mn
 		eDir		_Dir;
 		double		_HurtTime;
 		double		_ThinkTime;
-		int			_Hp;
+		float		_Hp;
 	public:
 		Imp();
 		~Imp();

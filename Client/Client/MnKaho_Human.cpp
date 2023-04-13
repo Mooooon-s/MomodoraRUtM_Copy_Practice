@@ -695,6 +695,11 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Fall;
 			animationCtrl();
 		}
+		if (_Rigidbody->GetGround() == true)
+		{
+			_PlayerStatus = ePlayerStatus::Idle;
+			animationCtrl();
+		}
 	}
 	void Kaho_Human::fall()
 	{
@@ -914,7 +919,7 @@ namespace Mn
 	void Kaho_Human::crouchRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos(), eLayerType::Arrow);
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-50.0f), eLayerType::Arrow);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::crouchRangeComplete()
@@ -936,7 +941,7 @@ namespace Mn
 	void Kaho_Human::beforeRange()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f),eLayerType::Arrow);
+		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f*3),eLayerType::Arrow);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::afterRange()

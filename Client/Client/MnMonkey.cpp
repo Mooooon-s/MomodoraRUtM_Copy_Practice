@@ -14,7 +14,8 @@
 namespace Mn
 {
 	Monkey::Monkey()
-		: _Image(nullptr)
+		: GameObject()
+		, _Image(nullptr)
 		, _Animator(nullptr)
 		, _Rigidbody(nullptr)
 		, _Kaho(nullptr)
@@ -23,6 +24,7 @@ namespace Mn
 		, _Collider(nullptr)
 		, _HurtTime(0.0f)
 		, _MoveSpeed(0.0f)
+		, _HP(4.0f)
 	{
 	}
 	Monkey::~Monkey()
@@ -40,8 +42,8 @@ namespace Mn
 		_Rigidbody->SetMass(1.0f);
 
 		_Collider = AddComponent<Collider>();
-		_Collider->Size(Vector2(32 * 3, 32 * 3));
-		_Collider->Center(Vector2(-16*3, -32*3));
+		_Collider->Size(Vector2(16 * 3, 16 * 3));
+		_Collider->Center(Vector2(-8*3, -16*3));
 
 		//44 32
 		_Image = Resources::Load<Image>(L"Monkey", L"..\\Resources\\Monkey.bmp");
@@ -111,6 +113,13 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
+			_HP -= 1.5f;
+			_MonStatus = eMonStatus::Hurt;
+			animationCtrl();
+		}
+		if (other->Owner()->GetName() == L"Arrow")
+		{
+			_HP -= 1.0f;
 			_MonStatus = eMonStatus::Hurt;
 			animationCtrl();
 		}
@@ -161,6 +170,12 @@ namespace Mn
 	}
 	void Monkey::hurt()
 	{
+		if (_HP <= 0)
+		{
+			_MonStatus = eMonStatus::Death;
+			animationCtrl();
+		}
+
 		_HurtTime += Time::DeltaTime();
 		if (_HurtTime >= 0.5)
 		{
@@ -175,7 +190,7 @@ namespace Mn
 		Transform* playerTr = _Kaho->GetComponent<Transform>();
 		float distX =Tr->Pos().x-playerTr->Pos().x;
 		float distY = Tr->Pos().y - playerTr->Pos().y;
-		if (fabs(distX) <= 300 && distY >= 0)
+		if (fabs(distX) <= 300 && (distY <= 90 && distY >=-90 ))
 		{
 			_MoveSpeed = 50.0f;
 			_MonStatus = eMonStatus::Move;
@@ -196,23 +211,29 @@ namespace Mn
 		float distY = Tr->Pos().y - playerTr->Pos().y;
 		Vector2 pos = Tr->Pos();
 
-		if (distX <= 0 && distY >= -30 && distY < 90)
+		if (distX <= 0 && distY >= -90 && distY < 90)
 		{
 			_Dir = eDir::R;
 			animationCtrl();
 			pos.x += _MoveSpeed * Time::DeltaTime();
 		}
-		else if(distX>0 && distY >- 30 && distY < 90)
+		if(distX >0 && distY >=-90 && distY < 90)
 		{
 			_Dir = eDir::L;
 			animationCtrl();
 			pos.x -= _MoveSpeed * Time::DeltaTime();
 		}
-		if (fabs(distX) <= 100 && distY >= 0)
+		if (fabs(distX) <= 120 && distY <= 90)
 		{
 			_MonStatus = eMonStatus::Attack;
 			animationCtrl();
 		}
+		if(fabs(distX)>=300 || distY<-90 || distY >= 90)
+		{
+			_MonStatus = eMonStatus::Idle;
+			animationCtrl();
+		}
+
 		Tr->Pos(pos);
 	}
 	void Monkey::afterHurt()

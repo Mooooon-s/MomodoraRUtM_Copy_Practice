@@ -113,7 +113,7 @@ namespace Mn
 			{
 				_Status = eMonStatus::Hurt;
 				animationCntrl();
-				_Hp -= 1;
+				_Hp -= 1.5f;
 				_HurtTime = 0;
 				_ThinkTime = 0;
 			}
@@ -123,6 +123,25 @@ namespace Mn
 				animationCntrl();
 			}
 		}
+
+		if (other->Owner()->GetName() == L"Arrow")
+		{
+			Vector2 dir = _Pos - kaho->KahoPos();
+			if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
+			{
+				_Status = eMonStatus::Hurt;
+				animationCntrl();
+				_Hp -= 1.0f;
+				_HurtTime = 0;
+				_ThinkTime = 0;
+			}
+			else
+			{
+				_Status = eMonStatus::Defence;
+				animationCntrl();
+			}
+		}
+
 	}
 	void Imp::OnCollisionStay(Collider* other)
 	{

@@ -30,6 +30,7 @@ namespace Mn
 		eDir		_Dir;
 		double		_HurtTime;
 		float		_MoveSpeed;
+		float		_HP;
 		class Kaho* _Kaho;
 	public:
 		Monkey();

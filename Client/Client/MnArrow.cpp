@@ -23,17 +23,22 @@ namespace Mn
 	}
 	void Arrow::Initialize()
 	{
+		SetName(L"Arrow");
 		_Collider = AddComponent<Collider>();
-		_Collider->Size(Vector2(70, 10));
-		_Collider->Center(Vector2(-35, -55));
-
+		_Collider->Size(Vector2(66, 10));
+		Vector2 size = _Collider->Size();
+		size.x = size.x / 2.0f * -1.0f;
+		size.y = (size.y + GetComponent<Transform>()->Size().y) / 2.0f * -1.0f;
+		_Collider->Center(size);
 		Image* image = Resources::Load<Image>(L"Arrow", L"..\\Resources\\Arrow.bmp");
 		_Animator = AddComponent<Animator>();
-		_Animator->CreateAnimation(L"Arrow_Right", image, Vector2(0, 0), 2, 1, 1, Vector2::Zero, 0.08f);
-		_Animator->CreateAnimation(L"Arrow_Left", image, Vector2(32, 0), 2, 1, 1, Vector2::Zero, 0.08f);
+		_Animator->CreateAnimation(L"Arrow_Right", image, Vector2(0, 0), 2, 1, 1, Vector2(0, 16 * 3), 0.08f);
+		_Animator->CreateAnimation(L"Arrow_Left", image, Vector2(32, 0), 2, 1, 1, Vector2(0, 16 * 3), 0.08f);
 		image = Resources::Load<Image>(L"Arrow_Destroy", L"..\\Resources\\Arrow_Destroy.bmp");
-		_Animator->CreateAnimation(L"Destroy", image, Vector2::Zero,4,1,4,Vector2::Zero,0.08);
-		_Animator->GetCompleteEvent(L"Destroy") = std::bind(&Arrow::destroy,this);
+		_Animator->CreateAnimation(L"Destroy_Right", image, Vector2::Zero, 4, 1, 4, Vector2(16*3, 16 * 3), 0.08);
+		_Animator->CreateAnimation(L"Destroy_Left", image, Vector2::Zero,4,1,4, Vector2(-16*3, 16 * 3),0.08);
+		_Animator->GetCompleteEvent(L"Destroy_Right") = std::bind(&Arrow::destroy,this);
+		_Animator->GetCompleteEvent(L"Destroy_Left") = std::bind(&Arrow::destroy,this);
 		
 	}
 	void Arrow::Update()
@@ -77,13 +82,15 @@ namespace Mn
 		if (other->Owner()->GetName() == L"Enemy" || other->Owner()->GetName() == L"Boss")
 		{
 			_Hit = true;
-			//_Animator->Play(L"Destroy", false);
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Destroy_Right", false);
+			else
+				_Animator->Play(L"Destroy_Left", false);
 		}
 	}
 	void Arrow::Hit()
 	{
 		_IsEnd = true;
-		//GameObject::State(eState::Death);
 	}
 	void Arrow::destroy()
 	{
