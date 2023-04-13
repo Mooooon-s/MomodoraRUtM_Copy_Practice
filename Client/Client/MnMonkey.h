@@ -5,6 +5,7 @@ namespace Mn
 	class Image;
 	class Animator;
 	class Collider;
+	class Rigidbody;
 	class Monkey : public GameObject
 	{
 	private:
@@ -24,6 +25,7 @@ namespace Mn
 		eMonStatus	_MonStatus;
 		Animator*	_Animator;
 		Collider*	_Collider;
+		Rigidbody*	_Rigidbody;
 		Image*		_Image;
 		eDir		_Dir;
 		double		_HurtTime;

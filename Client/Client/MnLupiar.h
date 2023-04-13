@@ -4,11 +4,15 @@ namespace Mn
 {
 	class Image;
 	class Animator;
+	class Rigidbody;
+	class Collider;
 	class Lupiar :public GameObject
 	{
 	private:
-		Image* _Image;
-		Animator* _Animator;
+		Image*		_Image;
+		Animator*	_Animator;
+		Rigidbody*	_Rigidbody;
+		Collider*	_Collider;
 	public:
 		Lupiar();
 		~Lupiar();

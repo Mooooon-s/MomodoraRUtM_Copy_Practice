@@ -9,12 +9,14 @@
 #include "MnScene.h"
 #include "MnKaho.h"
 #include "MnTime.h"
+#include "MnRigidbody.h"
 
 namespace Mn
 {
 	Monkey::Monkey()
 		: _Image(nullptr)
 		, _Animator(nullptr)
+		, _Rigidbody(nullptr)
 		, _Kaho(nullptr)
 		, _MonStatus(eMonStatus::Idle)
 		, _Dir(eDir::R)
@@ -32,6 +34,10 @@ namespace Mn
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = Vector2(700.0f, 400.0f);
 		tr->Pos(pos);
+
+		_Rigidbody = AddComponent<Rigidbody>();
+		_Rigidbody->SetGround(false);
+		_Rigidbody->SetMass(1.0f);
 
 		_Collider = AddComponent<Collider>();
 		_Collider->Size(Vector2(32 * 3, 32 * 3));
@@ -171,7 +177,7 @@ namespace Mn
 		float distY = Tr->Pos().y - playerTr->Pos().y;
 		if (fabs(distX) <= 300 && distY >= 0)
 		{
-			_MoveSpeed = 100.0f;
+			_MoveSpeed = 50.0f;
 			_MonStatus = eMonStatus::Move;
 			animationCtrl();
 		}
@@ -190,17 +196,22 @@ namespace Mn
 		float distY = Tr->Pos().y - playerTr->Pos().y;
 		Vector2 pos = Tr->Pos();
 
-		if (distX <= 0 && distY >= -30 && distY < 150)
+		if (distX <= 0 && distY >= -30 && distY < 90)
 		{
 			_Dir = eDir::R;
 			animationCtrl();
 			pos.x += _MoveSpeed * Time::DeltaTime();
 		}
-		else if(distX>0 && distY >- 30 && distY < 150)
+		else if(distX>0 && distY >- 30 && distY < 90)
 		{
 			_Dir = eDir::L;
 			animationCtrl();
 			pos.x -= _MoveSpeed * Time::DeltaTime();
+		}
+		else
+		{
+			_MonStatus = eMonStatus::Idle;
+			animationCtrl();
 		}
 		if (fabs(distX) <= 100 && distY >= 0)
 		{

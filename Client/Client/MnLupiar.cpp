@@ -1,12 +1,16 @@
 #include "MnLupiar.h"
-#include "MnAnimator.h"
-#include "MnComponent.h"
 #include "MnResources.h"
+#include "MnComponent.h"
+#include "MnAnimator.h"
+#include "MnCollider.h"
+#include "MnRigidbody.h"
 namespace Mn
 {
 	Lupiar::Lupiar()
 		: _Image(nullptr)
 		, _Animator(nullptr)
+		, _Rigidbody(nullptr)
+		, _Collider(nullptr)
 	{
 	}
 	Lupiar::~Lupiar()
@@ -16,6 +20,15 @@ namespace Mn
 	{
 		//48 48
 		GameObject::SetName(L"Boss");
+
+		_Collider = AddComponent<Collider>();
+		_Collider->Center(Vector2(-12.0f * 3, -35.0f * 3));
+		_Collider->Size(Vector2(24.0f * 3, 35.0f * 3));
+
+		_Rigidbody = AddComponent<Rigidbody>();
+		_Rigidbody->SetMass(1.0f);
+		_Rigidbody->SetGround(false);
+
 		_Image = Resources::Load<Image>(L"Lupiar", L"..\\Resources\\Lupiar_1.bmp");
 		_Animator = AddComponent<Animator>();
 		_Animator->CreateAnimation(L"Lupiar_Idle_Left", _Image, Vector2::Zero, 8, 6, 8, Vector2::Zero, 0.08);

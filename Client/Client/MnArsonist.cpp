@@ -5,12 +5,15 @@
 #include "MnAnimator.h"
 #include "MnTransform.h"
 #include "MnCollider.h"
+#include "MnRigidbody.h"
 
 namespace Mn
 {
 	Arsonist::Arsonist()
 		:_Image(nullptr)
-		,_Animator(nullptr)
+		, _Animator(nullptr)
+		, _Rigidbody(nullptr)
+		, _Collider(nullptr)
 		,_Dir(eDir::R)
 		,_time(0)
 	{
@@ -20,15 +23,19 @@ namespace Mn
 	}
 	void Arsonist::Initialize()
 	{
-		GameObject::SetName(L"Enemy");
+		GameObject::SetName(L"Boss");
 
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos(Vector2(400.0f, 400.0f));
 		_Animator = AddComponent<Animator>();
 
-		Collider* col = AddComponent<Collider>();
-		col->Center(Vector2(-12.0f*3,-35.0f*3));
-		col->Size(Vector2(24.0f*3, 35.0f*3));
+		_Rigidbody = AddComponent<Rigidbody>();
+		_Rigidbody->SetMass(1.0f);
+		_Rigidbody->SetGround(false);
+
+		_Collider = AddComponent<Collider>();
+		_Collider->Center(Vector2(-12.0f*3,-35.0f*3));
+		_Collider->Size(Vector2(24.0f*3, 35.0f*3));
 
 		_Image = Resources::Load<Image>(L"Arsonist", L"..\\Resources\\Arsonist_Move.bmp");
 		_Animator->CreateAnimation(L"walk_Left", _Image, Vector2::Zero, 13, 15,7, Vector2::Zero, 0.08);

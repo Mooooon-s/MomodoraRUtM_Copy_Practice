@@ -5,6 +5,8 @@
 namespace Mn
 {
 	class Animator;
+	class Rigidbody;
+	class Collider;
 	class Arsonist : public GameObject
 	{
 	private:
@@ -23,6 +25,8 @@ namespace Mn
 		};
 		eMonStatus	_MonStatus;
 		Animator*	_Animator;
+		Rigidbody*	_Rigidbody;
+		Collider*	_Collider;
 		Image*		_Image;
 		eDir		_Dir;
 		double		_time;

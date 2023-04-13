@@ -50,6 +50,11 @@ namespace Mn
 	}
 	void Ground::Update()
 	{
+		//---------------------------------------------------------------------------------------------
+		//
+		//										Player
+		//
+		//---------------------------------------------------------------------------------------------
 		if (_Player->CameraTarget<GameObject>()->GetComponent<Transform>() != nullptr)
 		{
 			Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
@@ -112,6 +117,31 @@ namespace Mn
 					_Human->GetComponent<Rigidbody>()->Velocity(Vector2::Zero);
 					_Cat->PlayerStatus(ePlayerStatus::Fall);
 				}
+			}
+		}
+		//-----------------------------------------------------------------------------------------------------
+		//
+		//											Monster
+		//
+		//-----------------------------------------------------------------------------------------------------
+		Scene* scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> monObj = scene->GetGameObject(eLayerType::Monster);
+		for (auto v : monObj)
+		{
+			Transform* tr = v->GetComponent<Transform>();
+			Vector2 monPos = tr->Pos();
+			COLORREF monfootColor = ::GetPixel(_Image->Hdc(), monPos.x, monPos.y);
+			if (monfootColor == RGB(255, 0, 255))
+			{
+				Rigidbody* monRb = v->GetComponent<Rigidbody>();
+				monRb->SetGround(true);
+				monPos.y -= 1;
+				tr->Pos(monPos);
+			}
+			if (monfootColor != RGB(255, 0, 255))
+			{
+				Rigidbody* monRb = v->GetComponent<Rigidbody>();
+				monRb->SetGround(false);
 			}
 		}
 		GameObject::Update();
