@@ -56,9 +56,6 @@ namespace Mn
 	}
 	void Knife::Render(HDC hdc)
 	{
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->Pos();
-		Rectangle(hdc,pos.x, pos.y, pos.x + 5, pos.y + 5);
 		GameObject::Render(hdc);
 	}
 	void Knife::Release()

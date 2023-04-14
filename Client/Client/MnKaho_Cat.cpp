@@ -13,6 +13,8 @@
 #include "MnCollider.h"
 #include "MnRigidbody.h"
 
+#include "MnKnife.h"
+
 namespace Mn
 {
 	Kaho_Cat::Kaho_Cat()
@@ -205,16 +207,23 @@ namespace Mn
 	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Cat::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy")
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true)
 		{
 			_GetDamage = false;
 			_PlayerStatus=ePlayerStatus::Hurt;
 			animationCtrl();
 		}
+		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true)
+		{
+			dynamic_cast<Knife*>(other->Owner())->Hit();
+			_GetDamage = false;
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
 	}
 	void Kaho_Cat::OnCollisionStay(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy")
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true )
 		{
 			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;

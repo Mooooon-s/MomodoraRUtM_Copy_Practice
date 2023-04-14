@@ -34,11 +34,11 @@ namespace Mn
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		//object::Instantiate<Magnolia>(Vector2(200.0f, 400.0f), eLayerType::Monster);
-		//object::Instantiate<Lupiar>(Vector2(300.0f, 400.0f), eLayerType::Monster);
-		//object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f), eLayerType::Monster);
+		object::Instantiate<Lupiar>(Vector2(300.0f, 400.0f), eLayerType::Monster);
+		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f), eLayerType::Monster);
 		//object::Instantiate<Cath>(Vector2(500.0f, 400.0f), eLayerType::NPC);
-		//object::Instantiate<Monkey>(Vector2(600.0f, 400.0f), eLayerType::Monster);
-		object::Instantiate<Imp>(Vector2(700.0f, 400.0f), eLayerType::Monster);
+		object::Instantiate<Monkey>(Vector2(600.0f, 400.0f), eLayerType::Monster);
+		//object::Instantiate<Imp>(Vector2(700.0f, 400.0f), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}

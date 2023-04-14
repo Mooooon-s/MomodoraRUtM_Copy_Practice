@@ -146,6 +146,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Commoninclude.h" />
+    <ClInclude Include="MnBomb.h" />
     <ClInclude Include="MnCath.h" />
     <ClInclude Include="MnfirstStageScene.h" />
     <ClInclude Include="MnAnimation.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="MnGround.h" />
     <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnImp.h" />
+    <ClInclude Include="MnImpBomb.h" />
     <ClInclude Include="MnInput.h" />
     <ClInclude Include="MnKaho.h" />
     <ClInclude Include="MnKaho_Cat.h" />
@@ -203,6 +205,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnBomb.cpp" />
     <ClCompile Include="MnCath.cpp" />
     <ClCompile Include="MnfirstStageScene.cpp" />
     <ClCompile Include="MnFadeInOut.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="MnCollisionManager.cpp" />
     <ClCompile Include="MnArrow.cpp" />
     <ClCompile Include="MnGround.cpp" />
+    <ClCompile Include="MnImpBomb.cpp" />
     <ClCompile Include="MnKaho_Human.cpp" />
     <ClCompile Include="MnKaho.cpp" />
     <ClCompile Include="MnArsonist.cpp" />

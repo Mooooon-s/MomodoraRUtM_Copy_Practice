@@ -265,6 +265,10 @@
     <ClInclude Include="MnKnife.h">
       <Filter>Contents\Throws</Filter>
     </ClInclude>
+    <ClInclude Include="MnImpBomb.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnBomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -433,5 +437,9 @@
     <ClCompile Include="MnKnife.cpp">
       <Filter>Contents\Throws</Filter>
     </ClCompile>
+    <ClCompile Include="MnImpBomb.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnBomb.cpp" />
   </ItemGroup>
 </Project>
