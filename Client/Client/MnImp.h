@@ -31,6 +31,7 @@ namespace Mn
 		double		_HurtTime;
 		double		_ThinkTime;
 		float		_Hp;
+		int			_MoveCount;
 	public:
 		Imp();
 		~Imp();
@@ -50,6 +51,8 @@ namespace Mn
 		void hurt();
 		void animationCntrl();
 		eMonStatus think();
+	private:
+		void affterAttack();
 
 	};
 }

@@ -13,14 +13,15 @@
 namespace Mn
 {
 	Imp::Imp()
-		:_Animator(nullptr)
-		,_Collider(nullptr)
-		,_Rigidbody(nullptr)
-		,_Pos(Vector2::Zero)
-		,_Status(eMonStatus::Move)
-		,_HurtTime(0)
-		,_Hp(3)
-		,_Dir(eDir::R)
+		: _Animator(nullptr)
+		, _Collider(nullptr)
+		, _Rigidbody(nullptr)
+		, _Pos(Vector2::Zero)
+		, _Status(eMonStatus::Move)
+		, _HurtTime(0)
+		, _Hp(3)
+		, _MoveCount(0)
+		, _Dir(eDir::R)
 	{
 	}
 	Imp::~Imp()
@@ -52,6 +53,8 @@ namespace Mn
 		_Animator->CreateAnimation(L"Imp_Walk_Left", _Image, Vector2(0, 32*2), 8, 5, 5, Vector2::Zero, 0.1f);
 		_Animator->CreateAnimation(L"Imp_Attack_Right", _Image, Vector2(0, 32*3), 8, 5, 8, Vector2::Zero, 0.1f);
 		_Animator->CreateAnimation(L"Imp_Attack_Left", _Image, Vector2(0, 32 * 4), 8, 5, 8, Vector2::Zero, 0.1f);
+		_Animator->GetCompleteEvent(L"Imp_Attack_Right") = std::bind(&Imp::affterAttack, this);
+		_Animator->GetCompleteEvent(L"Imp_Attack_Left") = std::bind(&Imp::affterAttack, this);
 
 		_Animator->Play(L"Imp_Idle_Right", true);
 		Scene* scene = SceneManager::ActiveScene();
@@ -65,12 +68,19 @@ namespace Mn
 	}
 	void Imp::Update()
 	{
+		Vector2 playerPos = _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
 		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		float distX = pos.x - playerPos.x;
 		_Pos = tr->Pos();
 		_ThinkTime += Time::DeltaTime();
-		if (_ThinkTime >= 1.0f)
+		if (_ThinkTime >= 0.7f)
 		{
 			_Status = think();
+			if (distX < 0)
+				_Dir = eDir::R;
+			else
+				_Dir = eDir::L;
 			animationCntrl();
 			_ThinkTime = 0;
 		}
@@ -91,6 +101,7 @@ namespace Mn
 		default:
 			break;
 		}
+		tr->Pos(_Pos);
 		if (_Hp <= 0)
 			GameObject::State(eState::Death);
 		GameObject::Update();
@@ -151,18 +162,36 @@ namespace Mn
 	}
 	void Imp::move()
 	{
-		if (_Dir == eDir::R)
+		Vector2 playerPos = _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		float distX = pos.x - playerPos.x;
+		if (fabs(distX) < 150)
 		{
-			_Pos.x += 100.0f * Time::DeltaTime();
+			if (_Dir == eDir::R)
+			{
+				_Pos.x -= 100.0f * Time::DeltaTime();
+			}
+			else
+			{
+				_Pos.x += 100.0f * Time::DeltaTime();
+			}
 		}
-		else
+		if (fabs(distX) >=150)
 		{
-			_Pos.x -= 100.0f * Time::DeltaTime();
+			if (_Dir == eDir::R)
+			{
+				_Pos.x += 100.0f * Time::DeltaTime();
+			}
+			else
+			{
+				_Pos.x -= 100.0f * Time::DeltaTime();
+			}
 		}
 	}
 	void Imp::attack()
 	{
-
+		//Throw knife
 	}
 	void Imp::defence()
 	{
@@ -212,17 +241,20 @@ namespace Mn
 	}
 	Imp::eMonStatus Imp::think()
 	{
-		Vector2 playerPos = _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->Pos();
-
-		if(fabs(pos.x - playerPos.x) <=200)
+		if (_MoveCount > 3)
 		{
-			return eMonStatus::Defence;
-		}
-		else if (fabs(pos.x - playerPos.x) > 200&& fabs(pos.x - playerPos.x) <500)
-		{
+			_MoveCount = 0;
 			return eMonStatus::Attack;
 		}
+		else
+		{
+			_MoveCount++;
+			return eMonStatus::Move;
+		}
+	}
+	void Imp::affterAttack()
+	{
+		_Status = eMonStatus::Defence;
+		animationCntrl();
 	}
 }
