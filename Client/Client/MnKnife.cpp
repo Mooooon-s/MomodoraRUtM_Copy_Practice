@@ -21,6 +21,7 @@ namespace Mn
 	}
 	void Knife::Initialize()
 	{
+		SetName(L"Throws");
 		_Image = Resources::Load<Image>(L"Throws_Knife", L"..\\Resources\\Imp_Knife.bmp");
 		Vector2 offset = Vector2((_Image->Width()/2.0f*-1.0f)+1, -2.0f);
 		

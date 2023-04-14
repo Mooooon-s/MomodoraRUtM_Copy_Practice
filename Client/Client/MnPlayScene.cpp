@@ -79,6 +79,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
 
 	}
 	void PlayScene::OnExit()

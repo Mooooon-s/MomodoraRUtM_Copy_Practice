@@ -14,6 +14,7 @@
 
 #include "MnObject.h"
 #include "MnArrow.h"
+#include "MnKnife.h"
 #include "MnMeleeEffect.h"
 
 namespace Mn
@@ -292,6 +293,15 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Hurt;
 			animationCtrl();
 		}
+
+		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true)
+		{
+			dynamic_cast<Knife*>(other->Owner())->Hit();
+			_GetDamage = false;
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
+
 	}
 	void Kaho_Human::OnCollisionStay(Collider* other)
 	{
