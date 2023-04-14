@@ -6,6 +6,7 @@ namespace Mn
 	class Animator;
 	class Rigidbody;
 	class Collider;
+	class Image;
 	class Imp :public GameObject
 	{
 	private:
@@ -26,6 +27,7 @@ namespace Mn
 		Rigidbody*	_Rigidbody;
 		Collider*	_Collider;
 		Animator*	_Animator;
+		Image*		_Image;
 		Vector2		_Pos;
 		eDir		_Dir;
 		double		_HurtTime;
@@ -53,7 +55,7 @@ namespace Mn
 		eMonStatus think();
 	private:
 		void affterAttack();
-
+		void throwKnife();
 	};
 }
 

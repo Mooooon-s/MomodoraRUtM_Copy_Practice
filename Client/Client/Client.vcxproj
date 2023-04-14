@@ -170,6 +170,7 @@
     <ClInclude Include="MnKaho.h" />
     <ClInclude Include="MnKaho_Cat.h" />
     <ClInclude Include="MnKaho_Human.h" />
+    <ClInclude Include="MnKnife.h" />
     <ClInclude Include="MnLayer.h" />
     <ClInclude Include="MnLupiar.h" />
     <ClInclude Include="MnMagnolia.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="MnComponent.cpp" />
     <ClCompile Include="MnGameObject.cpp" />
     <ClCompile Include="MnKaho_Cat.cpp" />
+    <ClCompile Include="MnKnife.cpp" />
     <ClCompile Include="MnLayer.cpp" />
     <ClCompile Include="MnLupiar.cpp" />
     <ClCompile Include="MnMagnolia.cpp" />

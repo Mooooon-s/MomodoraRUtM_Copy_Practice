@@ -9,6 +9,8 @@
 #include "MnRigidbody.h"
 #include "MnKaho.h"
 #include "MnPlayScene.h"
+#include "MnObject.h"
+#include "MnKnife.h"
 
 namespace Mn
 {
@@ -42,7 +44,7 @@ namespace Mn
 		_Rigidbody->SetMass(1.0);
 		_Rigidbody->SetGround(false);
 
-		Image* _Image = Resources::Load<Image>(L"Imp", L"..\\Resources\\Imp.bmp");
+		_Image = Resources::Load<Image>(L"Imp", L"..\\Resources\\Imp.bmp");
 		_Animator = AddComponent<Animator>();
 		
 		_Animator->CreateAnimation(L"Imp_Idle_Right", _Image, Vector2::Zero, 8, 5, 1, Vector2::Zero, 0.1f);
@@ -55,6 +57,8 @@ namespace Mn
 		_Animator->CreateAnimation(L"Imp_Attack_Left", _Image, Vector2(0, 32 * 4), 8, 5, 8, Vector2::Zero, 0.1f);
 		_Animator->GetCompleteEvent(L"Imp_Attack_Right") = std::bind(&Imp::affterAttack, this);
 		_Animator->GetCompleteEvent(L"Imp_Attack_Left") = std::bind(&Imp::affterAttack, this);
+		_Animator->FindAnimation(L"Imp_Attack_Left")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Imp::throwKnife, this);
+		_Animator->FindAnimation(L"Imp_Attack_Right")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Imp::throwKnife, this);
 
 		_Animator->Play(L"Imp_Idle_Right", true);
 		Scene* scene = SceneManager::ActiveScene();
@@ -116,10 +120,9 @@ namespace Mn
 	}
 	void Imp::OnCollisionEnter(Collider* other)
 	{
-		Kaho* kaho = PlayScene::GetKaho();
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
-			Vector2 dir = _Pos - kaho->KahoPos();
+			Vector2 dir = _Pos - _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
 			if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
 			{
 				_Status = eMonStatus::Hurt;
@@ -137,7 +140,7 @@ namespace Mn
 
 		if (other->Owner()->GetName() == L"Arrow")
 		{
-			Vector2 dir = _Pos - kaho->KahoPos();
+			Vector2 dir = _Pos - _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
 			if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
 			{
 				_Status = eMonStatus::Hurt;
@@ -256,5 +259,23 @@ namespace Mn
 	{
 		_Status = eMonStatus::Defence;
 		animationCntrl();
+	}
+	void Imp::throwKnife()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		pos.y -= _Collider->Size().y / 2.0f;
+		if (_Dir == eDir::R)
+		{
+			pos.x += (_Collider->Size().x / 2.0f);
+			Knife* knife = object::Instantiate<Knife>(pos,eLayerType::Throws);
+			knife->DirR();
+		}
+		else
+		{
+			pos.x -= (_Collider->Size().x / 2.0f);
+			Knife* knife = object::Instantiate<Knife>(pos, eLayerType::Throws);
+			knife->DirL();
+		}
 	}
 }
