@@ -919,7 +919,7 @@ namespace Mn
 	void Kaho_Human::crouchRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-50.0f), eLayerType::Arrow);
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-50.0f), eLayerType::Throws);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::crouchRangeComplete()
@@ -929,7 +929,7 @@ namespace Mn
 	void Kaho_Human::airRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f), eLayerType::Arrow);
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f), eLayerType::Throws);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::airRangeComplete()
@@ -941,7 +941,7 @@ namespace Mn
 	void Kaho_Human::beforeRange()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f*3),eLayerType::Arrow);
+		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f*3),eLayerType::Throws);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::afterRange()

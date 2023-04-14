@@ -12,6 +12,7 @@
 #include "Application.h"
 #include "MnAnimator.h"
 #include "MnArrow.h"
+#include "MnKnife.h"
 
 extern Mn::Application application;
 
@@ -148,20 +149,34 @@ namespace Mn
 		}
 		//-----------------------------------------------------------------------------------------------------
 		//
-		//											Arrow
+		//											Throws
 		//
 		//-----------------------------------------------------------------------------------------------------
 		scene = SceneManager::ActiveScene();
-		std::vector<GameObject*> attackObj = scene->GetGameObject(eLayerType::Arrow);
+		std::vector<GameObject*> attackObj = scene->GetGameObject(eLayerType::Throws);
 		for (auto v : attackObj)
 		{
-			auto a = dynamic_cast<Arrow*>(v);
-			Transform* tr = a->GetComponent<Transform>();
-			Vector2 attackPos = tr->Pos();
-			COLORREF attackColor = ::GetPixel(_Image->Hdc(), attackPos.x, attackPos.y);
-			if (attackColor != RGB(0, 0, 0))
+			if (dynamic_cast<Arrow*>(v))
 			{
-				a->Hit();
+				auto a = dynamic_cast<Arrow*>(v);
+				Transform* tr = a->GetComponent<Transform>();
+				Vector2 attackPos = tr->Pos();
+				COLORREF attackColor = ::GetPixel(_Image->Hdc(), attackPos.x, attackPos.y);
+				if (attackColor != RGB(0, 0, 0))
+				{
+					a->Hit();
+				}
+			}
+			if (dynamic_cast<Knife*>(v))
+			{
+				auto a = dynamic_cast<Knife*>(v);
+				Transform* tr = a->GetComponent<Transform>();
+				Vector2 attackPos = tr->Pos();
+				COLORREF attackColor = ::GetPixel(_Image->Hdc(), attackPos.x, attackPos.y);
+				if (attackColor != RGB(0, 0, 0))
+				{
+					a->Hit();
+				}
 			}
 		}
 

@@ -78,7 +78,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Arrow, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 
 	}
 	void PlayScene::OnExit()
@@ -86,7 +86,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, false);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, false);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, false);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Arrow, false);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, false);
 		Camera::SetTarget(nullptr);
 	}
 }

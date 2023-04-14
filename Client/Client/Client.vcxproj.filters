@@ -62,9 +62,6 @@
     <Filter Include="Contents\Monster">
       <UniqueIdentifier>{88a748ab-e93d-4291-a279-57901c0a8713}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Arrow">
-      <UniqueIdentifier>{e2fd270f-6121-4f7b-9df9-3f224f0e1816}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engin\Component\Collider">
       <UniqueIdentifier>{44baf467-a984-437f-807d-d353bb2aaffb}</UniqueIdentifier>
     </Filter>
@@ -88,6 +85,9 @@
     </Filter>
     <Filter Include="Contents\NPC">
       <UniqueIdentifier>{4d6a0685-23b3-4f22-ac74-85fb0e91f3b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Throws">
+      <UniqueIdentifier>{e2fd270f-6121-4f7b-9df9-3f224f0e1816}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -194,7 +194,7 @@
       <Filter>Contents\Player</Filter>
     </ClInclude>
     <ClInclude Include="MnArrow.h">
-      <Filter>Contents\Arrow</Filter>
+      <Filter>Contents\Throws</Filter>
     </ClInclude>
     <ClInclude Include="MnCollisionManager.h">
       <Filter>Engin\Component\Collider</Filter>
@@ -261,6 +261,9 @@
     </ClInclude>
     <ClInclude Include="MnPlayerHpBar.h">
       <Filter>Contents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MnKnife.h">
+      <Filter>Contents\Throws</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,7 +368,7 @@
       <Filter>Contents\Player</Filter>
     </ClCompile>
     <ClCompile Include="MnArrow.cpp">
-      <Filter>Contents\Arrow</Filter>
+      <Filter>Contents\Throws</Filter>
     </ClCompile>
     <ClCompile Include="MnCollisionManager.cpp">
       <Filter>Engin\Component\Collider</Filter>
@@ -426,6 +429,9 @@
     </ClCompile>
     <ClCompile Include="MnPlayerHpBar.cpp">
       <Filter>Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MnKnife.cpp">
+      <Filter>Contents\Throws</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
