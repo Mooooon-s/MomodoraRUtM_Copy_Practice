@@ -287,14 +287,14 @@ namespace Mn
 	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Human::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage==true)
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage==true && _PlayerStatus!=ePlayerStatus::Roll)
 		{
 			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;
 			animationCtrl();
 		}
 
-		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true)
+		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
 			dynamic_cast<Knife*>(other->Owner())->Hit();
 			_GetDamage = false;
@@ -305,7 +305,7 @@ namespace Mn
 	}
 	void Kaho_Human::OnCollisionStay(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true)
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
 			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;
