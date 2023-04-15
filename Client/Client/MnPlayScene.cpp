@@ -9,6 +9,7 @@
 #include "MnImp.h"
 #include "MnArsonist.h"
 #include "MnImpBomb.h"
+#include "MnImpKnife.h"
 
 #include "MnGround.h"
 #include "MnInput.h"
@@ -49,6 +50,7 @@ namespace Mn
 		object::Instantiate<Imp>(Vector2(500.0f, 300.0f), eLayerType::Monster);
 		object::Instantiate<ImpBomb>(Vector2(600.0f, 300.0f), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
+		object::Instantiate<ImpKnife>(Vector2(700.0f, 200.0f), eLayerType::Monster);
 		_portal=object::Instantiate<Portal>(Vector2(1600.0f, 270.0f),eLayerType::Portal);
 		_portal->moveToScene(eSceneType::Stage1);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);

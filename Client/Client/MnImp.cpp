@@ -43,7 +43,7 @@ namespace Mn
 		_Rigidbody = AddComponent<Rigidbody>();
 		_Rigidbody->SetMass(1.0);
 		_Rigidbody->SetGround(false);
-
+		
 		_Image = Resources::Load<Image>(L"Imp", L"..\\Resources\\Imp.bmp");
 		_Animator = AddComponent<Animator>();
 		
@@ -180,7 +180,7 @@ namespace Mn
 				_Pos.x += 100.0f * Time::DeltaTime();
 			}
 		}
-		if (fabs(distX) >=150)
+		if (fabs(distX) >150)
 		{
 			if (_Dir == eDir::R)
 			{
@@ -190,6 +190,11 @@ namespace Mn
 			{
 				_Pos.x -= 100.0f * Time::DeltaTime();
 			}
+		}
+		if (fabs(distX) == 150)
+		{
+			_Status = eMonStatus::Defence;
+			animationCntrl();
 		}
 	}
 	void Imp::attack()

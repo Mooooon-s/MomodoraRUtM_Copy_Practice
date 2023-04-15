@@ -269,6 +269,9 @@
       <Filter>Contents\Monster</Filter>
     </ClInclude>
     <ClInclude Include="MnBomb.h" />
+    <ClInclude Include="MnImpKnife.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -441,5 +444,8 @@
       <Filter>Contents\Monster</Filter>
     </ClCompile>
     <ClCompile Include="MnBomb.cpp" />
+    <ClCompile Include="MnImpKnife.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

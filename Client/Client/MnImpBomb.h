@@ -22,7 +22,9 @@ namespace Mn
 		Kaho*		_kaho;
 		eDir		_Dir;
 		float		_ThinkTime;
+		float		_HurtTime;
 		float		_Hp;
+		bool		_Ishurt;
 	public:
 		ImpBomb();
 		~ImpBomb();

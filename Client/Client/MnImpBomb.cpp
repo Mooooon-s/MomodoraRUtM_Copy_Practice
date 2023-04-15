@@ -23,7 +23,9 @@ namespace Mn
 		, _Rigidbody(nullptr)
 		, _Dir(eDir::R)
 		, _ThinkTime(0.0f)
+		, _HurtTime(0.0f)
 		, _Hp(1.0f)
+		, _Ishurt(false)
 	{
 	}
 	ImpBomb::~ImpBomb()
@@ -52,8 +54,6 @@ namespace Mn
 
 		_Animator->GetCompleteEvent(L"Imp_Bomb_Attack_Right") = std::bind(&ImpBomb::afterAction, this);
 		_Animator->GetCompleteEvent(L"Imp_Bomb_Attack_Left") = std::bind(&ImpBomb::afterAction, this);
-		_Animator->GetCompleteEvent(L"Imp_Bomb_Hurt_Right") = std::bind(&ImpBomb::afterAction, this);
-		_Animator->GetCompleteEvent(L"Imp_Bomb_Hurt_Left") = std::bind(&ImpBomb::afterAction, this);
 
 		_Animator->FindAnimation(L"Imp_Bomb_Attack_Right")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&ImpBomb::attack, this);
 		_Animator->FindAnimation(L"Imp_Bomb_Attack_Left")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&ImpBomb::attack, this);
@@ -82,7 +82,7 @@ namespace Mn
 		else
 			_Dir = eDir::L;
 
-		if (_ThinkTime >= 3)
+		if (_ThinkTime >= 3 && _Ishurt==false)
 		{
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Imp_Bomb_Attack_Right", false);
@@ -90,8 +90,14 @@ namespace Mn
 				_Animator->Play(L"Imp_Bomb_Attack_Left", false);
 			_ThinkTime = 0;
 		}
-		if (_Hp <= 0)
-			GameObject::State(eState::Death);
+		if (_Ishurt == true)
+		{
+			_HurtTime += Time::DeltaTime();
+			if (_Hp <= 0 && _HurtTime >= 0.8)
+			{
+				this->State(eState::Death);
+			}
+		}
 		GameObject::Update();
 	}
 	void ImpBomb::Render(HDC hdc)
@@ -110,7 +116,8 @@ namespace Mn
 				_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
 			else
 				_Animator->Play(L"Imp_Bomb_Hurt_Left", false);
-			_Hp -= 1.0f;
+			_Hp -= 1.5f;
+			_Ishurt = true;
 			_ThinkTime = 0;
 		}
 
@@ -121,6 +128,7 @@ namespace Mn
 			else
 				_Animator->Play(L"Imp_Bomb_Hurt_Left", false);
 			_Hp -= 1.0f;
+			_Ishurt = true;
 			_ThinkTime = 0;
 		}
 	}

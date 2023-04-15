@@ -168,6 +168,7 @@
     <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnImp.h" />
     <ClInclude Include="MnImpBomb.h" />
+    <ClInclude Include="MnImpKnife.h" />
     <ClInclude Include="MnInput.h" />
     <ClInclude Include="MnKaho.h" />
     <ClInclude Include="MnKaho_Cat.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="MnArrow.cpp" />
     <ClCompile Include="MnGround.cpp" />
     <ClCompile Include="MnImpBomb.cpp" />
+    <ClCompile Include="MnImpKnife.cpp" />
     <ClCompile Include="MnKaho_Human.cpp" />
     <ClCompile Include="MnKaho.cpp" />
     <ClCompile Include="MnArsonist.cpp" />
