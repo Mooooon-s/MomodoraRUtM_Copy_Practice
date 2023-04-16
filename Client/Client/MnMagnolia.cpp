@@ -2,11 +2,14 @@
 #include "MnComponent.h"
 #include "MnAnimator.h"
 #include "MnResources.h"
+#include "MnRigidbody.h"
 namespace Mn
 {
 	Magnolia::Magnolia()
-		:_Image(nullptr)
-		,_Animator(nullptr)
+		: GameObject()
+		, _Image(nullptr)
+		, _Animator(nullptr)
+		, _Rigidbody(nullptr)
 	{
 	}
 	Magnolia::~Magnolia()
@@ -14,6 +17,10 @@ namespace Mn
 	}
 	void Magnolia::Initialize()
 	{
+		_Rigidbody = AddComponent<Rigidbody>();
+		_Rigidbody->SetMass(1.0f);
+		_Rigidbody->SetGround(false);
+
 		_Image = Resources::Load<Image>(L"Magnolia_Arrow", L"..\\Resources\\Magnolia_Arrow.bmp");
 		_Animator = AddComponent<Animator>();
 		_Animator->CreateAnimation(L"Magnolia_Arrow_Idle_Left", _Image, Vector2::Zero, 6, 6, 6, Vector2::Zero, 0.08);

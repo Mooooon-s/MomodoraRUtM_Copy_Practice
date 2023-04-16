@@ -5,11 +5,15 @@
 
 namespace Mn
 { 
+	class Rigidbody;
+	class Collider;
 	class Cath : public GameObject
 	{
 	private:
-		Image* _Image;
-		Animator* _Animator;
+		Image*		_Image;
+		Animator*	_Animator;
+		Collider*	_Collider;
+		Rigidbody*	_Rigidbody;
 	public:
 		Cath();
 		~Cath();

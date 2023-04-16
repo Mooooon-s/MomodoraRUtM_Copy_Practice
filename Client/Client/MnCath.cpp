@@ -3,11 +3,15 @@
 #include "MnTransform.h"
 #include "MnComponent.h"
 #include "MnAnimator.h"
+#include "MnRigidbody.h"
 namespace Mn
 {
 	Cath::Cath()
-		: _Image(nullptr)
+		: GameObject()
+		, _Image(nullptr)
 		, _Animator(nullptr)
+		, _Rigidbody(nullptr)
+		, _Collider(nullptr)
 	{
 	}
 	Cath::~Cath()
@@ -16,7 +20,10 @@ namespace Mn
 	void Cath::Initialize()
 	{
 		GameObject::SetName(L"NPC");
-		Transform* tr = GetComponent<Transform>();
+
+		_Rigidbody = AddComponent<Rigidbody>();
+		_Rigidbody->SetMass(1.0f);
+		_Rigidbody->SetGround(false);
 
 		_Image = Resources::Load<Image>(L"Cath", L"..\\Resources\\cath.bmp");
 		_Animator = AddComponent<Animator>();

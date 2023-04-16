@@ -4,11 +4,13 @@ namespace Mn
 {
 	class Image;
 	class Animator;
+	class Rigidbody;
 	class Magnolia:public GameObject
 	{
 	private:
-		Image* _Image;
-		Animator* _Animator;
+		Image*		_Image;
+		Animator*	_Animator;
+		Rigidbody*	_Rigidbody;
 	public:
 		Magnolia();
 		~Magnolia();

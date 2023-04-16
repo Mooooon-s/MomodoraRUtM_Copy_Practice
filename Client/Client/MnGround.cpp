@@ -147,9 +147,34 @@ namespace Mn
 				monRb->SetGround(false);
 			}
 		}
+		////-----------------------------------------------------------------------------------------------------
+		////
+		////											NPC
+		////
+		////-----------------------------------------------------------------------------------------------------
+		scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> NpcObj = scene->GetGameObject(eLayerType::NPC);
+		for (auto v : NpcObj)
+		{
+			Transform* tr = v->GetComponent<Transform>();
+			Vector2 NpcPos = tr->Pos();
+			COLORREF NpcfootColor = ::GetPixel(_Image->Hdc(), NpcPos.x, NpcPos.y);
+			if (NpcfootColor == RGB(255, 0, 255))
+			{
+				Rigidbody* NpcRb = v->GetComponent<Rigidbody>();
+				NpcRb->SetGround(true);
+				NpcPos.y -= 1;
+				tr->Pos(NpcPos);
+			}
+			if (NpcfootColor != RGB(255, 0, 255))
+			{
+				Rigidbody* NpcRb = v->GetComponent<Rigidbody>();
+				NpcRb->SetGround(false);
+			}
+		}
 		//-----------------------------------------------------------------------------------------------------
 		//
-		//											Throws
+		//												Throws
 		//
 		//-----------------------------------------------------------------------------------------------------
 		scene = SceneManager::ActiveScene();
