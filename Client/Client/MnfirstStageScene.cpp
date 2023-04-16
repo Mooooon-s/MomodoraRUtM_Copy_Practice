@@ -65,6 +65,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
 	}
 	void firstStageScene::OnExit()
 	{

@@ -10,6 +10,8 @@
 #include "MnKaho.h"
 #include "MnTime.h"
 #include "MnRigidbody.h"
+#include "MnObject.h"
+#include "MnMonMeleeAttack.h"
 
 namespace Mn
 {
@@ -60,6 +62,8 @@ namespace Mn
 		_Animator->CreateAnimation(L"Monkey_Attack_Right", _Image, Vector2::Zero, 9, 2, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Monkey_Attack_Left", _Image, Vector2(0,48), 9, 2, 9, Vector2::Zero, 0.08);
 		_Animator->GetCompleteEvent(L"Monkey_Attack_Right") = std::bind(&Monkey::afterAttack, this);
+		_Animator->FindAnimation(L"Monkey_Attack_Right")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&Monkey::attack, this);
+		_Animator->FindAnimation(L"Monkey_Attack_Left")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&Monkey::attack, this);
 		_Animator->GetCompleteEvent(L"Monkey_Attack_Left") = std::bind(&Monkey::afterAttack, this);
 		_Animator->GetCompleteEvent(L"Monkey_Death_Right") = std::bind(&Monkey::afterDeath, this);
 		_Animator->GetCompleteEvent(L"Monkey_Death_Left") = std::bind(&Monkey::afterDeath, this);
@@ -86,9 +90,6 @@ namespace Mn
 			break;
 		case Mn::Monkey::eMonStatus::Move:
 			move();
-			break;
-		case Mn::Monkey::eMonStatus::Attack:
-			attack();
 			break;
 		case Mn::Monkey::eMonStatus::Hurt:
 			hurt();
@@ -199,6 +200,28 @@ namespace Mn
 	}
 	void Monkey::attack()
 	{
+		Transform* Tr = this->GetComponent<Transform>();
+		Vector2 pos = Tr->Pos();
+		if (_Dir == eDir::R)
+		{
+			MonMeleeAttack* coll = object::Instantiate<MonMeleeAttack>(pos, eLayerType::Throws);
+			Vector2 size = coll->GetComponent<Collider>()->Size();
+			Transform* cTr = coll->GetComponent<Transform>();
+			Vector2 cPos = cTr->Pos();
+			cPos.x += size.x/2.0f;
+			cPos.y -= size.y;
+			cTr->Pos(cPos);
+		}
+		else
+		{
+			MonMeleeAttack* coll = object::Instantiate<MonMeleeAttack>(pos,eLayerType::Throws);
+			Vector2 size = coll->GetComponent<Collider>()->Size();
+			Transform* cTr = coll->GetComponent<Transform>();
+			Vector2 cPos = cTr->Pos();
+			cPos.x -= (size.x+size.x/2.0f);
+			cPos.y -= size.y;
+			cTr->Pos(cPos);
+		}
 	}
 	void Monkey::death()
 	{

@@ -183,6 +183,7 @@
     <ClInclude Include="MnMeleeEffect.h" />
     <ClInclude Include="MnMomodora.h" />
     <ClInclude Include="MnMonkey.h" />
+    <ClInclude Include="MnMonMeleeAttack.h" />
     <ClInclude Include="MnObject.h" />
     <ClInclude Include="MnPlayerEnum.h" />
     <ClInclude Include="MnPlayerHpBar.h" />
@@ -259,6 +260,7 @@
     <ClCompile Include="MnToolScene.cpp" />
     <ClCompile Include="MnTilePalatte.cpp" />
     <ClCompile Include="MnPortal.cpp" />
+    <ClCompile Include="MnMonMeleeAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

@@ -78,7 +78,7 @@ namespace Mn
 		float distX = pos.x - playerPos.x;
 		_Pos = tr->Pos();
 		_ThinkTime += Time::DeltaTime();
-		if (_ThinkTime >= 0.7f)
+		if (_ThinkTime >= 1.0f)
 		{
 			_Status = think();
 			if (distX < 0)

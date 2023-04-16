@@ -268,9 +268,14 @@
     <ClInclude Include="MnImpBomb.h">
       <Filter>Contents\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="MnBomb.h" />
     <ClInclude Include="MnImpKnife.h">
       <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnBomb.h">
+      <Filter>Contents\Throws</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMonMeleeAttack.h">
+      <Filter>Contents\Throws</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -443,9 +448,14 @@
     <ClCompile Include="MnImpBomb.cpp">
       <Filter>Contents\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="MnBomb.cpp" />
     <ClCompile Include="MnImpKnife.cpp">
       <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnBomb.cpp">
+      <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMonMeleeAttack.cpp">
+      <Filter>Contents\Throws</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

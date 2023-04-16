@@ -55,7 +55,6 @@ namespace Mn
 		void afterHurt();
 		void afterDeath();
 		void afterAttack();
-
 	};
 }
 
