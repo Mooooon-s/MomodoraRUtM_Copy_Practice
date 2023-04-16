@@ -10,6 +10,7 @@
 #include "MnKaho.h"
 #include "MnKnife.h"
 #include "MnObject.h"
+#include "MnHitEffect.h"
 
 namespace Mn
 {
@@ -123,6 +124,9 @@ namespace Mn
 
 		if (other->Owner()->GetName() == L"Arrow")
 		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->Pos();
+			object::Instantiate<HitEffect>(pos, eLayerType::Effect);
 			_MonState = eMonStatus::Hurt;
 			animatorCntrl();
 			_Hp -= 1.0f;

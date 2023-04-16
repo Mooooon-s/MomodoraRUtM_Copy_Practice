@@ -12,6 +12,7 @@
 #include "MnRigidbody.h"
 #include "MnObject.h"
 #include "MnMonMeleeAttack.h"
+#include "MnHitEffect.h"
 
 namespace Mn
 {
@@ -120,6 +121,9 @@ namespace Mn
 		}
 		if (other->Owner()->GetName() == L"Arrow")
 		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->Pos();
+			object::Instantiate<HitEffect>(pos, eLayerType::Effect);
 			_HP -= 1.0f;
 			_MonStatus = eMonStatus::Hurt;
 			animationCtrl();

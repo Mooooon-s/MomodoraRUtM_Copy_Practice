@@ -13,6 +13,8 @@
 #include "MnScene.h"
 #include "MnKaho.h"
 
+#include "MnHitEffect.h"
+
 namespace Mn
 {
 	ImpBomb::ImpBomb()
@@ -123,6 +125,9 @@ namespace Mn
 
 		if (other->Owner()->GetName() == L"Arrow")
 		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->Pos();
+			object::Instantiate<HitEffect>(pos,eLayerType::Effect);
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
 			else

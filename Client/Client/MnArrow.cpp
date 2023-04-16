@@ -81,16 +81,16 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"Enemy" || other->Owner()->GetName() == L"Boss")
 		{
-			_Hit = true;
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Destroy_Right", false);
-			else
-				_Animator->Play(L"Destroy_Left", false);
+			_IsEnd = true;
 		}
 	}
 	void Arrow::Hit()
 	{
-		_IsEnd = true;
+		_Hit = true;
+		if (_Dir == eDir::R)
+			_Animator->Play(L"Destroy_Right", true);
+		else
+			_Animator->Play(L"Destroy_Left", true);
 	}
 	void Arrow::destroy()
 	{

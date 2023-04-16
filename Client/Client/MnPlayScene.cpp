@@ -47,7 +47,7 @@ namespace Mn
 		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,600.0f),eLayerType::Player);
 		//object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
 		//object::Instantiate<Imp>(Vector2(400.0f, 200.0f), eLayerType::Monster);
-		object::Instantiate<Imp>(Vector2(500.0f, 300.0f), eLayerType::Monster);
+		//object::Instantiate<Imp>(Vector2(500.0f, 300.0f), eLayerType::Monster);
 		object::Instantiate<ImpBomb>(Vector2(600.0f, 300.0f), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		object::Instantiate<ImpKnife>(Vector2(700.0f, 200.0f), eLayerType::Monster);

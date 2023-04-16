@@ -277,6 +277,9 @@
     <ClInclude Include="MnMonMeleeAttack.h">
       <Filter>Contents\Throws</Filter>
     </ClInclude>
+    <ClInclude Include="MnHitEffect.h">
+      <Filter>Contents\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -456,6 +459,9 @@
     </ClCompile>
     <ClCompile Include="MnMonMeleeAttack.cpp">
       <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnHitEffect.cpp">
+      <Filter>Contents\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -16,10 +16,10 @@ enum class eLayerType {
 	Monster,
 	NPC,
 	Player,
-	Effect,
 	Portal,
 	Attack,
 	Throws,
+	Effect,
 	UI,
 	Max,
 };

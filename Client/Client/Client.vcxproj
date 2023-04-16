@@ -165,6 +165,7 @@
     <ClInclude Include="MnFadeInOut.h" />
     <ClInclude Include="MnGameObject.h" />
     <ClInclude Include="MnGround.h" />
+    <ClInclude Include="MnHitEffect.h" />
     <ClInclude Include="MnImage.h" />
     <ClInclude Include="MnImp.h" />
     <ClInclude Include="MnImpBomb.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="MnCollisionManager.cpp" />
     <ClCompile Include="MnArrow.cpp" />
     <ClCompile Include="MnGround.cpp" />
+    <ClCompile Include="MnHitEffect.cpp" />
     <ClCompile Include="MnImpBomb.cpp" />
     <ClCompile Include="MnImpKnife.cpp" />
     <ClCompile Include="MnKaho_Human.cpp" />
