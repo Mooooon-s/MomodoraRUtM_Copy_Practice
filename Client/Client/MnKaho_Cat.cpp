@@ -28,7 +28,7 @@ namespace Mn
 		, _HurtTime(0.0f)
 		, _AlphaTime(0.0f)
 		, _DamageTime(0.0f)
-		, _Jumpforce(700.0f)
+		, _Jumpforce(550.0f)
 		, _MoveSpeed(0.0f)
 		, _GetDamage(true)
 		, _AlphaDegree(90)
@@ -207,13 +207,13 @@ namespace Mn
 	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Cat::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true)
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus !=ePlayerStatus::Roll)
 		{
 			_GetDamage = false;
 			_PlayerStatus=ePlayerStatus::Hurt;
 			animationCtrl();
 		}
-		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true)
+		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
 			dynamic_cast<Knife*>(other->Owner())->Hit();
 			_GetDamage = false;
@@ -223,7 +223,7 @@ namespace Mn
 	}
 	void Kaho_Cat::OnCollisionStay(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true )
+		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
 			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;
