@@ -116,6 +116,11 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->Pos();
+			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+			hitEffect->Dir((int)_Dir);
+			hitEffect->AnimationCntrl(0);
 			_MonState = eMonStatus::Hurt;
 			animatorCntrl();
 			_Hp -= 1.5f;
@@ -126,7 +131,9 @@ namespace Mn
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
-			object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+			hitEffect->Dir((int)_Dir);
+			hitEffect->AnimationCntrl(2);
 			_MonState = eMonStatus::Hurt;
 			animatorCntrl();
 			_Hp -= 1.0f;

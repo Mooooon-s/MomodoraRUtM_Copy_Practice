@@ -11,6 +11,7 @@
 #include "MnPlayScene.h"
 #include "MnObject.h"
 #include "MnKnife.h"
+#include "MnHitEffect.h"
 
 namespace Mn
 {
@@ -125,6 +126,11 @@ namespace Mn
 			Vector2 dir = _Pos - _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
 			if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
 			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				hitEffect->AnimationCntrl(0);
 				_Status = eMonStatus::Hurt;
 				animationCntrl();
 				_Hp -= 1.5f;

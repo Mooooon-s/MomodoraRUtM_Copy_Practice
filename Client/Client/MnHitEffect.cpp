@@ -57,4 +57,37 @@ namespace Mn
 	{
 		_IsEnd = true;
 	}
+	void HitEffect::Dir(int dir)
+	{
+		if (dir == 0)
+			_Dir = eDir::L;
+		else
+			_Dir = eDir::R;
+	}
+	void HitEffect::AnimationCntrl(int type)
+	{
+		switch (type)
+		{
+		case 0:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Hit_Effect_last_Right",false);
+			else
+				_Animator->Play(L"Hit_Effect_last_Left",false);
+			break;
+		case 1:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Hit_Effect_Jump_Right", false);
+			else
+				_Animator->Play(L"Hit_Effect_Jump_Left", false);
+			break;
+		case 2:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Hit_Effect_front_Right", false);
+			else
+				_Animator->Play(L"Hit_Effect_front_Left", false);
+			break;
+		default:
+			break;
+		}
+	}
 }

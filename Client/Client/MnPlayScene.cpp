@@ -10,6 +10,7 @@
 #include "MnArsonist.h"
 #include "MnImpBomb.h"
 #include "MnImpKnife.h"
+#include "MnMonkey.h"
 
 #include "MnGround.h"
 #include "MnInput.h"
@@ -43,21 +44,31 @@ namespace Mn
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
 		//플레이어 객체 생성
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(500.0f, 300.0f), eLayerType::Player);
-		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(500.0f, 400.0f), eLayerType::Player);
-		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,600.0f),eLayerType::Player);
-		//object::Instantiate<Imp>(Vector2(100.0f, 400.0f),eLayerType::Monster);
-		//object::Instantiate<Imp>(Vector2(400.0f, 200.0f), eLayerType::Monster);
-		//object::Instantiate<Imp>(Vector2(500.0f, 300.0f), eLayerType::Monster);
-		object::Instantiate<ImpBomb>(Vector2(600.0f, 300.0f), eLayerType::Monster);
+		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(500.0f, 300.0f), eLayerType::Player);
+		_kaho =object::Instantiate<Kaho>(Vector2(200.0f,300.0f),eLayerType::Player);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
-		object::Instantiate<ImpKnife>(Vector2(700.0f, 200.0f), eLayerType::Monster);
 		_portal=object::Instantiate<Portal>(Vector2(1600.0f, 270.0f),eLayerType::Portal);
 		_portal->moveToScene(eSceneType::Stage1);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
-		
 	}
 	void PlayScene::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::P))
+		{
+			object::Instantiate<ImpKnife>(Vector2(700.0f, 200.0f), eLayerType::Monster);
+		}
+		if (Input::GetKeyDown(eKeyCode::O))
+		{
+			object::Instantiate<ImpBomb>(Vector2(600.0f, 300.0f), eLayerType::Monster);
+		}
+		if (Input::GetKeyDown(eKeyCode::I))
+		{		
+			object::Instantiate<Imp>(Vector2(500.0f, 300.0f), eLayerType::Monster);
+		}
+		if (Input::GetKeyDown(eKeyCode::U))
+		{
+			object::Instantiate<Monkey>(Vector2(500.0f, 300.0f), eLayerType::Monster);
+		}
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(eSceneType::Title);
@@ -87,7 +98,6 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
-
 	}
 	void PlayScene::OnExit()
 	{

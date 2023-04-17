@@ -31,14 +31,19 @@ namespace Mn
 	}
 	void Bomb::Update()
 	{
-		float speed = 2.0f;
+		if (_Pos.x == 0 && _Pos.y == 0)
+		{
+			Transform* tr = GetComponent<Transform>();
+			_Pos = tr->Pos();
+		}
+		float speed = 100.0f;
 		int radian = 45 * PI / 180;
 		float gravity = 9.81;
 		_Time += Time::DeltaTime();
-		float x = _Pos.x + speed * cos(radian) * _Time;
-		float y = _Pos.y + speed * sin(radian) * _Time - (0.5f * (gravity * (_Time * _Time)));
+		float x =speed * cos(radian) * _Time;
+		float y =speed * sin(radian) * _Time - (0.5f * gravity * (_Time * _Time));
 		Transform* tr = GetComponent<Transform>();
-		tr->Pos(tr->Pos()+Vector2(x,y));
+		tr->Pos(_Pos + Vector2(x,y*-1));
 		GameObject::Update();
 	}
 	void Bomb::Render(HDC hdc)

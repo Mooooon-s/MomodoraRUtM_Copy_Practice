@@ -114,6 +114,11 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->Pos();
+			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+			hitEffect->Dir((int)_Dir);
+			hitEffect->AnimationCntrl(0);
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
 			else
@@ -127,7 +132,9 @@ namespace Mn
 		{
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
-			object::Instantiate<HitEffect>(pos,eLayerType::Effect);
+			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos,eLayerType::Effect);
+			hitEffect->Dir((int)_Dir);
+			hitEffect->AnimationCntrl(2);
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
 			else
