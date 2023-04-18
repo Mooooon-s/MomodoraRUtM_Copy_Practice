@@ -40,8 +40,8 @@ namespace Mn
 		int radian = 45 * PI / 180;
 		float gravity = 9.81;
 		_Time += Time::DeltaTime();
-		float x =speed * cos(radian) * _Time;
-		float y =speed * sin(radian) * _Time - (0.5f * gravity * (_Time * _Time));
+		float x =speed *(0.5f* cos(radian)) * _Time;
+		float y =5*speed *sin(radian) * _Time - (0.5f * gravity * (_Time * _Time));
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos(_Pos + Vector2(x,y*-1));
 		GameObject::Update();

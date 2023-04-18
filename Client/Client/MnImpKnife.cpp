@@ -28,6 +28,8 @@ namespace Mn
 		, _Hp(1.0f)
 		, _ActionCount(0)
 	{
+		Transform* tr = GetComponent<Transform>();
+		tr->Pos(Vector2(-100, -100));
 	}
 	ImpKnife::~ImpKnife()
 	{

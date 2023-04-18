@@ -195,6 +195,9 @@
     <ClInclude Include="MnRigidbody.h" />
     <ClInclude Include="MnScene.h" />
     <ClInclude Include="MnSceneManager.h" />
+    <ClInclude Include="MnStage1_Boss.h" />
+    <ClInclude Include="MnStage_1_2.h" />
+    <ClInclude Include="MnStage_1_3.h" />
     <ClInclude Include="MnTile.h" />
     <ClInclude Include="MnTilePalatte.h" />
     <ClInclude Include="MnTime.h" />
@@ -249,6 +252,7 @@
     <ClCompile Include="MnSceneManager.cpp" />
     <ClCompile Include="MnPlayScene.cpp" />
     <ClCompile Include="MnMomodora.cpp" />
+    <ClCompile Include="MnStage1_Boss.cpp" />
     <ClCompile Include="MnTile.cpp" />
     <ClCompile Include="MnTime.cpp" />
     <ClCompile Include="MnResource.cpp" />
@@ -263,6 +267,8 @@
     <ClCompile Include="MnTilePalatte.cpp" />
     <ClCompile Include="MnPortal.cpp" />
     <ClCompile Include="MnMonMeleeAttack.cpp" />
+    <ClCompile Include="MnStage_1_2.cpp" />
+    <ClCompile Include="MnStage_1_3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

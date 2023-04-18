@@ -6,19 +6,18 @@
 #include "MnTilePalatte.h"
 #include "MnGround.h"
 #include "MnKaho.h"
-#include "MnCath.h"
 #include "MnMonkey.h"
-#include "MnLupiar.h"
-#include "MnArsonist.h"
-#include "MnMagnolia.h"
-#include "MnImp.h"
+#include "MnImpBomb.h"
 #include "MnPlayerHpBar.h"
+#include "MnPortal.h"
 namespace Mn
 {
 	Kaho* firstStageScene::_kaho = nullptr;
+	bool firstStageScene::_Scene = false;
 	firstStageScene::firstStageScene()
 		:_KahoHuman(nullptr)
 		, _KahoCat(nullptr)
+		, _Portal(nullptr)
 	{
 	}
 	firstStageScene::~firstStageScene()
@@ -26,24 +25,26 @@ namespace Mn
 	}
 	void firstStageScene::Initialize()
 	{
-		SetName(L"BossScene");
+		SetName(L"Stage1_1");
 		Scene::Initialize();
 		object::Instantiate<BG>(eLayerType::BG);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f),eLayerType::UI);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		object::Instantiate<Magnolia>(Vector2(200.0f, 400.0f), eLayerType::Monster);
-		object::Instantiate<Lupiar>(Vector2(300.0f, 400.0f), eLayerType::Monster);
-		object::Instantiate<Arsonist>(Vector2(400.0f, 400.0f), eLayerType::Monster);
-		object::Instantiate<Cath>(Vector2(800.0f, 400.0f), eLayerType::NPC);
 		object::Instantiate<Monkey>(Vector2(600.0f, 400.0f), eLayerType::Monster);
-		object::Instantiate<Imp>(Vector2(700.0f, 400.0f), eLayerType::Monster);
+		object::Instantiate<ImpBomb>(Vector2(1601, 382), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
+		_Portal = object::Instantiate<Portal>(Vector2(1700,600), eLayerType::Portal);
+		_Portal->moveToScene(eSceneType::stage1_2);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void firstStageScene::Update()
 	{
+		if (_Scene)
+		{
+			SceneManager::LoadScene(_Portal->PortalScene());
+		}
 		Scene::Update();
 	}
 	void firstStageScene::Render(HDC hdc)
@@ -56,8 +57,8 @@ namespace Mn
 	}
 	void firstStageScene::OnEnter()
 	{
-		TilePalatte::Load(L"Arsonist_Boss_Map");
-		Camera::SetTarget(nullptr);
+		TilePalatte::Load(L"Stage1_1");
+		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);

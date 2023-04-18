@@ -6,6 +6,9 @@
 #include "MnCamera.h"
 #include "MnToolScene.h"
 #include "MnfirstStageScene.h"
+#include "MnStage_1_2.h"
+#include "MnStage_1_3.h"
+#include "MnStage1_Boss.h"
 
 namespace Mn {
 	//static 변수이기 때문에 전역에 메모리 할당을 해주어야함
@@ -20,9 +23,13 @@ namespace Mn {
 		_Scenes[(UINT)eSceneType::Title] = new TitleScene();
 		_Scenes[(UINT)eSceneType::MainMenu] = new MainMenuScene();
 		_Scenes[(UINT)eSceneType::play] = new PlayScene();
-		_Scenes[(UINT)eSceneType::Tool] = new ToolScene();
 		_Scenes[(UINT)eSceneType::Stage1] = new firstStageScene();
+		_Scenes[(UINT)eSceneType::stage1_2] = new Stage_1_2();
+		_Scenes[(UINT)eSceneType::stage1_3] = new Stage_1_3();
+		_Scenes[(UINT)eSceneType::stage1_Boss] = new Stage1_Boss();
 		
+
+		_Scenes[(UINT)eSceneType::Tool] = new ToolScene();
 
 		for (auto scene : _Scenes) {
 			if (scene == nullptr)

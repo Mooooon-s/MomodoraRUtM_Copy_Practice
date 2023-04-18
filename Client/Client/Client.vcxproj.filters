@@ -89,6 +89,15 @@
     <Filter Include="Contents\Throws">
       <UniqueIdentifier>{e2fd270f-6121-4f7b-9df9-3f224f0e1816}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\Stage1">
+      <UniqueIdentifier>{628e2ba3-af97-4b6e-b248-28a34f2ab168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Tile">
+      <UniqueIdentifier>{b0b68c4b-7c10-488f-80bc-029bd61c530d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Title">
+      <UniqueIdentifier>{b31c6792-d998-4015-95df-5709a7f4d199}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -136,9 +145,6 @@
     <ClInclude Include="MnSceneManager.h">
       <Filter>Engin\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="MnPlayScene.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="MnMomodora.h">
       <Filter>Contents\Player</Filter>
     </ClInclude>
@@ -157,17 +163,11 @@
     <ClInclude Include="MnBG.h">
       <Filter>Contents\BG</Filter>
     </ClInclude>
-    <ClInclude Include="MnTitleScene.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="MnImage.h">
       <Filter>Engin\Resource</Filter>
     </ClInclude>
     <ClInclude Include="MnTitleBG.h">
       <Filter>Contents\BG</Filter>
-    </ClInclude>
-    <ClInclude Include="MnMainMenuScene.h">
-      <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="MnMainMenuBG.h">
       <Filter>Contents\BG</Filter>
@@ -226,9 +226,6 @@
     <ClInclude Include="MnTransform.h">
       <Filter>Engin\Component\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="MnToolScene.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="MnTilePalatte.h">
       <Filter>Contents\Tile</Filter>
     </ClInclude>
@@ -240,9 +237,6 @@
     </ClInclude>
     <ClInclude Include="MnGround.h">
       <Filter>Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="MnfirstStageScene.h">
-      <Filter>Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="MnPortal.h">
       <Filter>Contents</Filter>
@@ -279,6 +273,30 @@
     </ClInclude>
     <ClInclude Include="MnHitEffect.h">
       <Filter>Contents\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MnPlayScene.h">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="MnfirstStageScene.h">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="MnToolScene.h">
+      <Filter>Contents\Scene\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMainMenuScene.h">
+      <Filter>Contents\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="MnTitleScene.h">
+      <Filter>Contents\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage_1_2.h">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage_1_3.h">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage1_Boss.h">
+      <Filter>Contents\Scene\Stage1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -325,9 +343,6 @@
     <ClCompile Include="MnSceneManager.cpp">
       <Filter>Engin\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="MnPlayScene.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="MnMomodora.cpp">
       <Filter>Contents\Player</Filter>
     </ClCompile>
@@ -346,17 +361,11 @@
     <ClCompile Include="MnBG.cpp">
       <Filter>Contents\BG</Filter>
     </ClCompile>
-    <ClCompile Include="MnTitleScene.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="MnImage.cpp">
       <Filter>Engin\Resource</Filter>
     </ClCompile>
     <ClCompile Include="MnTitleBG.cpp">
       <Filter>Contents\BG</Filter>
-    </ClCompile>
-    <ClCompile Include="MnMainMenuScene.cpp">
-      <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="MnMainMenuBG.cpp">
       <Filter>Contents\BG</Filter>
@@ -409,9 +418,6 @@
     <ClCompile Include="MnTransform.cpp">
       <Filter>Engin\Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="MnToolScene.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="MnTilePalatte.cpp">
       <Filter>Contents\Tile</Filter>
     </ClCompile>
@@ -423,9 +429,6 @@
     </ClCompile>
     <ClCompile Include="MnGround.cpp">
       <Filter>Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="MnfirstStageScene.cpp">
-      <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="MnPortal.cpp">
       <Filter>Contents</Filter>
@@ -462,6 +465,30 @@
     </ClCompile>
     <ClCompile Include="MnHitEffect.cpp">
       <Filter>Contents\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MnPlayScene.cpp">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="MnfirstStageScene.cpp">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="MnToolScene.cpp">
+      <Filter>Contents\Scene\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMainMenuScene.cpp">
+      <Filter>Contents\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="MnTitleScene.cpp">
+      <Filter>Contents\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage_1_2.cpp">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage_1_3.cpp">
+      <Filter>Contents\Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage1_Boss.cpp">
+      <Filter>Contents\Scene\Stage1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

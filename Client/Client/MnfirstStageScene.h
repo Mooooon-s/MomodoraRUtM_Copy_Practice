@@ -1,15 +1,18 @@
 #pragma once
 #include "MnScene.h"
 #include "MnKaho.h"
+#include "MnPortal.h"
 
 namespace Mn
 {
 	class firstStageScene : public Scene
 	{
 	private:
+		static bool _Scene;
 		static Kaho* _kaho;
 		Kaho_Human* _KahoHuman;
-		Kaho_Cat* _KahoCat;
+		Kaho_Cat*	_KahoCat;
+		Portal*		_Portal;
 	public:
 		firstStageScene();
 		~firstStageScene();
@@ -23,6 +26,7 @@ namespace Mn
 		void OnExit() override;
 	public:
 		static Kaho* GetKaho() { return _kaho; }
+		static void	ChangeScene(bool scene) { _Scene = scene; }
 	};
 }
 

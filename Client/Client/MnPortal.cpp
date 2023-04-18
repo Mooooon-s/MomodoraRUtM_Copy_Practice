@@ -4,6 +4,9 @@
 #include "MnSceneManager.h"
 #include "MnTransform.h"
 #include "MnPlayScene.h"
+#include "MnfirstStageScene.h"
+#include "MnStage_1_2.h"
+#include "MnStage_1_3.h"
 
 namespace Mn
 {
@@ -42,7 +45,16 @@ namespace Mn
 	void Portal::OnCollisionEnter(Collider* other)
 	{
 		if (other->Owner()->GetName() == L"Player")
-			PlayScene::ChangeScene(true);
+		{
+			if(SceneManager::ActiveScene()->GetName()== L"PlayScene")
+				PlayScene::ChangeScene(true);
+			if (SceneManager::ActiveScene()->GetName() == L"Stage1_1")
+				firstStageScene::ChangeScene(true);
+			if (SceneManager::ActiveScene()->GetName() == L"Stage1_2")
+				Stage_1_2::ChangeScene(true);
+			if (SceneManager::ActiveScene()->GetName() == L"Stage1_3")
+				Stage_1_3::ChangeScene(true);
+		}
 	}
 	void Portal::OnCollisionStay(Collider* other)
 	{

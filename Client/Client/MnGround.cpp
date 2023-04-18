@@ -34,9 +34,15 @@ namespace Mn
 	{
 		Scene* scene = SceneManager::ActiveScene();
 		if (scene->GetName() == L"PlayScene")
-			_Image = Resources::Load<Image>(L"PlayTile_Pixel", L"..\\Resources\\Test_Ground_Pixel.bmp");
-		if(scene->GetName()==L"BossScene")
-			_Image = Resources::Load<Image>(L"BossTile_Pixel", L"..\\Resources\\Test_Map.bmp");
+			_Image = Resources::Load<Image>(L"Stage1_0_Pixel", L"..\\Resources\\Start_Scene.bmp");
+		if(scene->GetName()==L"Stage1_1")
+			_Image = Resources::Load<Image>(L"Stage1_1_Pixel", L"..\\Resources\\Stage1_1.bmp");
+		if (scene->GetName() == L"Stage1_2")
+			_Image = Resources::Load<Image>(L"Stage1_2_Pixel", L"..\\Resources\\Stage1_2.bmp");
+		if (scene->GetName() == L"Stage1_3")
+			_Image = Resources::Load<Image>(L"Stage1_3_Pixel", L"..\\Resources\\Stage1_3.bmp");
+		if (scene->GetName() == L"Stage1_Boss")
+			_Image = Resources::Load<Image>(L"Stage1_Boss_Pixel", L"..\\Resources\\Stage1_Boss.bmp");
 		GameObject::SetName(L"Ground");
 		GameObject::Initialize();
 
@@ -80,8 +86,8 @@ namespace Mn
 			//find color
 			COLORREF color = _Image->GetPixel(pos.x, pos.y);
 			COLORREF Footcolor = _Image->GetPixel(underpos.x, underpos.y);
-			COLORREF rightColor = _Image->GetPixel(pos.x-_Size.x/2.0f, pos.y-_Size.y/2.0f);
-			COLORREF leftColor = _Image->GetPixel(pos.x+_Size.x/2.0f, pos.y-_Size.y/2.0f);
+			COLORREF rightColor = _Image->GetPixel(pos.x-_Size.x/2.0f, pos.y-_Size.y/4.0f);
+			COLORREF leftColor = _Image->GetPixel(pos.x+_Size.x/2.0f, pos.y-_Size.y/4.0f);
 			COLORREF upColor = _Image->GetPixel(upperpos.x, upperpos.y);
 			Rigidbody* rb = _Player->GetRigidbody<GameObject>()->GetComponent<Rigidbody>();
 			if (color == RGB(255, 0, 255))
@@ -224,8 +230,8 @@ namespace Mn
 		Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
 		Vector2 ppos = playerTr->Pos();
 		Vector2 underpos = Vector2(ppos.x, ppos.y + 3);
-		Vector2 lsidepos = Vector2(ppos.x - _Size.x/2, ppos.y - _Size.y / 2.0f);
-		Vector2 rsidepos = Vector2(ppos.x + _Size.x / 2, ppos.y - _Size.y / 2.0f);
+		Vector2 lsidepos = Vector2(ppos.x - _Size.x/2, ppos.y - _Size.y / 4.0f);
+		Vector2 rsidepos = Vector2(ppos.x + _Size.x / 2, ppos.y - _Size.y / 4.0f);
 		Vector2 upperpos = Vector2(ppos.x, ppos.y - _Size.y);
 
 		Rectangle(hdc, ppos.x, ppos.y, ppos.x + 2, ppos.y + 2);
