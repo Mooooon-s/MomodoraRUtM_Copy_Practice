@@ -14,6 +14,7 @@
 #include "MnRigidbody.h"
 
 #include "MnKnife.h"
+#include "MnMonMeleeAttack.h"
 
 namespace Mn
 {
@@ -215,10 +216,19 @@ namespace Mn
 		}
 		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
-			dynamic_cast<Knife*>(other->Owner())->Hit();
-			_GetDamage = false;
-			_PlayerStatus = ePlayerStatus::Hurt;
-			animationCtrl();
+			if (dynamic_cast<Knife*>(other->Owner()))
+			{
+				dynamic_cast<Knife*>(other->Owner())->Hit();
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<MonMeleeAttack*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
 		}
 	}
 	void Kaho_Cat::OnCollisionStay(Collider* other)
@@ -297,7 +307,12 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::UseItem;
 			animationCtrl();
 		}
-
+		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
+		if (velocity.y > 0)
+		{
+			_PlayerStatus = ePlayerStatus::Fall;
+			animationCtrl();
+		}
 	}
 	void Kaho_Cat::move()
 	{

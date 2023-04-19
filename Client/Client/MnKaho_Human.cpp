@@ -513,6 +513,12 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::UseItem;
 			animationCtrl();
 		}
+		Vector2 velocity = GetComponent<Rigidbody>()->Velocity();
+		if (velocity.y > 0)
+		{
+			_PlayerStatus = ePlayerStatus::Fall;
+			animationCtrl();
+		}
 	}
 	void Kaho_Human::move()
 	{
