@@ -1,23 +1,17 @@
 #pragma once
 #include "MnGameObject.h"
 #include "MnImage.h"
-
-namespace Mn {
-	class BG : public GameObject
+namespace Mn
+{
+	class UnderGroundBG : public GameObject
 	{
 	private:
-		Image*		_image;
-
-		HBITMAP		_PreBitmap;
-		HDC			_PreHDC;
+		Image* _Image;
 	public:
-		BG();
-		~BG();
-
+		UnderGroundBG();
+		~UnderGroundBG();
+	public:
 		void Initialize() override;
-		void Update() override;
 		void Render(HDC hdc) override;
-
-
 	};
 }
