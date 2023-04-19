@@ -13,6 +13,7 @@
 #include "MnAnimator.h"
 #include "MnArrow.h"
 #include "MnKnife.h"
+#include "MnStage2_1.h"
 
 extern Mn::Application application;
 
@@ -43,6 +44,13 @@ namespace Mn
 			_Image = Resources::Load<Image>(L"Stage1_3_Pixel", L"..\\Resources\\Stage1_3.bmp");
 		if (scene->GetName() == L"Stage1_Boss")
 			_Image = Resources::Load<Image>(L"Stage1_Boss_Pixel", L"..\\Resources\\Stage1_Boss.bmp");
+		if (scene->GetName() == L"Stage2_1")
+			_Image = Resources::Load<Image>(L"Stage2_1_Pixel", L"..\\Resources\\Stage2_1.bmp");
+		if (scene->GetName() == L"Stage2_2")
+			_Image = Resources::Load<Image>(L"Stage2_2_Pixel", L"..\\Resources\\Stage2_2.bmp");
+		if (scene->GetName() == L"Stage2_3")
+			_Image = Resources::Load<Image>(L"Stage2_3_Pixel", L"..\\Resources\\Stage2_3.bmp");
+		
 		GameObject::SetName(L"Ground");
 		GameObject::Initialize();
 

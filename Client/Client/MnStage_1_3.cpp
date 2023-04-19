@@ -7,6 +7,7 @@
 #include "MnCollisionManager.h"
 #include "MnTilePalatte.h"
 #include "MnCamera.h"
+#include "MnPortal.h"
 
 namespace Mn
 {

@@ -10,6 +10,10 @@
 #include "MnStage_1_3.h"
 #include "MnStage1_Boss.h"
 
+#include "MnStage2_1.h"
+#include "MnStage2_2.h"
+#include "MnStage2_3.h"
+
 namespace Mn {
 	//static 변수이기 때문에 전역에 메모리 할당을 해주어야함
 	//이 클래스에 존재한다고 알려주는 느낌도 있음
@@ -27,8 +31,10 @@ namespace Mn {
 		_Scenes[(UINT)eSceneType::stage1_2] = new Stage_1_2();
 		_Scenes[(UINT)eSceneType::stage1_3] = new Stage_1_3();
 		_Scenes[(UINT)eSceneType::stage1_Boss] = new Stage1_Boss();
+		_Scenes[(UINT)eSceneType::stage2_1] = new Stage2_1();
+		_Scenes[(UINT)eSceneType::stage2_2] = new Stage2_2();
+		_Scenes[(UINT)eSceneType::stage2_3] = new Stage2_3();
 		
-
 		_Scenes[(UINT)eSceneType::Tool] = new ToolScene();
 
 		for (auto scene : _Scenes) {
@@ -37,7 +43,7 @@ namespace Mn {
 			scene->Initialize();
 		}
 
-		_ActiveScene = _Scenes[(UINT)eSceneType::Title];
+		_ActiveScene = _Scenes[(UINT)eSceneType::MainMenu];
 	}
 
 	void Mn::SceneManager::Update()
@@ -74,7 +80,4 @@ namespace Mn {
 		_ActiveScene = _Scenes[(UINT)SceneType];
 		_ActiveScene->OnEnter();
 	}
-
-	
-
 }

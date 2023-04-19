@@ -146,6 +146,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Commoninclude.h" />
+    <ClInclude Include="MnBigPlant.h" />
     <ClInclude Include="MnBomb.h" />
     <ClInclude Include="MnCath.h" />
     <ClInclude Include="MnfirstStageScene.h" />
@@ -196,6 +197,9 @@
     <ClInclude Include="MnScene.h" />
     <ClInclude Include="MnSceneManager.h" />
     <ClInclude Include="MnStage1_Boss.h" />
+    <ClInclude Include="MnStage2_1.h" />
+    <ClInclude Include="MnStage2_2.h" />
+    <ClInclude Include="MnStage2_3.h" />
     <ClInclude Include="MnStage_1_2.h" />
     <ClInclude Include="MnStage_1_3.h" />
     <ClInclude Include="MnTile.h" />
@@ -207,10 +211,12 @@
     <ClInclude Include="MnTitle_Letter.h" />
     <ClInclude Include="MnToolScene.h" />
     <ClInclude Include="MnTransform.h" />
+    <ClInclude Include="MnUnderGroundBG.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnBigPlant.cpp" />
     <ClCompile Include="MnBomb.cpp" />
     <ClCompile Include="MnCath.cpp" />
     <ClCompile Include="MnfirstStageScene.cpp" />
@@ -253,6 +259,7 @@
     <ClCompile Include="MnPlayScene.cpp" />
     <ClCompile Include="MnMomodora.cpp" />
     <ClCompile Include="MnStage1_Boss.cpp" />
+    <ClCompile Include="MnStage2_1.cpp" />
     <ClCompile Include="MnTile.cpp" />
     <ClCompile Include="MnTime.cpp" />
     <ClCompile Include="MnResource.cpp" />
@@ -269,6 +276,9 @@
     <ClCompile Include="MnMonMeleeAttack.cpp" />
     <ClCompile Include="MnStage_1_2.cpp" />
     <ClCompile Include="MnStage_1_3.cpp" />
+    <ClCompile Include="MnUnderGroundBG.cpp" />
+    <ClCompile Include="MnStage2_2.cpp" />
+    <ClCompile Include="MnStage2_3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

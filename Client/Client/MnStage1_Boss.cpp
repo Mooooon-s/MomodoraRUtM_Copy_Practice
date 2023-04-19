@@ -1,15 +1,19 @@
 #include "MnStage1_Boss.h"
-#include "MnCollisionManager.h"
-#include "MnCamera.h"
-#include "MnKaho.h"
 #include "MnBG.h"
-#include "MnPlayerHpBar.h"
-#include "MnTilePalatte.h"
+#include "MnObject.h"
+#include "MnBigPlant.h"
+#include "MnKaho.h"
 #include "MnGround.h"
+#include "MnPlayerHpBar.h"
+#include "MnCollisionManager.h"
+#include "MnTilePalatte.h"
+#include "MnCamera.h"
+#include "MnPortal.h"
+
 namespace Mn
 {
-	bool Stage1_Boss::_Scene = false;
 	Kaho* Stage1_Boss::_kaho = nullptr;
+	bool Stage1_Boss::_Scene = false;
 	Stage1_Boss::Stage1_Boss()
 		: Scene()
 		, _KahoCat(nullptr)
@@ -31,9 +35,17 @@ namespace Mn
 		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		object::Instantiate<Ground>(Vector2::Zero,eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
+		object::Instantiate<BigPlant>(Vector2(1200, 400), eLayerType::Monster);
+		_Portal = object::Instantiate<Portal>(Vector2(1500,900),eLayerType::Portal);
+		_Portal->GetComponent<Collider>()->Size(Vector2(100*3,100));
+		_Portal->moveToScene(eSceneType::stage2_1);
 	}
 	void Stage1_Boss::Update()
 	{
+		if (_Scene)
+		{
+			SceneManager::LoadScene(_Portal->PortalScene());
+		}
 		Scene::Update();
 	}
 	void Stage1_Boss::Render(HDC hdc)

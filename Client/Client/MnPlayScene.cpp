@@ -71,7 +71,7 @@ namespace Mn
 		}
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(eSceneType::Title);
+			SceneManager::LoadScene(eSceneType::stage1_Boss);
 		}
 
 		if (_Scene)

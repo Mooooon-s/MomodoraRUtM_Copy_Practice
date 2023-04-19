@@ -29,9 +29,6 @@
     <Filter Include="Engin\Common">
       <UniqueIdentifier>{565e9e99-6572-4052-b319-15b2f0739d20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engin\Scene\PlayScene">
-      <UniqueIdentifier>{7023a408-7140-4ef8-b653-3f01f4b9bc95}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Scene">
       <UniqueIdentifier>{62716123-6502-49d7-b03e-6fa7102bc6c9}</UniqueIdentifier>
     </Filter>
@@ -97,6 +94,9 @@
     </Filter>
     <Filter Include="Contents\Scene\Title">
       <UniqueIdentifier>{b31c6792-d998-4015-95df-5709a7f4d199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Stage2">
+      <UniqueIdentifier>{a0e24fe8-2d41-44aa-8e9f-8b3f7e5085fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +298,21 @@
     <ClInclude Include="MnStage1_Boss.h">
       <Filter>Contents\Scene\Stage1</Filter>
     </ClInclude>
+    <ClInclude Include="MnBigPlant.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage2_1.h">
+      <Filter>Contents\Scene\Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="MnUnderGroundBG.h">
+      <Filter>Contents\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage2_2.h">
+      <Filter>Contents\Scene\Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage2_3.h">
+      <Filter>Contents\Scene\Stage2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -489,6 +504,21 @@
     </ClCompile>
     <ClCompile Include="MnStage1_Boss.cpp">
       <Filter>Contents\Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="MnBigPlant.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage2_1.cpp">
+      <Filter>Contents\Scene\Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="MnUnderGroundBG.cpp">
+      <Filter>Contents\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage2_2.cpp">
+      <Filter>Contents\Scene\Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage2_3.cpp">
+      <Filter>Contents\Scene\Stage2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
