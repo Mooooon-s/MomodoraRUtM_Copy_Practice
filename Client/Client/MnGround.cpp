@@ -50,7 +50,13 @@ namespace Mn
 			_Image = Resources::Load<Image>(L"Stage2_2_Pixel", L"..\\Resources\\Stage2_2.bmp");
 		if (scene->GetName() == L"Stage2_3")
 			_Image = Resources::Load<Image>(L"Stage2_3_Pixel", L"..\\Resources\\Stage2_3.bmp");
-		
+		if (scene->GetName() == L"Stage3_1")
+			_Image = Resources::Load<Image>(L"Stage3_1_Pixel", L"..\\Resources\\Stage3_1.bmp");
+		if (scene->GetName() == L"Stage3_2")
+			_Image = Resources::Load<Image>(L"Stage3_2_Pixel", L"..\\Resources\\Stage3_2.bmp");
+		if (scene->GetName() == L"Stage3_3")
+			_Image = Resources::Load<Image>(L"Stage3_3_Pixel", L"..\\Resources\\Stage3_3.bmp");
+
 		GameObject::SetName(L"Ground");
 		GameObject::Initialize();
 

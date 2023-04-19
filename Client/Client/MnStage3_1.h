@@ -2,20 +2,18 @@
 #include "MnScene.h"
 #include "MnKaho.h"
 #include "MnPortal.h"
-
-namespace Mn
-{
-	class Stage_1_3 : public Scene
+namespace Mn {
+	class Stage3_1 : public Scene
 	{
 	private:
 		static bool		_Scene;
-		static Kaho*	_kaho;
-		Kaho_Human*		_KahoHuman;
-		Kaho_Cat*		_KahoCat;
-		Portal*			_Portal;
+		static Kaho* _Kaho;
+		Kaho_Human* _KahoHuman;
+		Kaho_Cat* _KahoCat;
+		Portal* _Portal;
 	public:
-		Stage_1_3();
-		~Stage_1_3();
+		Stage3_1();
+		~Stage3_1();
 	public:
 		void Initialize() override;
 		void Update() override;
@@ -25,7 +23,7 @@ namespace Mn
 		void OnEnter() override;
 		void OnExit() override;
 	public:
-		static Kaho* GetKaho() { return _kaho; }
+		static Kaho* GetKaho() { return _Kaho; }
 		static void	ChangeScene(bool scene) { _Scene = scene; }
 	};
 }

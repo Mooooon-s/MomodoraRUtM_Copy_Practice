@@ -9,7 +9,7 @@
 #include "MnTilePalatte.h"
 #include "MnCamera.h"
 #include "MnPortal.h"
-
+#include "MnInput.h"
 namespace Mn
 {
 	Kaho* Stage1_Boss::_kaho = nullptr;
@@ -42,6 +42,10 @@ namespace Mn
 	}
 	void Stage1_Boss::Update()
 	{
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			SceneManager::LoadScene(eSceneType::stage2_3);
+		}
 		if (_Scene)
 		{
 			SceneManager::LoadScene(_Portal->PortalScene());

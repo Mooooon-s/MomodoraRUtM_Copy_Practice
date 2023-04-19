@@ -11,6 +11,10 @@
 
 #include "MnStage2_1.h"
 #include "MnStage2_2.h"
+#include "MnStage2_3.h"
+
+#include "MnStage3_1.h"
+#include "MnStage3_2.h"
 
 namespace Mn
 {
@@ -64,6 +68,12 @@ namespace Mn
 				Stage2_1::ChangeScene(true);
 			if (SceneManager::ActiveScene()->GetName() == L"Stage2_2")
 				Stage2_2::ChangeScene(true);
+			if (SceneManager::ActiveScene()->GetName() == L"Stage2_3")
+				Stage2_3::ChangeScene(true);
+			if (SceneManager::ActiveScene()->GetName() == L"Stage3_1")
+				Stage3_1::ChangeScene(true);
+			if (SceneManager::ActiveScene()->GetName() == L"Stage3_2")
+				Stage3_2::ChangeScene(true);
 		}
 	}
 	void Portal::OnCollisionStay(Collider* other)

@@ -5,7 +5,7 @@
 
 namespace Mn
 {
-	class Stage_1_3 : public Scene
+	class Stage3_2 : public Scene
 	{
 	private:
 		static bool		_Scene;
@@ -14,8 +14,8 @@ namespace Mn
 		Kaho_Cat*		_KahoCat;
 		Portal*			_Portal;
 	public:
-		Stage_1_3();
-		~Stage_1_3();
+		Stage3_2();
+		~Stage3_2();
 	public:
 		void Initialize() override;
 		void Update() override;

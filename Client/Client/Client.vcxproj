@@ -200,6 +200,10 @@
     <ClInclude Include="MnStage2_1.h" />
     <ClInclude Include="MnStage2_2.h" />
     <ClInclude Include="MnStage2_3.h" />
+    <ClInclude Include="MnStage3BG.h" />
+    <ClInclude Include="MnStage3_1.h" />
+    <ClInclude Include="MnStage3_2.h" />
+    <ClInclude Include="MnStage3_3.h" />
     <ClInclude Include="MnStage_1_2.h" />
     <ClInclude Include="MnStage_1_3.h" />
     <ClInclude Include="MnTile.h" />
@@ -260,6 +264,7 @@
     <ClCompile Include="MnMomodora.cpp" />
     <ClCompile Include="MnStage1_Boss.cpp" />
     <ClCompile Include="MnStage2_1.cpp" />
+    <ClCompile Include="MnStage3BG.cpp" />
     <ClCompile Include="MnTile.cpp" />
     <ClCompile Include="MnTime.cpp" />
     <ClCompile Include="MnResource.cpp" />
@@ -279,6 +284,9 @@
     <ClCompile Include="MnUnderGroundBG.cpp" />
     <ClCompile Include="MnStage2_2.cpp" />
     <ClCompile Include="MnStage2_3.cpp" />
+    <ClCompile Include="MnStage3_1.cpp" />
+    <ClCompile Include="MnStage3_2.cpp" />
+    <ClCompile Include="MnStage3_3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

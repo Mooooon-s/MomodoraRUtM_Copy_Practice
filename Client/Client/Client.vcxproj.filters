@@ -98,6 +98,9 @@
     <Filter Include="Contents\Scene\Stage2">
       <UniqueIdentifier>{a0e24fe8-2d41-44aa-8e9f-8b3f7e5085fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\Stage3">
+      <UniqueIdentifier>{d9294773-b232-4be6-a527-d4a5abc1fd9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -313,6 +316,16 @@
     <ClInclude Include="MnStage2_3.h">
       <Filter>Contents\Scene\Stage2</Filter>
     </ClInclude>
+    <ClInclude Include="MnStage3_1.h">
+      <Filter>Contents\Scene\Stage3</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage3BG.h">
+      <Filter>Contents\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage3_2.h">
+      <Filter>Contents\Scene\Stage3</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage3_3.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -520,5 +533,15 @@
     <ClCompile Include="MnStage2_3.cpp">
       <Filter>Contents\Scene\Stage2</Filter>
     </ClCompile>
+    <ClCompile Include="MnStage3_1.cpp">
+      <Filter>Contents\Scene\Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage3BG.cpp">
+      <Filter>Contents\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage3_2.cpp">
+      <Filter>Contents\Scene\Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage3_3.cpp" />
   </ItemGroup>
 </Project>

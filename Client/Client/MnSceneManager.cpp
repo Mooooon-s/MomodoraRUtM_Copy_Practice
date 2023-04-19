@@ -14,6 +14,10 @@
 #include "MnStage2_2.h"
 #include "MnStage2_3.h"
 
+#include "MnStage3_1.h"
+#include "MnStage3_2.h"
+#include "MnStage3_3.h"
+
 namespace Mn {
 	//static 변수이기 때문에 전역에 메모리 할당을 해주어야함
 	//이 클래스에 존재한다고 알려주는 느낌도 있음
@@ -34,6 +38,9 @@ namespace Mn {
 		_Scenes[(UINT)eSceneType::stage2_1] = new Stage2_1();
 		_Scenes[(UINT)eSceneType::stage2_2] = new Stage2_2();
 		_Scenes[(UINT)eSceneType::stage2_3] = new Stage2_3();
+		_Scenes[(UINT)eSceneType::stage3_1] = new Stage3_1();
+		_Scenes[(UINT)eSceneType::stage3_2] = new Stage3_2();
+		_Scenes[(UINT)eSceneType::stage3_3] = new Stage3_3();
 		
 		_Scenes[(UINT)eSceneType::Tool] = new ToolScene();
 
