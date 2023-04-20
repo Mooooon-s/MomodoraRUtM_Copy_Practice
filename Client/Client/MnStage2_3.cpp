@@ -9,6 +9,8 @@
 #include "MnUnderGroundBG.h"
 #include "MnPortal.h"
 #include "MnInput.h"
+#include "MnPlayerHpBar.h"
+#include "MnItemBox.h"
 namespace Mn
 {
 	Kaho* Stage2_3::_Kaho = nullptr;
@@ -27,6 +29,8 @@ namespace Mn
 	{
 		SetName(L"Stage2_3");
 		Scene::Initialize();
+		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
+		object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_Kaho = object::Instantiate<Kaho>(Vector2(100, 600), eLayerType::Player);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(100, 600), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(100, 500), eLayerType::Player);

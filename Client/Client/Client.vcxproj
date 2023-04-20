@@ -172,6 +172,7 @@
     <ClInclude Include="MnImpBomb.h" />
     <ClInclude Include="MnImpKnife.h" />
     <ClInclude Include="MnInput.h" />
+    <ClInclude Include="MnItemBox.h" />
     <ClInclude Include="MnKaho.h" />
     <ClInclude Include="MnKaho_Cat.h" />
     <ClInclude Include="MnKaho_Human.h" />
@@ -220,6 +221,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnItemBox.cpp" />
     <ClCompile Include="MnBigPlant.cpp" />
     <ClCompile Include="MnBomb.cpp" />
     <ClCompile Include="MnCath.cpp" />

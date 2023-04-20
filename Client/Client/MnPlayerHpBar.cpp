@@ -7,7 +7,6 @@ namespace Mn
 {
 	PlayerHpBar::PlayerHpBar()
 		: _HpBarFrame(nullptr)
-		, _Animator(nullptr)
 		, _HpBar(nullptr)
 	{
 	}

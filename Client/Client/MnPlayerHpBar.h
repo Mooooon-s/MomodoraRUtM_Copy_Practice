@@ -3,11 +3,9 @@
 namespace Mn
 {
 	class Image;
-	class Animator;
 	class PlayerHpBar : public GameObject
 	{
 	private:
-		Animator*	_Animator;
 		Image*		_HpBarFrame;
 		Image*		_HpBar;
 	public:

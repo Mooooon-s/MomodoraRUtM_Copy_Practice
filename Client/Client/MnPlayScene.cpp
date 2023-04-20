@@ -20,6 +20,7 @@
 #include "MnCollisionManager.h"
 #include "MnTilePalatte.h"
 #include "MnPortal.h"
+#include "MnItemBox.h"
 
 
 namespace Mn 
@@ -42,6 +43,7 @@ namespace Mn
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
+		object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		//플레이어 객체 생성
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(50.0f, 500.0f), eLayerType::Player);
 		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(50.0f, 500.0f), eLayerType::Player);

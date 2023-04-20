@@ -8,6 +8,7 @@
 #include "MnCamera.h"
 #include "MnPortal.h"
 #include "MnStage3BG.h"
+#include "MnItemBox.h"
 
 namespace Mn
 {
@@ -29,6 +30,7 @@ namespace Mn
 		Scene::Initialize();
 		object::Instantiate<Stage3BG>(eLayerType::BG);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
+		object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(60, 660), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(60, 660), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(60, 660), eLayerType::Player);
