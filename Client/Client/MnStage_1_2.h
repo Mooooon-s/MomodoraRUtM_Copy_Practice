@@ -2,17 +2,18 @@
 #include "MnScene.h"
 #include "MnKaho.h"
 #include "MnPortal.h"
-
+#include "MnItemBox.h"
 namespace Mn
 {
 	class Stage_1_2 : public Scene
 	{
 	private:
-		static bool _Scene;
-		static Kaho* _kaho;
-		Kaho_Human* _KahoHuman;
-		Kaho_Cat* _KahoCat;
-		Portal* _Portal;
+		static bool		_Scene;
+		static Kaho*	_kaho;
+		Kaho_Human*		_KahoHuman;
+		Kaho_Cat*		_KahoCat;
+		Portal*			_Portal;
+		ItemBox*		_ItemBox;
 	public:
 		Stage_1_2();
 		~Stage_1_2();

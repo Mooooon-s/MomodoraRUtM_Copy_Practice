@@ -15,6 +15,8 @@ namespace Mn
 		Vector2			_Pos;
 		eDir			_Dir;
 		bool			_bIsCat;
+		bool			_Swap;
+		float			_Hp;
 	public:
 		Kaho();
 		~Kaho();
@@ -28,6 +30,9 @@ namespace Mn
 		const Vector2 KahoPos() { return _Pos; }
 		const Vector2 KahoPos(Vector2 pos) { _Pos = pos; }
 		bool IsCat() { return _bIsCat; }
+		void IsCat(bool iscat) { _bIsCat = iscat; }
+		float HP() { return _Hp; }
+		void HP(float hp) { _Hp = hp; }
 		void GetCatHunam(Kaho_Cat* c, Kaho_Human* h) 
 		{ 
 			kahoCat = c; 

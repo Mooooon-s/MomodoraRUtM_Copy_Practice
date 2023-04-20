@@ -2,6 +2,7 @@
 #include "MnScene.h"
 #include "MnKaho.h"
 #include "MnPortal.h"
+#include "MnItemBox.h"
 
 namespace Mn
 {
@@ -13,6 +14,7 @@ namespace Mn
 		Kaho_Human*		_KahoHuman;
 		Kaho_Cat*		_KahoCat;
 		Portal*			_Portal;
+		ItemBox*		_ItemBox;
 	public:
 		Stage_1_3();
 		~Stage_1_3();

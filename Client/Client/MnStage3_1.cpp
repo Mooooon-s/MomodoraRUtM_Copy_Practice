@@ -20,6 +20,7 @@ namespace Mn
 		, _KahoCat(nullptr)
 		, _KahoHuman(nullptr)
 		, _Portal(nullptr)
+		, _ItemBox(nullptr)
 	{
 	}
 	Stage3_1::~Stage3_1()
@@ -31,7 +32,7 @@ namespace Mn
 		Scene::Initialize();
 		object::Instantiate<Stage3BG>(eLayerType::BG);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
-		object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
+		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_Kaho = object::Instantiate<Kaho>(Vector2(100, 700), eLayerType::Player);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(100, 700), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(100, 700), eLayerType::Player);
@@ -67,9 +68,17 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
+		_Kaho->HP(SceneManager::GetDontDestroyHP());
+		_Kaho->IsCat(SceneManager::GetDontDestroyCat());
+		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());
 	}
 	void Stage3_1::OnExit()
 	{
+		float hp = _Kaho->HP();
+		bool iscat = _Kaho->IsCat();
+		int idx = _ItemBox->GetItemNum();
+		SceneManager::SetDontDestroy(hp, iscat, idx);
+		Camera::SetTarget(nullptr);
 		Camera::SetTarget(nullptr);
 	}
 }

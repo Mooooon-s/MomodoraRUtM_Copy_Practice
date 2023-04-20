@@ -2,7 +2,7 @@
 #include "MnScene.h"
 #include "MnKaho.h"
 #include "MnPortal.h"
-
+#include "MnItemBox.h"
 namespace Mn
 {
 	class firstStageScene : public Scene
@@ -13,6 +13,7 @@ namespace Mn
 		Kaho_Human* _KahoHuman;
 		Kaho_Cat*	_KahoCat;
 		Portal*		_Portal;
+		ItemBox*	_ItemBox;
 	public:
 		firstStageScene();
 		~firstStageScene();

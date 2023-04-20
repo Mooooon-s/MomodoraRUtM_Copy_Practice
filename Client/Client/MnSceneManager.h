@@ -9,6 +9,10 @@ namespace Mn {
 	private:
 		static Scene* _ActiveScene;
 		static std::vector<Scene*> _Scenes;
+
+		static bool _Iscat;
+		static float _Hp;
+		static int _Item;
 	public:
 		static void Initialize();
 		static void Update();
@@ -19,5 +23,9 @@ namespace Mn {
 		static void LoadScene(eSceneType SceneType);
 		static Scene* ActiveScene() { return _ActiveScene; }
 		static void ActiveScene(Scene* scene) { _ActiveScene = scene; }
+		static void SetDontDestroy(float hp, bool iscat, int idx);
+		static float GetDontDestroyHP();
+		static bool GetDontDestroyCat();
+		static int GetDontDestroyIdx();
 	};
 }

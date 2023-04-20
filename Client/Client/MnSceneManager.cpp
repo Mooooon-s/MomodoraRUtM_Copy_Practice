@@ -23,6 +23,9 @@ namespace Mn {
 	//이 클래스에 존재한다고 알려주는 느낌도 있음
 	std::vector<Scene*>SceneManager::_Scenes = {};
 	Scene* SceneManager::_ActiveScene=nullptr;
+	float SceneManager::_Hp = 100;
+	bool SceneManager::_Iscat = false;
+	int SceneManager::_Item = 0;
 
 	void Mn::SceneManager::Initialize()
 	{
@@ -86,5 +89,23 @@ namespace Mn {
 		CollisionManager::Clear();
 		_ActiveScene = _Scenes[(UINT)SceneType];
 		_ActiveScene->OnEnter();
+	}
+	void SceneManager::SetDontDestroy(float hp,bool iscat,int idx)
+	{
+		_Hp = hp;
+		_Iscat = iscat;
+		_Item = idx;
+	}
+	float SceneManager::GetDontDestroyHP()
+	{
+		return _Hp;
+	}
+	bool SceneManager::GetDontDestroyCat()
+	{
+		return _Iscat;
+	}
+	int SceneManager::GetDontDestroyIdx()
+	{
+		return _Item;
 	}
 }

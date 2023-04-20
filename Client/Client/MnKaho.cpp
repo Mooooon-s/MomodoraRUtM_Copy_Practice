@@ -10,10 +10,12 @@
 namespace Mn
 {
 	Kaho::Kaho()
-		:_bIsCat(false)
-		,kahoCat(nullptr)
-		,kahoHuman(nullptr)
-		,_Dir(eDir::R)
+		: _bIsCat(false)
+		, kahoCat(nullptr)
+		, kahoHuman(nullptr)
+		, _Swap(false)
+		, _Dir(eDir::R)
+		, _Hp(100)
 	{
 	}
 	Kaho::~Kaho()
@@ -53,6 +55,18 @@ namespace Mn
 			kahoHuman->animationCtrl();
 			if (Camera::GetTarget() != nullptr)
 				Camera::SetTarget(kahoHuman);
+		}
+		if (_Swap==false && _bIsCat == true)
+		{
+			kahoCat->Dir(_Dir);
+			_bIsCat = true;
+			kahoCat->Active(eState::Active);
+			kahoHuman->Active(eState::Pause);
+			kahoHuman->PlayerStatus(ePlayerStatus::Idle);
+			kahoCat->animationCtrl();
+			if (Camera::GetTarget() != nullptr)
+				Camera::SetTarget(kahoCat);
+			_Swap = true;
 		}
 		tr->Pos(_Pos);
 	}
