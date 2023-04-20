@@ -6,8 +6,21 @@ namespace Mn
 	class ItemBox : public GameObject
 	{
 	private:
+		enum class Item_name
+		{
+			HP,
+			Swap,
+		};
+		struct item
+		{
+			Item_name name;
+			Image* _ItemImage;
+		};
+		item _Item;
+		std::vector<item> itemBox;
 		Image* _ItemBox;
-		Image* _Item;
+		Image* _CurrItem;
+		int		_Idx;
 	public:
 		ItemBox();
 		~ItemBox();
@@ -16,6 +29,9 @@ namespace Mn
 		virtual void Update();
 		virtual void Render(HDC hdc);
 		virtual void Release();
+	public:
+		int GetItemNum() { return (int)itemBox[_Idx].name; }
+		void IdxNum(int num) { _Idx = num; }
 	};
 }
 
