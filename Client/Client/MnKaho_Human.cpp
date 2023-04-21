@@ -18,6 +18,10 @@
 #include "MnMeleeEffect.h"
 #include "MnMonMeleeAttack.h"
 
+#include "MnFireBall.h"
+#include "MnFireFlame.h"
+#include "MnFlame.h"
+
 namespace Mn
 {
 	Kaho_Human::Kaho_Human()
@@ -305,6 +309,24 @@ namespace Mn
 				animationCtrl();
 			}
 			if (dynamic_cast<MonMeleeAttack*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<FireBall*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<FireFlame*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<Flame*>(other->Owner()))
 			{
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;

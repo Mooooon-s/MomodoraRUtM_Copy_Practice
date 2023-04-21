@@ -331,6 +331,15 @@
     <ClInclude Include="MnStage3_3.h">
       <Filter>Contents\Scene\Stage3</Filter>
     </ClInclude>
+    <ClInclude Include="MnFireBall.h">
+      <Filter>Contents\Throws</Filter>
+    </ClInclude>
+    <ClInclude Include="MnFlame.h">
+      <Filter>Contents\Throws</Filter>
+    </ClInclude>
+    <ClInclude Include="MnFireFlame.h">
+      <Filter>Contents\Throws</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -552,6 +561,15 @@
     </ClCompile>
     <ClCompile Include="MnStage3_3.cpp">
       <Filter>Contents\Scene\Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="MnFireBall.cpp">
+      <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnFlame.cpp">
+      <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnFireFlame.cpp">
+      <Filter>Contents\Throws</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

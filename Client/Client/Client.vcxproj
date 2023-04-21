@@ -149,6 +149,8 @@
     <ClInclude Include="MnBigPlant.h" />
     <ClInclude Include="MnBomb.h" />
     <ClInclude Include="MnCath.h" />
+    <ClInclude Include="MnFireBall.h" />
+    <ClInclude Include="MnFireFlame.h" />
     <ClInclude Include="MnfirstStageScene.h" />
     <ClInclude Include="MnAnimation.h" />
     <ClInclude Include="MnAnimator.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="MnEngine.h" />
     <ClInclude Include="MnEnum.h" />
     <ClInclude Include="MnFadeInOut.h" />
+    <ClInclude Include="MnFlame.h" />
     <ClInclude Include="MnGameObject.h" />
     <ClInclude Include="MnGround.h" />
     <ClInclude Include="MnHitEffect.h" />
@@ -221,6 +224,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnFireFlame.cpp" />
+    <ClCompile Include="MnFlame.cpp" />
+    <ClCompile Include="MnFireBall.cpp" />
     <ClCompile Include="MnItemBox.cpp" />
     <ClCompile Include="MnBigPlant.cpp" />
     <ClCompile Include="MnBomb.cpp" />

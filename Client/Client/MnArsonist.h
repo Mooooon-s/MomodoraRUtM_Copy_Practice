@@ -1,6 +1,8 @@
 #pragma once
 #include "MnGameObject.h"
 #include "MnImage.h"
+#include "MnFireBall.h"
+#include "MnFireFlame.h"
 
 namespace Mn
 {
@@ -16,7 +18,10 @@ namespace Mn
 			Move,
 			Attack,
 			Hurt,
-			Skill,
+			Pattarn1,
+			Pattarn2,
+			Pattarn3,
+			BackStep,
 		};
 		enum class eDir
 		{
@@ -28,8 +33,18 @@ namespace Mn
 		Rigidbody*	_Rigidbody;
 		Collider*	_Collider;
 		Image*		_Image;
+		FireBall*	_FireBall;
+		FireFlame*	_FireFlame;
 		eDir		_Dir;
+		Vector2		_TeleportPos;
 		double		_time;
+		bool		_afterAction;
+		bool		_Teleporting;
+		int			_Count;
+		float		_HurtTime;
+		float		_KnockBack;
+		float		_Ready;
+		class Kaho* _Kaho;
 	public:
 		Arsonist();
 		~Arsonist();
@@ -38,11 +53,30 @@ namespace Mn
 		void Update() override;
 		void Render(HDC hdc)override;
 		void Release()override;
+	public:
+		void OnCollisionEnter(class Collider* other) override;
+		void OnCollisionStay(class Collider* other) override;
+		void OnCollisionExit(class Collider* other) override;
+	public:
+		void Teleport(bool teleport) { _Teleporting = teleport; }
+		bool Teleport() { return _Teleporting; }
 	private:
 		void animationCtrl();
 		void think();
-		
-
+		void idle();
+		void move();
+		void hurt();
+		void attack();
+		void pattarn1();
+		void pattarn2();
+		void pattarn3();
+		void backStep();
+		void beforeAttack();
+		void afterAttack();
+		void fire();
+		void waitTeleport();
+		void makeFlame();
+		void makeFireBall();
 	};
 }
 
