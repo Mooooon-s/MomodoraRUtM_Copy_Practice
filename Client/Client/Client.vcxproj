@@ -149,6 +149,7 @@
     <ClInclude Include="MnBigPlant.h" />
     <ClInclude Include="MnBomb.h" />
     <ClInclude Include="MnCath.h" />
+    <ClInclude Include="MnCatPeasant.h" />
     <ClInclude Include="MnFireBall.h" />
     <ClInclude Include="MnFireFlame.h" />
     <ClInclude Include="MnfirstStageScene.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="MnRigidbody.h" />
     <ClInclude Include="MnScene.h" />
     <ClInclude Include="MnSceneManager.h" />
+    <ClInclude Include="MnStaff.h" />
     <ClInclude Include="MnStage1_Boss.h" />
     <ClInclude Include="MnStage2_1.h" />
     <ClInclude Include="MnStage2_2.h" />
@@ -226,6 +228,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnCatPeasant.cpp" />
     <ClCompile Include="MnMapTrriger.cpp" />
     <ClCompile Include="MnFireFlame.cpp" />
     <ClCompile Include="MnFlame.cpp" />
@@ -299,6 +302,7 @@
     <ClCompile Include="MnStage3_2.cpp" />
     <ClCompile Include="MnStage3_3.cpp" />
     <ClCompile Include="MnNpcMelee.cpp" />
+    <ClCompile Include="MnStaff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

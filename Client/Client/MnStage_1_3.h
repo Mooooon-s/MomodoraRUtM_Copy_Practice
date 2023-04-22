@@ -3,7 +3,7 @@
 #include "MnKaho.h"
 #include "MnPortal.h"
 #include "MnItemBox.h"
-
+#include "MnMapTrriger.h"
 namespace Mn
 {
 	class Stage_1_3 : public Scene
@@ -15,6 +15,7 @@ namespace Mn
 		Kaho_Cat*		_KahoCat;
 		Portal*			_Portal;
 		ItemBox*		_ItemBox;
+		MapTrriger*		_MapTrriger;
 	public:
 		Stage_1_3();
 		~Stage_1_3();

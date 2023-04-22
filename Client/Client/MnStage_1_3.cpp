@@ -9,6 +9,8 @@
 #include "MnCamera.h"
 #include "MnPortal.h"
 #include "MnItemBox.h"
+#include "MnMapTrriger.h"
+#include "MnImpKnife.h"
 namespace Mn
 {
 	Kaho* Stage_1_3::_kaho = nullptr;
@@ -19,6 +21,7 @@ namespace Mn
 		, _KahoHuman(nullptr)
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
+		, _MapTrriger(nullptr)
 	{
 	}
 	Stage_1_3::~Stage_1_3()
@@ -36,11 +39,19 @@ namespace Mn
 		_kaho = object::Instantiate<Kaho>(Vector2(60,660),eLayerType::Player);
 		object::Instantiate<Ground>(eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
+		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(450,500),eLayerType::Trriger);
 		_Portal = object::Instantiate<Portal>(Vector2(950,660),eLayerType::Portal);
 		_Portal->moveToScene(eSceneType::stage1_Boss);
 	}
 	void Stage_1_3::Update()
 	{
+		if (_MapTrriger != nullptr && _MapTrriger->Trriger() == true)
+		{
+			object::Instantiate<ImpKnife>(Vector2(180, 400), eLayerType::Monster);
+			object::Instantiate<ImpKnife>(Vector2(760, 400), eLayerType::Monster);
+			_MapTrriger->State(GameObject::eState::Death);
+			_MapTrriger = nullptr;
+		}
 		if (_Scene)
 		{
 			SceneManager::LoadScene(_Portal->PortalScene());
@@ -58,7 +69,7 @@ namespace Mn
 	void Stage_1_3::OnEnter()
 	{
 		TilePalatte::Load(L"Stage1_3");
-		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
+		Camera::SetTarget(nullptr);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
@@ -67,6 +78,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Trriger, true);
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());

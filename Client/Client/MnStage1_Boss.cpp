@@ -11,6 +11,7 @@
 #include "MnPortal.h"
 #include "MnInput.h"
 #include "MnItemBox.h"
+#include "MnMapTrriger.h"
 namespace Mn
 {
 	Kaho* Stage1_Boss::_kaho = nullptr;
@@ -21,6 +22,7 @@ namespace Mn
 		, _KahoHuman(nullptr)
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
+		, _MapTrriger(nullptr)
 	{
 	}
 	Stage1_Boss::~Stage1_Boss()
@@ -38,13 +40,19 @@ namespace Mn
 		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);
 		object::Instantiate<Ground>(Vector2::Zero,eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
-		object::Instantiate<BigPlant>(Vector2(1200, 400), eLayerType::Monster);
-		_Portal = object::Instantiate<Portal>(Vector2(1500,900),eLayerType::Portal);
+		_Portal = object::Instantiate<Portal>(Vector2(1440,900),eLayerType::Portal);
+		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(564,400),eLayerType::Trriger);
 		_Portal->GetComponent<Collider>()->Size(Vector2(100*3,100));
 		_Portal->moveToScene(eSceneType::stage2_1);
 	}
 	void Stage1_Boss::Update()
 	{
+		if (_MapTrriger != nullptr && _MapTrriger->Trriger() == true)
+		{
+			object::Instantiate<BigPlant>(Vector2(1200, 400), eLayerType::Monster);
+			_MapTrriger->State(GameObject::eState::Death);
+			_MapTrriger = nullptr;
+		}
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(eSceneType::stage2_3);
@@ -75,6 +83,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Trriger, true);
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());

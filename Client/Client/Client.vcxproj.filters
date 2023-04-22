@@ -344,6 +344,12 @@
       <Filter>Contents\NPC</Filter>
     </ClInclude>
     <ClInclude Include="MnMapTrriger.h" />
+    <ClInclude Include="MnCatPeasant.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStaff.h">
+      <Filter>Contents\Throws</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -579,5 +585,11 @@
       <Filter>Contents\NPC</Filter>
     </ClCompile>
     <ClCompile Include="MnMapTrriger.cpp" />
+    <ClCompile Include="MnCatPeasant.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStaff.cpp">
+      <Filter>Contents\Throws</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
