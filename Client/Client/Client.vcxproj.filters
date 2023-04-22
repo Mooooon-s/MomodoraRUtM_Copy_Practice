@@ -340,6 +340,9 @@
     <ClInclude Include="MnFireFlame.h">
       <Filter>Contents\Throws</Filter>
     </ClInclude>
+    <ClInclude Include="MnNpcMelee.h">
+      <Filter>Contents\NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -570,6 +573,9 @@
     </ClCompile>
     <ClCompile Include="MnFireFlame.cpp">
       <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnNpcMelee.cpp">
+      <Filter>Contents\NPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

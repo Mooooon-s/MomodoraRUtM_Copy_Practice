@@ -298,6 +298,12 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Hurt;
 			animationCtrl();
 		}
+		if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+		{
+			_GetDamage = false;
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
 
 		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
@@ -343,6 +349,14 @@ namespace Mn
 			_PlayerStatus = ePlayerStatus::Hurt;
 			animationCtrl();
 		}
+
+		if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+		{
+			_GetDamage = false;
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
+
 	}
 	void Kaho_Human::OnCollisionExit(Collider* other)
 	{

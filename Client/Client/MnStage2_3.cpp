@@ -37,13 +37,13 @@ namespace Mn
 		_Kaho = object::Instantiate<Kaho>(Vector2(51, 600), eLayerType::Player);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(51, 600), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(51, 600), eLayerType::Player);
+		object::Instantiate<Arsonist>(Vector2(1287, 670),eLayerType::Monster);
+		object::Instantiate<Cath>(Vector2(1186, 670),eLayerType::NPC);
 		_Portal = object::Instantiate<Portal>(Vector2(1367,550),eLayerType::Portal);
 		_Portal->GetComponent<Collider>()->Size(Vector2(100, 300));
 		_Portal->moveToScene(eSceneType::stage3_1);
 		object::Instantiate<Ground>(eLayerType::Ground);
 		object::Instantiate<UnderGroundBG>(eLayerType::BG);
-		object::Instantiate<Cath>(Vector2(1186, 670),eLayerType::NPC);
-		object::Instantiate<Arsonist>(Vector2(1287, 670),eLayerType::Monster);
 		_Kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void Stage2_3::Update()
@@ -69,6 +69,8 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::NPC, true);
+		CollisionManager::SetLayer(eLayerType::Throws, eLayerType::NPC, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
 		_Kaho->HP(SceneManager::GetDontDestroyHP());
 		_Kaho->IsCat(SceneManager::GetDontDestroyCat());

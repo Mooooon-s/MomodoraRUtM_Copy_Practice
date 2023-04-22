@@ -190,6 +190,7 @@
     <ClInclude Include="MnMomodora.h" />
     <ClInclude Include="MnMonkey.h" />
     <ClInclude Include="MnMonMeleeAttack.h" />
+    <ClInclude Include="MnNpcMelee.h" />
     <ClInclude Include="MnObject.h" />
     <ClInclude Include="MnPlayerEnum.h" />
     <ClInclude Include="MnPlayerHpBar.h" />
@@ -295,6 +296,7 @@
     <ClCompile Include="MnStage3_1.cpp" />
     <ClCompile Include="MnStage3_2.cpp" />
     <ClCompile Include="MnStage3_3.cpp" />
+    <ClCompile Include="MnNpcMelee.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
