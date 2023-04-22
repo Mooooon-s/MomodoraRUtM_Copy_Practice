@@ -343,6 +343,7 @@
     <ClInclude Include="MnNpcMelee.h">
       <Filter>Contents\NPC</Filter>
     </ClInclude>
+    <ClInclude Include="MnMapTrriger.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -577,5 +578,6 @@
     <ClCompile Include="MnNpcMelee.cpp">
       <Filter>Contents\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="MnMapTrriger.cpp" />
   </ItemGroup>
 </Project>

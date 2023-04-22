@@ -21,6 +21,7 @@ enum class eSceneType {
 enum class eLayerType {
 	BG,
 	Ground,
+	Trriger,
 	Tile,
 	Monster,
 	NPC,

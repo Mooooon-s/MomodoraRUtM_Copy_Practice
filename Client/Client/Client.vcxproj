@@ -185,6 +185,7 @@
     <ClInclude Include="MnMagnolia.h" />
     <ClInclude Include="MnMainMenuBG.h" />
     <ClInclude Include="MnMainMenuScene.h" />
+    <ClInclude Include="MnMapTrriger.h" />
     <ClInclude Include="MnMath.h" />
     <ClInclude Include="MnMeleeEffect.h" />
     <ClInclude Include="MnMomodora.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnMapTrriger.cpp" />
     <ClCompile Include="MnFireFlame.cpp" />
     <ClCompile Include="MnFlame.cpp" />
     <ClCompile Include="MnFireBall.cpp" />
