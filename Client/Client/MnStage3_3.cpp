@@ -11,6 +11,9 @@
 #include "MnItemBox.h"
 
 #include "MnMagnolia.h"
+#include "MnLupiar.h"
+
+#include "MnMapTrriger.h"
 
 namespace Mn
 {
@@ -22,6 +25,7 @@ namespace Mn
 		, _KahoHuman(nullptr)
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
+		, _Maptrriger(nullptr)
 	{
 	}
 	Stage3_3::~Stage3_3()
@@ -38,11 +42,18 @@ namespace Mn
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(60, 660), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(60, 660), eLayerType::Player);
 		object::Instantiate<Ground>(eLayerType::Ground);
-		object::Instantiate<Magnolia>(Vector2(157, 800),eLayerType::Monster);
+		_Maptrriger = object::Instantiate<MapTrriger>(Vector2(400,500), eLayerType::Trriger);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void Stage3_3::Update()
 	{
+		if (_Maptrriger!=nullptr && _Maptrriger->Trriger())
+		{
+			_Maptrriger->State(GameObject::eState::Death);
+			_Maptrriger = nullptr;
+			object::Instantiate<Magnolia>(Vector2(157, 800), eLayerType::Monster);
+			object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
+		}
 		Scene::Update();
 	}
 	void Stage3_3::Render(HDC hdc)
@@ -65,6 +76,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Trriger, true);
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());

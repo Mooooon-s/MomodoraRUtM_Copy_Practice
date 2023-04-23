@@ -22,6 +22,7 @@
 #include "MnFireFlame.h"
 #include "MnFlame.h"
 
+#include "MnLupiarBall.h"
 namespace Mn
 {
 	Kaho_Human::Kaho_Human()
@@ -333,6 +334,12 @@ namespace Mn
 				animationCtrl();
 			}
 			if (dynamic_cast<Flame*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<LupiarBall*>(other->Owner()))
 			{
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;

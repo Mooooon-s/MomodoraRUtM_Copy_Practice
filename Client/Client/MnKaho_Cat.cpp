@@ -16,6 +16,12 @@
 #include "MnKnife.h"
 #include "MnMonMeleeAttack.h"
 
+#include "MnFireBall.h"
+#include "MnFireFlame.h"
+#include "MnFlame.h"
+
+#include "MnLupiarBall.h"
+
 namespace Mn
 {
 	Kaho_Cat::Kaho_Cat()
@@ -214,6 +220,12 @@ namespace Mn
 			_PlayerStatus=ePlayerStatus::Hurt;
 			animationCtrl();
 		}
+		if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+		{
+			_GetDamage = false;
+			_PlayerStatus = ePlayerStatus::Hurt;
+			animationCtrl();
+		}
 		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
 			if (dynamic_cast<Knife*>(other->Owner()))
@@ -224,6 +236,30 @@ namespace Mn
 				animationCtrl();
 			}
 			if (dynamic_cast<MonMeleeAttack*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<FireBall*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<FireFlame*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<Flame*>(other->Owner()))
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+			if (dynamic_cast<LupiarBall*>(other->Owner()))
 			{
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;

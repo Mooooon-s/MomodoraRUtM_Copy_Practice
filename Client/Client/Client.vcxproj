@@ -183,6 +183,7 @@
     <ClInclude Include="MnKnife.h" />
     <ClInclude Include="MnLayer.h" />
     <ClInclude Include="MnLupiar.h" />
+    <ClInclude Include="MnLupiarBall.h" />
     <ClInclude Include="MnMagnolia.h" />
     <ClInclude Include="MnMainMenuBG.h" />
     <ClInclude Include="MnMainMenuScene.h" />
@@ -228,6 +229,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnLupiarBall.cpp" />
     <ClCompile Include="MnCatPeasant.cpp" />
     <ClCompile Include="MnMapTrriger.cpp" />
     <ClCompile Include="MnFireFlame.cpp" />

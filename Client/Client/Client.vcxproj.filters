@@ -101,6 +101,9 @@
     <Filter Include="Contents\Scene\Stage3">
       <UniqueIdentifier>{d9294773-b232-4be6-a527-d4a5abc1fd9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Boss">
+      <UniqueIdentifier>{b2eb9c73-84ed-4936-8731-2af91a1fc973}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -184,9 +187,6 @@
     <ClInclude Include="MnImp.h">
       <Filter>Contents\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="MnArsonist.h">
-      <Filter>Contents\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="MnKaho_Cat.h">
       <Filter>Contents\Player</Filter>
     </ClInclude>
@@ -248,12 +248,6 @@
       <Filter>Contents\NPC</Filter>
     </ClInclude>
     <ClInclude Include="MnMonkey.h">
-      <Filter>Contents\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="MnLupiar.h">
-      <Filter>Contents\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="MnMagnolia.h">
       <Filter>Contents\Monster</Filter>
     </ClInclude>
     <ClInclude Include="MnPlayerHpBar.h">
@@ -350,6 +344,18 @@
     <ClInclude Include="MnStaff.h">
       <Filter>Contents\Throws</Filter>
     </ClInclude>
+    <ClInclude Include="MnLupiarBall.h">
+      <Filter>Contents\Throws</Filter>
+    </ClInclude>
+    <ClInclude Include="MnArsonist.h">
+      <Filter>Contents\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="MnLupiar.h">
+      <Filter>Contents\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMagnolia.h">
+      <Filter>Contents\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -431,9 +437,6 @@
     <ClCompile Include="MnImp.cpp">
       <Filter>Contents\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="MnArsonist.cpp">
-      <Filter>Contents\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="MnKaho_Cat.cpp">
       <Filter>Contents\Player</Filter>
     </ClCompile>
@@ -489,12 +492,6 @@
       <Filter>Contents\NPC</Filter>
     </ClCompile>
     <ClCompile Include="MnMonkey.cpp">
-      <Filter>Contents\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="MnLupiar.cpp">
-      <Filter>Contents\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="MnMagnolia.cpp">
       <Filter>Contents\Monster</Filter>
     </ClCompile>
     <ClCompile Include="MnPlayerHpBar.cpp">
@@ -590,6 +587,18 @@
     </ClCompile>
     <ClCompile Include="MnStaff.cpp">
       <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnLupiarBall.cpp">
+      <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnArsonist.cpp">
+      <Filter>Contents\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="MnLupiar.cpp">
+      <Filter>Contents\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMagnolia.cpp">
+      <Filter>Contents\Boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
