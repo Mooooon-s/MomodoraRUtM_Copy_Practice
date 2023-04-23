@@ -31,10 +31,10 @@ namespace Mn
 		object::Instantiate<BG>(eLayerType::BG);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f),eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
-		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		object::Instantiate<Monkey>(Vector2(600.0f, 400.0f), eLayerType::Monster);
+		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(30.0f, 570.0f), eLayerType::Player);
+		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(30.0f, 570.0f), eLayerType::Player);
+		_kaho = object::Instantiate<Kaho>(Vector2(30.0f, 570.0f), eLayerType::Player);
+		object::Instantiate<Monkey>(Vector2(600.0f, 670.0f), eLayerType::Monster);
 		object::Instantiate<ImpBomb>(Vector2(1601, 382), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		_Portal = object::Instantiate<Portal>(Vector2(1700,600), eLayerType::Portal);

@@ -17,6 +17,7 @@
 #include "MnKnife.h"
 #include "MnMeleeEffect.h"
 #include "MnMonMeleeAttack.h"
+#include "MnStaff.h"
 
 #include "MnFireBall.h"
 #include "MnFireFlame.h"
@@ -315,31 +316,12 @@ namespace Mn
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
-			if (dynamic_cast<MonMeleeAttack*>(other->Owner()))
-			{
-				_GetDamage = false;
-				_PlayerStatus = ePlayerStatus::Hurt;
-				animationCtrl();
-			}
-			if (dynamic_cast<FireBall*>(other->Owner()))
-			{
-				_GetDamage = false;
-				_PlayerStatus = ePlayerStatus::Hurt;
-				animationCtrl();
-			}
-			if (dynamic_cast<FireFlame*>(other->Owner()))
-			{
-				_GetDamage = false;
-				_PlayerStatus = ePlayerStatus::Hurt;
-				animationCtrl();
-			}
-			if (dynamic_cast<Flame*>(other->Owner()))
-			{
-				_GetDamage = false;
-				_PlayerStatus = ePlayerStatus::Hurt;
-				animationCtrl();
-			}
-			if (dynamic_cast<LupiarBall*>(other->Owner()))
+			if (dynamic_cast<MonMeleeAttack*>(other->Owner())
+				|| dynamic_cast<Staff*>(other->Owner())
+				|| dynamic_cast<Flame*>(other->Owner())
+				|| dynamic_cast<FireBall*>(other->Owner())
+				|| dynamic_cast<FireFlame*>(other->Owner())
+				|| dynamic_cast<LupiarBall*>(other->Owner()))
 			{
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;

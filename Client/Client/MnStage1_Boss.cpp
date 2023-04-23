@@ -35,9 +35,9 @@ namespace Mn
 		object::Instantiate<BG>(eLayerType::BG);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
-		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(200.0f, 400.0f), eLayerType::Player);
-		_kaho = object::Instantiate<Kaho>(Vector2(200.0f, 400.0f), eLayerType::Player);
+		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(50.0f, 570.0f), eLayerType::Player);
+		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(50.0f, 570.0f), eLayerType::Player);
+		_kaho = object::Instantiate<Kaho>(Vector2(50.0f, 570.0f), eLayerType::Player);
 		object::Instantiate<Ground>(Vector2::Zero,eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 		_Portal = object::Instantiate<Portal>(Vector2(1440,900),eLayerType::Portal);
@@ -49,7 +49,7 @@ namespace Mn
 	{
 		if (_MapTrriger != nullptr && _MapTrriger->Trriger() == true)
 		{
-			object::Instantiate<BigPlant>(Vector2(1200, 400), eLayerType::Monster);
+			object::Instantiate<BigPlant>(Vector2(1200.0f, 570.0f), eLayerType::Monster);
 			_MapTrriger->State(GameObject::eState::Death);
 			_MapTrriger = nullptr;
 		}

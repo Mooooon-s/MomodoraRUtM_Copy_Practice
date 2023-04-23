@@ -45,9 +45,9 @@ namespace Mn
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		//플레이어 객체 생성
-		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(50.0f, 500.0f), eLayerType::Player);
-		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(50.0f, 500.0f), eLayerType::Player);
-		_kaho =object::Instantiate<Kaho>(Vector2(50.0f,500.0f),eLayerType::Player);
+		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(50.0f, 620.0f), eLayerType::Player);
+		_KahoHuman =object::Instantiate<Kaho_Human>(Vector2(50.0f, 620.0f), eLayerType::Player);
+		_kaho =object::Instantiate<Kaho>(Vector2(50.0f,620.0f),eLayerType::Player);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		_portal=object::Instantiate<Portal>(Vector2(1500.0f, 500.0f),eLayerType::Portal);
 		_portal->moveToScene(eSceneType::Stage1);

@@ -16,6 +16,7 @@
 #include "MnStage2_1.h"
 
 #include "MnMagnolia.h"
+#include "MnCatPeasant.h"
 
 extern Mn::Application application;
 
@@ -153,7 +154,7 @@ namespace Mn
 		std::vector<GameObject*> monObj = scene->GetGameObject(eLayerType::Monster);
 		for (auto v : monObj)
 		{
-			if (dynamic_cast<Magnolia*>(v))
+			if (dynamic_cast<Magnolia*>(v) || dynamic_cast<CatPeasant*>(v) )
 			{
 				continue;
 			}
