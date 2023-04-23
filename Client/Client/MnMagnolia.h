@@ -8,9 +8,27 @@ namespace Mn
 	class Magnolia:public GameObject
 	{
 	private:
-		Image*		_Image;
-		Animator*	_Animator;
-		Rigidbody*	_Rigidbody;
+		enum class eMagnoliaState
+		{
+			Idle,
+			pattarn1,
+			pattarn2,
+			ShowUp,
+			DisAppear,
+			Land,
+		};
+		enum class eDir
+		{
+			R,
+			L,
+		};
+		Image*			_Image;
+		Animator*		_Animator;
+		Rigidbody*		_Rigidbody;
+		eMagnoliaState	_State;
+		eDir			_Dir;
+		float			_Timer;
+		bool			_Jump;
 	public:
 		Magnolia();
 		~Magnolia();
@@ -23,7 +41,15 @@ namespace Mn
 		void OnCollisionEnter(class Collider* other) override;
 		void OnCollisionStay(class Collider* other) override;
 		void OnCollisionExit(class Collider* other) override;
-
+	private:
+		void animationCtrl();
+		void pattarn1();
+		void pattarn2();
+		void showUp();
+		void disAppear();
+		void afterPattarn();
+		void afterPattarn2();
+		void idle();
 	};
 }
 

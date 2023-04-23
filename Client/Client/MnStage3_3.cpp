@@ -10,6 +10,8 @@
 #include "MnStage3BG.h"
 #include "MnItemBox.h"
 
+#include "MnMagnolia.h"
+
 namespace Mn
 {
 	Kaho* Stage3_3::_kaho = nullptr;
@@ -36,6 +38,7 @@ namespace Mn
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(60, 660), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(60, 660), eLayerType::Player);
 		object::Instantiate<Ground>(eLayerType::Ground);
+		object::Instantiate<Magnolia>(Vector2(157, 800),eLayerType::Monster);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void Stage3_3::Update()

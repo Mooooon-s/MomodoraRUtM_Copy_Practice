@@ -15,6 +15,8 @@
 #include "MnKnife.h"
 #include "MnStage2_1.h"
 
+#include "MnMagnolia.h"
+
 extern Mn::Application application;
 
 namespace Mn
@@ -151,6 +153,10 @@ namespace Mn
 		std::vector<GameObject*> monObj = scene->GetGameObject(eLayerType::Monster);
 		for (auto v : monObj)
 		{
+			if (dynamic_cast<Magnolia*>(v))
+			{
+				continue;
+			}
 			Transform* tr = v->GetComponent<Transform>();
 			Vector2 monPos = tr->Pos();
 			COLORREF monfootColor = ::GetPixel(_Image->Hdc(), monPos.x, monPos.y);
