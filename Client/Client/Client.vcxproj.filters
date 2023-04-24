@@ -238,12 +238,6 @@
     <ClInclude Include="MnMeleeEffect.h">
       <Filter>Contents\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="MnGround.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="MnPortal.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
     <ClInclude Include="MnCath.h">
       <Filter>Contents\NPC</Filter>
     </ClInclude>
@@ -337,7 +331,6 @@
     <ClInclude Include="MnNpcMelee.h">
       <Filter>Contents\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="MnMapTrriger.h" />
     <ClInclude Include="MnCatPeasant.h">
       <Filter>Contents\Monster</Filter>
     </ClInclude>
@@ -355,6 +348,18 @@
     </ClInclude>
     <ClInclude Include="MnMagnolia.h">
       <Filter>Contents\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMagArrow.h">
+      <Filter>Contents\Throws</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMapTrriger.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnGround.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnPortal.h">
+      <Filter>Contents\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -482,12 +487,6 @@
     <ClCompile Include="MnMeleeEffect.cpp">
       <Filter>Contents\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="MnGround.cpp">
-      <Filter>Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="MnPortal.cpp">
-      <Filter>Contents</Filter>
-    </ClCompile>
     <ClCompile Include="MnCath.cpp">
       <Filter>Contents\NPC</Filter>
     </ClCompile>
@@ -581,7 +580,6 @@
     <ClCompile Include="MnNpcMelee.cpp">
       <Filter>Contents\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="MnMapTrriger.cpp" />
     <ClCompile Include="MnCatPeasant.cpp">
       <Filter>Contents\Monster</Filter>
     </ClCompile>
@@ -599,6 +597,18 @@
     </ClCompile>
     <ClCompile Include="MnMagnolia.cpp">
       <Filter>Contents\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMagArrow.cpp">
+      <Filter>Contents\Throws</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMapTrriger.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnGround.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnPortal.cpp">
+      <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

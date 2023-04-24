@@ -22,6 +22,7 @@
 #include "MnFlame.h"
 
 #include "MnLupiarBall.h"
+#include "MnMagArrow.h"
 
 namespace Mn
 {
@@ -239,6 +240,7 @@ namespace Mn
 			if (dynamic_cast<MonMeleeAttack*>(other->Owner())
 				|| dynamic_cast<Staff*>(other->Owner())
 				|| dynamic_cast<Flame*>(other->Owner())
+				|| dynamic_cast<MagArrow*>(other->Owner())
 				|| dynamic_cast<FireBall*>(other->Owner())
 				|| dynamic_cast<FireFlame*>(other->Owner())
 				|| dynamic_cast<LupiarBall*>(other->Owner()))

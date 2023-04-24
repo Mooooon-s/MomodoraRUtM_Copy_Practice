@@ -28,6 +28,7 @@ namespace Mn
 		eMagnoliaState	_State;
 		eDir			_Dir;
 		float			_Timer;
+		float			_ArrowTimer;
 		bool			_Jump;
 	public:
 		Magnolia();

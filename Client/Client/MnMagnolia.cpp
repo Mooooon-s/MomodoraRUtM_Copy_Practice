@@ -6,6 +6,8 @@
 
 #include "MnResources.h"
 #include "MnTime.h"
+#include "MnMagArrow.h"
+#include "MnObject.h"
 namespace Mn
 {
 	Magnolia::Magnolia()
@@ -16,6 +18,7 @@ namespace Mn
 		, _State(eMagnoliaState::Idle)
 		, _Dir(eDir::R)
 		, _Timer(0.0f)
+		, _ArrowTimer(0.0f)
 
 	{
 		Transform* Tr = GetComponent<Transform>();
@@ -158,6 +161,13 @@ namespace Mn
 				_State = eMagnoliaState::Land;
 				animationCtrl();
 			}
+			_ArrowTimer += Time::DeltaTime();
+			if (_ArrowTimer >= 0.2)
+			{
+				MagArrow* mag = object::Instantiate<MagArrow>(pos,eLayerType::Throws);
+				mag->BlowUp(false);
+				_ArrowTimer = 0;
+			}
 		}
 	}
 	void Magnolia::pattarn2()
@@ -199,6 +209,8 @@ namespace Mn
 	{
 		Transform* Tr = GetComponent<Transform>();
 		Vector2 pos = Tr->Pos();
+		MagArrow* mag = object::Instantiate<MagArrow>(pos, eLayerType::Throws);
+		mag->BlowUp(true);
 		pos.x = 877.0f;
 		pos.y = 900.0f;
 		Tr->Pos(pos);
