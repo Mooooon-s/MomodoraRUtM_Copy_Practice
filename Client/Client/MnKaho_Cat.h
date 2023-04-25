@@ -25,6 +25,7 @@ namespace Mn
 		float			_CoolTime;
 		float			_Hp;
 		bool			_Death;
+		bool			_Switch;
 		bool			_DashOn;
 		bool			_GetDamage;
 		bool			_Combo;
@@ -50,6 +51,8 @@ namespace Mn
 		float MoveSpeed() { return _MoveSpeed; }
 		void SyncHp(float hp) { _Hp = hp; }
 		float SyncHp() { return _Hp; }
+		bool Switch() { return _Switch; }
+		void Switch(bool swich) { _Switch = swich; }
 		void animationCtrl();
 	private:
 		void idle();
@@ -82,7 +85,7 @@ namespace Mn
 		void RunComplete();
 
 		void landingComplete();
-
+		void afterUseItem();
 
 	};
 }

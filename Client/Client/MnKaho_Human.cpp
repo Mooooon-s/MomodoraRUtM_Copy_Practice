@@ -27,6 +27,7 @@
 
 #include "MnChargeEffect.h"
 #include "MnPrayEffect.h"
+#include "MnItemBox.h"
 
 namespace Mn
 {
@@ -46,6 +47,7 @@ namespace Mn
 		, _CoolTime(0.0f)
 		, _Hp(100.0f)
 		, _DashOn(true)
+		, _Switch(false)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
@@ -210,6 +212,8 @@ namespace Mn
 		//useItem
 		_Animator->GetCompleteEvent(L"Use_Item_Right") = std::bind(&Kaho_Human::afterUseItem, this);
 		_Animator->GetCompleteEvent(L"Use_Item_Left") = std::bind(&Kaho_Human::afterUseItem, this);
+		_Animator->FindAnimation(L"Use_Item_Right")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&Kaho_Human::useItem, this);
+		_Animator->FindAnimation(L"Use_Item_Left")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&Kaho_Human::useItem, this);
 		//Rise Up
 		_Animator->GetCompleteEvent(L"Rise_Right") = std::bind(&Kaho_Human::riseUp, this);
 		_Animator->GetCompleteEvent(L"Rise_Left") = std::bind(&Kaho_Human::riseUp, this);
@@ -275,7 +279,7 @@ namespace Mn
 				roll();
 				break;
 			case ePlayerStatus::UseItem:
-				useItem();
+				//useItem();
 				break;
 			case ePlayerStatus::Hurt:
 				hurt();
@@ -900,6 +904,27 @@ namespace Mn
 	}
 	void Kaho_Human::useItem()
 	{
+		ItemBox* item=nullptr;
+		Scene* scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> itemObj = scene->GetGameObject(eLayerType::UI);
+		for (auto v : itemObj)
+		{
+			if (dynamic_cast<ItemBox*>(v))
+			{
+				item = dynamic_cast<ItemBox*>(v);
+			}
+		}
+		if (item->GetItemNum() == 0)
+		{
+			_Hp += 30;
+			if (_Hp > 100)
+				_Hp = 100;
+		}
+		else
+		{
+			if(_Switch==false)
+				_Switch = true;
+		}
 	}
 	void Kaho_Human::hurt()
 	{

@@ -25,6 +25,7 @@
 #include "MnMagArrow.h"
 
 #include "MnChargeEffect.h"
+#include "MnItemBox.h"
 
 namespace Mn
 {
@@ -41,6 +42,7 @@ namespace Mn
 		, _Jumpforce(550.0f)
 		, _MoveSpeed(0.0f)
 		, _CoolTime(0.0f)
+		, _Switch(false)
 		, _Combo(false)
 		, _Death(false)
 		, _DashOn(true)
@@ -87,6 +89,8 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Death_Left", _Image, Vector2(0, 32 * 3), 12, 8, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Crouch_Right", _Image, Vector2(0, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Crouch_Left", _Image, Vector2(0, 32 * 5), 12, 8, 4, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_UseItem_Right", _Image, Vector2(0, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_UseItem_Left", _Image, Vector2(0, 32 * 5), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Idle_Right", _Image, Vector2(32 * 4, 32 * 4), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_to_Idle_Left", _Image, Vector2(32 * 4, 32 * 5), 12, 8, 4, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Crouch_Right", _Image, Vector2(0, 32 * 6), 12, 8, 9, Vector2::Zero, 0.08);
@@ -149,6 +153,15 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Land_Right") = std::bind(&Kaho_Cat::landingComplete, this);
 		_Animator->GetCompleteEvent(L"Cat_Land_Left") = std::bind(&Kaho_Cat::landingComplete, this);
 
+
+		_Animator->FindAnimation(L"Cat_UseItem_Right")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Kaho_Cat::useItem, this);
+		_Animator->FindAnimation(L"Cat_UseItem_Left")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Kaho_Cat::useItem, this);
+		_Animator->GetCompleteEvent(L"Cat_UseItem_Right") = std::bind(&Kaho_Cat::afterUseItem, this);
+		_Animator->GetCompleteEvent(L"Cat_UseItem_Left") = std::bind(&Kaho_Cat::afterUseItem, this);
+
+
+
+
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
 	}
@@ -182,7 +195,7 @@ namespace Mn
 				fall();
 				break;
 			case ePlayerStatus::UseItem:
-				useItem();
+				//useItem();
 				break;
 			case ePlayerStatus::Hurt:
 				hurt();
@@ -624,6 +637,27 @@ namespace Mn
 	}
 	void Kaho_Cat::useItem()
 	{
+		ItemBox* item = nullptr;
+		Scene* scene = SceneManager::ActiveScene();
+		std::vector<GameObject*> itemObj = scene->GetGameObject(eLayerType::UI);
+		for (auto v : itemObj)
+		{
+			if (dynamic_cast<ItemBox*>(v))
+			{
+				item = dynamic_cast<ItemBox*>(v);
+			}
+		}
+		if (item->GetItemNum() == 0)
+		{
+			_Hp += 30;
+			if (_Hp > 100)
+				_Hp = 100;
+		}
+		else
+		{
+			if (_Switch == false)
+				_Switch = true;
+		}
 	}
 	void Kaho_Cat::alpha()
 	{
@@ -792,6 +826,14 @@ namespace Mn
 	{
 		animationCtrl();
 	}
+	void Kaho_Cat::afterUseItem()
+	{
+		if (_Dir == eDir::R)
+			_Animator->Play(L"Cat_to_Idle_Right", false);
+		else
+			_Animator->Play(L"Cat_to_Idle_Left", false);
+		_PlayerStatus = ePlayerStatus::Idle;
+	}
 	void Kaho_Cat::animationCtrl()
 	{
 		switch (_PlayerStatus)
@@ -866,9 +908,9 @@ namespace Mn
 			break;
 		case ePlayerStatus::UseItem:
 			if (_Dir == eDir::R)
-				_Animator->Play(L"Cat_Crouch_Right", false);
+				_Animator->Play(L"Cat_UseItem_Right", false);
 			else
-				_Animator->Play(L"Cat_Crouch_Left", false);
+				_Animator->Play(L"Cat_UseItem_Left", false);
 			break;
 		case ePlayerStatus::Death:
 			if (_Dir == eDir::R)

@@ -32,6 +32,7 @@ namespace Mn
 		bool			_IsGround;
 		bool			_GetDamage;
 		bool			_Death;
+		bool			_Switch;
 		int				_ComboCount;
 		int				_DoubleJump;
 		int				_col;
@@ -58,6 +59,8 @@ namespace Mn
 		void SyncHp(float hp) { _Hp = hp; }
 		float SyncHp() { return _Hp; }
 		void animationCtrl();
+		bool Switch() { return _Switch; }
+		void Switch(bool swich ) { _Switch = swich; }
 	private:
 		void alpha();
 	private:

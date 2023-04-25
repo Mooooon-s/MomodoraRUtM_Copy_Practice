@@ -34,25 +34,27 @@ namespace Mn
 	{
 		UpdateStatus();
 		Transform* tr = GetComponent<Transform>();
-		if (Input::GetKeyDown(eKeyCode::M)&& _bIsCat==false)
+		if (kahoHuman->Switch()==true && _bIsCat==false)
 		{
 			kahoCat->Dir(_Dir);
 			_bIsCat = true;
 			kahoCat->Active(eState::Active);
 			kahoHuman->Active(eState::Pause);
 			kahoHuman->PlayerStatus(ePlayerStatus::Idle);
+			kahoHuman->Switch(false);
 			kahoCat->SyncHp(_Hp);
 			kahoCat->animationCtrl();
 			if(Camera::GetTarget()!=nullptr)
 				Camera::SetTarget(kahoCat);
 		}
-		else if(Input::GetKeyDown(eKeyCode::M) && _bIsCat == true)
+		else if(kahoCat->Switch()==true && _bIsCat == true)
 		{
 			kahoHuman->Dir(_Dir);
 			_bIsCat = false;
 			kahoCat->Active(eState::Pause);
 			kahoHuman->Active(eState::Active);
 			kahoCat->PlayerStatus(ePlayerStatus::Idle);
+			kahoCat->Switch(false);
 			kahoHuman->SyncHp(_Hp);
 			kahoHuman->animationCtrl();
 			if (Camera::GetTarget() != nullptr)
