@@ -26,6 +26,7 @@
 #include "MnLupiarBall.h"
 
 #include "MnChargeEffect.h"
+#include "MnPrayEffect.h"
 
 namespace Mn
 {
@@ -35,6 +36,7 @@ namespace Mn
 		, _Animator(nullptr)
 		, _Rigidbody(nullptr)
 		, _Image(nullptr)
+		, _PrayEffect(nullptr)
 		, _DashCharge(0.0f)
 		, _HurtTime(0.0f)
 		, _AlphaTime(0.0f)
@@ -51,7 +53,7 @@ namespace Mn
 		, _Death(false)
 		, _Dir(eDir::R)
 		, _col(24)
-		, _row(44)
+		, _row(46)
 		, _AlphaDegree(90)
 		, _DoubleJump(0)
 		, _ComboCount(0)
@@ -160,6 +162,10 @@ namespace Mn
 		_Animator->CreateAnimation(L"Death_Right", _Image, Vector2(0, (48 * 42)), _col, _row, 24, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Death_Left", _Image, Vector2(0, (48 * 43)), _col, _row, 24, Vector2::Zero, 0.08);
 
+		_Animator->CreateAnimation(L"Pray_Right", _Image, Vector2(0, (48 * 44)), _col, _row, 10, Vector2::Zero, 0.08);
+		_Image = Resources::Load<Image>(L"Kaho_Pray", L"..\\Resources\\Kaho_Pray_Left_alpha.bmp");
+		_Animator->CreateAnimation(L"Pray_Left", _Image, Vector2(0,0), 10, 1, 10, Vector2::Zero, 0.08);
+
 		//-------------------------------------------------------------------------------------------------------------------
 		//
 		//													Events
@@ -221,7 +227,14 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"PostDash_Right") = std::bind(&Kaho_Human::postDashComplete, this);
 		_Animator->GetCompleteEvent(L"PostDash_Left") = std::bind(&Kaho_Human::postDashComplete, this);
 
+		_Animator->FindAnimation(L"Pray_Right")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Kaho_Human::pray, this);
+		_Animator->FindAnimation(L"Pray_Left")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Kaho_Human::pray, this);
+		_Animator->FindAnimation(L"Pray_Right")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&Kaho_Human::pray, this);
+		_Animator->FindAnimation(L"Pray_Left")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&Kaho_Human::pray, this);
+
 		
+		_Animator->GetCompleteEvent(L"Pray_Right") = std::bind(&Kaho_Human::afterpray, this);
+		_Animator->GetCompleteEvent(L"Pray_Left") = std::bind(&Kaho_Human::afterpray, this);
 
 		//----------------------------------------------------------------------------------------------------------------
 		
@@ -369,6 +382,7 @@ namespace Mn
 		{
 			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
@@ -376,9 +390,20 @@ namespace Mn
 
 			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
+			}
+		}
+		if (other->Owner()->GetName() == L"Bell")
+		{
+			if (Input::GetKeyDown(eKeyCode::Up))
+			{
+				if(_Dir==eDir::R)
+					_Animator->Play(L"Pray_Right", false);
+				else
+					_Animator->Play(L"Pray_Left", false);
 			}
 		}
 	}
@@ -1090,5 +1115,26 @@ namespace Mn
 		_PlayerStatus = ePlayerStatus::Fall;
 		animationCtrl();
 		_DashCharge = 0.0f;
+	}
+	void Kaho_Human::pray()
+	{
+		if (_PrayEffect == nullptr)
+		{
+			_PrayEffect = object::Instantiate<PrayEffect>(_pos,eLayerType::Effect);
+		}
+		else
+		{
+			_PrayEffect->State(eState::Death);
+			_PrayEffect = nullptr;
+		}
+		if (_Hp <= 100)
+		{
+			_Hp = 100;
+		}
+	}
+	void Kaho_Human::afterpray()
+	{
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
 	}
 }

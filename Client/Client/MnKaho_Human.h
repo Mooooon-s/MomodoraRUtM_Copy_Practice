@@ -2,6 +2,7 @@
 #include "MnGameObject.h"
 #include "MnPlayerEnum.h"
 #include "MnImage.h"
+#include "MnPrayEffect.h"
 
 namespace Mn
 {
@@ -13,6 +14,7 @@ namespace Mn
 		ePlayerStatus	_PlayerStatus;
 		Animator*		_Animator;
 		Rigidbody*		_Rigidbody;
+		PrayEffect*		_PrayEffect;
 		Vector2			_pos;
 		Image*			_Image;
 		eDir			_Dir;
@@ -92,6 +94,8 @@ namespace Mn
 		void preDashComplete();
 		void DashComplete();
 		void postDashComplete();
+		void pray();
+		void afterpray();
 	};
 }
 
