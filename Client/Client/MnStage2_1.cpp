@@ -10,6 +10,7 @@
 #include "MnPortal.h"
 #include "MnItemBox.h"
 #include "MnPlayerHpBar.h"
+#include "MnBell.h"
 namespace Mn
 {
 	Kaho* Stage2_1::_Kaho = nullptr;
@@ -39,6 +40,8 @@ namespace Mn
 		_Portal = object::Instantiate<Portal>(Vector2(0,350),eLayerType::Portal);
 		_Portal->GetComponent<Collider>()->Size(Vector2(10 * 3, 400));
 		_Portal->moveToScene(eSceneType::stage2_2);
+		Bell* bell = object::Instantiate<Bell>(Vector2(461,674),eLayerType::Ground);
+		bell->BellNumber(2);
 		_Kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void Stage2_1::Update()
@@ -65,6 +68,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		_Kaho->HP(SceneManager::GetDontDestroyHP());
 		_Kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());

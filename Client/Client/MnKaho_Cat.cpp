@@ -287,6 +287,7 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 		{
+			_Hp -= 15;
 			_GetDamage = false;
 			_PlayerStatus = ePlayerStatus::Hurt;
 			animationCtrl();

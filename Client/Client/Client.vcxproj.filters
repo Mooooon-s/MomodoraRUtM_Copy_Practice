@@ -104,6 +104,9 @@
     <Filter Include="Contents\Boss">
       <UniqueIdentifier>{b2eb9c73-84ed-4936-8731-2af91a1fc973}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Bell">
+      <UniqueIdentifier>{439c709b-9ede-406a-8c09-77eead90aee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -367,6 +370,12 @@
     <ClInclude Include="MnMagnoliaBoss.h">
       <Filter>Contents\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="MnBell.h">
+      <Filter>Contents\Bell</Filter>
+    </ClInclude>
+    <ClInclude Include="MnPrayEffect.h">
+      <Filter>Contents\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -621,6 +630,12 @@
     </ClCompile>
     <ClCompile Include="MnMagnoliaBoss.cpp">
       <Filter>Contents\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="MnBell.cpp">
+      <Filter>Contents\Bell</Filter>
+    </ClCompile>
+    <ClCompile Include="MnPrayEffect.cpp">
+      <Filter>Contents\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

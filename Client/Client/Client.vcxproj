@@ -146,6 +146,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Commoninclude.h" />
+    <ClInclude Include="MnBell.h" />
     <ClInclude Include="MnBigPlant.h" />
     <ClInclude Include="MnBomb.h" />
     <ClInclude Include="MnCath.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="MnPlayerHpBar.h" />
     <ClInclude Include="MnPlayScene.h" />
     <ClInclude Include="MnPortal.h" />
+    <ClInclude Include="MnPrayEffect.h" />
     <ClInclude Include="MnResource.h" />
     <ClInclude Include="MnResources.h" />
     <ClInclude Include="MnRigidbody.h" />
@@ -232,6 +234,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnBell.cpp" />
     <ClCompile Include="MnMagnoliaBoss.cpp" />
     <ClCompile Include="MnChargeEffect.cpp" />
     <ClCompile Include="MnMagArrow.cpp" />
@@ -280,6 +283,7 @@
     <ClCompile Include="MnMeleeEffect.cpp" />
     <ClCompile Include="MnMonkey.cpp" />
     <ClCompile Include="MnPlayerHpBar.cpp" />
+    <ClCompile Include="MnPrayEffect.cpp" />
     <ClCompile Include="MnScene.cpp" />
     <ClCompile Include="MnSceneManager.cpp" />
     <ClCompile Include="MnPlayScene.cpp" />
