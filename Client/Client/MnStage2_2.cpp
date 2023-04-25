@@ -30,11 +30,11 @@ namespace Mn
 	{
 		SetName(L"Stage2_2");
 		Scene::Initialize();
-		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_Kaho = object::Instantiate<Kaho>(Vector2(900, 300), eLayerType::Player);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(900, 300), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(900, 300), eLayerType::Player);
+		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		object::Instantiate<CatPeasant>(Vector2(159,300),eLayerType::Monster);
 		object::Instantiate<CatPeasant>(Vector2(800,674),eLayerType::Monster);
 		object::Instantiate<Ground>(eLayerType::Ground);

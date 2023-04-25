@@ -31,11 +31,11 @@ namespace Mn
 		SetName(L"Stage3_1");
 		Scene::Initialize();
 		object::Instantiate<Stage3BG>(eLayerType::BG);
-		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_Kaho = object::Instantiate<Kaho>(Vector2(100, 700), eLayerType::Player);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(100, 700), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(100, 700), eLayerType::Player);
+		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		object::Instantiate<Ground>(eLayerType::Ground);
 		_Portal = object::Instantiate<Portal>(Vector2(900,0),eLayerType::Portal);
 		_Portal->GetComponent<Collider>()->Size(Vector2(10,600));

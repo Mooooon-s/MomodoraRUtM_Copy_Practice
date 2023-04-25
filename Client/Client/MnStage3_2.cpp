@@ -30,11 +30,11 @@ namespace Mn
 		SetName(L"Stage3_2");
 		Scene::Initialize();
 		object::Instantiate<Stage3BG>(eLayerType::BG);
-		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(60, 660), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(60, 660), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(60, 660), eLayerType::Player);
+		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		object::Instantiate<Ground>(eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 		_Portal = object::Instantiate<Portal>(Vector2(955, 0), eLayerType::Portal);

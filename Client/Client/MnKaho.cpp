@@ -41,6 +41,7 @@ namespace Mn
 			kahoCat->Active(eState::Active);
 			kahoHuman->Active(eState::Pause);
 			kahoHuman->PlayerStatus(ePlayerStatus::Idle);
+			kahoCat->SyncHp(_Hp);
 			kahoCat->animationCtrl();
 			if(Camera::GetTarget()!=nullptr)
 				Camera::SetTarget(kahoCat);
@@ -52,6 +53,7 @@ namespace Mn
 			kahoCat->Active(eState::Pause);
 			kahoHuman->Active(eState::Active);
 			kahoCat->PlayerStatus(ePlayerStatus::Idle);
+			kahoHuman->SyncHp(_Hp);
 			kahoHuman->animationCtrl();
 			if (Camera::GetTarget() != nullptr)
 				Camera::SetTarget(kahoHuman);
@@ -60,6 +62,7 @@ namespace Mn
 		{
 			kahoCat->Dir(_Dir);
 			_bIsCat = true;
+			kahoCat->SyncHp(_Hp);
 			kahoCat->Active(eState::Active);
 			kahoHuman->Active(eState::Pause);
 			kahoHuman->PlayerStatus(ePlayerStatus::Idle);
@@ -68,7 +71,16 @@ namespace Mn
 				Camera::SetTarget(kahoCat);
 			_Swap = true;
 		}
+		else if(_Swap == false && _bIsCat == false)
+		{
+			kahoHuman->SyncHp(_Hp);
+			_Swap = true;
+		}
 		tr->Pos(_Pos);
+		if (_bIsCat == false)
+			_Hp = kahoHuman->SyncHp();
+		else
+			_Hp =kahoCat->SyncHp();
 	}
 
 	void Kaho::Render(HDC hdc)

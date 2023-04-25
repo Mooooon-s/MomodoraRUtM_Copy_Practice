@@ -36,11 +36,11 @@ namespace Mn
 		SetName(L"Stage2_3");
 		Scene::Initialize();
 		object::Instantiate<UnderGroundBG>(eLayerType::BG);
-		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_Kaho = object::Instantiate<Kaho>(Vector2(51, 600), eLayerType::Player);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(51, 600), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(51, 600), eLayerType::Player);
+		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		_Portal = object::Instantiate<Portal>(Vector2(1367,550),eLayerType::Portal);
 		_Portal->GetComponent<Collider>()->Size(Vector2(100, 300));
 		_Portal->moveToScene(eSceneType::stage3_1);

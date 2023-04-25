@@ -19,6 +19,8 @@ namespace Mn
 		:_KahoHuman(nullptr)
 		, _KahoCat(nullptr)
 		, _Portal(nullptr)
+		, _PlayerHpBar(nullptr)
+		, _ItemBox(nullptr)
 	{
 	}
 	firstStageScene::~firstStageScene()
@@ -29,8 +31,6 @@ namespace Mn
 		SetName(L"Stage1_1");
 		Scene::Initialize();
 		object::Instantiate<BG>(eLayerType::BG);
-		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f),eLayerType::UI);
-		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(30.0f, 570.0f), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(30.0f, 570.0f), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(30.0f, 570.0f), eLayerType::Player);
@@ -38,6 +38,8 @@ namespace Mn
 		object::Instantiate<ImpBomb>(Vector2(1601, 382), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		_Portal = object::Instantiate<Portal>(Vector2(1700,600), eLayerType::Portal);
+		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
+		_PlayerHpBar = object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f),eLayerType::UI);
 		_Portal->moveToScene(eSceneType::stage1_2);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
@@ -69,6 +71,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Attack, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
+		_PlayerHpBar->Hp(SceneManager::GetDontDestroyHP());
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());

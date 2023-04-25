@@ -12,6 +12,7 @@ enum class ePlayerStatus
 	Shoot,
 	Roll,
 	UseItem,
+	Death,
 };
 
 enum class eDir

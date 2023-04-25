@@ -23,11 +23,13 @@ namespace Mn
 		float			_Jumpforce;
 		float			_MoveSpeed;
 		float			_CoolTime;
+		float			_Hp;
 		bool			_DashOn;
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
 		bool			_GetDamage;
+		bool			_Death;
 		int				_ComboCount;
 		int				_DoubleJump;
 		int				_col;
@@ -46,11 +48,13 @@ namespace Mn
 		void OnCollisionStay(class Collider* other) override;
 		void OnCollisionExit(class Collider* other) override;
 	public:
+		float MoveSpeed() { return _MoveSpeed; }
 		void PlayerStatus(ePlayerStatus status) { _PlayerStatus = status; }
 		void Dir(eDir dir) { _Dir = dir; }
 		eDir Dir() { return _Dir; }
 		void Active(eState state) { GameObject::State(state); }
-		float MoveSpeed() { return _MoveSpeed; }
+		void SyncHp(float hp) { _Hp = hp; }
+		float SyncHp() { return _Hp; }
 		void animationCtrl();
 	private:
 		void alpha();

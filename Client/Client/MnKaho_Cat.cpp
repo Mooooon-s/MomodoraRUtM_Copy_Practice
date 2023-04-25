@@ -34,19 +34,21 @@ namespace Mn
 		, _State(eState::Pause)
 		, _Animator(nullptr)
 		, _Dir(eDir::R)
-		, _Combo(false)
 		, _Dashtime(0.0f)
 		, _HurtTime(0.0f)
 		, _AlphaTime(0.0f)
 		, _DamageTime(0.0f)
 		, _Jumpforce(550.0f)
 		, _MoveSpeed(0.0f)
+		, _CoolTime(0.0f)
+		, _Combo(false)
+		, _Death(false)
+		, _DashOn(true)
 		, _GetDamage(true)
 		, _AlphaDegree(90)
 		, _DoubleJump(0)
 		, _ComboCount(0)
-		, _CoolTime(0.0f)
-		, _DashOn(true)
+		, _Hp(100)
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -206,6 +208,12 @@ namespace Mn
 
 			if (_DoubleJump != 0 && _Rigidbody->GetGround() == true)
 				_DoubleJump = 0;
+			if (_Hp <= 0 && _Death == false)
+			{
+				_Death = true;
+				_PlayerStatus = ePlayerStatus::Death;
+				animationCtrl();
+			}
 
 			GameObject::Update();
 		}
@@ -232,38 +240,46 @@ namespace Mn
 	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Cat::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus !=ePlayerStatus::Roll)
+		if (_Death == false)
 		{
-			_GetDamage = false;
-			_PlayerStatus=ePlayerStatus::Hurt;
-			animationCtrl();
-		}
-		if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
-		{
-			_GetDamage = false;
-			_PlayerStatus = ePlayerStatus::Hurt;
-			animationCtrl();
-		}
-		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
-		{
-			if (dynamic_cast<Knife*>(other->Owner()))
+
+			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
-				dynamic_cast<Knife*>(other->Owner())->Hit();
+				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
-			if (dynamic_cast<MonMeleeAttack*>(other->Owner())
-				|| dynamic_cast<Staff*>(other->Owner())
-				|| dynamic_cast<Flame*>(other->Owner())
-				|| dynamic_cast<MagArrow*>(other->Owner())
-				|| dynamic_cast<FireBall*>(other->Owner())
-				|| dynamic_cast<FireFlame*>(other->Owner())
-				|| dynamic_cast<LupiarBall*>(other->Owner()))
+			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
+			}
+			if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			{
+				if (dynamic_cast<Knife*>(other->Owner()))
+				{
+					_Hp -= 15;
+					dynamic_cast<Knife*>(other->Owner())->Hit();
+					_GetDamage = false;
+					_PlayerStatus = ePlayerStatus::Hurt;
+					animationCtrl();
+				}
+				if (dynamic_cast<MonMeleeAttack*>(other->Owner())
+					|| dynamic_cast<Staff*>(other->Owner())
+					|| dynamic_cast<Flame*>(other->Owner())
+					|| dynamic_cast<MagArrow*>(other->Owner())
+					|| dynamic_cast<FireBall*>(other->Owner())
+					|| dynamic_cast<FireFlame*>(other->Owner())
+					|| dynamic_cast<LupiarBall*>(other->Owner()))
+				{
+					_Hp -= 15;
+					_GetDamage = false;
+					_PlayerStatus = ePlayerStatus::Hurt;
+					animationCtrl();
+				}
 			}
 		}
 	}
@@ -852,6 +868,12 @@ namespace Mn
 				_Animator->Play(L"Cat_Crouch_Right", false);
 			else
 				_Animator->Play(L"Cat_Crouch_Left", false);
+			break;
+		case ePlayerStatus::Death:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Cat_Death_Right", false);
+			else
+				_Animator->Play(L"Cat_Death_Left", false);
 			break;
 		default:
 			break;

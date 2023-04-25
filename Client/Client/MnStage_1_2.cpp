@@ -23,6 +23,7 @@ namespace Mn
 		, _KahoHuman(nullptr)
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
+		, _PlayerHpBar(nullptr)
 	{
 	}
 	Stage_1_2::~Stage_1_2()
@@ -33,11 +34,12 @@ namespace Mn
 		SetName(L"Stage1_2");
 		Scene::Initialize();
 		object::Instantiate<BG>(eLayerType::BG);
-		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
-		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(50.0f, 240.0f), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(50.0f, 240.0f), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(50.0f, 240.0f), eLayerType::Player);
+
+		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
+		_PlayerHpBar = object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		_Portal= object::Instantiate<Portal>(Vector2(950, 770), eLayerType::Portal);
 		object::Instantiate<ImpKnife>(Vector2(630, 238), eLayerType::Monster);
 		object::Instantiate<Imp>(Vector2(600, 700),eLayerType::Monster);
@@ -76,6 +78,7 @@ namespace Mn
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());
+		_PlayerHpBar->Hp(SceneManager::GetDontDestroyHP());
 	}
 	void Stage_1_2::OnExit()
 	{

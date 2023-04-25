@@ -31,6 +31,8 @@ namespace Mn
 		: _KahoHuman(nullptr)
 		, _KahoCat(nullptr)
 		, _portal(nullptr)
+		, _PlayerHpBar(nullptr)
+		, _ItemBox(nullptr)
 	{
 	}
 	PlayScene::~PlayScene()
@@ -42,7 +44,6 @@ namespace Mn
 		Scene::Initialize();
 		//배경 객체 생성
 		object::Instantiate<BG>(eLayerType::BG);
-		object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		//플레이어 객체 생성
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(50.0f, 620.0f), eLayerType::Player);
@@ -50,6 +51,7 @@ namespace Mn
 		_kaho =object::Instantiate<Kaho>(Vector2(50.0f,620.0f),eLayerType::Player);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		_portal=object::Instantiate<Portal>(Vector2(1500.0f, 500.0f),eLayerType::Portal);
+		_PlayerHpBar = object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
 		_portal->moveToScene(eSceneType::Stage1);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
@@ -103,6 +105,7 @@ namespace Mn
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());
+		_PlayerHpBar->Hp(SceneManager::GetDontDestroyHP());
 	}
 	void PlayScene::OnExit()
 	{

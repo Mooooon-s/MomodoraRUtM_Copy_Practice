@@ -23,6 +23,8 @@ namespace Mn
 		float			_Jumpforce;
 		float			_MoveSpeed;
 		float			_CoolTime;
+		float			_Hp;
+		bool			_Death;
 		bool			_DashOn;
 		bool			_GetDamage;
 		bool			_Combo;
@@ -46,6 +48,8 @@ namespace Mn
 		eDir Dir() { return _Dir; }
 		void Active(eState state) { GameObject::State(state); }
 		float MoveSpeed() { return _MoveSpeed; }
+		void SyncHp(float hp) { _Hp = hp; }
+		float SyncHp() { return _Hp; }
 		void animationCtrl();
 	private:
 		void idle();

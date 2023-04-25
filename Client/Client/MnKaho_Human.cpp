@@ -30,7 +30,7 @@
 namespace Mn
 {
 	Kaho_Human::Kaho_Human()
-		:GameObject()
+		: GameObject()
 		, _PlayerStatus(ePlayerStatus::Idle)
 		, _Animator(nullptr)
 		, _Rigidbody(nullptr)
@@ -42,11 +42,13 @@ namespace Mn
 		, _Jumpforce(550.0f)
 		, _MoveSpeed(0.0f)
 		, _CoolTime(0.0f)
+		, _Hp(100.0f)
 		, _DashOn(true)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
 		, _GetDamage(true)
+		, _Death(false)
 		, _Dir(eDir::R)
 		, _col(24)
 		, _row(44)
@@ -284,6 +286,15 @@ namespace Mn
 			_AlphaTime += Time::DeltaTime();
 			if (_DoubleJump != 0 && _Rigidbody->GetGround() == true)
 				_DoubleJump = 0;
+			
+			if (_Hp <= 0 && _Death==false)
+			{
+				_Death = true;
+				_PlayerStatus = ePlayerStatus::Death;
+				animationCtrl();
+			}
+
+
 			GameObject::Update();
 		}
 	}
@@ -310,58 +321,66 @@ namespace Mn
 	//-------------------------------------------------------------------------------------------------------------------
 	void Kaho_Human::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage==true && _PlayerStatus!=ePlayerStatus::Roll)
+		if (_Death == false)
 		{
-			_GetDamage = false;
-			_PlayerStatus = ePlayerStatus::Hurt;
-			animationCtrl();
-		}
-		if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
-		{
-			_GetDamage = false;
-			_PlayerStatus = ePlayerStatus::Hurt;
-			animationCtrl();
-		}
-
-		if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
-		{
-			if (dynamic_cast<Knife*>(other->Owner()))
+			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
-				dynamic_cast<Knife*>(other->Owner())->Hit();
+				_Hp -= 10;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
-			if (dynamic_cast<MonMeleeAttack*>(other->Owner())
-				|| dynamic_cast<Staff*>(other->Owner())
-				|| dynamic_cast<Flame*>(other->Owner())
-				|| dynamic_cast<FireBall*>(other->Owner())
-				|| dynamic_cast<FireFlame*>(other->Owner())
-				|| dynamic_cast<LupiarBall*>(other->Owner()))
+			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_Hp -= 10;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
-		}
 
+			if (other->Owner()->GetName() == L"Throws" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			{
+				if (dynamic_cast<Knife*>(other->Owner()))
+				{
+					dynamic_cast<Knife*>(other->Owner())->Hit();
+					_GetDamage = false;
+					_Hp -= 10;
+					_PlayerStatus = ePlayerStatus::Hurt;
+					animationCtrl();
+				}
+				if (dynamic_cast<MonMeleeAttack*>(other->Owner())
+					|| dynamic_cast<Staff*>(other->Owner())
+					|| dynamic_cast<Flame*>(other->Owner())
+					|| dynamic_cast<FireBall*>(other->Owner())
+					|| dynamic_cast<FireFlame*>(other->Owner())
+					|| dynamic_cast<LupiarBall*>(other->Owner()))
+				{
+					_GetDamage = false;
+					_Hp -= 10;
+					_PlayerStatus = ePlayerStatus::Hurt;
+					animationCtrl();
+				}
+			}
+		}
 	}
 	void Kaho_Human::OnCollisionStay(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+		if (_Death == false)
 		{
-			_GetDamage = false;
-			_PlayerStatus = ePlayerStatus::Hurt;
-			animationCtrl();
-		}
+			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
 
-		if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
-		{
-			_GetDamage = false;
-			_PlayerStatus = ePlayerStatus::Hurt;
-			animationCtrl();
+			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			{
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
 		}
-
 	}
 	void Kaho_Human::OnCollisionExit(Collider* other)
 	{
@@ -474,6 +493,12 @@ namespace Mn
 				_Animator->Play(L"Hurt_Right", false);
 			else
 				_Animator->Play(L"Hurt_Left", false);
+			break;
+		case ePlayerStatus::Death:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Death_Right", false);
+			else
+				_Animator->Play(L"Death_Left", false);
 			break;
 		default:
 			break;
