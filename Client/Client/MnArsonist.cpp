@@ -14,6 +14,7 @@
 #include "MnFireBall.h"
 #include "MnFlame.h"
 #include "MnFireFlame.h"
+#include "MnChargeEffect.h"
 namespace Mn
 {
 	Arsonist::Arsonist()
@@ -31,6 +32,7 @@ namespace Mn
 		, _HurtTime(0.0f)
 		, _KnockBack(15.0f)
 		, _FireBall(nullptr)
+		, _FireFlame(nullptr)
 		, _Ready(0)
 	{
 	}
@@ -269,11 +271,16 @@ namespace Mn
 
 	void Arsonist::think()
 	{
+
 		Transform* Tr = this->GetComponent<Transform>();
 		Transform* playerTr = _Kaho->GetComponent<Transform>();
 		float distX = Tr->Pos().x - playerTr->Pos().x;
 		float distY = Tr->Pos().y - playerTr->Pos().y;
 		Vector2 pos = Tr->Pos();
+		
+		ChargeEffect* effect = object::Instantiate<ChargeEffect>(Vector2(pos.x, pos.y - (24 * 3)), eLayerType::ChargeEffect);
+		effect->GetOwnerObject(this);
+		
 		if (distX <= 0)
 		{
 			_Dir = eDir::R;

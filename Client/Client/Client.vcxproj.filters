@@ -361,6 +361,9 @@
     <ClInclude Include="MnPortal.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="MnChargeEffect.h">
+      <Filter>Contents\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -609,6 +612,9 @@
     </ClCompile>
     <ClCompile Include="MnPortal.cpp">
       <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnChargeEffect.cpp">
+      <Filter>Contents\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

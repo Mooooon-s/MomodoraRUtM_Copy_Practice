@@ -12,6 +12,7 @@
 #include "MnKaho.h"
 #include "MnSceneManager.h"
 #include "MnHitEffect.h"
+#include "MnChargeEffect.h"
 
 namespace Mn
 {
@@ -31,6 +32,7 @@ namespace Mn
 		, _LupiarBall(nullptr)
 		, _MeleeAttack(nullptr)
 		, _Kaho(nullptr)
+		, _KnockBack(0.0f)
 	{
 	}
 	Lupiar::~Lupiar()
@@ -193,6 +195,10 @@ namespace Mn
 	}
 	void Lupiar::think()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->Pos();
+		ChargeEffect* effect = object::Instantiate<ChargeEffect>(Vector2(pos.x, pos.y - (24 * 3)), eLayerType::ChargeEffect);
+		effect->GetOwnerObject(this);
 		int num = (rand() % 5)+3;
 		_State = eLupiarState(num);
 		animationCtrl();

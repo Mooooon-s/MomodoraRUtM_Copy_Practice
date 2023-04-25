@@ -23,6 +23,7 @@ enum class eLayerType {
 	Ground,
 	Trriger,
 	Tile,
+	ChargeEffect,
 	Monster,
 	NPC,
 	Player,

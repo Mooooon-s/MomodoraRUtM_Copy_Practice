@@ -30,6 +30,7 @@ namespace Mn
 		float			_Timer;
 		float			_ArrowTimer;
 		bool			_Jump;
+		bool			_On;
 	public:
 		Magnolia();
 		~Magnolia();

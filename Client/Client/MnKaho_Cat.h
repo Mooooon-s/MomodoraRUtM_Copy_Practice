@@ -22,6 +22,8 @@ namespace Mn
 		float			_AlphaTime;
 		float			_Jumpforce;
 		float			_MoveSpeed;
+		float			_CoolTime;
+		bool			_DashOn;
 		bool			_GetDamage;
 		bool			_Combo;
 		int				_AlphaDegree;

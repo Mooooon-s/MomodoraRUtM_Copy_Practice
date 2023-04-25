@@ -8,6 +8,7 @@
 #include "MnTime.h"
 #include "MnMagArrow.h"
 #include "MnObject.h"
+#include "MnChargeEffect.h"
 namespace Mn
 {
 	Magnolia::Magnolia()
@@ -19,6 +20,7 @@ namespace Mn
 		, _Dir(eDir::R)
 		, _Timer(0.0f)
 		, _ArrowTimer(0.0f)
+		, _On(true)
 
 	{
 		Transform* Tr = GetComponent<Transform>();
@@ -164,6 +166,8 @@ namespace Mn
 			_ArrowTimer += Time::DeltaTime();
 			if (_ArrowTimer >= 0.2)
 			{
+				ChargeEffect* effect = object::Instantiate<ChargeEffect>(Vector2(pos.x, pos.y-(24*3)),eLayerType::ChargeEffect);
+				effect->GetOwnerObject(this);
 				MagArrow* mag = object::Instantiate<MagArrow>(pos,eLayerType::Throws);
 				mag->BlowUp(false);
 				_ArrowTimer = 0;
@@ -174,9 +178,17 @@ namespace Mn
 	{
 		Transform* Tr = GetComponent<Transform>();
 		Vector2 pos = Tr->Pos();
+
 		if (_Jump == true)
 		{
-
+			_ArrowTimer += Time::DeltaTime();
+			if (_ArrowTimer >= 0.3&& _On==true)
+			{
+				ChargeEffect* effect = object::Instantiate<ChargeEffect>(Vector2(pos.x, pos.y - (24 * 3)), eLayerType::ChargeEffect);
+				effect->GetOwnerObject(this);
+				_On = false;
+				_ArrowTimer = 0;
+			}
 			if (pos.x <= 480)
 			{
 				pos.x += 400 * Time::DeltaTime();
@@ -187,7 +199,6 @@ namespace Mn
 				_Jump = false;
 				_State = eMagnoliaState::DisAppear;
 			}
-
 		}
 	}
 	void Magnolia::showUp()
@@ -218,6 +229,7 @@ namespace Mn
 		if (_Timer >= 4)
 		{
 			_State = eMagnoliaState::ShowUp;
+			_On = true;
 		}
 	}
 	void Magnolia::afterPattarn()

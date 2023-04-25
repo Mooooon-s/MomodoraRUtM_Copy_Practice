@@ -55,6 +55,7 @@ namespace Mn
 		pos.x -= ((_SpriteSheet[_SpriteIndex].size.x / 2.0f)*scale.x);
 		pos.y -= ((_SpriteSheet[_SpriteIndex].size.y)*scale.y);
 		
+
 		if (_Animator->Owner()->GetName() == L"Player")
 		{
 			BLENDFUNCTION func = {};
@@ -66,6 +67,26 @@ namespace Mn
 			AlphaBlend(hdc, pos.x, pos.y
 				, _SpriteSheet[_SpriteIndex].size.x * scale.x
 				, _SpriteSheet[_SpriteIndex].size.y *scale.y
+				, _ImageSheet->Hdc()
+				, _SpriteSheet[_SpriteIndex].leftTop.x
+				, _SpriteSheet[_SpriteIndex].leftTop.y
+				, _SpriteSheet[_SpriteIndex].size.x
+				, _SpriteSheet[_SpriteIndex].size.y
+				, func);
+			if (_Alpha == 0)
+				_Alpha = 255;
+		}
+		else if (_Animator->Owner()->GetName() == L"ChargeEffect")
+		{
+			BLENDFUNCTION func = {};
+			func.BlendOp = AC_SRC_OVER;
+			func.BlendFlags = 0;
+			func.AlphaFormat = AC_SRC_ALPHA;
+			func.SourceConstantAlpha = 127;
+
+			AlphaBlend(hdc, pos.x, pos.y
+				, _SpriteSheet[_SpriteIndex].size.x * 3
+				, _SpriteSheet[_SpriteIndex].size.y * 3
 				, _ImageSheet->Hdc()
 				, _SpriteSheet[_SpriteIndex].leftTop.x
 				, _SpriteSheet[_SpriteIndex].leftTop.y

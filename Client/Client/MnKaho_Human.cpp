@@ -24,6 +24,9 @@
 #include "MnFlame.h"
 
 #include "MnLupiarBall.h"
+
+#include "MnChargeEffect.h"
+
 namespace Mn
 {
 	Kaho_Human::Kaho_Human()
@@ -38,6 +41,8 @@ namespace Mn
 		, _DamageTime(0.0f)
 		, _Jumpforce(550.0f)
 		, _MoveSpeed(0.0f)
+		, _CoolTime(0.0f)
+		, _DashOn(true)
 		, _Combo(false)
 		, _IsCrouch(false)
 		, _IsGround(true)
@@ -262,6 +267,17 @@ namespace Mn
 				break;
 			default:
 				break;
+			}
+
+			if (_DashOn == false)
+			{
+				_CoolTime -= Time::DeltaTime();
+				if (_CoolTime < 0.0f)
+				{
+					ChargeEffect* effect = object::Instantiate<ChargeEffect>(Vector2(_pos.x, _pos.y - (24 * 3)), eLayerType::ChargeEffect);
+					effect->GetOwnerObject(this);
+					_DashOn = true;
+				}
 			}
 
 			tr->Pos(_pos);
@@ -730,8 +746,10 @@ namespace Mn
 			animationCtrl();
 		}
 
-		if (Input::GetKeyDown(eKeyCode::Q))
+		if (Input::GetKeyDown(eKeyCode::Q) && _DashOn == true)
 		{
+			_DashOn = false;
+			_CoolTime = 1.5f;
 			_MoveSpeed = 1200.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			if (_Dir == eDir::R)
@@ -778,8 +796,10 @@ namespace Mn
 			_Dir = eDir::R;
 		}
 
-		if (Input::GetKeyDown(eKeyCode::Q))
+		if (Input::GetKeyDown(eKeyCode::Q) && _DashOn == true)
 		{
+			_DashOn = false;
+			_CoolTime = 1.5f;
 			_MoveSpeed = 1200.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			if (_Dir == eDir::R)

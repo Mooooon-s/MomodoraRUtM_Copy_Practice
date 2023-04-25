@@ -150,6 +150,7 @@
     <ClInclude Include="MnBomb.h" />
     <ClInclude Include="MnCath.h" />
     <ClInclude Include="MnCatPeasant.h" />
+    <ClInclude Include="MnChargeEffect.h" />
     <ClInclude Include="MnFireBall.h" />
     <ClInclude Include="MnFireFlame.h" />
     <ClInclude Include="MnfirstStageScene.h" />
@@ -230,6 +231,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnChargeEffect.cpp" />
     <ClCompile Include="MnMagArrow.cpp" />
     <ClCompile Include="MnLupiarBall.cpp" />
     <ClCompile Include="MnCatPeasant.cpp" />

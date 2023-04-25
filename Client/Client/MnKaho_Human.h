@@ -22,6 +22,8 @@ namespace Mn
 		float			_DamageTime;
 		float			_Jumpforce;
 		float			_MoveSpeed;
+		float			_CoolTime;
+		bool			_DashOn;
 		bool			_Combo;
 		bool			_IsCrouch;
 		bool			_IsGround;
