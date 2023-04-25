@@ -187,6 +187,7 @@
     <ClInclude Include="MnLupiarBall.h" />
     <ClInclude Include="MnMagArrow.h" />
     <ClInclude Include="MnMagnolia.h" />
+    <ClInclude Include="MnMagnoliaBoss.h" />
     <ClInclude Include="MnMainMenuBG.h" />
     <ClInclude Include="MnMainMenuScene.h" />
     <ClInclude Include="MnMapTrriger.h" />
@@ -231,6 +232,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnMagnoliaBoss.cpp" />
     <ClCompile Include="MnChargeEffect.cpp" />
     <ClCompile Include="MnMagArrow.cpp" />
     <ClCompile Include="MnLupiarBall.cpp" />

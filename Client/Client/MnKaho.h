@@ -33,6 +33,8 @@ namespace Mn
 		void IsCat(bool iscat) { _bIsCat = iscat; }
 		float HP() { return _Hp; }
 		void HP(float hp) { _Hp = hp; }
+		int KahoDir();
+		Vector2 KahoColliderSize();
 		void GetCatHunam(Kaho_Cat* c, Kaho_Human* h) 
 		{ 
 			kahoCat = c; 

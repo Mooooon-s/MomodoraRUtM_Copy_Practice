@@ -99,4 +99,18 @@ namespace Mn
 			_Dir = kahoCat->Dir();
 		}
 	}
+	int Kaho::KahoDir()
+	{
+		if (_bIsCat)
+			return (int)kahoCat->Dir();
+		else
+			return (int)kahoHuman->Dir();
+	}
+	Vector2 Kaho::KahoColliderSize()
+	{
+		if (_bIsCat)
+			return kahoCat->GetComponent<Collider>()->Size();
+		else
+			return kahoHuman->GetComponent<Collider>()->Size();
+	}
 }

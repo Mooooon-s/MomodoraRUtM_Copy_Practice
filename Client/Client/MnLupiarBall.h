@@ -12,7 +12,7 @@ namespace Mn
 		Collider*	_Collider;
 		Rigidbody*	_Rigidbody;
 		Vector2		_DirVec;
-		float*		_Timer;
+		float		_Timer;
 		std::vector<Vector2> Fpos;
 	public:
 		LupiarBall();

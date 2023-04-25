@@ -12,6 +12,7 @@
 
 #include "MnMagnolia.h"
 #include "MnLupiar.h"
+#include "MnMagnoliaBoss.h"
 
 #include "MnMapTrriger.h"
 
@@ -51,8 +52,9 @@ namespace Mn
 		{
 			_Maptrriger->State(GameObject::eState::Death);
 			_Maptrriger = nullptr;
-			object::Instantiate<Magnolia>(Vector2(157, 800), eLayerType::Monster);
-			object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
+			//object::Instantiate<Magnolia>(Vector2(157, 800), eLayerType::Monster);
+			//object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
+			object::Instantiate<MagnoliaBoss>(Vector2(600, 671), eLayerType::Monster);
 		}
 		Scene::Update();
 	}
