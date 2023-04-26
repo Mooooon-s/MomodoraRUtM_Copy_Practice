@@ -23,6 +23,8 @@ namespace Mn
 		, _Dir(eDir::R)
 		, _MonState(eMonStats::Idle)
 		, _Kaho(nullptr)
+		, _Hp(30)
+		, _Timer(0.0f)
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos(Vector2(-100*3, -100*3));
@@ -80,9 +82,18 @@ namespace Mn
 		case eMonStats::Move:
 			move();
 			break;
+		case eMonStats::Death:
+			death();
+			break;
 		default:
 			break;
 		}
+
+		if (_Hp <= 0)
+		{
+			_MonState = eMonStats::Death;
+		}
+
 		GameObject::Update();
 	}
 	void BigPlant::Render(HDC hdc)
@@ -97,6 +108,7 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
+			_Hp -= 2;
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
 			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
@@ -105,6 +117,7 @@ namespace Mn
 		}
 		if (other->Owner()->GetName() == L"Arrow")
 		{
+			_Hp -= 1;
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
 			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
@@ -165,6 +178,12 @@ namespace Mn
 	}
 	void BigPlant::attack()
 	{
+	}
+	void BigPlant::death()
+	{
+		_Timer += Time::DeltaTime();
+		if (_Timer >= 1.5)
+			this->State(eState::Death);
 	}
 	void BigPlant::animatorCntrl()
 	{

@@ -75,32 +75,40 @@ namespace Mn
 	}
 	void Cath::Update()
 	{
-		Transform* bossTr = _Boss->GetComponent<Transform>();
-		Transform* Tr = GetComponent<Transform>();
-		Vector2 bossPos = bossTr->Pos();
-		Vector2 pos = Tr->Pos();
-		if (_AfterAction == true)
+		if (_Boss->GetComponent<Transform>() != nullptr)
 		{
-			_NpcState = eNpcState::Move;
-			animationCtrl();
-			_AfterAction = false;
+			Transform* bossTr = _Boss->GetComponent<Transform>();
+			Transform* Tr = GetComponent<Transform>();
+			Vector2 bossPos = bossTr->Pos();
+			Vector2 pos = Tr->Pos();
+			if (_AfterAction == true)
+			{
+				_NpcState = eNpcState::Move;
+				animationCtrl();
+				_AfterAction = false;
+			}
+			switch (_NpcState)
+			{
+			case eNpcState::Idle:
+				idle();
+				break;
+			case eNpcState::Attack:
+				attack();
+				break;
+			case eNpcState::Move:
+				move();
+				break;
+			case eNpcState::Hurt:
+				hurt();
+				break;
+			default:
+				break;
+			}
 		}
-		switch (_NpcState)
+		else
 		{
-		case eNpcState::Idle:
-			idle();
-			break;
-		case eNpcState::Attack:
-			attack();
-			break;
-		case eNpcState::Move:
-			move();
-			break;
-		case eNpcState::Hurt:
-			hurt();
-			break;
-		default:
-			break;
+			_NpcState = eNpcState::Idle();
+			animationCtrl();
 		}
 		GameObject:: Update();
 	}

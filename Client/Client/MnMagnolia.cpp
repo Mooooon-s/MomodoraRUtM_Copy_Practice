@@ -9,6 +9,8 @@
 #include "MnMagArrow.h"
 #include "MnObject.h"
 #include "MnChargeEffect.h"
+#include "MnMagnoliaBoss.h"
+
 namespace Mn
 {
 	Magnolia::Magnolia()
@@ -106,6 +108,14 @@ namespace Mn
 	}
 	void Magnolia::OnCollisionExit(Collider* other)
 	{
+	}
+	void Magnolia::Done()
+	{
+		if (_State == eMagnoliaState::ShowUp)
+		{
+			object::Instantiate<MagnoliaBoss>(Vector2(600, 671), eLayerType::Monster);
+			this->State(eState::Death);
+		}
 	}
 	void Magnolia::animationCtrl()
 	{

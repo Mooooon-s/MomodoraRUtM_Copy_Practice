@@ -43,6 +43,8 @@ namespace Mn
 		void OnCollisionEnter(class Collider* other) override;
 		void OnCollisionStay(class Collider* other) override;
 		void OnCollisionExit(class Collider* other) override;
+	public:
+		void Done();
 	private:
 		void animationCtrl();
 		void pattarn1();

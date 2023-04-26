@@ -15,6 +15,7 @@ namespace Mn
 			Idle,
 			Attack,
 			Move,
+			Death,
 		};
 		enum class eDir
 		{
@@ -28,6 +29,8 @@ namespace Mn
 		eDir		_Dir;
 		eMonStats   _MonState;
 		class Kaho* _Kaho;
+		float		_Hp;
+		float		_Timer;
 	public:
 		BigPlant();
 		~BigPlant();
@@ -44,6 +47,7 @@ namespace Mn
 		void idle();
 		void move();
 		void attack();
+		void death();
 		void animatorCntrl();
 		void beforAttack();
 		void afterAttack();

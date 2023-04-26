@@ -30,6 +30,7 @@ namespace Mn
 		eDir		_Dir;
 		bool		_HaveStaff;
 		float		_Ready;
+		float		_Hp;
 		class Kaho* _Kaho;
 		class Staff* _Staff;
 	public:
@@ -48,6 +49,7 @@ namespace Mn
 		void animationCtrl();
 		void idle();
 		void staff();
+		void death();
 		void throwStaff();
 	};
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include "MnGameObject.h"
+#include "MnBossHpBar.h"
+
 namespace Mn
 {
 	class Image;
@@ -33,6 +35,7 @@ namespace Mn
 		Rigidbody*		_Rigidbody;
 		Collider*		_Collider;
 		LupiarBall*		_LupiarBall;
+		BossHpBar*		_HpBar;
 		MonMeleeAttack* _MeleeAttack;
 		Kaho*			_Kaho;
 		eLupiarState	_State;
@@ -41,6 +44,7 @@ namespace Mn
 		float			_HurtTime;
 		float			_KnockBack;
 		int				_Count;
+		float			_Hp;
 		float			_MoveSpeed;
 		bool			_Dash;
 	public:

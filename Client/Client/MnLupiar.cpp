@@ -13,6 +13,8 @@
 #include "MnSceneManager.h"
 #include "MnHitEffect.h"
 #include "MnChargeEffect.h"
+#include "MnBossHpBar.h"
+#include "MnStage3_3.h"
 
 namespace Mn
 {
@@ -32,7 +34,9 @@ namespace Mn
 		, _LupiarBall(nullptr)
 		, _MeleeAttack(nullptr)
 		, _Kaho(nullptr)
+		, _HpBar(nullptr)
 		, _KnockBack(0.0f)
+		, _Hp(100)
 	{
 	}
 	Lupiar::~Lupiar()
@@ -86,9 +90,9 @@ namespace Mn
 		_Animator->FindAnimation(L"Lupiar_Attack1_Right")->GetSprite(1)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Dash, this);
 		_Animator->FindAnimation(L"Lupiar_Attack1_Right")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Dash, this);
 
-		_Animator->FindAnimation(L"Lupiar_Attack1_Left")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Attack, this);
+		_Animator->FindAnimation(L"Lupiar_Attack1_Left")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Attack, this);
 		_Animator->FindAnimation(L"Lupiar_Attack1_Left")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Attack, this);
-		_Animator->FindAnimation(L"Lupiar_Attack1_Right")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Attack, this);
+		_Animator->FindAnimation(L"Lupiar_Attack1_Right")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Attack, this);
 		_Animator->FindAnimation(L"Lupiar_Attack1_Right")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn1Attack, this);
 
 		_Animator->FindAnimation(L"Lupiar_Attack1_Left")->GetSprite(8)._Events._FrameEvent._Event = std::bind(&Lupiar::afterAction, this);
@@ -103,8 +107,8 @@ namespace Mn
 		_Animator->FindAnimation(L"Lupiar_Attack3_Right")->GetSprite(12)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn3Attack, this);
 		_Animator->FindAnimation(L"Lupiar_Attack3_Left")->GetSprite(12)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn3Attack, this);
 
-		_Animator->FindAnimation(L"Lupiar_Attack4_Right")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn4Attack, this);
-		_Animator->FindAnimation(L"Lupiar_Attack4_Left")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn4Attack, this);
+		_Animator->FindAnimation(L"Lupiar_Attack4_Right")->GetSprite(2)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn4Attack, this);
+		_Animator->FindAnimation(L"Lupiar_Attack4_Left")->GetSprite(2)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn4Attack, this);
 		_Animator->FindAnimation(L"Lupiar_Attack4_Right")->GetSprite(6)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn4Attack, this);
 		_Animator->FindAnimation(L"Lupiar_Attack4_Left")->GetSprite(6)._Events._FrameEvent._Event = std::bind(&Lupiar::pattarn4Attack, this);
 
@@ -127,12 +131,12 @@ namespace Mn
 				break;
 			}
 		}
-
-
+		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 650),eLayerType::UI);
 		GameObject::Initialize();
 	}
 	void Lupiar::Update()
 	{
+		_HpBar->Hp(_Hp);
 		switch (_State)
 		{
 		case eLupiarState::Idle:
@@ -163,6 +167,12 @@ namespace Mn
 			animationCtrl();
 			_KnockBack = 0;
 		}
+
+		if (_Hp <= 0 && _State != eLupiarState::Death)
+		{
+			_State = eLupiarState::Death;
+		}
+
 		GameObject::Update();
 	}
 	void Lupiar::Render(HDC hdc)
@@ -177,6 +187,7 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
+			_Hp -= 3;
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
 			pos.y -= (_Collider->Size().y / 2.0f);
@@ -226,9 +237,11 @@ namespace Mn
 	void Lupiar::death()
 	{
 		_HurtTime += Time::DeltaTime();
-		if (_HurtTime >= 3)
+		if (_HurtTime >= 0.5)
 		{
 			_HurtTime = 0;
+			dynamic_cast<Stage3_3*>(SceneManager::ActiveScene())->Page(true);
+			_HpBar->State(eState::Death);
 			this->State(eState::Death);
 		}
 	}

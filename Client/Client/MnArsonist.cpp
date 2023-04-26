@@ -15,6 +15,7 @@
 #include "MnFlame.h"
 #include "MnFireFlame.h"
 #include "MnChargeEffect.h"
+#include "MnBossHpBar.h"
 namespace Mn
 {
 	Arsonist::Arsonist()
@@ -33,7 +34,9 @@ namespace Mn
 		, _KnockBack(15.0f)
 		, _FireBall(nullptr)
 		, _FireFlame(nullptr)
+		, _HpBar(nullptr)
 		, _Ready(0)
+		, _Hp(100)
 	{
 	}
 	Arsonist::~Arsonist()
@@ -42,7 +45,6 @@ namespace Mn
 	void Arsonist::Initialize()
 	{
 		GameObject::SetName(L"Boss");
-
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos(Vector2(400.0f, 400.0f));
 		_Animator = AddComponent<Animator>();
@@ -70,6 +72,10 @@ namespace Mn
 		//hurt
 		_Animator->CreateAnimation(L"Hurt_Left", _Image, Vector2(0, 64 * 10), 13, 15, 1, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Hurt_Right", _Image, Vector2(48, 64 * 10), 13, 15, 1, Vector2::Zero, 0.08);
+		//Death
+		_Animator->CreateAnimation(L"Death_Left", _Image, Vector2(0, 64 * 10), 13, 15, 1, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Death_Right", _Image, Vector2(48, 64 * 10), 13, 15, 1, Vector2::Zero, 0.08);
+
 		//pattarn2,3
 		_Animator->CreateAnimation(L"stab_Left", _Image, Vector2(0, 64 * 11), 13, 15, 11, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"stab_Right", _Image, Vector2(0, 64 * 12), 13, 15, 11, Vector2::Zero, 0.08);
@@ -118,11 +124,13 @@ namespace Mn
 				break;
 			}
 		}
+		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 650), eLayerType::UI);
 		think();
 		GameObject::Initialize();
 	}
 	void Arsonist::Update()
 	{
+		_HpBar->Hp(_Hp);
 		if (_afterAction==true)
 		{
 			think();
@@ -155,10 +163,12 @@ namespace Mn
 		case eMonStatus::BackStep:
 			backStep();
 			break;
+		case eMonStatus::Death:
+			death();
+			break;
 		default:
 			break;
 		}
-
 		if(_HurtTime==0)
 			_KnockBack += Time::DeltaTime();
 
@@ -168,6 +178,12 @@ namespace Mn
 			_MonStatus = eMonStatus::Hurt;
 			animationCtrl();
 			_KnockBack = 0;
+		}
+
+		if (_Hp <= 0 && _MonStatus != eMonStatus::Death)
+		{
+			_MonStatus = eMonStatus::Death;
+			animationCtrl();
 		}
 		GameObject::Update();
 	}
@@ -182,25 +198,31 @@ namespace Mn
 
 	void Arsonist::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"meleeAttack")
+		if (_MonStatus != eMonStatus::Death)
 		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			pos.y -= (_Collider->Size().y / 2.0f);
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(0);
-			if (_KnockBack >= 15.0f)
-				_Count++;
-		}
-		if (other->Owner()->GetName() == L"Arrow")
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			pos.y -=(_Collider->Size().y/2.0f);
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(2);
+			if (other->Owner()->GetName() == L"meleeAttack"
+				|| other->Owner()->GetName() == L"NpcMeleeAttack")
+			{
+				_Hp -= 4;
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				pos.y -= (_Collider->Size().y / 2.0f);
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				hitEffect->AnimationCntrl(0);
+				if (_KnockBack >= 15.0f)
+					_Count++;
+			}
+			if (other->Owner()->GetName() == L"Arrow")
+			{
+				_Hp -= 1;
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				pos.y -= (_Collider->Size().y / 2.0f);
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				hitEffect->AnimationCntrl(2);
+			}
 		}
 	}
 
@@ -263,6 +285,12 @@ namespace Mn
 				_Animator->Play(L"Back_Step_Right", false);
 			else
 				_Animator->Play(L"Back_Step_Left", false);
+			break;
+		case eMonStatus::Death:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Death_Right", false);
+			else
+				_Animator->Play(L"Death_Left", false);
 			break;
 		default:
 			break;
@@ -367,6 +395,15 @@ namespace Mn
 			_MonStatus = eMonStatus::Idle;
 			_Count = 0;
 			_HurtTime = 0;
+		}
+	}
+	void Arsonist::death()
+	{
+		_HurtTime += Time::DeltaTime();
+		if (_HurtTime >= 3)
+		{
+			_HpBar->State(eState::Death);
+			this->State(eState::Death);
 		}
 	}
 	void Arsonist::attack()

@@ -3,6 +3,7 @@
 #include "MnImage.h"
 #include "MnFireBall.h"
 #include "MnFireFlame.h"
+#include "MnBossHpBar.h"
 
 namespace Mn
 {
@@ -22,6 +23,7 @@ namespace Mn
 			Pattarn2,
 			Pattarn3,
 			BackStep,
+			Death,
 		};
 		enum class eDir
 		{
@@ -35,6 +37,7 @@ namespace Mn
 		Image*		_Image;
 		FireBall*	_FireBall;
 		FireFlame*	_FireFlame;
+		BossHpBar*	_HpBar;
 		eDir		_Dir;
 		Vector2		_TeleportPos;
 		double		_time;
@@ -44,6 +47,7 @@ namespace Mn
 		float		_HurtTime;
 		float		_KnockBack;
 		float		_Ready;
+		float		_Hp;
 		class Kaho* _Kaho;
 	public:
 		Arsonist();
@@ -66,6 +70,7 @@ namespace Mn
 		void idle();
 		void move();
 		void hurt();
+		void death();
 		void attack();
 		void pattarn1();
 		void pattarn2();

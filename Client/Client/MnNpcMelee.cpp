@@ -15,8 +15,10 @@ namespace Mn
 	}
 	void NpcMelee::Initialize()
 	{
+		SetName(L"NpcMeleeAttack");
 		_Collider = AddComponent<Collider>();
 		_Collider->Size(Vector2(30 * 3, 35 * 3));
+		GameObject::Initialize();
 	}
 	void NpcMelee::Update()
 	{

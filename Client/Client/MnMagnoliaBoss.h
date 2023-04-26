@@ -1,6 +1,7 @@
 #pragma once
 #include "MnGameObject.h"
 #include "MnMonMeleeAttack.h"
+#include "MnBossHpBar.h"
 namespace Mn
 {
 	class Image;
@@ -29,11 +30,13 @@ namespace Mn
 		Animator*		_Animator;
 		Collider*		_Collider;
 		Rigidbody*		_Rigidbody;
+		BossHpBar*		_HpBar;
 		MonMeleeAttack* _Melee;
 		eMagnolia		_State;
 		Kaho*			_Kaho;
 		eDir			_Dir;
 		float			_Timer;
+		float			_Hp;
 		bool			_Move;
 		bool			_On;
 	public:
@@ -50,6 +53,7 @@ namespace Mn
 		void idle();
 		void showUp();
 		void attack();
+		void death();
 		void disappear();
 		void attackMove();
 		void attackCollider();

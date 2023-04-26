@@ -376,6 +376,9 @@
     <ClInclude Include="MnPrayEffect.h">
       <Filter>Contents\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="MnBossHpBar.h">
+      <Filter>Contents\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -636,6 +639,9 @@
     </ClCompile>
     <ClCompile Include="MnPrayEffect.cpp">
       <Filter>Contents\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MnBossHpBar.cpp">
+      <Filter>Contents\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

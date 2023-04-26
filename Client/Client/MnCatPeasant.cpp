@@ -11,6 +11,7 @@
 #include "MnTime.h"
 #include "MnObject.h"
 #include "MnStaff.h"
+#include "MnHitEffect.h"
 namespace Mn
 {
 	CatPeasant::CatPeasant()
@@ -25,6 +26,7 @@ namespace Mn
 		, _Dir(eDir::R)
 		, _Kaho(nullptr)
 		, _Ready(0.0f)
+		, _Hp(8)
 	{
 		Transform* Tr = GetComponent<Transform>();
 		Tr->Pos(Vector2(-200,-200));
@@ -49,14 +51,14 @@ namespace Mn
 		_Animator->CreateAnimation(L"Cat_Peasant_Hurt_Staff_Left", _Image, Vector2(64*5,64), 9, 10, 1, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Throw_Staff_Right", _Image, Vector2(0,64*2), 9, 10, 9, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Throw_Staff_Left", _Image, Vector2(0,64*3), 9, 10, 9, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Peasant_Death_Staff_Left", _Image, Vector2(0,64*4), 9, 10, 8, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Peasant_Death_Staff_Right", _Image, Vector2(0,64*4), 9, 10, 8, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Death_Staff_Left", _Image, Vector2(0,64*5), 9, 10, 8, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Idle_Right", _Image, Vector2(0,64*6), 9, 10, 5, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Idle_Left", _Image, Vector2(0,64*7), 9, 10, 5, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Hurt_Right", _Image, Vector2(64*5,64*6), 9, 10, 5, Vector2::Zero, 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Hurt_Left", _Image, Vector2(64*5,64*7), 9, 10, 5, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Peasant_Death_Right", _Image, Vector2(0,64*8), 9, 10, 5, Vector2::Zero, 0.08);
-		_Animator->CreateAnimation(L"Cat_Peasant_Death_Left", _Image, Vector2(0,64*9), 9, 10, 5, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Peasant_Death_Right", _Image, Vector2(0,64*8), 9, 10, 8, Vector2::Zero, 0.08);
+		_Animator->CreateAnimation(L"Cat_Peasant_Death_Left", _Image, Vector2(0,64*9), 9, 10, 8, Vector2::Zero, 0.08);
 		_Image = Resources::Load<Image>(L"Cat_Peasant_Catch_Staff", L"..\\Resources\\Get_Staff.bmp");
 		_Animator->CreateAnimation(L"Cat_Peasant_Catch_Right", _Image, Vector2::Zero, 5, 2, 5, Vector2(0, 16 * 3), 0.08);
 		_Animator->CreateAnimation(L"Cat_Peasant_Catch_Left", _Image, Vector2(0,96), 5, 2, 5, Vector2(0, 16 * 3), 0.08);
@@ -68,6 +70,12 @@ namespace Mn
 
 		_Animator->FindAnimation(L"Cat_Peasant_Throw_Staff_Right")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&CatPeasant::throwStaff, this);
 		_Animator->FindAnimation(L"Cat_Peasant_Throw_Staff_Left")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&CatPeasant::throwStaff, this);
+
+		_Animator->FindAnimation(L"Cat_Peasant_Death_Staff_Right")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&CatPeasant::death, this);
+		_Animator->FindAnimation(L"Cat_Peasant_Death_Staff_Left")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&CatPeasant::death, this);
+		_Animator->FindAnimation(L"Cat_Peasant_Death_Right")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&CatPeasant::death, this);
+		_Animator->FindAnimation(L"Cat_Peasant_Death_Left")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&CatPeasant::death, this);
+
 		_Animator->Play(L"Cat_Peasant_Idle_Staff_Right", true);
 		
 		_Collider = AddComponent<Collider>();
@@ -122,6 +130,14 @@ namespace Mn
 				break;
 			}
 		}
+
+		if (_Hp <= 0 && _MonState != eMonstate::Death )
+		{
+			_MonState = eMonstate::Death;
+			animationCtrl();
+		}
+
+
 		GameObject::Update();
 	}
 	void CatPeasant::Render(HDC hdc)
@@ -134,6 +150,24 @@ namespace Mn
 	}
 	void CatPeasant::OnCollisionEnter(Collider* other)
 	{
+		if (other->Owner()->GetName() == L"meleeAttack")
+		{
+			_Hp -= 2;
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->Pos();
+			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+			hitEffect->Dir((int)_Dir);
+			hitEffect->AnimationCntrl(0);
+		}
+		if (other->Owner()->GetName() == L"Arrow")
+		{
+			_Hp -= 1;
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = tr->Pos();
+			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+			hitEffect->Dir((int)_Dir);
+			hitEffect->AnimationCntrl(2);
+		}
 	}
 	void CatPeasant::OnCollisionStay(Collider* other)
 	{
@@ -251,6 +285,10 @@ namespace Mn
 			_HaveStaff = true;
 		_MonState = eMonstate::Idle;
 		animationCtrl();
+	}
+	void CatPeasant::death()
+	{
+		this->State(eState::Death);
 	}
 	void CatPeasant::throwStaff()
 	{

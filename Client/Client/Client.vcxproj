@@ -149,6 +149,7 @@
     <ClInclude Include="MnBell.h" />
     <ClInclude Include="MnBigPlant.h" />
     <ClInclude Include="MnBomb.h" />
+    <ClInclude Include="MnBossHpBar.h" />
     <ClInclude Include="MnCath.h" />
     <ClInclude Include="MnCatPeasant.h" />
     <ClInclude Include="MnChargeEffect.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MnBossHpBar.cpp" />
     <ClCompile Include="MnBell.cpp" />
     <ClCompile Include="MnMagnoliaBoss.cpp" />
     <ClCompile Include="MnChargeEffect.cpp" />

@@ -20,7 +20,7 @@
 
 #include "MnHitEffect.h"
 #include "MnChargeEffect.h"
-
+#include "MnBossHpBar.h"
 namespace Mn
 {
 	MagnoliaBoss::MagnoliaBoss()
@@ -29,11 +29,15 @@ namespace Mn
 		, _Animator(nullptr)
 		, _Collider(nullptr)
 		, _Rigidbody(nullptr)
+		, _Kaho(nullptr)
+		, _Melee(nullptr)
+		, _HpBar(nullptr)
 		, _State(eMagnolia::Idle)
 		, _Dir(eDir::L)
 		, _Timer(0.0f)
 		, _Move(false)
 		, _On(true)
+		, _Hp(100)
 	{
 		Transform* Tr = GetComponent<Transform>();
 		Tr->Pos(Vector2(-200, -200));
@@ -86,10 +90,14 @@ namespace Mn
 				break;
 			}
 		}
+
+		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 650), eLayerType::UI);
+
 		GameObject::Initialize();
 	}
 	void MagnoliaBoss::Update()
 	{
+		_HpBar->Hp(_Hp);
 		switch (_State)
 		{
 		case eMagnolia::Idle:
@@ -107,9 +115,15 @@ namespace Mn
 			disappear();
 			break;
 		case eMagnolia::Death:
+			death();
 			break;
 		default:
 			break;
+		}
+		if (_Hp <= 0 && _State != eMagnolia::Death)
+		{
+			_State = eMagnolia::Death;
+			animationCtrl();
 		}
 		GameObject::Update();
 	}
@@ -125,6 +139,7 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
+			_Hp -= 4;
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
 			pos.y -= (_Collider->Size().y / 2.0f);
@@ -134,6 +149,7 @@ namespace Mn
 		}
 		if (other->Owner()->GetName() == L"Arrow")
 		{
+			_Hp -= 1;
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
 			pos.y -= (_Collider->Size().y / 2.0f);
@@ -196,6 +212,15 @@ namespace Mn
 				pos.x -= 50.0f * Time::DeltaTime();
 		}
 		Tr->Pos(pos);
+	}
+	void MagnoliaBoss::death()
+	{
+		_Timer += Time::DeltaTime();
+		if (_Timer >= 2)
+		{
+			this->State(eState::Death);
+			_HpBar->State(eState::Death);
+		}
 	}
 	void MagnoliaBoss::disappear()
 	{
