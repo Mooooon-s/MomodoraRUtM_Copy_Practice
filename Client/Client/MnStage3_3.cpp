@@ -27,6 +27,9 @@ namespace Mn
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
 		, _Maptrriger(nullptr)
+		, _Mag(nullptr)
+		, _Lup(nullptr)
+		, _MagBoss(nullptr)
 	{
 	}
 	Stage3_3::~Stage3_3()
@@ -52,9 +55,12 @@ namespace Mn
 		{
 			_Maptrriger->State(GameObject::eState::Death);
 			_Maptrriger = nullptr;
-			//object::Instantiate<Magnolia>(Vector2(157, 800), eLayerType::Monster);
-			//object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
-			object::Instantiate<MagnoliaBoss>(Vector2(600, 671), eLayerType::Monster);
+			_Lup = object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
+			_Mag = object::Instantiate<Magnolia>(Vector2(157, 800), eLayerType::Monster);
+		}
+		if (_Page == true && _MagBoss==nullptr)
+		{
+			_Mag->Done();
 		}
 		Scene::Update();
 	}

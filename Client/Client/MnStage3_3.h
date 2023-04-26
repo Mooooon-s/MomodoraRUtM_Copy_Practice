@@ -4,7 +4,9 @@
 #include "MnPortal.h"
 #include "MnItemBox.h"
 #include "MnMapTrriger.h"
-
+#include "MnLupiar.h"
+#include "MnMagnolia.h"
+#include "MnMagnoliaBoss.h"
 namespace Mn
 {
 	class Stage3_3 : public Scene
@@ -17,6 +19,11 @@ namespace Mn
 		Portal*			_Portal;
 		ItemBox*		_ItemBox;
 		MapTrriger*		_Maptrriger;
+		Magnolia*		_Mag;
+		Lupiar*			_Lup;
+		bool			_Page;
+		MagnoliaBoss*	_MagBoss;
+
 	public:
 		Stage3_3();
 		~Stage3_3();
@@ -31,6 +38,7 @@ namespace Mn
 	public:
 		static Kaho* GetKaho() { return _kaho; }
 		static void	ChangeScene(bool scene) { _Scene = scene; }
+		void Page(bool page) { _Page = page; }
 	};
 }
 
