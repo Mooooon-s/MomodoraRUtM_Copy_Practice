@@ -91,7 +91,7 @@ namespace Mn
 			}
 		}
 
-		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 650), eLayerType::UI);
+		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 675), eLayerType::UI);
 
 		GameObject::Initialize();
 	}
@@ -122,6 +122,7 @@ namespace Mn
 		}
 		if (_Hp <= 0 && _State != eMagnolia::Death)
 		{
+			SceneManager::SetWall(true);
 			_State = eMagnolia::Death;
 			animationCtrl();
 		}

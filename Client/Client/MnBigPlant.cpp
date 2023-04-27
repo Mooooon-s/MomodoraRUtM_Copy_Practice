@@ -91,6 +91,7 @@ namespace Mn
 
 		if (_Hp <= 0)
 		{
+			SceneManager::SetWall(true);
 			_MonState = eMonStats::Death;
 		}
 

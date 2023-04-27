@@ -131,7 +131,7 @@ namespace Mn
 				break;
 			}
 		}
-		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 650),eLayerType::UI);
+		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 675),eLayerType::UI);
 		GameObject::Initialize();
 	}
 	void Lupiar::Update()

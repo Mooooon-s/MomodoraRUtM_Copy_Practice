@@ -379,6 +379,12 @@
     <ClInclude Include="MnBossHpBar.h">
       <Filter>Contents\UI</Filter>
     </ClInclude>
+    <ClInclude Include="MnWall.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MnVeiwPoint.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -642,6 +648,12 @@
     </ClCompile>
     <ClCompile Include="MnBossHpBar.cpp">
       <Filter>Contents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MnWall.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MnVeiwPoint.cpp">
+      <Filter>Contents</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

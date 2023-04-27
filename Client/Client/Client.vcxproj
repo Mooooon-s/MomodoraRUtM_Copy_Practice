@@ -231,6 +231,8 @@
     <ClInclude Include="MnToolScene.h" />
     <ClInclude Include="MnTransform.h" />
     <ClInclude Include="MnUnderGroundBG.h" />
+    <ClInclude Include="MnVeiwPoint.h" />
+    <ClInclude Include="MnWall.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -317,6 +319,8 @@
     <ClCompile Include="MnStage3_3.cpp" />
     <ClCompile Include="MnNpcMelee.cpp" />
     <ClCompile Include="MnStaff.cpp" />
+    <ClCompile Include="MnWall.cpp" />
+    <ClCompile Include="MnVeiwPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
