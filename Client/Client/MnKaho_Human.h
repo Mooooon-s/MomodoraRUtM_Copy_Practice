@@ -16,6 +16,7 @@ namespace Mn
 		Rigidbody*		_Rigidbody;
 		PrayEffect*		_PrayEffect;
 		Vector2			_pos;
+		Vector2			_RevivalPos;
 		Image*			_Image;
 		eDir			_Dir;
 		float			_DashCharge;
@@ -99,6 +100,7 @@ namespace Mn
 		void postDashComplete();
 		void pray();
 		void afterpray();
+		void afterDeath();
 	};
 }
 

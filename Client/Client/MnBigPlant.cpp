@@ -138,7 +138,7 @@ namespace Mn
 		Transform* playerTr = _Kaho->GetComponent<Transform>();
 		float distX = Tr->Pos().x - playerTr->Pos().x;
 		float distY = Tr->Pos().y - playerTr->Pos().y;
-		if (fabs(distX) <= 400 && (distY <= 90 && distY >= -90))
+		if (fabs(distX) <= 800 && (distY <= 90 && distY >= -90))
 		{
 			_MonState = eMonStats::Move;
 			animatorCntrl();
@@ -169,11 +169,6 @@ namespace Mn
 			_MonState = eMonStats::Attack;
 			animatorCntrl();
 		}
-		if (fabs(distX) >= 400 || distY < -90 || distY >= 90)
-		{
-			_MonState = eMonStats::Idle;
-			animatorCntrl();
-		}
 
 		Tr->Pos(pos);
 	}
@@ -185,6 +180,10 @@ namespace Mn
 		_Timer += Time::DeltaTime();
 		if (_Timer >= 1.5)
 			this->State(eState::Death);
+		if (_Dir == eDir::R)
+			_Animator->Play(L"Big_Plant_Idle_Right", true);
+		else
+			_Animator->Play(L"Big_Plant_Idle_Left", true);
 	}
 	void BigPlant::animatorCntrl()
 	{

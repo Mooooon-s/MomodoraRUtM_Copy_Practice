@@ -119,6 +119,18 @@ namespace Mn
 			{
 				rb->SetGround(false);
 			}
+			if (Footcolor == RGB(255, 0, 0))
+			{
+				if (_Player->IsCat())
+				{
+					_Cat->SyncHp(0);
+				}
+				else
+				{
+					_Human->SyncHp(0);
+				}
+				rb->SetGround(true);
+			}
 			if (rightColor == RGB(0, 0, 255))
 			{
 				Vector2 pos = playerTr->Pos();

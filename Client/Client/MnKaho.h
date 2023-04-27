@@ -1,6 +1,7 @@
 #pragma once
 #include "MnGameObject.h"
 #include "MnPlayerEnum.h"
+#include "MnSceneManager.h"
 
 namespace Mn
 {
@@ -17,6 +18,8 @@ namespace Mn
 		bool			_bIsCat;
 		bool			_Swap;
 		float			_Hp;
+		eSceneType		_Scene;
+		Vector2			_RevivalPos;
 	public:
 		Kaho();
 		~Kaho();
@@ -33,8 +36,14 @@ namespace Mn
 		void IsCat(bool iscat) { _bIsCat = iscat; }
 		float HP() { return _Hp; }
 		void HP(float hp) { _Hp = hp; }
+		void SceneType(eSceneType scene) { _Scene = scene; }
+		eSceneType SceneType() { return _Scene; }
+		void Revival(Vector2 pos) { _RevivalPos = pos; }
+		Vector2 Revival() { return _RevivalPos; }
+	public:
 		int KahoDir();
 		Vector2 KahoColliderSize();
+	public:
 		void GetCatHunam(Kaho_Cat* c, Kaho_Human* h) 
 		{ 
 			kahoCat = c; 

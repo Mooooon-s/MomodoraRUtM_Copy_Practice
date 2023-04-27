@@ -61,6 +61,7 @@ namespace Mn
 		, _AlphaDegree(90)
 		, _DoubleJump(0)
 		, _ComboCount(0)
+		, _RevivalPos(Vector2::Zero)
 	{
 	}
 	Kaho_Human::~Kaho_Human()
@@ -70,6 +71,7 @@ namespace Mn
 	{
 		GameObject::SetName(L"Player");
 		Transform* tr = GetComponent<Transform>();
+
 
 		_Rigidbody = AddComponent<Rigidbody>();
 		_Rigidbody->SetMass(0.3f);
@@ -241,6 +243,8 @@ namespace Mn
 		
 		_Animator->GetCompleteEvent(L"Pray_Right") = std::bind(&Kaho_Human::afterpray, this);
 		_Animator->GetCompleteEvent(L"Pray_Left") = std::bind(&Kaho_Human::afterpray, this);
+		_Animator->GetCompleteEvent(L"Death_Right") = std::bind(&Kaho_Human::afterDeath, this);
+		_Animator->GetCompleteEvent(L"Death_Left") = std::bind(&Kaho_Human::afterDeath, this);
 
 		//----------------------------------------------------------------------------------------------------------------
 		
@@ -249,6 +253,11 @@ namespace Mn
 	}
 	void Kaho_Human::Update()
 	{
+		if (_RevivalPos == Vector2::Zero)
+		{
+			Transform* tr = GetComponent<Transform>();
+			_RevivalPos = tr->Pos();
+		}
 		if (GameObject::State()==eState::Active)
 		{
 			Transform* tr = GetComponent<Transform>();
@@ -1100,7 +1109,7 @@ namespace Mn
 	void Kaho_Human::airRangeStart()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f), eLayerType::Throws);
+		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f*3), eLayerType::Throws);
 		arrow->Dir(_Dir);
 	}
 	void Kaho_Human::airRangeComplete()
@@ -1186,5 +1195,14 @@ namespace Mn
 	{
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
+	}
+	void Kaho_Human::afterDeath()
+	{
+		_Hp = 100;
+		Transform* tr = GetComponent<Transform>();
+		tr->Pos(_RevivalPos);
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
+		_Death = false;
 	}
 }

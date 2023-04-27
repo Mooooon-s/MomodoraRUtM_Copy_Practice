@@ -153,7 +153,8 @@ namespace Mn
 	void ImpBomb::attack()
 	{
 		Transform* tr = GetComponent<Transform>();
-		object::Instantiate<Bomb>(tr->Pos() , eLayerType::Throws);
+		Bomb* bomb =object::Instantiate<Bomb>(tr->Pos() , eLayerType::Throws);
+		bomb->Dir((int)_Dir);
 	}
 	void ImpBomb::afterAction()
 	{

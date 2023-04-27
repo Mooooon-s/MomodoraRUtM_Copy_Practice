@@ -16,6 +16,8 @@ namespace Mn
 		, _Swap(false)
 		, _Dir(eDir::R)
 		, _Hp(100)
+		, _Scene(eSceneType::play)
+		, _RevivalPos(Vector2::Zero)
 	{
 	}
 	Kaho::~Kaho()

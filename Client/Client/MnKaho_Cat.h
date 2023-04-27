@@ -14,6 +14,7 @@ namespace Mn
 		Rigidbody*		_Rigidbody;
 		Animator*		_Animator;
 		Vector2			_Pos;
+		Vector2			_RevivalPos;
 		eState			_State;
 		eDir			_Dir;
 		float			_Dashtime;
@@ -86,6 +87,7 @@ namespace Mn
 
 		void landingComplete();
 		void afterUseItem();
+		void afterDeath();
 
 	};
 }

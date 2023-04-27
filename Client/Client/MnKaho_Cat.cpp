@@ -26,6 +26,7 @@
 
 #include "MnChargeEffect.h"
 #include "MnItemBox.h"
+#include "MnWall.h"
 
 namespace Mn
 {
@@ -51,6 +52,7 @@ namespace Mn
 		, _DoubleJump(0)
 		, _ComboCount(0)
 		, _Hp(100)
+		, _RevivalPos(Vector2::Zero)
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -158,15 +160,19 @@ namespace Mn
 		_Animator->FindAnimation(L"Cat_UseItem_Left")->GetSprite(3)._Events._FrameEvent._Event = std::bind(&Kaho_Cat::useItem, this);
 		_Animator->GetCompleteEvent(L"Cat_UseItem_Right") = std::bind(&Kaho_Cat::afterUseItem, this);
 		_Animator->GetCompleteEvent(L"Cat_UseItem_Left") = std::bind(&Kaho_Cat::afterUseItem, this);
-
-
-
+		_Animator->GetCompleteEvent(L"Cat_Death_Right") = std::bind(&Kaho_Cat::afterDeath, this);
+		_Animator->GetCompleteEvent(L"Cat_Death_Left") = std::bind(&Kaho_Cat::afterDeath, this);
 
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
 	}
 	void Kaho_Cat::Update()
 	{
+		if (_RevivalPos == Vector2::Zero)
+		{
+			Transform* tr = GetComponent<Transform>();
+			_RevivalPos = tr->Pos();
+		}
 		if (GameObject::State()==eState::Active)
 		{
 			Transform* tr = GetComponent<Transform>();
@@ -861,6 +867,15 @@ namespace Mn
 		else
 			_Animator->Play(L"Cat_to_Idle_Left", false);
 		_PlayerStatus = ePlayerStatus::Idle;
+	}
+	void Kaho_Cat::afterDeath()
+	{
+		_Death = false;
+		_Hp = 100;
+		Transform* tr = GetComponent<Transform>();
+		tr->Pos(_RevivalPos);
+		_PlayerStatus = ePlayerStatus::Idle;
+		animationCtrl();
 	}
 	void Kaho_Cat::animationCtrl()
 	{
