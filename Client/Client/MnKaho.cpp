@@ -44,8 +44,8 @@ namespace Mn
 			kahoHuman->Switch(false);
 			kahoCat->SyncHp(_Hp);
 			kahoCat->animationCtrl();
-			if(Camera::GetTarget()!=nullptr)
-				Camera::SetTarget(kahoCat);
+			//if(Camera::GetTarget()!=nullptr)
+				//Camera::SetTarget(kahoCat);
 		}
 		else if(kahoCat->Switch()==true && _bIsCat == true)
 		{
@@ -57,8 +57,8 @@ namespace Mn
 			kahoCat->Switch(false);
 			kahoHuman->SyncHp(_Hp);
 			kahoHuman->animationCtrl();
-			if (Camera::GetTarget() != nullptr)
-				Camera::SetTarget(kahoHuman);
+			//if (Camera::GetTarget() != nullptr)
+				//Camera::SetTarget(kahoHuman);
 		}
 		if (_Swap==false && _bIsCat == true)
 		{
@@ -69,8 +69,8 @@ namespace Mn
 			kahoHuman->Active(eState::Pause);
 			kahoHuman->PlayerStatus(ePlayerStatus::Idle);
 			kahoCat->animationCtrl();
-			if (Camera::GetTarget() != nullptr)
-				Camera::SetTarget(kahoCat);
+			//if (Camera::GetTarget() != nullptr)
+				//Camera::SetTarget(kahoCat);
 			_Swap = true;
 		}
 		else if(_Swap == false && _bIsCat == false)

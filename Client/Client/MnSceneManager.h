@@ -13,6 +13,7 @@ namespace Mn {
 		static bool _Iscat;
 		static float _Hp;
 		static int _Item;
+		static bool _WallDown;
 	public:
 		static void Initialize();
 		static void Update();
@@ -27,5 +28,7 @@ namespace Mn {
 		static float GetDontDestroyHP();
 		static bool GetDontDestroyCat();
 		static int GetDontDestroyIdx();
+		static bool GetWall() { return _WallDown; }
+		static void SetWall(bool wall) { _WallDown = wall; }
 	};
 }

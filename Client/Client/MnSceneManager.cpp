@@ -26,6 +26,7 @@ namespace Mn {
 	float SceneManager::_Hp = 100;
 	bool SceneManager::_Iscat = false;
 	int SceneManager::_Item = 0;
+	bool SceneManager::_WallDown = false;
 
 	void Mn::SceneManager::Initialize()
 	{

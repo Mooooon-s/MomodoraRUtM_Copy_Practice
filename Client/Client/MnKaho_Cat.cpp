@@ -298,12 +298,40 @@ namespace Mn
 	}
 	void Kaho_Cat::OnCollisionStay(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+		if (_Death == false)
 		{
-			_Hp -= 15;
-			_GetDamage = false;
-			_PlayerStatus = ePlayerStatus::Hurt;
-			animationCtrl();
+			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			{
+				_Hp -= 15;
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+
+			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			{
+				_Hp -= 15;
+				_GetDamage = false;
+				_PlayerStatus = ePlayerStatus::Hurt;
+				animationCtrl();
+			}
+
+			if (other->Owner()->GetName() == L"Wall")
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				if (_Dir == eDir::R)
+				{
+					pos.x -= _MoveSpeed * Time::DeltaTime();
+					tr->Pos(pos);
+				}
+				else
+				{
+					pos.x += _MoveSpeed * Time::DeltaTime();
+					tr->Pos(pos);
+				}
+
+			}
 		}
 	}
 	//-------------------------------------------------------------------------------------------------------------------

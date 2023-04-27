@@ -24,10 +24,12 @@
 #include "MnFlame.h"
 
 #include "MnLupiarBall.h"
+#include "MnMagArrow.h"
 
 #include "MnChargeEffect.h"
 #include "MnPrayEffect.h"
 #include "MnItemBox.h"
+#include "MnWall.h"
 
 namespace Mn
 {
@@ -368,6 +370,7 @@ namespace Mn
 				if (dynamic_cast<MonMeleeAttack*>(other->Owner())
 					|| dynamic_cast<Staff*>(other->Owner())
 					|| dynamic_cast<Flame*>(other->Owner())
+					|| dynamic_cast<MagArrow*>(other->Owner())
 					|| dynamic_cast<FireBall*>(other->Owner())
 					|| dynamic_cast<FireFlame*>(other->Owner())
 					|| dynamic_cast<LupiarBall*>(other->Owner()))
@@ -378,6 +381,9 @@ namespace Mn
 					animationCtrl();
 				}
 			}
+
+
+
 		}
 	}
 	void Kaho_Human::OnCollisionStay(Collider* other)
@@ -399,15 +405,34 @@ namespace Mn
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
-		}
-		if (other->Owner()->GetName() == L"Bell")
-		{
-			if (Input::GetKeyDown(eKeyCode::Up))
+
+			if (other->Owner()->GetName() == L"Bell")
 			{
-				if(_Dir==eDir::R)
-					_Animator->Play(L"Pray_Right", false);
+				if (Input::GetKeyDown(eKeyCode::Up))
+				{
+					if (_Dir == eDir::R)
+						_Animator->Play(L"Pray_Right", false);
+					else
+						_Animator->Play(L"Pray_Left", false);
+				}
+			}
+
+
+			if (other->Owner()->GetName() == L"Wall")
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				if (_Dir == eDir::R)
+				{
+					pos.x -= _MoveSpeed * Time::DeltaTime();
+					tr->Pos(pos);
+				}
 				else
-					_Animator->Play(L"Pray_Left", false);
+				{
+					pos.x += _MoveSpeed * Time::DeltaTime();
+					tr->Pos(pos);
+				}
+
 			}
 		}
 	}
