@@ -11,6 +11,7 @@
 #include "MnPlayerHpBar.h"
 #include "MnPortal.h"
 #include "MnItemBox.h"
+#include "MnVeiwPoint.h"
 namespace Mn
 {
 	Kaho* firstStageScene::_kaho = nullptr;
@@ -34,9 +35,10 @@ namespace Mn
 		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(30.0f, 570.0f), eLayerType::Player);
 		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(30.0f, 570.0f), eLayerType::Player);
 		_kaho = object::Instantiate<Kaho>(Vector2(30.0f, 570.0f), eLayerType::Player);
-		object::Instantiate<Monkey>(Vector2(600.0f, 670.0f), eLayerType::Monster);
+		object::Instantiate<Monkey>(Vector2(600.0f, 575.0f), eLayerType::Monster);
 		object::Instantiate<ImpBomb>(Vector2(1601, 382), eLayerType::Monster);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
+		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
 		_Portal = object::Instantiate<Portal>(Vector2(1700,600), eLayerType::Portal);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
 		_PlayerHpBar = object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f),eLayerType::UI);
@@ -62,7 +64,7 @@ namespace Mn
 	void firstStageScene::OnEnter()
 	{
 		TilePalatte::Load(L"Stage1_1");
-		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
+		Camera::SetTarget(_VeiwPoint);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);

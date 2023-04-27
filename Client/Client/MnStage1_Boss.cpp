@@ -12,6 +12,8 @@
 #include "MnInput.h"
 #include "MnItemBox.h"
 #include "MnMapTrriger.h"
+#include "MnWall.h"
+#include "MnVeiwPoint.h"
 namespace Mn
 {
 	Kaho* Stage1_Boss::_kaho = nullptr;
@@ -39,6 +41,7 @@ namespace Mn
 		_kaho = object::Instantiate<Kaho>(Vector2(50.0f, 570.0f), eLayerType::Player);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		object::Instantiate<Ground>(Vector2::Zero,eLayerType::Ground);
+		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 		_Portal = object::Instantiate<Portal>(Vector2(1440,900),eLayerType::Portal);
 		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(564,400),eLayerType::Trriger);
@@ -50,6 +53,8 @@ namespace Mn
 		if (_MapTrriger != nullptr && _MapTrriger->Trriger() == true)
 		{
 			object::Instantiate<BigPlant>(Vector2(1200.0f, 570.0f), eLayerType::Monster);
+			object::Instantiate<Wall>(Vector2(275, 0), eLayerType::Ground);
+			object::Instantiate<Wall>(Vector2(1270, 0), eLayerType::Ground);
 			_MapTrriger->State(GameObject::eState::Death);
 			_MapTrriger = nullptr;
 		}
@@ -74,7 +79,7 @@ namespace Mn
 	void Stage1_Boss::OnEnter()
 	{
 		TilePalatte::Load(L"Stage1_Boss");
-		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
+		Camera::SetTarget(_VeiwPoint);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
@@ -87,6 +92,7 @@ namespace Mn
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());
+		SceneManager::SetWall(false);
 	}
 	void Stage1_Boss::OnExit()
 	{

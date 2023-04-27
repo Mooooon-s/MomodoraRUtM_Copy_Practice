@@ -4,6 +4,7 @@
 #include "MnPortal.h"
 #include "MnItemBox.h"
 #include "MnMapTrriger.h"
+#include "MnVeiwPoint.h"
 namespace Mn
 {
 	class Stage_1_3 : public Scene
@@ -16,6 +17,7 @@ namespace Mn
 		Portal*			_Portal;
 		ItemBox*		_ItemBox;
 		MapTrriger*		_MapTrriger;
+		VeiwPoint*		_VeiwPoint;
 	public:
 		Stage_1_3();
 		~Stage_1_3();

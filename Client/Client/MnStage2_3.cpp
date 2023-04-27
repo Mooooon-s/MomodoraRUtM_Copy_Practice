@@ -15,6 +15,8 @@
 #include "MnArsonist.h"
 #include "MnMapTrriger.h"
 #include "MnGameObject.h"
+#include "MnWall.h"
+#include "MnVeiwPoint.h"
 namespace Mn
 {
 	Kaho* Stage2_3::_Kaho = nullptr;
@@ -45,6 +47,7 @@ namespace Mn
 		_Portal->GetComponent<Collider>()->Size(Vector2(100, 300));
 		_Portal->moveToScene(eSceneType::stage3_1);
 		object::Instantiate<Ground>(eLayerType::Ground);
+		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
 		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(480,500),eLayerType::Trriger);
 		_Kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
@@ -52,6 +55,8 @@ namespace Mn
 	{
 		if (_MapTrriger!=nullptr && _MapTrriger->Trriger() == true)
 		{
+			object::Instantiate<Wall>(Vector2(106, 0), eLayerType::Ground);
+			object::Instantiate<Wall>(Vector2(1210, 0), eLayerType::Ground);
 			object::Instantiate<Arsonist>(Vector2(1287, 670), eLayerType::Monster);
 			object::Instantiate<Cath>(Vector2(1186, 670), eLayerType::NPC);
 			_MapTrriger->State(GameObject::eState::Death);
@@ -72,7 +77,7 @@ namespace Mn
 	void Stage2_3::OnEnter()
 	{
 		TilePalatte::Load(L"Stage2_3");
-		Camera::SetTarget(_Kaho->CameraTarget<GameObject>());
+		Camera::SetTarget(_VeiwPoint);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
@@ -82,9 +87,11 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Throws, eLayerType::NPC, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Trriger, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		_Kaho->HP(SceneManager::GetDontDestroyHP());
 		_Kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());
+		SceneManager::SetWall(false);
 	}
 	void Stage2_3::OnExit()
 	{

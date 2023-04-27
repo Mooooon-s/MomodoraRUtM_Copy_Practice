@@ -12,6 +12,7 @@
 #include "MnImpKnife.h"
 #include "MnImp.h"
 #include "MnItemBox.h"
+#include "MnVeiwPoint.h"
 
 namespace Mn
 {
@@ -45,6 +46,7 @@ namespace Mn
 		object::Instantiate<Imp>(Vector2(600, 700),eLayerType::Monster);
 		_Portal->moveToScene(eSceneType::stage1_3);
 		object::Instantiate<Ground>(eLayerType::Ground);
+		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void Stage_1_2::Update()
@@ -66,7 +68,7 @@ namespace Mn
 	void Stage_1_2::OnEnter()
 	{
 		TilePalatte::Load(L"Stage1_2");
-		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
+		Camera::SetTarget(_VeiwPoint);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);

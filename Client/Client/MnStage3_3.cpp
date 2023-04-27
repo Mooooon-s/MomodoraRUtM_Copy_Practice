@@ -15,7 +15,7 @@
 #include "MnMagnoliaBoss.h"
 
 #include "MnMapTrriger.h"
-
+#include "MnWall.h"
 namespace Mn
 {
 	Kaho* Stage3_3::_kaho = nullptr;
@@ -53,6 +53,8 @@ namespace Mn
 	{
 		if (_Maptrriger!=nullptr && _Maptrriger->Trriger())
 		{
+			object::Instantiate<Wall>(Vector2(0, 0), eLayerType::Ground);
+			object::Instantiate<Wall>(Vector2(900, 0), eLayerType::Ground);
 			_Maptrriger->State(GameObject::eState::Death);
 			_Maptrriger = nullptr;
 			_Lup = object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
@@ -88,6 +90,7 @@ namespace Mn
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());
+		SceneManager::SetWall(false);
 	}
 	void Stage3_3::OnExit()
 	{

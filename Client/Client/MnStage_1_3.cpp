@@ -11,6 +11,7 @@
 #include "MnItemBox.h"
 #include "MnMapTrriger.h"
 #include "MnImpKnife.h"
+#include "MnVeiwPoint.h"
 namespace Mn
 {
 	Kaho* Stage_1_3::_kaho = nullptr;
@@ -38,6 +39,7 @@ namespace Mn
 		_kaho = object::Instantiate<Kaho>(Vector2(60,660),eLayerType::Player);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		object::Instantiate<Ground>(eLayerType::Ground);
+		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(450,500),eLayerType::Trriger);
 		_Portal = object::Instantiate<Portal>(Vector2(950,660),eLayerType::Portal);
@@ -69,7 +71,7 @@ namespace Mn
 	void Stage_1_3::OnEnter()
 	{
 		TilePalatte::Load(L"Stage1_3");
-		Camera::SetTarget(nullptr);
+		Camera::SetTarget(_VeiwPoint);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);

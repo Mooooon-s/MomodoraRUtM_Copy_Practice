@@ -4,6 +4,7 @@
 #include "MnPortal.h"
 #include "MnItemBox.h"
 #include "MnPlayerHpBar.h"
+#include "MnVeiwPoint.h"
 namespace Mn 
 {
 	class PlayScene :public Scene
@@ -16,6 +17,7 @@ namespace Mn
 		Portal*			_portal;
 		ItemBox*		_ItemBox;
 		PlayerHpBar*	_PlayerHpBar;
+		VeiwPoint*		_VeiwPoint;
 	public:
 		PlayScene();
 		~PlayScene();

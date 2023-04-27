@@ -4,6 +4,7 @@
 #include "MnPortal.h"
 #include "MnItemBox.h"
 #include "MnPlayerHpBar.h"
+#include "MnVeiwPoint.h"
 namespace Mn
 {
 	class firstStageScene : public Scene
@@ -15,7 +16,8 @@ namespace Mn
 		Kaho_Cat*	_KahoCat;
 		Portal*		_Portal;
 		ItemBox*	_ItemBox;
-		PlayerHpBar* _PlayerHpBar;
+		PlayerHpBar*_PlayerHpBar;
+		VeiwPoint*	_VeiwPoint;
 	public:
 		firstStageScene();
 		~firstStageScene();

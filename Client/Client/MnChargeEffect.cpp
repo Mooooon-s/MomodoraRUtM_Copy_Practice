@@ -32,9 +32,12 @@ namespace Mn
 	void ChargeEffect::Update()
 	{
 		Transform* tr = GetComponent<Transform>();
-		Transform* ownerTr = _Owner->GetComponent<Transform>();
-		Vector2 pos = ownerTr->Pos();
-		tr->Pos(pos);
+		if (_Owner->GetComponent<Transform>() != nullptr)
+		{
+			Transform* ownerTr = _Owner->GetComponent<Transform>();
+			Vector2 pos = ownerTr->Pos();
+			tr->Pos(pos);
+		}
 		GameObject::Update();
 	}
 	void ChargeEffect::Render(HDC hdc)

@@ -23,6 +23,7 @@
 #include "MnItemBox.h"
 #include "MnBell.h"
 
+#include "MnVeiwPoint.h"
 
 namespace Mn 
 {
@@ -54,6 +55,7 @@ namespace Mn
 		object::Instantiate<Bell>(Vector2(400,625),eLayerType::Ground);
 		_portal=object::Instantiate<Portal>(Vector2(1500.0f, 500.0f),eLayerType::Portal);
 		_PlayerHpBar = object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
+		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480,360),eLayerType::UI);
 		_portal->moveToScene(eSceneType::Stage1);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
@@ -97,7 +99,7 @@ namespace Mn
 	void PlayScene::OnEnter()
 	{
 		TilePalatte::Load(L"Start_Scene");
-		Camera::SetTarget(_kaho->CameraTarget<GameObject>());
+		Camera::SetTarget(_VeiwPoint);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster,true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
