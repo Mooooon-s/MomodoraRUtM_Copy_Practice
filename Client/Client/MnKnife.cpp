@@ -71,6 +71,10 @@ namespace Mn
 	}
 	void Knife::OnCollisionStay(Collider* other)
 	{
+		if (other->Owner()->GetName() == L"meleeAttack")
+		{
+			this->State(eState::Death);
+		}
 	}
 	void Knife::OnCollisionExit(Collider* other)
 	{

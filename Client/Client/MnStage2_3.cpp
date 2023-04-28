@@ -88,6 +88,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Trriger, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+		CollisionManager::SetLayer(eLayerType::Throws, eLayerType::Attack, true);
 		_Kaho->HP(SceneManager::GetDontDestroyHP());
 		_Kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());

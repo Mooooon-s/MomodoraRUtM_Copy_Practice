@@ -119,6 +119,12 @@ namespace Mn
 			_Rigidbody->SetGround(true);
 			_Animator->Play(L"Smoke", false);
 		}
+		if (other->Owner()->GetName() == L"meleeAttack" && _blowUp == false)
+		{
+			_blowUp = true;
+			_Rigidbody->SetGround(true);
+			_Animator->Play(L"Smoke", false);
+		}
 	}
 	void Bomb::OnCollisionStay(Collider* other)
 	{
