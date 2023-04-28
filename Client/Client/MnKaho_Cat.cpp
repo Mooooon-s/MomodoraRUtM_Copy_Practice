@@ -16,6 +16,7 @@
 #include "MnKnife.h"
 #include "MnMonMeleeAttack.h"
 #include "MnStaff.h"
+#include "MnBomb.h"
 
 #include "MnFireBall.h"
 #include "MnFireFlame.h"
@@ -300,6 +301,18 @@ namespace Mn
 					animationCtrl();
 				}
 			}
+			if (dynamic_cast<Bomb*>(other->Owner()))
+			{
+				if (dynamic_cast<Bomb*>(other->Owner())->BlowUp() == false)
+				{
+					_GetDamage = false;
+					_Hp -= 10;
+					_PlayerStatus = ePlayerStatus::Hurt;
+					animationCtrl();
+				}
+			}
+
+
 		}
 	}
 	void Kaho_Cat::OnCollisionStay(Collider* other)

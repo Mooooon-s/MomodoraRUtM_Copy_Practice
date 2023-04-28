@@ -18,6 +18,7 @@
 #include "MnMeleeEffect.h"
 #include "MnMonMeleeAttack.h"
 #include "MnStaff.h"
+#include "MnBomb.h"
 
 #include "MnFireBall.h"
 #include "MnFireFlame.h"
@@ -383,6 +384,13 @@ namespace Mn
 					|| dynamic_cast<FireBall*>(other->Owner())
 					|| dynamic_cast<FireFlame*>(other->Owner())
 					|| dynamic_cast<LupiarBall*>(other->Owner()))
+				{
+					_GetDamage = false;
+					_Hp -= 10;
+					_PlayerStatus = ePlayerStatus::Hurt;
+					animationCtrl();
+				}
+				if (dynamic_cast<Bomb*>(other->Owner())->BlowUp() == false)
 				{
 					_GetDamage = false;
 					_Hp -= 10;

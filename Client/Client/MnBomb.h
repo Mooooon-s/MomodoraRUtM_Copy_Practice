@@ -13,9 +13,11 @@ namespace Mn
 		Collider*	_Collider;
 		Rigidbody*	_Rigidbody;
 		Image*		_Image;
+		Image*		_GroundImage;
 		Vector2		_Pos;
 		float		_Time;
 		int			_Dir;
+		bool		_blowUp;
 	public:
 		Bomb();
 		~Bomb();
@@ -30,7 +32,9 @@ namespace Mn
 		void OnCollisionExit(class Collider* other) override;
 	public:
 		void Dir(int dir) { _Dir = dir; }
+		bool BlowUp() { return _blowUp; }
 	private:
 		float computeY(int a, int b, int c, float x) { return (a* x* x) + (b * x) + c; }
+		void afterBlowUp();
 	};
 }
