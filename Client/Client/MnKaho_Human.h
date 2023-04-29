@@ -4,6 +4,8 @@
 #include "MnImage.h"
 #include "MnPrayEffect.h"
 
+#include "MnSound.h"
+
 namespace Mn
 {
 	class Animator;
@@ -11,6 +13,22 @@ namespace Mn
 	class Kaho_Human : public GameObject
 	{
 	private:
+		enum class eSound
+		{
+			Walk,
+			Hurt,
+			Pray,
+			UseItem,
+			Shoot,
+			Death,
+			Jump,
+			Roll,
+			AirRoll,
+			Attack1,
+			Attack2,
+			Attack3,
+		};
+		std::vector<Sound*> _SoundPack;
 		ePlayerStatus	_PlayerStatus;
 		Animator*		_Animator;
 		Rigidbody*		_Rigidbody;
@@ -101,6 +119,7 @@ namespace Mn
 		void pray();
 		void afterpray();
 		void afterDeath();
+		void walkSound();
 	};
 }
 

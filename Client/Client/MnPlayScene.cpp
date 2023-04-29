@@ -24,6 +24,8 @@
 #include "MnBell.h"
 
 #include "MnVeiwPoint.h"
+#include "MnSound.h"
+#include "MnResources.h"
 
 namespace Mn 
 {
@@ -35,6 +37,7 @@ namespace Mn
 		, _portal(nullptr)
 		, _PlayerHpBar(nullptr)
 		, _ItemBox(nullptr)
+		, _BGSound(nullptr)
 	{
 	}
 	PlayScene::~PlayScene()
@@ -56,6 +59,8 @@ namespace Mn
 		_portal=object::Instantiate<Portal>(Vector2(1500.0f, 500.0f),eLayerType::Portal);
 		_PlayerHpBar = object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
 		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480,360),eLayerType::UI);
+		_BGSound = Resources::Load<Sound>(L"ForestBGSound", L"..\\Resources\\Sound\\BG\\forest_ambiance.wav");
+		_BGSound->Play(true);
 		_portal->moveToScene(eSceneType::Stage1);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}

@@ -4,6 +4,7 @@
 #include "MnSceneManager.h"
 #include "MnTime.h"
 #include "MnInput.h"
+#include "MnSoundManager.h"
 
 namespace Mn {
 	Application::Application()
@@ -50,6 +51,7 @@ namespace Mn {
 
 		Time::Initialize();
 		Input::Initialize();
+		SoundManager::Initialize();
 		SceneManager::Initialize();
 		Camera::Initiailize();
 	}

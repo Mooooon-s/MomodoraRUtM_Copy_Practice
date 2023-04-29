@@ -18,6 +18,7 @@ namespace Mn
 		ItemBox*		_ItemBox;
 		MapTrriger*		_MapTrriger;
 		VeiwPoint*		_VeiwPoint;
+		Sound*			_BGSound;
 	public:
 		Stage1_Boss();
 		~Stage1_Boss();

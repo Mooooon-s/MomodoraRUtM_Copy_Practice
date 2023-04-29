@@ -63,6 +63,7 @@ namespace Mn
 		, _DoubleJump(0)
 		, _ComboCount(0)
 		, _RevivalPos(Vector2::Zero)
+		, _SoundPack()
 	{
 	}
 	Kaho_Human::~Kaho_Human()
@@ -241,6 +242,10 @@ namespace Mn
 		_Animator->FindAnimation(L"Pray_Right")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&Kaho_Human::pray, this);
 		_Animator->FindAnimation(L"Pray_Left")->GetSprite(7)._Events._FrameEvent._Event = std::bind(&Kaho_Human::pray, this);
 
+		_Animator->FindAnimation(L"Run_Right")->GetSprite(1)._Events._FrameEvent._Event = std::bind(&Kaho_Human::walkSound, this);
+		_Animator->FindAnimation(L"Run_Right")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&Kaho_Human::walkSound, this);
+		_Animator->FindAnimation(L"Run_Left")->GetSprite(1)._Events._FrameEvent._Event = std::bind(&Kaho_Human::walkSound, this);
+		_Animator->FindAnimation(L"Run_Left")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&Kaho_Human::walkSound, this);
 		
 		_Animator->GetCompleteEvent(L"Pray_Right") = std::bind(&Kaho_Human::afterpray, this);
 		_Animator->GetCompleteEvent(L"Pray_Left") = std::bind(&Kaho_Human::afterpray, this);
@@ -248,6 +253,24 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Death_Left") = std::bind(&Kaho_Human::afterDeath, this);
 
 		//----------------------------------------------------------------------------------------------------------------
+		//
+		//													Sound
+		//
+		//----------------------------------------------------------------------------------------------------------------
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Walk_Sound", L"..\\Resources\\Sound\\Kaho_Human\\walk.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Hurt_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Kaho_Hurt.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Pray_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Prey.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_UseItem_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Use_Item.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Shoot_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Shoot_Arrow.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Death_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Kaho_Death.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Jump_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Jump.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Roll_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Roll.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_AirRoll_Sound", L"..\\Resources\\Sound\\Kaho_Human\\AirRoll.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Attack1_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Melee_1.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Attack2_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Melee_2.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Attack3_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Melee_3.wav"));
+
+
 		
 		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
@@ -318,6 +341,7 @@ namespace Mn
 			
 			if (_Hp <= 0 && _Death==false)
 			{
+				_SoundPack[(int)eSound::Death]->Play(false);
 				_Death = true;
 				_PlayerStatus = ePlayerStatus::Death;
 				animationCtrl();
@@ -356,6 +380,7 @@ namespace Mn
 			{
 				_Hp -= 10;
 				_GetDamage = false;
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
@@ -363,6 +388,7 @@ namespace Mn
 			{
 				_Hp -= 10;
 				_GetDamage = false;
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
@@ -374,6 +400,7 @@ namespace Mn
 					dynamic_cast<Knife*>(other->Owner())->Hit();
 					_GetDamage = false;
 					_Hp -= 10;
+					_SoundPack[(int)eSound::Hurt]->Play(false);
 					_PlayerStatus = ePlayerStatus::Hurt;
 					animationCtrl();
 				}
@@ -387,6 +414,7 @@ namespace Mn
 				{
 					_GetDamage = false;
 					_Hp -= 10;
+					_SoundPack[(int)eSound::Hurt]->Play(false);
 					_PlayerStatus = ePlayerStatus::Hurt;
 					animationCtrl();
 				}
@@ -397,6 +425,7 @@ namespace Mn
 				{
 					_GetDamage = false;
 					_Hp -= 10;
+					_SoundPack[(int)eSound::Hurt]->Play(false);
 					_PlayerStatus = ePlayerStatus::Hurt;
 					animationCtrl();
 				}
@@ -633,6 +662,8 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			_SoundPack[(int)eSound::Jump]->Stop(true);
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y -= _Jumpforce;
 
@@ -644,6 +675,7 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_SoundPack[(int)eSound::Roll]->Play(false);
 			_MoveSpeed = 400.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
@@ -682,6 +714,8 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			_SoundPack[(int)eSound::Jump]->Stop(true);
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			_MoveSpeed = 100.0f;
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y -= _Jumpforce;
@@ -703,6 +737,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_SoundPack[(int)eSound::Roll]->Play(false);
 			_MoveSpeed = 400.0f;
 			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
@@ -813,6 +848,8 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::A) && _DoubleJump <= 1)
 		{
+			_SoundPack[(int)eSound::Jump]->Stop(true);
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			_DoubleJump++;
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y = 0;
@@ -847,6 +884,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::Q) && _DashOn == true)
 		{
+			_SoundPack[(int)eSound::AirRoll]->Play(false);
 			_DashOn = false;
 			_CoolTime = 1.5f;
 			_MoveSpeed = 1200.0f;
@@ -874,6 +912,8 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::A) && _DoubleJump <= 1)
 		{
+			_SoundPack[(int)eSound::Jump]->Stop(true);
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			_PlayerStatus = ePlayerStatus::Jump;
 			_DoubleJump++;
 			Vector2 velocity = _Rigidbody->Velocity();
@@ -897,6 +937,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::Q) && _DashOn == true)
 		{
+			_SoundPack[(int)eSound::AirRoll]->Play(false);
 			_DashOn = false;
 			_CoolTime = 1.5f;
 			_MoveSpeed = 1200.0f;
@@ -928,6 +969,7 @@ namespace Mn
 	{
 		if (_Rigidbody->GetGround() == true)
 		{
+			
 			if (_Dir == eDir::R)
 				_pos.x += _MoveSpeed * Time::DeltaTime();
 			else
@@ -935,6 +977,7 @@ namespace Mn
 		}
 		else
 		{
+			
 			_Rigidbody->Velocity(Vector2(0.0f, 0.0f));
 			_DashCharge += Time::DeltaTime();
 
@@ -949,6 +992,7 @@ namespace Mn
 	}
 	void Kaho_Human::useItem()
 	{
+		_SoundPack[(int)eSound::UseItem]->Play(false);
 		ItemBox* item=nullptr;
 		Scene* scene = SceneManager::ActiveScene();
 		std::vector<GameObject*> itemObj = scene->GetGameObject(eLayerType::UI);
@@ -1005,6 +1049,7 @@ namespace Mn
 		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack1]->Play(false);
 		MeleeEffect* melee=object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(1);
@@ -1040,6 +1085,7 @@ namespace Mn
 		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack2]->Play(false);
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(2);
@@ -1075,6 +1121,7 @@ namespace Mn
 		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack3]->Play(false);
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(3);
@@ -1098,6 +1145,7 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack2]->Play(false);
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(4);
@@ -1109,6 +1157,7 @@ namespace Mn
 	}
 	void Kaho_Human::crouchRangeStart()
 	{
+		_SoundPack[(int)eSound::Shoot]->Play(false);
 		Transform* tr = GetComponent<Transform>();
 		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-50.0f), eLayerType::Throws);
 		arrow->Dir(_Dir);
@@ -1119,6 +1168,7 @@ namespace Mn
 	}
 	void Kaho_Human::airRangeStart()
 	{
+		_SoundPack[(int)eSound::Shoot]->Play(false);
 		Transform* tr = GetComponent<Transform>();
 		Arrow* arrow = object::Instantiate<Arrow>(tr->Pos() + Vector2(0.0f, -30.0f*3), eLayerType::Throws);
 		arrow->Dir(_Dir);
@@ -1131,6 +1181,7 @@ namespace Mn
 	}
 	void Kaho_Human::beforeRange()
 	{
+		_SoundPack[(int)eSound::Shoot]->Play(false);
 		Transform* tr = GetComponent<Transform>();
 		Arrow* arrow =object::Instantiate<Arrow>(tr->Pos()+Vector2(0.0f,-30.0f*3),eLayerType::Throws);
 		arrow->Dir(_Dir);
@@ -1188,8 +1239,10 @@ namespace Mn
 	}
 	void Kaho_Human::pray()
 	{
+		
 		if (_PrayEffect == nullptr)
 		{
+			_SoundPack[(int)eSound::Pray]->Play(false);
 			_PrayEffect = object::Instantiate<PrayEffect>(_pos,eLayerType::Effect);
 		}
 		else
@@ -1215,5 +1268,9 @@ namespace Mn
 		_PlayerStatus = ePlayerStatus::Idle;
 		animationCtrl();
 		_Death = false;
+	}
+	void Kaho_Human::walkSound()
+	{
+		_SoundPack[(int)eSound::Walk]->Play(false);
 	}
 }

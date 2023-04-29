@@ -107,6 +107,9 @@
     <Filter Include="Contents\Bell">
       <UniqueIdentifier>{439c709b-9ede-406a-8c09-77eead90aee0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engin\Sound">
+      <UniqueIdentifier>{a66778bb-01f0-4745-9b03-a508d9dcb182}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -385,6 +388,12 @@
     <ClInclude Include="MnVeiwPoint.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="MnSoundManager.h">
+      <Filter>Engin\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="MnSound.h">
+      <Filter>Engin\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -654,6 +663,12 @@
     </ClCompile>
     <ClCompile Include="MnVeiwPoint.cpp">
       <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="MnSoundManager.cpp">
+      <Filter>Engin\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="MnSound.cpp">
+      <Filter>Engin\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

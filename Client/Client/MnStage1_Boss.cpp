@@ -14,6 +14,9 @@
 #include "MnMapTrriger.h"
 #include "MnWall.h"
 #include "MnVeiwPoint.h"
+#include "MnSound.h"
+#include "MnResources.h"
+
 namespace Mn
 {
 	Kaho* Stage1_Boss::_kaho = nullptr;
@@ -25,6 +28,7 @@ namespace Mn
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
 		, _MapTrriger(nullptr)
+		, _BGSound(nullptr)
 	{
 	}
 	Stage1_Boss::~Stage1_Boss()
@@ -47,6 +51,7 @@ namespace Mn
 		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(564,400),eLayerType::Trriger);
 		_Portal->GetComponent<Collider>()->Size(Vector2(100*3,100));
 		_Portal->moveToScene(eSceneType::stage2_1);
+		_BGSound = Resources::Find<Sound>(L"ForestBGSound");
 	}
 	void Stage1_Boss::Update()
 	{
@@ -97,6 +102,7 @@ namespace Mn
 	}
 	void Stage1_Boss::OnExit()
 	{
+		_BGSound->Stop(true);
 		float hp = _kaho->HP();
 		bool iscat = _kaho->IsCat();
 		int idx = _ItemBox->GetItemNum();

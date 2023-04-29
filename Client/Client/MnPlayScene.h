@@ -7,6 +7,7 @@
 #include "MnVeiwPoint.h"
 namespace Mn 
 {
+	class Sound;
 	class PlayScene :public Scene
 	{
 	private:
@@ -18,6 +19,7 @@ namespace Mn
 		ItemBox*		_ItemBox;
 		PlayerHpBar*	_PlayerHpBar;
 		VeiwPoint*		_VeiwPoint;
+		Sound*			_BGSound;
 	public:
 		PlayScene();
 		~PlayScene();

@@ -210,6 +210,8 @@
     <ClInclude Include="MnRigidbody.h" />
     <ClInclude Include="MnScene.h" />
     <ClInclude Include="MnSceneManager.h" />
+    <ClInclude Include="MnSound.h" />
+    <ClInclude Include="MnSoundManager.h" />
     <ClInclude Include="MnStaff.h" />
     <ClInclude Include="MnStage1_Boss.h" />
     <ClInclude Include="MnStage2_1.h" />
@@ -292,6 +294,7 @@
     <ClCompile Include="MnSceneManager.cpp" />
     <ClCompile Include="MnPlayScene.cpp" />
     <ClCompile Include="MnMomodora.cpp" />
+    <ClCompile Include="MnSoundManager.cpp" />
     <ClCompile Include="MnStage1_Boss.cpp" />
     <ClCompile Include="MnStage2_1.cpp" />
     <ClCompile Include="MnStage3BG.cpp" />
@@ -321,6 +324,7 @@
     <ClCompile Include="MnStaff.cpp" />
     <ClCompile Include="MnWall.cpp" />
     <ClCompile Include="MnVeiwPoint.cpp" />
+    <ClCompile Include="MnSound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
