@@ -3,6 +3,7 @@
 namespace Mn
 {
 	class Image;
+	class Sound;
 	class Animator;
 	class Collider;
 	class Rigidbody;
@@ -16,12 +17,15 @@ namespace Mn
 			L,
 		};
 		Image*		_Image;
+		Sound*		_Sound1;
+		Sound*		_Sound2;
 		Animator*	_Animator;
 		Collider*	_Collider;
 		Rigidbody*	_Rigidbody;
 		Kaho*		_kaho;
 		eDir		_Dir;
 		float		_ThinkTime;
+		float		_SoundTime;
 		float		_HurtTime;
 		float		_Hp;
 		bool		_Ishurt;

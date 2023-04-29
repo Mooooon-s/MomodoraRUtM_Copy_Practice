@@ -3,7 +3,7 @@
 #include "MnAnimator.h"
 #include "MnResources.h"
 #include "MnTransform.h"
-
+#include "MnSound.h"
 namespace Mn
 {
 	HitEffect::HitEffect()
@@ -11,6 +11,8 @@ namespace Mn
 		, _Animator(nullptr)
 		, _Image(nullptr)
 		, _IsEnd(false)
+		, _Dir()
+		, _SoundPack()
 	{
 	}
 	HitEffect::~HitEffect()
@@ -35,6 +37,9 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Hit_Effect_Jump_Left") = std::bind(&HitEffect::Destroy, this);
 		_Animator->GetCompleteEvent(L"Hit_Effect_front_Right") = std::bind(&HitEffect::Destroy, this);
 		_Animator->GetCompleteEvent(L"Hit_Effect_front_Left") = std::bind(&HitEffect::Destroy, this);
+
+		_SoundPack.push_back(Resources::Load<Sound>(L"Hurt_Effect", L"..\\Resources\\Sound\\Effect_hit_.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Death_Effect", L"..\\Resources\\Sound\\Kill_monster.wav"));
 
 		_Animator->Play(L"Hit_Effect_last_Right", false);
 
@@ -69,6 +74,7 @@ namespace Mn
 		switch (type)
 		{
 		case 0:
+			_SoundPack[1]->Play(false);
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Hit_Effect_last_Right",false);
 			else
@@ -81,6 +87,7 @@ namespace Mn
 				_Animator->Play(L"Hit_Effect_Jump_Left", false);
 			break;
 		case 2:
+			_SoundPack[0]->Play(false);
 			if (_Dir == eDir::R)
 				_Animator->Play(L"Hit_Effect_front_Right", false);
 			else

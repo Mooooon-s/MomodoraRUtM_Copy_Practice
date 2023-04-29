@@ -11,6 +11,7 @@
 #include "MnKnife.h"
 #include "MnObject.h"
 #include "MnHitEffect.h"
+#include "MnSound.h"
 
 namespace Mn
 {
@@ -25,8 +26,10 @@ namespace Mn
 		, _kaho(nullptr)
 		, _Pos(Vector2::Zero)
 		, _ThinkTime(0.0f)
+		, _SoundTime(0.0f)
 		, _Hp(1.0f)
 		, _ActionCount(0)
+		, _Soundpack()
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->Pos(Vector2(-100, -100));
@@ -62,6 +65,10 @@ namespace Mn
 		_Animator->FindAnimation(L"Imp_Knife_Attack_Right")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&ImpKnife::trowKnife, this);
 		_Animator->FindAnimation(L"Imp_Knife_Attack_Left")->GetSprite(5)._Events._FrameEvent._Event = std::bind(&ImpKnife::trowKnife, this);
 		
+		_Soundpack.push_back(Resources::Load<Sound>(L"Imp_idle1_Sound", L"..\\Resources\\Sound\\Imp\\Imp1.wav"));
+		_Soundpack.push_back(Resources::Load<Sound>(L"Imp_idle2_Sound", L"..\\Resources\\Sound\\Imp\\Imp2.wav"));
+		_Soundpack.push_back(Resources::Load<Sound>(L"Imp_Hurt_Sound", L"..\\Resources\\Sound\\Imp\\Imp_Hurt.wav"));
+		_Soundpack.push_back(Resources::Load<Sound>(L"Imp_Death_Sound", L"..\\Resources\\Sound\\Imp\\Imp_Death.wav"));
 		
 		_Animator->Play(L"Imp_Knife_Idle_Right",true);
 		Scene* scene = SceneManager::ActiveScene();
@@ -83,6 +90,18 @@ namespace Mn
 			think();
 			_ThinkTime = 0;
 		}
+		_SoundTime += Time::DeltaTime();
+		if (_SoundTime >= 3)
+		{
+			int a = rand() % 2;
+			if (a == 0)
+				_Soundpack[(int)eSound::idle1]->Play(false);
+			else
+				_Soundpack[(int)eSound::idle2]->Play(false);
+			_SoundTime = 0;
+		}
+
+
 		switch (_MonState)
 		{
 		case eMonStatus::Move:
@@ -122,10 +141,19 @@ namespace Mn
 			Vector2 pos = tr->Pos();
 			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
 			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(0);
 			_MonState = eMonStatus::Hurt;
 			animatorCntrl();
 			_Hp -= 1.5f;
+			if(_Hp<=0)
+			{
+				_Soundpack[(int)eSound::death]->Play(false);
+				hitEffect->AnimationCntrl(0);
+			}
+			else
+			{
+				_Soundpack[(int)eSound::hurt]->Play(false);
+				hitEffect->AnimationCntrl(2);
+			}
 			_ThinkTime = 0;
 		}
 
@@ -139,6 +167,14 @@ namespace Mn
 			_MonState = eMonStatus::Hurt;
 			animatorCntrl();
 			_Hp -= 1.0f;
+			if (_Hp <= 0)
+			{
+				_Soundpack[(int)eSound::death]->Play(false);
+			}
+			else
+			{
+				_Soundpack[(int)eSound::hurt]->Play(false);
+			}
 			_ThinkTime = 0;
 		}
 	}
@@ -150,6 +186,7 @@ namespace Mn
 	}
 	void ImpKnife::think()
 	{
+
 		Vector2 playerPos = _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();

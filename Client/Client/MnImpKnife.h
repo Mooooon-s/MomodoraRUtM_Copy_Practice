@@ -7,6 +7,7 @@ namespace Mn
 	class Collider;
 	class Image;
 	class Kaho;
+	class Sound;
 	class ImpKnife : public GameObject
 	{
 	private:
@@ -23,6 +24,14 @@ namespace Mn
 			R,
 			L,
 		};
+		enum class eSound
+		{
+			idle1,
+			idle2,
+			hurt,
+			death,
+		};
+		std::vector<Sound*> _Soundpack;
 		Rigidbody*	_Rigidbody;
 		Collider*	_Collider;
 		Animator*	_Animator;
@@ -32,6 +41,7 @@ namespace Mn
 		eDir		_Dir;
 		Vector2		_Pos;
 		double		_ThinkTime;
+		double		_SoundTime;
 		double		_HurtTime;
 		float		_Hp;
 		int			_ActionCount;

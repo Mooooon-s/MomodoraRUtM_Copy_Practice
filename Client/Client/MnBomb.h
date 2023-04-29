@@ -3,6 +3,7 @@
 namespace Mn
 {
 	class Image;
+	class Sound;
 	class Collider;
 	class Animator;
 	class Rigidbody;
@@ -14,6 +15,7 @@ namespace Mn
 		Rigidbody*	_Rigidbody;
 		Image*		_Image;
 		Image*		_GroundImage;
+		Sound*		_Explosion;
 		Vector2		_Pos;
 		float		_Time;
 		int			_Dir;
@@ -36,5 +38,6 @@ namespace Mn
 	private:
 		float computeY(int a, int b, int c, float x) { return (a* x* x) + (b * x) + c; }
 		void afterBlowUp();
+		void blowUp();
 	};
 }

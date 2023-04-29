@@ -7,6 +7,7 @@ namespace Mn
 	class Rigidbody;
 	class Collider;
 	class Image;
+	class Sound;
 	class Imp :public GameObject
 	{
 	private:
@@ -22,6 +23,11 @@ namespace Mn
 			R,
 			L,
 		};
+		enum class eSound
+		{
+			sheld,
+		};
+		std::vector<Sound*> _SoundPack;
 		class Kaho* _kaho;
 		eMonStatus	_Status;
 		Rigidbody*	_Rigidbody;

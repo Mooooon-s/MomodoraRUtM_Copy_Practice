@@ -210,7 +210,14 @@ namespace Mn
 				pos.y -= (_Collider->Size().y / 2.0f);
 				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
 				hitEffect->Dir((int)_Dir);
-				hitEffect->AnimationCntrl(0);
+				if (_Hp <= 0)
+				{
+					hitEffect->AnimationCntrl(0);
+				}
+				else
+				{
+					hitEffect->AnimationCntrl(2);
+				}
 				if (_KnockBack >= 15.0f)
 					_Count++;
 			}

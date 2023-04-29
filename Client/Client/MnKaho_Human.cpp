@@ -483,7 +483,6 @@ namespace Mn
 					pos.x += _MoveSpeed * Time::DeltaTime();
 					tr->Pos(pos);
 				}
-
 			}
 		}
 	}

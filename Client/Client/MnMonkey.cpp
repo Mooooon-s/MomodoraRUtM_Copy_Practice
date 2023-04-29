@@ -119,8 +119,15 @@ namespace Mn
 			Vector2 pos = tr->Pos();
 			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
 			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(0);
 			_HP -= 1.5f;
+			if (_HP <= 0)
+			{
+				hitEffect->AnimationCntrl(0);
+			}
+			else
+			{
+				hitEffect->AnimationCntrl(2);
+			}
 			_MonStatus = eMonStatus::Hurt;
 			animationCtrl();
 		}

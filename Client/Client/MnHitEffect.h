@@ -3,6 +3,7 @@
 namespace Mn
 {
 	class Image;
+	class Sound;
 	class Animator;
 	class HitEffect : public GameObject
 	{
@@ -12,6 +13,7 @@ namespace Mn
 			R,
 			L,
 		};
+		std::vector<Sound*> _SoundPack;
 		Animator*	_Animator;
 		Image*		_Image;
 		eDir		_Dir;

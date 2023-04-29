@@ -9,6 +9,7 @@
 #include "MnGround.h"
 #include "MnSceneManager.h"
 #include "MnCamera.h"
+#include "MnSound.h"
 namespace Mn
 {
 	Bomb::Bomb()
@@ -35,6 +36,7 @@ namespace Mn
 		_Image = Resources::Load<Image>(L"Smoke_", L"..\\Resources\\Smoke.bmp");
 		_Animator->CreateAnimation(L"Smoke", _Image, Vector2::Zero, 7, 1, 7, Vector2::Zero, 0.08);
 		_Animator->GetCompleteEvent(L"Smoke") = std::bind(&Bomb::afterBlowUp, this);
+		_Animator->FindAnimation(L"Smoke")->GetSprite(1)._Events._FrameEvent._Event = std::bind(&Bomb::blowUp, this);
 		_Rigidbody = AddComponent<Rigidbody>();
 		_Rigidbody->SetMass(0.5f);
 		_Rigidbody->SetGround(false);
@@ -54,6 +56,7 @@ namespace Mn
 			if (dynamic_cast<Ground*>(v))
 				_GroundImage = dynamic_cast<Ground*>(v)->Map();
 		}
+		_Explosion = Resources::Load<Sound>(L"Explosion", L"..\\Resources\\Sound\\Explosion.wav");
 	}
 	void Bomb::Update()
 	{
@@ -135,5 +138,9 @@ namespace Mn
 	void Bomb::afterBlowUp()
 	{
 		this->State(eState::Death);
+	}
+	void Bomb::blowUp()
+	{
+		_Explosion->Play(false);
 	}
 }

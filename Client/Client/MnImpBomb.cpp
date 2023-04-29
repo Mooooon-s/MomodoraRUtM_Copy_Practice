@@ -12,6 +12,7 @@
 #include "MnSceneManager.h"
 #include "MnScene.h"
 #include "MnKaho.h"
+#include "MnSound.h"
 
 #include "MnHitEffect.h"
 
@@ -25,9 +26,12 @@ namespace Mn
 		, _Rigidbody(nullptr)
 		, _Dir(eDir::R)
 		, _ThinkTime(0.0f)
+		, _SoundTime(0.0f)
 		, _HurtTime(0.0f)
 		, _Hp(1.0f)
 		, _Ishurt(false)
+		, _Sound1(nullptr)
+		, _Sound2(nullptr)
 	{
 	}
 	ImpBomb::~ImpBomb()
@@ -60,6 +64,9 @@ namespace Mn
 		_Animator->FindAnimation(L"Imp_Bomb_Attack_Right")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&ImpBomb::attack, this);
 		_Animator->FindAnimation(L"Imp_Bomb_Attack_Left")->GetSprite(4)._Events._FrameEvent._Event = std::bind(&ImpBomb::attack, this);
 
+		_Sound1 = Resources::Load<Sound>(L"Imp_idle1_Sound", L"..\\Resources\\Sound\\Imp\\Imp1.wav");
+		_Sound2 = Resources::Load<Sound>(L"Imp_idle2_Sound", L"..\\Resources\\Sound\\Imp\\Imp2.wav");
+
 		_Animator->Play(L"Imp_Bomb_Idle_Right", true);
 		Scene* scene = SceneManager::ActiveScene();
 		std::vector<GameObject*> playerobj = scene->GetGameObject(eLayerType::Player);
@@ -91,6 +98,16 @@ namespace Mn
 			else
 				_Animator->Play(L"Imp_Bomb_Attack_Left", false);
 			_ThinkTime = 0;
+		}
+		_SoundTime += Time::DeltaTime();
+		if (_SoundTime >= 3)
+		{
+			int a = rand() % 2;
+			if (a == 0)
+				_Sound1->Play(false);
+			else
+				_Sound2->Play(false);
+			_SoundTime = 0;
 		}
 		if (_Ishurt == true)
 		{
@@ -130,7 +147,7 @@ namespace Mn
 
 		if (other->Owner()->GetName() == L"Arrow")
 		{
-			Transform* tr = GetComponent<Transform>();
+			Transform* tr = GetComponent<Transform>(); 
 			Vector2 pos = tr->Pos();
 			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos,eLayerType::Effect);
 			hitEffect->Dir((int)_Dir);

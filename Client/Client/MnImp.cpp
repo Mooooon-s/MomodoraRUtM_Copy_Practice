@@ -12,6 +12,7 @@
 #include "MnObject.h"
 #include "MnKnife.h"
 #include "MnHitEffect.h"
+#include "MnSound.h"
 
 namespace Mn
 {
@@ -25,6 +26,7 @@ namespace Mn
 		, _Hp(3)
 		, _MoveCount(0)
 		, _Dir(eDir::R)
+		, _SoundPack()
 	{
 	}
 	Imp::~Imp()
@@ -69,6 +71,9 @@ namespace Mn
 			if (dynamic_cast<Kaho*>(v))
 				_kaho = dynamic_cast<Kaho*>(v);
 		}
+
+		_SoundPack.push_back(Resources::Load<Sound>(L"Imp_Sheld", L"..\\Resources\\Sound\\Imp\\Imp_Sheld.wav"));
+
 		GameObject::Initialize();
 	}
 	void Imp::Update()
@@ -139,6 +144,7 @@ namespace Mn
 			}
 			else
 			{
+				_SoundPack[(int)eSound::sheld]->Play(false);
 				_Status = eMonStatus::Defence;
 				animationCntrl();
 			}
