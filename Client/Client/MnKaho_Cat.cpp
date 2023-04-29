@@ -2,6 +2,7 @@
 #include "MnKaho_Cat.h"
 #include "MnResources.h"
 #include "MnImage.h"
+#include "MnSound.h"
 #include "MnInput.h"
 #include "MnTime.h"
 #include "MnMeleeEffect.h"
@@ -54,6 +55,7 @@ namespace Mn
 		, _ComboCount(0)
 		, _Hp(100)
 		, _RevivalPos(Vector2::Zero)
+		, _SoundPack()
 	{
 	}
 	Kaho_Cat::~Kaho_Cat()
@@ -164,6 +166,26 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Cat_Death_Right") = std::bind(&Kaho_Cat::afterDeath, this);
 		_Animator->GetCompleteEvent(L"Cat_Death_Left") = std::bind(&Kaho_Cat::afterDeath, this);
 
+		//-------------------------------------------------------------------------------------------------------------------
+		//
+		//													Sound
+		// 
+		//-------------------------------------------------------------------------------------------------------------------
+		_SoundPack.push_back(Resources::Load<Sound>(L"Cat_Hurt_Sound", L"..\\Resources\\Sound\\Kaho_Cat\\CatHurt.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Cat_Death_Sound", L"..\\Resources\\Sound\\Kaho_Cat\\CatDeath.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Jump_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Jump.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Roll_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Roll.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_AirRoll_Sound", L"..\\Resources\\Sound\\Kaho_Human\\AirRoll.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Attack1_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Melee_1.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Attack2_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Melee_2.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Attack3_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Melee_3.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"Player_UseItem_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Use_Item.wav"));
+
+
+
+
+
+
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
 	}
@@ -230,6 +252,7 @@ namespace Mn
 				_DoubleJump = 0;
 			if (_Hp <= 0 && _Death == false)
 			{
+				_SoundPack[(int)eSound::Death]->Play(false);
 				_Death = true;
 				_PlayerStatus = ePlayerStatus::Death;
 				animationCtrl();
@@ -265,6 +288,7 @@ namespace Mn
 
 			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
@@ -272,6 +296,7 @@ namespace Mn
 			}
 			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
@@ -281,6 +306,7 @@ namespace Mn
 			{
 				if (dynamic_cast<Knife*>(other->Owner()))
 				{
+					_SoundPack[(int)eSound::Hurt]->Play(false);
 					_Hp -= 15;
 					dynamic_cast<Knife*>(other->Owner())->Hit();
 					_GetDamage = false;
@@ -295,6 +321,7 @@ namespace Mn
 					|| dynamic_cast<FireFlame*>(other->Owner())
 					|| dynamic_cast<LupiarBall*>(other->Owner()))
 				{
+					_SoundPack[(int)eSound::Hurt]->Play(false);
 					_Hp -= 15;
 					_GetDamage = false;
 					_PlayerStatus = ePlayerStatus::Hurt;
@@ -305,6 +332,7 @@ namespace Mn
 			{
 				if (dynamic_cast<Bomb*>(other->Owner())->BlowUp() == false)
 				{
+					_SoundPack[(int)eSound::Hurt]->Play(false);
 					_GetDamage = false;
 					_Hp -= 10;
 					_PlayerStatus = ePlayerStatus::Hurt;
@@ -321,6 +349,7 @@ namespace Mn
 		{
 			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
@@ -329,6 +358,7 @@ namespace Mn
 
 			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
@@ -378,6 +408,7 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			_MoveSpeed = 300.f;
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y -= _Jumpforce;
@@ -403,6 +434,7 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_SoundPack[(int)eSound::Roll]->Play(false);
 			if (_Rigidbody->GetGround() == true)
 			{
 				_MoveSpeed = 300.0f;
@@ -455,11 +487,13 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::Q))
 		{
+			_SoundPack[(int)eSound::Roll]->Play(false);
 			_PlayerStatus = ePlayerStatus::Roll;
 			animationCtrl();
 		}
 		if (Input::GetKeyDown(eKeyCode::A))
 		{
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			_MoveSpeed = 300.0f;
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y -= _Jumpforce;
@@ -559,6 +593,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::A)&&_DoubleJump<=1)
 		{
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y = 0;
 			velocity.y -= _Jumpforce;
@@ -590,6 +625,7 @@ namespace Mn
 
 		if (Input::GetKeyDown(eKeyCode::Q) && _DashOn == true )
 		{
+			_SoundPack[(int)eSound::AirRoll]->Play(false);
 			_DashOn = false;
 			_CoolTime = 1.5f;
 			if (_Rigidbody->GetGround() == true)
@@ -619,6 +655,7 @@ namespace Mn
 	{
 		if (Input::GetKeyDown(eKeyCode::A) && _DoubleJump <= 1)
 		{
+			_SoundPack[(int)eSound::Jump]->Play(false);
 			Vector2 velocity = _Rigidbody->Velocity();
 			velocity.y = 0;
 			velocity.y -= _Jumpforce;
@@ -630,6 +667,7 @@ namespace Mn
 		}
 		if (Input::GetKeyDown(eKeyCode::Q) && _DashOn == true )
 		{
+			_SoundPack[(int)eSound::AirRoll]->Play(false);
 			_DashOn = false;
 			_CoolTime = 1.5f;
 			_MoveSpeed = 800.0f;
@@ -643,7 +681,18 @@ namespace Mn
 			_Pos.x -= _MoveSpeed * Time::DeltaTime();
 		else if (Input::GetKey(eKeyCode::Right))
 			_Pos.x += _MoveSpeed * Time::DeltaTime();
-		
+		if (Input::GetKeyDown(eKeyCode::Left))
+		{
+			_Pos.x -= _MoveSpeed * Time::DeltaTime();
+			_Dir = eDir::L;
+			animationCtrl();
+		}
+		else if (Input::GetKeyDown(eKeyCode::Right))
+		{
+			_Pos.x += _MoveSpeed * Time::DeltaTime();
+			_Dir = eDir::R;
+			animationCtrl();
+		}
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
 			_PlayerStatus = ePlayerStatus::Attack;
@@ -684,6 +733,7 @@ namespace Mn
 	}
 	void Kaho_Cat::useItem()
 	{
+		_SoundPack[(int)eSound::UseItem]->Play(false);
 		ItemBox* item = nullptr;
 		Scene* scene = SceneManager::ActiveScene();
 		std::vector<GameObject*> itemObj = scene->GetGameObject(eLayerType::UI);
@@ -735,6 +785,7 @@ namespace Mn
 		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack1]->Play(false);
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(1);
@@ -744,6 +795,7 @@ namespace Mn
 		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack2]->Play(false);
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(2);
@@ -753,6 +805,7 @@ namespace Mn
 		_ComboCount++;
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack3]->Play(false);
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(3);
@@ -761,6 +814,7 @@ namespace Mn
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
+		_SoundPack[(int)eSound::Attack2]->Play(false);
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(1);

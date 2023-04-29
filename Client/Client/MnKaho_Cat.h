@@ -7,9 +7,23 @@ namespace Mn
 	class Kaho;
 	class Animator;
 	class Rigidbody;
+	class Sound;
 	class Kaho_Cat : public GameObject
 	{
 	private:
+		enum class eSound
+		{
+			Hurt,
+			Death,
+			Jump,
+			Roll,
+			AirRoll,
+			Attack1,
+			Attack2,
+			Attack3,
+			UseItem,
+		};
+		std::vector<Sound*> _SoundPack;
 		ePlayerStatus	_PlayerStatus;
 		Rigidbody*		_Rigidbody;
 		Animator*		_Animator;

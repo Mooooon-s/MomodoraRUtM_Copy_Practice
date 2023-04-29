@@ -441,6 +441,7 @@ namespace Mn
 		{
 			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
@@ -449,6 +450,7 @@ namespace Mn
 
 			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
+				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_Hp -= 15;
 				_GetDamage = false;
 				_PlayerStatus = ePlayerStatus::Hurt;
