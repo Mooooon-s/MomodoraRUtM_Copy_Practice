@@ -390,15 +390,15 @@ namespace Mn
 					_PlayerStatus = ePlayerStatus::Hurt;
 					animationCtrl();
 				}
-				if (dynamic_cast<Bomb*>(other->Owner()))
+			}
+			if (dynamic_cast<Bomb*>(other->Owner()))
+			{
+				if (dynamic_cast<Bomb*>(other->Owner())->BlowUp() == false)
 				{
-					if (dynamic_cast<Bomb*>(other->Owner())->BlowUp() == false)
-					{
-						_GetDamage = false;
-						_Hp -= 10;
-						_PlayerStatus = ePlayerStatus::Hurt;
-						animationCtrl();
-					}
+					_GetDamage = false;
+					_Hp -= 10;
+					_PlayerStatus = ePlayerStatus::Hurt;
+					animationCtrl();
 				}
 			}
 

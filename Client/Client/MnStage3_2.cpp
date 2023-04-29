@@ -9,6 +9,9 @@
 #include "MnPortal.h"
 #include "MnStage3BG.h"
 #include "MnItemBox.h"
+#include "MnVeiwPoint.h"
+#include "MnImpBomb.h"
+#include "MnCatPeasant.h"
 
 namespace Mn
 {
@@ -31,15 +34,18 @@ namespace Mn
 		Scene::Initialize();
 		object::Instantiate<Stage3BG>(eLayerType::BG);
 		_ItemBox = object::Instantiate<ItemBox>(Vector2(20.0f, 50.0f), eLayerType::UI);
-		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(60, 660), eLayerType::Player);
-		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(60, 660), eLayerType::Player);
-		_kaho = object::Instantiate<Kaho>(Vector2(60, 660), eLayerType::Player);
+		_KahoCat = object::Instantiate<Kaho_Cat>(Vector2(60, 239), eLayerType::Player);
+		_KahoHuman = object::Instantiate<Kaho_Human>(Vector2(60, 239), eLayerType::Player);
+		_kaho = object::Instantiate<Kaho>(Vector2(60, 239), eLayerType::Player);
 		object::Instantiate<PlayerHpBar>(Vector2(100.0f, 50.0f), eLayerType::UI);
 		object::Instantiate<Ground>(eLayerType::Ground);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 		_Portal = object::Instantiate<Portal>(Vector2(955, 0), eLayerType::Portal);
 		_Portal->GetComponent<Collider>()->Size(Vector2(50, 700));
 		_Portal->moveToScene(eSceneType::stage3_3);
+		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
+		object::Instantiate<ImpBomb>(Vector2(700,236), eLayerType::Monster);
+		object::Instantiate<CatPeasant>(Vector2(1200, 236), eLayerType::Monster);
 	}
 	void Stage3_2::Update()
 	{
@@ -60,7 +66,7 @@ namespace Mn
 	void Stage3_2::OnEnter()
 	{
 		TilePalatte::Load(L"Stage3_2");
-		Camera::SetTarget(nullptr);
+		Camera::SetTarget(_VeiwPoint);
 		Camera::CamReset(1.5f);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
