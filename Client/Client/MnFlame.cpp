@@ -6,6 +6,7 @@
 #include "MnCollider.h"
 #include "MnTransform.h"
 #include "MnCamera.h"
+#include "MnSound.h"
 namespace Mn
 {
 	Flame::Flame()
@@ -24,6 +25,9 @@ namespace Mn
 		_Flame = Resources::Load<Image>(L"Flame", L"..\\Resources\\Flame.bmp");
 		_Collider = AddComponent<Collider>();
 		_Collider->Size(Vector2(_Flame->Width()*3, _Flame->Height()*3));
+		_Collider->Center(Vector2(0.0f,_Flame->Height() * 3.0f*-1));
+		Sound* explosion = Resources::Load<Sound>(L"Explosion",L"..\\Resources\\Sound\\Explosion.wav");
+		explosion->Play(false);
 		GameObject::Initialize();
 	}
 	void Flame::Update()

@@ -5,6 +5,7 @@
 #include "MnItemBox.h"
 namespace Mn
 {
+	class Sound;
 	class Stage2_1 : public Scene
 	{
 	private:
@@ -14,7 +15,7 @@ namespace Mn
 		Kaho_Cat*		_KahoCat;
 		Portal*			_Portal;
 		ItemBox*		_ItemBox;
-
+		Sound*			_BGSound;
 	public:
 		Stage2_1();
 		~Stage2_1();

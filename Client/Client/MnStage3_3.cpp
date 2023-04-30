@@ -16,6 +16,8 @@
 
 #include "MnMapTrriger.h"
 #include "MnWall.h"
+#include "MnSound.h"
+#include "MnResources.h"
 namespace Mn
 {
 	Kaho* Stage3_3::_kaho = nullptr;
@@ -48,6 +50,7 @@ namespace Mn
 		object::Instantiate<Ground>(eLayerType::Ground);
 		_Maptrriger = object::Instantiate<MapTrriger>(Vector2(400,500), eLayerType::Trriger);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
+		_BGSound = Resources::Load<Sound>(L"Boss3_BG", L"..\\Resources\\Sound\\BG\\boss7_Lupiar.wav");
 	}
 	void Stage3_3::Update()
 	{
@@ -59,6 +62,7 @@ namespace Mn
 			_Maptrriger = nullptr;
 			_Lup = object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
 			_Mag = object::Instantiate<Magnolia>(Vector2(157, 800), eLayerType::Monster);
+			_BGSound->Play(true);
 		}
 		if (_Page == true && _MagBoss==nullptr)
 		{

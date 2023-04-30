@@ -11,6 +11,8 @@
 #include "MnItemBox.h"
 #include "MnPlayerHpBar.h"
 #include "MnBell.h"
+#include "MnSound.h"
+#include "MnResources.h"
 namespace Mn
 {
 	Kaho* Stage2_1::_Kaho = nullptr;
@@ -21,6 +23,7 @@ namespace Mn
 		, _KahoHuman(nullptr)
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
+		, _BGSound(nullptr)
 	{
 	}
 	Stage2_1::~Stage2_1()
@@ -43,6 +46,7 @@ namespace Mn
 		Bell* bell = object::Instantiate<Bell>(Vector2(461,674),eLayerType::Ground);
 		bell->BellNumber(2);
 		_Kaho->GetCatHunam(_KahoCat, _KahoHuman);
+		_BGSound = Resources::Load<Sound>(L"Stage2_BG", L"..\\Resources\\Sound\\BG\\cinder_Stage_2.wav");
 	}
 	void Stage2_1::Update()
 	{
@@ -72,6 +76,7 @@ namespace Mn
 		_Kaho->HP(SceneManager::GetDontDestroyHP());
 		_Kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());
+		_BGSound->Play(true);
 	}
 	void Stage2_1::OnExit()
 	{

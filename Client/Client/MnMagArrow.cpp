@@ -5,6 +5,7 @@
 #include "MnCollider.h"
 #include "MnTransform.h"
 #include "MnTime.h"
+#include "MnSound.h"
 
 namespace Mn
 {
@@ -14,6 +15,7 @@ namespace Mn
 		, _BlowUpArrow(nullptr)
 		, _Collider(nullptr)
 		, _BlowUp(false)
+		, _Timer(0.0f)
 	{
 	}
 	MagArrow::~MagArrow()
@@ -25,6 +27,8 @@ namespace Mn
 		GameObject::Initialize();
 		_Arrow = Resources::Load<Image>(L"MagArrow", L"..\\Resources\\Magnolia-Throws_2.bmp");
 		_BlowUpArrow = Resources::Load<Image>(L"MagArrow2", L"..\\Resources\\Magnolia-Throws_1.bmp");
+		Sound* ArrowSound = Resources::Load<Sound>(L"ArrowSound", L"..\\Resources\\Sound\\Kaho_Human\\Shoot_Arrow.wav");
+		ArrowSound->Play(false);
 		_Collider = AddComponent<Collider>();
 	}
 	void MagArrow::Update()

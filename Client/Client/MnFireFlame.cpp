@@ -7,11 +7,13 @@
 #include "MnCollider.h"
 #include "MnCamera.h"
 #include "MnTime.h"
+#include "MnSound.h"
 namespace Mn
 {
 	FireFlame::FireFlame()
 		:GameObject()
 		, _Rigidbody(nullptr)
+		, _Collider(nullptr)
 		, _Image(nullptr)
 		, _Map(nullptr)
 		, _Timer(0.0f)
@@ -32,6 +34,8 @@ namespace Mn
 		_Rigidbody->SetGround(false);
 		_Collider = AddComponent<Collider>();
 		_Collider->Size(Vector2(_Image->Width() * 2, _Image->Height() * 2));
+		Sound* explosion = Resources::Load<Sound>(L"Explosion", L"..\\Resources\\Sound\\Explosion.wav");
+		explosion->Play(false);
 		GameObject::Initialize();
 	}
 	void FireFlame::Update()

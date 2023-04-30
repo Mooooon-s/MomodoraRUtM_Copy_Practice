@@ -228,6 +228,7 @@ namespace Mn
 		{
 			this->State(eState::Death);
 			_HpBar->State(eState::Death);
+			SceneManager::StopSound(L"Boss3_BG");
 		}
 	}
 	void MagnoliaBoss::disappear()

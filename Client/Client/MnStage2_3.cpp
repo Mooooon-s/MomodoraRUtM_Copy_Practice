@@ -17,6 +17,8 @@
 #include "MnGameObject.h"
 #include "MnWall.h"
 #include "MnVeiwPoint.h"
+#include "MnSound.h"
+#include "MnResources.h"
 namespace Mn
 {
 	Kaho* Stage2_3::_Kaho = nullptr;
@@ -28,6 +30,7 @@ namespace Mn
 		, _Portal(nullptr)
 		, _ItemBox(nullptr)
 		, _MapTrriger(nullptr)
+		, _BGSound(nullptr)
 	{
 	}
 	Stage2_3::~Stage2_3()
@@ -50,11 +53,15 @@ namespace Mn
 		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
 		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(480,500),eLayerType::Trriger);
 		_Kaho->GetCatHunam(_KahoCat, _KahoHuman);
+		_BGSound = Resources::Load<Sound>(L"Boss2_BG", L"..\\Resources\\Sound\\BG\\boss3_Arsonist.wav");
 	}
 	void Stage2_3::Update()
 	{
 		if (_MapTrriger!=nullptr && _MapTrriger->Trriger() == true)
 		{
+			Sound* stageBG = Resources::Find<Sound>(L"Stage2_BG");
+			stageBG->Stop(true);
+			_BGSound->Play(true);
 			object::Instantiate<Wall>(Vector2(106, 0), eLayerType::Ground);
 			object::Instantiate<Wall>(Vector2(1210, 0), eLayerType::Ground);
 			object::Instantiate<Arsonist>(Vector2(1287, 670), eLayerType::Monster);

@@ -185,6 +185,7 @@ namespace Mn
 			SceneManager::SetWall(true);
 			_MonStatus = eMonStatus::Death;
 			animationCtrl();
+			SceneManager::StopSound(L"Boss2_BG");
 		}
 		GameObject::Update();
 	}

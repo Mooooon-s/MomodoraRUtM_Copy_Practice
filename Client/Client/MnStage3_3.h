@@ -9,6 +9,7 @@
 #include "MnMagnoliaBoss.h"
 namespace Mn
 {
+	class Sound;
 	class Stage3_3 : public Scene
 	{
 	private:
@@ -21,6 +22,7 @@ namespace Mn
 		MapTrriger*		_Maptrriger;
 		Magnolia*		_Mag;
 		Lupiar*			_Lup;
+		Sound*			_BGSound;
 		bool			_Page;
 		MagnoliaBoss*	_MagBoss;
 

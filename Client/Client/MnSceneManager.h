@@ -1,7 +1,8 @@
 #pragma once
 #include"MnScene.h"
 #include"MnEnum.h"
-
+#include "MnSound.h"
+#include "MnResources.h"
 
 namespace Mn {
 	class SceneManager
@@ -30,5 +31,6 @@ namespace Mn {
 		static int GetDontDestroyIdx();
 		static bool GetWall() { return _WallDown; }
 		static void SetWall(bool wall) { _WallDown = wall; }
+		static void StopSound(std::wstring name) { Resources::Find<Sound>(name)->Stop(true); }
 	};
 }
