@@ -26,7 +26,6 @@ Mn::Tile::~Tile()
 
 void Mn::Tile::InitializeTile(Image* atlas,int index)
 {
-	_Image = Resources::Load<Image>(L"Tile_Pixel", L"..\\Resources\\Tile_Pixel.bmp");
 	_Index = index;
 	if (atlas == nullptr || index < 0)
 		return;

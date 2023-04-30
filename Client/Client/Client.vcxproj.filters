@@ -394,6 +394,7 @@
     <ClInclude Include="MnSound.h">
       <Filter>Engin\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="MnStage_Ending.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -670,5 +671,6 @@
     <ClCompile Include="MnSound.cpp">
       <Filter>Engin\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="MnStage_Ending.cpp" />
   </ItemGroup>
 </Project>

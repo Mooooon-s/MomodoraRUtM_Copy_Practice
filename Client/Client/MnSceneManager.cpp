@@ -17,6 +17,7 @@
 #include "MnStage3_1.h"
 #include "MnStage3_2.h"
 #include "MnStage3_3.h"
+#include "MnStage_Ending.h"
 
 namespace Mn {
 	//static 변수이기 때문에 전역에 메모리 할당을 해주어야함
@@ -45,6 +46,7 @@ namespace Mn {
 		_Scenes[(UINT)eSceneType::stage3_1] = new Stage3_1();
 		_Scenes[(UINT)eSceneType::stage3_2] = new Stage3_2();
 		_Scenes[(UINT)eSceneType::stage3_3] = new Stage3_3();
+		_Scenes[(UINT)eSceneType::end] = new Stage_Ending();
 		
 		_Scenes[(UINT)eSceneType::Tool] = new ToolScene();
 

@@ -51,6 +51,9 @@ namespace Mn
 		_Maptrriger = object::Instantiate<MapTrriger>(Vector2(400,500), eLayerType::Trriger);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
 		_BGSound = Resources::Load<Sound>(L"Boss3_BG", L"..\\Resources\\Sound\\BG\\boss7_Lupiar.wav");
+		_Portal = object::Instantiate<Portal>(Vector2(960, 660), eLayerType::Portal);
+		_Portal->GetComponent<Collider>()->Size(Vector2(100 * 3, 100));
+		_Portal->moveToScene(eSceneType::end);
 	}
 	void Stage3_3::Update()
 	{
@@ -67,6 +70,10 @@ namespace Mn
 		if (_Page == true && _MagBoss==nullptr)
 		{
 			_Mag->Done();
+		}
+		if (_Scene)
+		{
+			SceneManager::LoadScene(_Portal->PortalScene());
 		}
 		Scene::Update();
 	}
@@ -91,6 +98,7 @@ namespace Mn
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Throws, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Trriger, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Portal, true);
 		_kaho->HP(SceneManager::GetDontDestroyHP());
 		_kaho->IsCat(SceneManager::GetDontDestroyCat());
 		_ItemBox->IdxNum(SceneManager::GetDontDestroyIdx());

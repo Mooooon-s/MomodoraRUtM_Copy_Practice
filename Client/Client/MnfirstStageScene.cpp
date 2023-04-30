@@ -17,7 +17,8 @@ namespace Mn
 	Kaho* firstStageScene::_kaho = nullptr;
 	bool firstStageScene::_Scene = false;
 	firstStageScene::firstStageScene()
-		:_KahoHuman(nullptr)
+		: Scene()
+		, _KahoHuman(nullptr)
 		, _KahoCat(nullptr)
 		, _Portal(nullptr)
 		, _PlayerHpBar(nullptr)

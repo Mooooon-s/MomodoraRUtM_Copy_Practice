@@ -65,10 +65,8 @@ namespace Mn
 				_CuttonAlpha = ratio;
 			}
 		}
-
 		_Distance = _LookPosition - (_Resolution / 2.0f);
 	}
-
 	void Camera::Render(HDC hdc)
 	{
 		if (_AlphaTime < _EndTime
@@ -87,8 +85,22 @@ namespace Mn
 				, _Cutton->Width(), _Cutton->Height()
 				, func);
 		}
-	}
+		if (_Type == CameraState::FadeOUT)
+		{
+			BLENDFUNCTION func = {};
+			func.BlendOp = AC_SRC_OVER;
+			func.BlendFlags = 0;
+			func.AlphaFormat = 0;
+			func.SourceConstantAlpha = (BYTE)(255.0f * _CuttonAlpha);
 
+			AlphaBlend(hdc, 0, 0
+				, _Resolution.x, _Resolution.y
+				, _Cutton->Hdc()
+				, 0, 0
+				, _Cutton->Width(), _Cutton->Height()
+				, func);
+		}
+	}
 	void Camera::CamReset()
 	{
 		if (_Type == CameraState::FadeIN)
@@ -114,4 +126,15 @@ namespace Mn
 		_Distance = Vector2::Zero;
 	}
 
+	void Camera::Camtype(int type)
+	{
+		if (type == 1)
+		{
+			_Type = CameraState::FadeIN;
+		}
+		if (type == 2)
+		{
+			_Type = CameraState::FadeOUT;
+		}
+	}
 }

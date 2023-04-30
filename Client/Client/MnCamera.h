@@ -30,7 +30,8 @@ namespace Mn
 		static void CamReset();
 		static void CamReset(float alphatime);
 		static void Clear();
-
+	public:
+		static void Camtype(int type);
 		static void SetTarget(GameObject* target) { _Target = target; }
 		static GameObject* GetTarget() { return _Target; }
 		static Vector2 ComputePos(Vector2 pos) { return pos - _Distance; }

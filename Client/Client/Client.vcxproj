@@ -223,6 +223,7 @@
     <ClInclude Include="MnStage3_3.h" />
     <ClInclude Include="MnStage_1_2.h" />
     <ClInclude Include="MnStage_1_3.h" />
+    <ClInclude Include="MnStage_Ending.h" />
     <ClInclude Include="MnTile.h" />
     <ClInclude Include="MnTilePalatte.h" />
     <ClInclude Include="MnTime.h" />
@@ -325,6 +326,7 @@
     <ClCompile Include="MnWall.cpp" />
     <ClCompile Include="MnVeiwPoint.cpp" />
     <ClCompile Include="MnSound.cpp" />
+    <ClCompile Include="MnStage_Ending.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

@@ -47,8 +47,8 @@ namespace Mn
 		object::Instantiate<Ground>(Vector2::Zero,eLayerType::Ground);
 		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480, 360), eLayerType::UI);
 		_kaho->GetCatHunam(_KahoCat, _KahoHuman);
-		_Portal = object::Instantiate<Portal>(Vector2(1440,900),eLayerType::Portal);
 		_MapTrriger = object::Instantiate<MapTrriger>(Vector2(564,400),eLayerType::Trriger);
+		_Portal = object::Instantiate<Portal>(Vector2(1440,900),eLayerType::Portal);
 		_Portal->GetComponent<Collider>()->Size(Vector2(100*3,100));
 		_Portal->moveToScene(eSceneType::stage2_1);
 		_BGSound = Resources::Find<Sound>(L"ForestBGSound");
