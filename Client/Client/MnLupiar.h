@@ -5,6 +5,7 @@
 namespace Mn
 {
 	class Image;
+	class Sound;
 	class Animator;
 	class Rigidbody;
 	class Collider;
@@ -30,7 +31,14 @@ namespace Mn
 			Pattarn3,
 			Pattarn4,
 		};
+		enum class eSound
+		{
+			Roll,
+			pattarn,
+		};
+		std::vector<Sound*> _SoundPack;
 		Image*			_Image;
+		Sound*			_ParringSound;
 		Animator*		_Animator;
 		Rigidbody*		_Rigidbody;
 		Collider*		_Collider;
@@ -77,6 +85,8 @@ namespace Mn
 		void pattarn2Attack();
 		void pattarn3Attack();
 		void pattarn4Attack();
+		void pattarnSound();
+		void RollSound();
 	};
 }
 

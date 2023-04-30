@@ -15,6 +15,7 @@
 #include "MnChargeEffect.h"
 #include "MnBossHpBar.h"
 #include "MnStage3_3.h"
+#include "MnSound.h"
 
 namespace Mn
 {
@@ -26,6 +27,7 @@ namespace Mn
 		, _Animator(nullptr)
 		, _Rigidbody(nullptr)
 		, _Collider(nullptr)
+		, _ParringSound(nullptr)
 		, _HurtTime(0.0f)
 		, _Ready(0.0f)
 		, _MoveSpeed(100.0f)
@@ -37,6 +39,7 @@ namespace Mn
 		, _HpBar(nullptr)
 		, _KnockBack(0.0f)
 		, _Hp(100)
+		, _SoundPack()
 	{
 	}
 	Lupiar::~Lupiar()
@@ -120,6 +123,9 @@ namespace Mn
 		_Animator->GetCompleteEvent(L"Lupiar_Attack4_Right") = std::bind(&Lupiar::afterAction, this);
 		_Animator->GetCompleteEvent(L"Lupiar_Attack4_Left") = std::bind(&Lupiar::afterAction, this);
 
+		_Animator->GetStartEvent(L"Lupiar_Roll_Left") = std::bind(&Lupiar::RollSound, this);
+		_Animator->GetStartEvent(L"Lupiar_Roll_Right") = std::bind(&Lupiar::RollSound, this);
+
 		_Animator->Play(L"Lupiar_Idle_Right", true);
 		Scene* scene = SceneManager::ActiveScene();
 		std::vector<GameObject*> playerObj = scene->GetGameObject(eLayerType::Player);
@@ -132,6 +138,11 @@ namespace Mn
 			}
 		}
 		_HpBar = object::Instantiate<BossHpBar>(Vector2(150, 675),eLayerType::UI);
+
+		_ParringSound = Resources::Load<Sound>(L"Parring", L"..\\Resources\\Sound\\Imp\\Imp_Sheld.wav");
+		_SoundPack.push_back(Resources::Load<Sound>(L"Rolling", L"..\\Resources\\Sound\\Kaho_Human\\Roll.wav"));
+		_SoundPack.push_back(Resources::Load<Sound>(L"pattarn", L"..\\Resources\\Sound\\Explosion.wav"));
+
 		GameObject::Initialize();
 	}
 	void Lupiar::Update()
@@ -203,6 +214,10 @@ namespace Mn
 			}
 			if (_KnockBack >= 15.0f)
 				_Count++;
+		}
+		if (other->Owner()->GetName() == L"Arrow")
+		{
+			_ParringSound->Play(false);
 		}
 	}
 	void Lupiar::OnCollisionStay(Collider* other)
@@ -375,6 +390,7 @@ namespace Mn
 				cPos.x += size.x / 2.0f;
 				cPos.y -= size.y;
 				cTr->Pos(cPos);
+				pattarnSound();
 			}
 			else
 			{
@@ -386,6 +402,7 @@ namespace Mn
 				cPos.x -= size.x + (size.x / 2.0f);
 				cPos.y -= size.y;
 				cTr->Pos(cPos);
+				pattarnSound();
 			}
 		}
 		else
@@ -410,6 +427,7 @@ namespace Mn
 				cPos.x += size.x / 2.0f;
 				cPos.y -= size.y;
 				cTr->Pos(cPos);
+				pattarnSound();
 			}
 			else
 			{
@@ -421,6 +439,7 @@ namespace Mn
 				cPos.x -= size.x + (size.x / 2.0f);
 				cPos.y -= size.y;
 				cTr->Pos(cPos);
+				pattarnSound();
 			}
 		}
 		else
@@ -458,6 +477,7 @@ namespace Mn
 				cPos.x += size.x / 2.0f;
 				cPos.y -= size.y;
 				cTr->Pos(cPos);
+				pattarnSound();
 			}
 			else
 			{
@@ -469,6 +489,7 @@ namespace Mn
 				cPos.x -= size.x + (size.x / 2.0f);
 				cPos.y -= size.y;
 				cTr->Pos(cPos);
+				pattarnSound();
 			}
 		}
 		else
@@ -476,5 +497,13 @@ namespace Mn
 			_MeleeAttack->State(GameObject::eState::Death);
 			_MeleeAttack = nullptr;
 		}
+	}
+	void Lupiar::pattarnSound()
+	{
+		_SoundPack[(int)eSound::pattarn]->Play(false);
+	}
+	void Lupiar::RollSound()
+	{
+		_SoundPack[(int)eSound::Roll]->Play(false);
 	}
 }

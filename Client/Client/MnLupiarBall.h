@@ -3,12 +3,14 @@
 namespace Mn
 {
 	class Image;
+	class Sound;
 	class Collider;
 	class Rigidbody;
 	class LupiarBall : public GameObject
 	{
 	private:
 		Image*		_Image;
+		Sound*		_Sound;
 		Collider*	_Collider;
 		Rigidbody*	_Rigidbody;
 		Vector2		_DirVec;

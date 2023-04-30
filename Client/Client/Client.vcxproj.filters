@@ -110,6 +110,12 @@
     <Filter Include="Engin\Sound">
       <UniqueIdentifier>{a66778bb-01f0-4745-9b03-a508d9dcb182}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\Ending">
+      <UniqueIdentifier>{cf33e5db-b49a-4da9-aac2-8b72900b01ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\Prop">
+      <UniqueIdentifier>{0f6081bb-c3f8-4f4e-bb79-da74826f2fea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -358,15 +364,6 @@
     <ClInclude Include="MnMagArrow.h">
       <Filter>Contents\Throws</Filter>
     </ClInclude>
-    <ClInclude Include="MnMapTrriger.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MnGround.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="MnPortal.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="MnChargeEffect.h">
       <Filter>Contents\Effect</Filter>
     </ClInclude>
@@ -382,9 +379,6 @@
     <ClInclude Include="MnBossHpBar.h">
       <Filter>Contents\UI</Filter>
     </ClInclude>
-    <ClInclude Include="MnWall.h">
-      <Filter>Contents\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="MnVeiwPoint.h">
       <Filter>Contents</Filter>
     </ClInclude>
@@ -394,7 +388,21 @@
     <ClInclude Include="MnSound.h">
       <Filter>Engin\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="MnStage_Ending.h" />
+    <ClInclude Include="MnStage_Ending.h">
+      <Filter>Contents\Scene\Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="MnWall.h">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClInclude>
+    <ClInclude Include="MnPortal.h">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClInclude>
+    <ClInclude Include="MnMapTrriger.h">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClInclude>
+    <ClInclude Include="MnGround.h">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -635,15 +643,6 @@
     <ClCompile Include="MnMagArrow.cpp">
       <Filter>Contents\Throws</Filter>
     </ClCompile>
-    <ClCompile Include="MnMapTrriger.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MnGround.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="MnPortal.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="MnChargeEffect.cpp">
       <Filter>Contents\Effect</Filter>
     </ClCompile>
@@ -659,9 +658,6 @@
     <ClCompile Include="MnBossHpBar.cpp">
       <Filter>Contents\UI</Filter>
     </ClCompile>
-    <ClCompile Include="MnWall.cpp">
-      <Filter>Contents\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="MnVeiwPoint.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
@@ -671,6 +667,20 @@
     <ClCompile Include="MnSound.cpp">
       <Filter>Engin\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="MnStage_Ending.cpp" />
+    <ClCompile Include="MnStage_Ending.cpp">
+      <Filter>Contents\Scene\Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="MnWall.cpp">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClCompile>
+    <ClCompile Include="MnPortal.cpp">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClCompile>
+    <ClCompile Include="MnMapTrriger.cpp">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClCompile>
+    <ClCompile Include="MnGround.cpp">
+      <Filter>Contents\Scene\Prop</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

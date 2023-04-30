@@ -6,6 +6,7 @@
 #include "MnTransform.h"
 #include "MnTime.h"
 #include "MnCatPeasant.h"
+#include "MnSound.h"
 namespace Mn
 {
 	Staff::Staff()
@@ -17,6 +18,8 @@ namespace Mn
 		, _GetBack(0.0f)
 		, _Return(false)
 		, _Count(0)
+		, _StaffRotatSound(nullptr)
+		, _Timer(0.0f)
 	{
 		Transform* Tr = GetComponent<Transform>();
 		Tr->Pos(Vector2(-200,-200));
@@ -36,6 +39,8 @@ namespace Mn
 		_Collider->Size(Vector2(64 * 3, 64 * 3));
 		_Collider->Center(Vector2(-32 * 3, -64 * 3));
 
+		_StaffRotatSound = Resources::Load<Sound>(L"RotateSound", L"..\\Resources\\Sound\\StaffRotation.wav");
+
 		GameObject::Initialize();
 	}
 	void Staff::Update()
@@ -47,7 +52,7 @@ namespace Mn
 		else
 			_Animator->Play(L"Staff_Right", true);
 		_GetBack += Time::DeltaTime();
-		if (_GetBack >= 4)
+		if (_GetBack >= 2)
 		{
 			pos += (_DirVec*-1) * 1000.0f * Time::DeltaTime();
 		}
@@ -55,6 +60,16 @@ namespace Mn
 		{
 			pos += (_DirVec) * 1000.0f * Time::DeltaTime();
 		}
+
+		_Timer += Time::DeltaTime();
+		if (_Timer >= 0.13)
+		{
+			_StaffRotatSound->Stop(true);
+			_StaffRotatSound->Play(false);
+			_StaffRotatSound->SetVolume(25.0f);
+			_Timer = 0;
+		}
+
 		Tr->Pos(pos);
 		if (_Count >= 2)
 			_Return = true;

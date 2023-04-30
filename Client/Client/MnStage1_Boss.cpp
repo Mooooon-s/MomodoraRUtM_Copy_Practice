@@ -102,7 +102,7 @@ namespace Mn
 	}
 	void Stage1_Boss::OnExit()
 	{
-		_BGSound->Stop(true);
+		SceneManager::StopSound(L"ForestBGSound");
 		float hp = _kaho->HP();
 		bool iscat = _kaho->IsCat();
 		int idx = _ItemBox->GetItemNum();

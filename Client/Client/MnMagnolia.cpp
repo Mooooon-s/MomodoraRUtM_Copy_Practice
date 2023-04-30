@@ -230,8 +230,12 @@ namespace Mn
 	{
 		Transform* Tr = GetComponent<Transform>();
 		Vector2 pos = Tr->Pos();
-		MagArrow* mag = object::Instantiate<MagArrow>(pos, eLayerType::Throws);
-		mag->BlowUp(true);
+		if (_On == false)
+		{
+			MagArrow* mag = object::Instantiate<MagArrow>(pos, eLayerType::Throws);
+			mag->BlowUp(true);
+			_On = true;
+		}
 		pos.x = 877.0f;
 		pos.y = 900.0f;
 		Tr->Pos(pos);
@@ -239,7 +243,6 @@ namespace Mn
 		if (_Timer >= 4)
 		{
 			_State = eMagnoliaState::ShowUp;
-			_On = true;
 		}
 	}
 	void Magnolia::afterPattarn()

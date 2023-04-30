@@ -3,6 +3,7 @@
 namespace Mn
 {
 	class Image;
+	class Sound;
 	class Animator;
 	class Collider;
 	class Staff : public GameObject
@@ -12,7 +13,9 @@ namespace Mn
 		Collider*	_Collider;
 		Image*		_Image;
 		Vector2		_DirVec;
+		Sound*		_StaffRotatSound;
 		float		_GetBack;
+		float		_Timer;
 		bool		_Return;
 		int			_Count;
 	public:

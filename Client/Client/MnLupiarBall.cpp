@@ -6,11 +6,13 @@
 #include "MnRigidbody.h"
 #include "MnCollider.h"
 #include "MnTime.h"
+#include "MnSound.h"
 namespace Mn
 {
 	LupiarBall::LupiarBall()
 		: GameObject()
 		, _Image(nullptr)
+		, _Sound(nullptr)
 		, _Collider(nullptr)
 		, _Rigidbody(nullptr)
 		, _Timer(0.0f)
@@ -39,6 +41,9 @@ namespace Mn
 		Vector2 velocity = _Rigidbody->Velocity();
 		velocity.y -= 800.0f;
 		_Rigidbody->Velocity(velocity);
+
+		_Sound = Resources::Load<Sound>(L"LupiarBallSound", L"..\\Resources\\Sound\\Explosion.wav");
+		_Sound->Play(false);
 		GameObject::Initialize();
 	}
 	void LupiarBall::Update()
