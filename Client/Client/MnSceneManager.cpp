@@ -15,6 +15,7 @@
 #include "MnStage2_3.h"
 
 #include "MnStage3_1.h"
+#include "MnStage3_obstacle.h"
 #include "MnStage3_2.h"
 #include "MnStage3_3.h"
 #include "MnStage_Ending.h"
@@ -44,6 +45,7 @@ namespace Mn {
 		_Scenes[(UINT)eSceneType::stage2_2] = new Stage2_2();
 		_Scenes[(UINT)eSceneType::stage2_3] = new Stage2_3();
 		_Scenes[(UINT)eSceneType::stage3_1] = new Stage3_1();
+		_Scenes[(UINT)eSceneType::stage3_1_1] = new Stage3_obstacle();
 		_Scenes[(UINT)eSceneType::stage3_2] = new Stage3_2();
 		_Scenes[(UINT)eSceneType::stage3_3] = new Stage3_3();
 		_Scenes[(UINT)eSceneType::end] = new Stage_Ending();

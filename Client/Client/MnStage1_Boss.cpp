@@ -60,6 +60,9 @@ namespace Mn
 			object::Instantiate<BigPlant>(Vector2(1200.0f, 570.0f), eLayerType::Monster);
 			object::Instantiate<Wall>(Vector2(275, 0), eLayerType::Ground);
 			object::Instantiate<Wall>(Vector2(1270, 0), eLayerType::Ground);
+			SceneManager::StopSound(L"ForestBGSound");
+			Sound* bossBG = Resources::Load<Sound>(L"BossBG", L"..\\Resources\\Sound\\BG\\Boss.wav");
+			bossBG->Play(true);
 			_MapTrriger->State(GameObject::eState::Death);
 			_MapTrriger = nullptr;
 		}
@@ -102,7 +105,7 @@ namespace Mn
 	}
 	void Stage1_Boss::OnExit()
 	{
-		SceneManager::StopSound(L"ForestBGSound");
+		
 		float hp = _kaho->HP();
 		bool iscat = _kaho->IsCat();
 		int idx = _ItemBox->GetItemNum();

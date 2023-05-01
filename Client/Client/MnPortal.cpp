@@ -14,6 +14,7 @@
 #include "MnStage2_3.h"
 
 #include "MnStage3_1.h"
+#include "MnStage3_obstacle.h"
 #include "MnStage3_2.h"
 #include "MnStage3_3.h"
 
@@ -75,6 +76,8 @@ namespace Mn
 				Stage2_3::ChangeScene(true);
 			if (SceneManager::ActiveScene()->GetName() == L"Stage3_1")
 				Stage3_1::ChangeScene(true);
+			if (SceneManager::ActiveScene()->GetName() == L"Stage3_Obstacle")
+				Stage3_obstacle::ChangeScene(true);
 			if (SceneManager::ActiveScene()->GetName() == L"Stage3_2")
 				Stage3_2::ChangeScene(true);
 			if (SceneManager::ActiveScene()->GetName() == L"Stage3_3")

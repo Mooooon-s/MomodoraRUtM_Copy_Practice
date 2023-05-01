@@ -52,6 +52,7 @@ namespace Mn
 	{
 		if (_MapTrriger != nullptr && _MapTrriger->Trriger() == true)
 		{
+			Resources::Load<Sound>(L"Ending", L"..\\Resources\\Sound\\BG\\ending.wav")->Play(true);
 			Camera::Camtype(2);
 			Camera::CamReset();
 			_MapTrriger->State(GameObject::eState::Death);

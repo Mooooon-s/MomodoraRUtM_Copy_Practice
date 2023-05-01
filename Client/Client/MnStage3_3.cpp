@@ -65,6 +65,7 @@ namespace Mn
 			_Maptrriger = nullptr;
 			_Lup = object::Instantiate<Lupiar>(Vector2(600, 660), eLayerType::Monster);
 			_Mag = object::Instantiate<Magnolia>(Vector2(157, 800), eLayerType::Monster);
+			Resources::Find<Sound>(L"Stage3_BGSound")->Stop(true);
 			_BGSound->Play(true);
 		}
 		if (_Page == true && _MagBoss==nullptr)

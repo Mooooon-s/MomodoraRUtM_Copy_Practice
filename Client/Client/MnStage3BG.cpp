@@ -17,6 +17,8 @@ namespace Mn
 		Scene* scene = SceneManager::ActiveScene();
 		if (scene->GetName() == L"Stage3_1")
 			_Image = Resources::Load<Image>(L"Stage3_1", L"..\\Resources\\Stage3_BackGround_1.bmp");
+		if (scene->GetName() == L"Stage3_Obstacle")
+			_Image = Resources::Load<Image>(L"Stage3_1", L"..\\Resources\\Stage3_BackGround_1.bmp");
 		if (scene->GetName() == L"Stage3_2")
 			_Image = Resources::Load<Image>(L"Stage3_2", L"..\\Resources\\Stage3_BackGround_2.bmp");
 		if (scene->GetName() == L"Stage3_3")

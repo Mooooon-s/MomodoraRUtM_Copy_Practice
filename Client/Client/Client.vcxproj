@@ -200,6 +200,7 @@
     <ClInclude Include="MnMonMeleeAttack.h" />
     <ClInclude Include="MnNpcMelee.h" />
     <ClInclude Include="MnObject.h" />
+    <ClInclude Include="MnObstacle.h" />
     <ClInclude Include="MnPlayerEnum.h" />
     <ClInclude Include="MnPlayerHpBar.h" />
     <ClInclude Include="MnPlayScene.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="MnStage3_1.h" />
     <ClInclude Include="MnStage3_2.h" />
     <ClInclude Include="MnStage3_3.h" />
+    <ClInclude Include="MnStage3_obstacle.h" />
     <ClInclude Include="MnStage_1_2.h" />
     <ClInclude Include="MnStage_1_3.h" />
     <ClInclude Include="MnStage_Ending.h" />
@@ -299,6 +301,7 @@
     <ClCompile Include="MnStage1_Boss.cpp" />
     <ClCompile Include="MnStage2_1.cpp" />
     <ClCompile Include="MnStage3BG.cpp" />
+    <ClCompile Include="MnStage3_obstacle.cpp" />
     <ClCompile Include="MnTile.cpp" />
     <ClCompile Include="MnTime.cpp" />
     <ClCompile Include="MnResource.cpp" />
@@ -327,6 +330,7 @@
     <ClCompile Include="MnVeiwPoint.cpp" />
     <ClCompile Include="MnSound.cpp" />
     <ClCompile Include="MnStage_Ending.cpp" />
+    <ClCompile Include="MnObstacle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

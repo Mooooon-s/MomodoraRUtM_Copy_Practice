@@ -403,6 +403,12 @@
     <ClInclude Include="MnGround.h">
       <Filter>Contents\Scene\Prop</Filter>
     </ClInclude>
+    <ClInclude Include="MnObstacle.h">
+      <Filter>Contents\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MnStage3_obstacle.h">
+      <Filter>Contents\Scene\Stage3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -681,6 +687,12 @@
     </ClCompile>
     <ClCompile Include="MnGround.cpp">
       <Filter>Contents\Scene\Prop</Filter>
+    </ClCompile>
+    <ClCompile Include="MnObstacle.cpp">
+      <Filter>Contents\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage3_obstacle.cpp">
+      <Filter>Contents\Scene\Stage3</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
