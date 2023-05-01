@@ -376,7 +376,8 @@ namespace Mn
 	{
 		if (_Death == false)
 		{
-			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll
+				|| other->Owner()->GetName() == L"Obstacle" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
 				_Hp -= 10;
 				_GetDamage = false;
@@ -384,6 +385,7 @@ namespace Mn
 				_PlayerStatus = ePlayerStatus::Hurt;
 				animationCtrl();
 			}
+			
 			if (other->Owner()->GetName() == L"Boss" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
 				_Hp -= 10;
