@@ -13,6 +13,7 @@ namespace Mn
 		Vector2				_PlayerPos;
 		Vector2				_Size;
 		float				_MoveSpeed;
+		bool				_On;
 	public:
 		Ground();
 		~Ground();

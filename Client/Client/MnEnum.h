@@ -11,6 +11,7 @@ enum class eSceneType {
 	stage2_2,
 	stage2_3,
 	stage3_1,
+	stage3_1_1,
 	stage3_2,
 	stage3_3,
 	end,
@@ -20,9 +21,9 @@ enum class eSceneType {
 
 enum class eLayerType {
 	BG,
-	Ground,
 	Trriger,
 	Tile,
+	Ground,
 	ChargeEffect,
 	Monster,
 	NPC,

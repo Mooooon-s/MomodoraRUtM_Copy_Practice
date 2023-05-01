@@ -2,7 +2,7 @@
 #include "MnGameObject.h"
 #include "MnTransform.h"
 #include "MnCamera.h"
-
+#include "MnInput.h"
 namespace Mn
 {
 	UINT Collider::ColliderNumber = 0;
@@ -14,6 +14,7 @@ namespace Mn
 		, _Scale(Vector2::One)
 		, _ID(ColliderNumber++)
 		, _CollisionCount(0)
+		, _ON(false)
 	{
 	}
 	Collider::~Collider()
@@ -28,26 +29,40 @@ namespace Mn
 	{
 		Transform* tr = Owner()->GetComponent<Transform>();
 		_Pos = tr->Pos()+ _Center;
+
+		if (Input::GetKeyDown(eKeyCode::K))
+		{
+			if (_ON == true)
+				_ON = false;
+			else
+				_ON = true;
+		}
+
+
 	}
 	void Collider::Render(HDC hdc)
 	{
-		HPEN pen = NULL;
-		if(_CollisionCount<=0)
-			pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
-		else
-			pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 0));
+		if (_ON)
+		{
 
-		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
-		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
+			HPEN pen = NULL;
+			if (_CollisionCount <= 0)
+				pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+			else
+				pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 0));
 
-		Vector2 pos = Camera::ComputePos(_Pos);
-		Rectangle(hdc, pos.x, pos.y, pos.x + _Size.x*_Scale.x, pos.y + _Size.y*_Scale.y);
-		(HPEN)SelectObject(hdc, oldPen);
-		(HBRUSH)SelectObject(hdc, oldBrush);
-		DeleteObject(pen);
+			HPEN oldPen = (HPEN)SelectObject(hdc, pen);
+			HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
+			HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
 
-		_CollisionCount = 0;
+			Vector2 pos = Camera::ComputePos(_Pos);
+			Rectangle(hdc, pos.x, pos.y, pos.x + _Size.x * _Scale.x, pos.y + _Size.y * _Scale.y);
+			(HPEN)SelectObject(hdc, oldPen);
+			(HBRUSH)SelectObject(hdc, oldBrush);
+			DeleteObject(pen);
+
+		}
+			_CollisionCount = 0;
 	}
 	void Collider::Release()
 	{

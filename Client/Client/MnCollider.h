@@ -13,6 +13,7 @@ namespace Mn
 		Vector2		_Center;
 		Vector2		_Size;
 		Vector2		_Scale;
+		bool		_ON;
 	public:
 		Collider();
 		~Collider();

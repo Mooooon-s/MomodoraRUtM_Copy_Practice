@@ -19,6 +19,8 @@
 #include "MnMagnoliaBoss.h"
 #include "MnCatPeasant.h"
 
+#include "MnInput.h"
+
 extern Mn::Application application;
 
 namespace Mn
@@ -30,6 +32,7 @@ namespace Mn
 		, _Human(nullptr)
 		, _PlayerPos(Vector2::Zero)
 		, _MoveSpeed(0.0f)
+		, _On(false)
 	{
 	}
 	Ground::~Ground()
@@ -56,6 +59,8 @@ namespace Mn
 			_Image = Resources::Load<Image>(L"Stage2_3_Pixel", L"..\\Resources\\Stage2_3.bmp");
 		if (scene->GetName() == L"Stage3_1")
 			_Image = Resources::Load<Image>(L"Stage3_1_Pixel", L"..\\Resources\\Stage3_1.bmp");
+		if (scene->GetName() == L"Stage3_Obstacle")
+			_Image = Resources::Load<Image>(L"Stage3_1_1_Pixel", L"..\\Resources\\Stage3_1_1.bmp");
 		if (scene->GetName() == L"Stage3_2")
 			_Image = Resources::Load<Image>(L"Stage3_2_Pixel", L"..\\Resources\\Stage3_2.bmp");
 		if (scene->GetName() == L"Stage3_3")
@@ -246,35 +251,45 @@ namespace Mn
 				}
 			}
 		}
+		if (Input::GetKeyDown(eKeyCode::L))
+		{
+			if (_On == true)
+				_On = false;
+			else
+				_On = true;
+		}
 
 		GameObject::Update();
 	}
 	void Ground::Render(HDC hdc)
 	{
-		GameObject::Render(hdc);
+		if (_On)
+		{
+			GameObject::Render(hdc);
 
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = Camera::ComputePos(tr->Pos());
+			Transform* tr = GetComponent<Transform>();
+			Vector2 pos = Camera::ComputePos(tr->Pos());
 
-		TransparentBlt(hdc, pos.x, pos.y
-			, _Image->Width(), _Image->Height()
-			, _Image->Hdc()
-			, 0, 0
-			, _Image->Width(), _Image->Height()
-			, RGB(0, 0, 0));
+			TransparentBlt(hdc, pos.x, pos.y
+				, _Image->Width(), _Image->Height()
+				, _Image->Hdc()
+				, 0, 0
+				, _Image->Width(), _Image->Height()
+				, RGB(0, 0, 0));
 
-		Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
-		Vector2 ppos = playerTr->Pos();
-		Vector2 underpos = Vector2(ppos.x, ppos.y + 3);
-		Vector2 lsidepos = Vector2(ppos.x - _Size.x/2, ppos.y - _Size.y / 4.0f);
-		Vector2 rsidepos = Vector2(ppos.x + _Size.x / 2, ppos.y - _Size.y / 4.0f);
-		Vector2 upperpos = Vector2(ppos.x, ppos.y - _Size.y);
+			Transform* playerTr = _Player->CameraTarget<GameObject>()->GetComponent<Transform>();
+			Vector2 ppos = playerTr->Pos();
+			Vector2 underpos = Vector2(ppos.x, ppos.y + 3);
+			Vector2 lsidepos = Vector2(ppos.x - _Size.x / 2, ppos.y - _Size.y / 4.0f);
+			Vector2 rsidepos = Vector2(ppos.x + _Size.x / 2, ppos.y - _Size.y / 4.0f);
+			Vector2 upperpos = Vector2(ppos.x, ppos.y - _Size.y);
 
-		Rectangle(hdc, ppos.x, ppos.y, ppos.x + 2, ppos.y + 2);
-		Rectangle(hdc, underpos.x, underpos.y, underpos.x + 5, underpos.y + 5);
-		Rectangle(hdc, lsidepos.x, lsidepos.y, lsidepos.x + 10, lsidepos.y + 10);
-		Rectangle(hdc, rsidepos.x, rsidepos.y, rsidepos.x + 10, rsidepos.y + 10);
-		Rectangle(hdc, upperpos.x, upperpos.y, upperpos.x + 10, upperpos.y + 10);
+			Rectangle(hdc, ppos.x, ppos.y, ppos.x + 2, ppos.y + 2);
+			Rectangle(hdc, underpos.x, underpos.y, underpos.x + 5, underpos.y + 5);
+			Rectangle(hdc, lsidepos.x, lsidepos.y, lsidepos.x + 10, lsidepos.y + 10);
+			Rectangle(hdc, rsidepos.x, rsidepos.y, rsidepos.x + 10, rsidepos.y + 10);
+			Rectangle(hdc, upperpos.x, upperpos.y, upperpos.x + 10, upperpos.y + 10);
+		}
 
 	}
 	void Ground::Release()
