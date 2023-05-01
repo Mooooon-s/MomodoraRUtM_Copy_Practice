@@ -186,7 +186,10 @@ namespace Mn
 	{
 		_Timer += Time::DeltaTime();
 		if (_Timer >= 1.5)
+		{
 			this->State(eState::Death);
+			Resources::Find<Sound>(L"BossBG")->Stop(true);
+		}
 		if (_Dir == eDir::R)
 			_Animator->Play(L"Big_Plant_Idle_Right", true);
 		else

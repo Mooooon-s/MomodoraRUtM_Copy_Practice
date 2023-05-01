@@ -205,7 +205,7 @@ namespace Mn
 			if (other->Owner()->GetName() == L"meleeAttack"
 				|| other->Owner()->GetName() == L"NpcMeleeAttack")
 			{
-				_Hp -= 4;
+				_Hp -= 1.5;
 				Transform* tr = GetComponent<Transform>();
 				Vector2 pos = tr->Pos();
 				pos.y -= (_Collider->Size().y / 2.0f);
