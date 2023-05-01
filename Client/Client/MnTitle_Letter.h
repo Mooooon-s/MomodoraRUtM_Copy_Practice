@@ -8,6 +8,8 @@ namespace Mn
 	{
 	private:
 		Image* _Image;
+		Image* _CatImage;
+		Image* _StartFont;
 	public:
 		Title_Letter();
 		~Title_Letter();
