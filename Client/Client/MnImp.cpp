@@ -282,6 +282,8 @@ namespace Mn
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->Pos();
 		pos.y -= _Collider->Size().y / 2.0f;
+		Sound* ThrowSound = Resources::Load<Sound>(L"ThrowSound", L"..\\Resources\\Sound\\Throw.wav");
+		ThrowSound->Play(false);
 		if (_Dir == eDir::R)
 		{
 			pos.x += (_Collider->Size().x / 2.0f);

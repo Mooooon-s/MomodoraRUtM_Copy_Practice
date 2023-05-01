@@ -48,7 +48,7 @@ namespace Mn
 	void MagnoliaBoss::Initialize()
 	{
 		SetName(L"Boss");
-
+		//√“§¡§≤ Æx
 
 		_Collider = AddComponent<Collider>();
 		_Collider->Center(Vector2(-12.0f * 3, -35.0f * 3));
@@ -140,7 +140,7 @@ namespace Mn
 	{
 		if (other->Owner()->GetName() == L"meleeAttack")
 		{
-			_Hp -= 4;
+			_Hp -= 1.5;
 			Transform* tr = GetComponent<Transform>();
 			Vector2 pos = tr->Pos();
 			pos.y -= (_Collider->Size().y / 2.0f);
@@ -204,6 +204,7 @@ namespace Mn
 		}
 		else
 		{
+			Resources::Load<Sound>(L"attack", L"..\\Resources\\Sound\\Sword.wav")->Play(false);
 			_State = eMagnolia::Attack;
 			animationCtrl();
 		}
@@ -257,6 +258,7 @@ namespace Mn
 				Tr->Pos(Vector2( pos.x, 900.0f));
 			}
 			_Timer = 0;
+			Resources::Load<Sound>(L"ShowUp", L"..\\Resources\\Sound\\SwordAppear.wav")->Play(false);
 			_State = eMagnolia::ShowUp;
 			animationCtrl();
 		}
