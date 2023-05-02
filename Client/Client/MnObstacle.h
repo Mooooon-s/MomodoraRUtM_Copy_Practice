@@ -4,6 +4,7 @@
 namespace Mn
 {
 	class Image;
+	class Sound;
 	class Animator;
 	class Collider;
 	class Rigidbody;
@@ -18,6 +19,7 @@ namespace Mn
 		};
 		Image*			_Image;
 		Image*			_Ground;
+		Sound*			_Sound;
 		Collider*		_Collider;
 		Animator*		_Animator;
 		Rigidbody*		_Rigidbody;

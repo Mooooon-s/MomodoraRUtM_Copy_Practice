@@ -41,8 +41,8 @@ namespace Mn
 		_Animator->CreateAnimation(L"Kaho_Human_Melee_Attack_1_Left", image, Vector2(0,48), 9, 6, 7, Vector2(-70,0), 0.06);
 		_Animator->CreateAnimation(L"Kaho_Human_Melee_Attack_2_Right", image, Vector2(0,48*2), 9, 6, 7, Vector2(65,0), 0.06);
 		_Animator->CreateAnimation(L"Kaho_Human_Melee_Attack_2_Left", image, Vector2(0, 48*3), 9, 6, 7, Vector2(-65,0), 0.06);
-		_Animator->CreateAnimation(L"Kaho_Human_Melee_Attack_3_Right", image, Vector2(0, 48 * 4), 9, 6, 9, Vector2(65,-15), 0.06);
-		_Animator->CreateAnimation(L"Kaho_Human_Melee_Attack_3_Left", image, Vector2(0, 48*5), 9, 6, 9, Vector2(-70,-15), 0.06);
+		_Animator->CreateAnimation(L"Kaho_Human_Melee_Attack_3_Right", image, Vector2(0, 48 * 4), 9, 6, 9, Vector2(65,-5), 0.06);
+		_Animator->CreateAnimation(L"Kaho_Human_Melee_Attack_3_Left", image, Vector2(0, 48*5), 9, 6, 9, Vector2(-70,-5), 0.06);
 		//6,6
 		//96*56
 		image = Resources::Load<Image>(L"Kaho_Human_Air_Melee_Effect", L"..\\Resources\\Kaho_Effect_air.bmp");

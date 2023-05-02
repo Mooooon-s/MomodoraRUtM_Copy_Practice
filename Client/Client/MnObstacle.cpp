@@ -20,6 +20,7 @@ namespace Mn
 		: GameObject()
 		, _Image(nullptr)
 		, _Ground(nullptr)
+		, _Sound(nullptr)
 		, _Animator(nullptr)
 		, _Collider(nullptr)
 		, _Rigidbody(nullptr)
@@ -67,6 +68,9 @@ namespace Mn
 				break;
 			}
 		}
+
+		_Sound = Resources::Load<Sound>(L"DoneSound", L"..\\Resources\\Sound\\Explosion.wav");
+
 		GameObject::Initialize();
 	}
 	void Obstacle::Update()
@@ -129,6 +133,7 @@ namespace Mn
 		COLORREF color = GetPixel(_Ground->Hdc(), pos.x, pos.y);
 		if (color != RGB(0, 0, 0))
 		{
+			_Sound->Play(false);
 			_Rigidbody->SetGround(true);
 			_ObState = eObstacleState::Done;
 			_Animator->Play(L"Obstacle_Done_", true);
