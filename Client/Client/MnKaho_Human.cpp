@@ -977,7 +977,7 @@ namespace Mn
 			else
 				_pos.x -= _MoveSpeed * Time::DeltaTime();
 		}
-		else if(_Rigidbody->GetGround()==false && (_PlayerStatus == ePlayerStatus::Jump || _PlayerStatus == ePlayerStatus::Fall))
+		else if(_Rigidbody->GetGround()==false)
 		{
 			_Rigidbody->Velocity(Vector2(0.0f, 0.0f));
 			_DashCharge += Time::DeltaTime();

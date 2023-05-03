@@ -22,6 +22,7 @@
 #include "MnFireBall.h"
 #include "MnFireFlame.h"
 #include "MnFlame.h"
+#include "MnObstacle.h"
 
 #include "MnLupiarBall.h"
 #include "MnMagArrow.h"
@@ -182,10 +183,6 @@ namespace Mn
 		_SoundPack.push_back(Resources::Load<Sound>(L"Player_UseItem_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Use_Item.wav"));
 
 
-
-
-
-
 		_Animator->Play(L"Cat_Idle_Right", true);
 		
 	}
@@ -286,7 +283,8 @@ namespace Mn
 		if (_Death == false)
 		{
 
-			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
+			if (other->Owner()->GetName() == L"Enemy" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll
+				|| other->Owner()->GetName() == L"Obstacle" && _GetDamage == true && _PlayerStatus != ePlayerStatus::Roll)
 			{
 				_SoundPack[(int)eSound::Hurt]->Play(false);
 				_Hp -= 15;
