@@ -40,7 +40,7 @@ namespace Mn
 		object::Instantiate<Ground>(eLayerType::Ground);
 		object::Instantiate<UnderGroundBG>(eLayerType::BG);
 		_Portal = object::Instantiate<Portal>(Vector2(900,600),eLayerType::Portal);
-		_Portal->moveToScene(eSceneType::stage2_3);
+		_Portal->moveToScene(eSceneType::stage2_Plus);
 		_Kaho->GetCatHunam(_KahoCat, _KahoHuman);
 	}
 	void Stage2_2::Update()

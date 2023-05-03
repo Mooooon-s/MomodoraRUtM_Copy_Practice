@@ -9,6 +9,7 @@ enum class eSceneType {
 	stage1_Boss,
 	stage2_1,
 	stage2_2,
+	stage2_Plus,
 	stage2_3,
 	stage3_1,
 	stage3_1_1,

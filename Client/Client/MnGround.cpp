@@ -55,6 +55,8 @@ namespace Mn
 			_Image = Resources::Load<Image>(L"Stage2_1_Pixel", L"..\\Resources\\Stage2_1.bmp");
 		if (scene->GetName() == L"Stage2_2")
 			_Image = Resources::Load<Image>(L"Stage2_2_Pixel", L"..\\Resources\\Stage2_2.bmp");
+		if (scene->GetName() == L"Stage2_Plus")
+			_Image = Resources::Load<Image>(L"Stage2_Plus_Pixel", L"..\\Resources\\Stage2_Plus.bmp");
 		if (scene->GetName() == L"Stage2_3")
 			_Image = Resources::Load<Image>(L"Stage2_3_Pixel", L"..\\Resources\\Stage2_3.bmp");
 		if (scene->GetName() == L"Stage3_1")

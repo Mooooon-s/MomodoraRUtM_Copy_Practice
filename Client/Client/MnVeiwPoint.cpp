@@ -51,7 +51,8 @@ namespace Mn
 			_Pos.x = 480;
 		if (_PlayerPos.y < 360)
 			_Pos.y =360;
-
+		if (_PlayerPos.y > (_Image->Height() - 360))
+			_Pos.y = _Image->Height() - 360;
 		tr->Pos(_Pos);
 	}
 	void VeiwPoint::Release()

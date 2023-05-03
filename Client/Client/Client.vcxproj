@@ -218,6 +218,7 @@
     <ClInclude Include="MnStage2_1.h" />
     <ClInclude Include="MnStage2_2.h" />
     <ClInclude Include="MnStage2_3.h" />
+    <ClInclude Include="MnStage2_Plus.h" />
     <ClInclude Include="MnStage3BG.h" />
     <ClInclude Include="MnStage3_1.h" />
     <ClInclude Include="MnStage3_2.h" />
@@ -331,6 +332,7 @@
     <ClCompile Include="MnSound.cpp" />
     <ClCompile Include="MnStage_Ending.cpp" />
     <ClCompile Include="MnObstacle.cpp" />
+    <ClCompile Include="MnStage2_Plus.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

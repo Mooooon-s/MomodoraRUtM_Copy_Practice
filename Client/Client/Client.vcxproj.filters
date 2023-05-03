@@ -409,6 +409,9 @@
     <ClInclude Include="MnStage3_obstacle.h">
       <Filter>Contents\Scene\Stage3</Filter>
     </ClInclude>
+    <ClInclude Include="MnStage2_Plus.h">
+      <Filter>Contents\Scene\Stage2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -693,6 +696,9 @@
     </ClCompile>
     <ClCompile Include="MnStage3_obstacle.cpp">
       <Filter>Contents\Scene\Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="MnStage2_Plus.cpp">
+      <Filter>Contents\Scene\Stage2</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
