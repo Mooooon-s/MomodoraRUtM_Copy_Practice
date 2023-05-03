@@ -61,7 +61,6 @@ namespace Mn
 		_kaho =object::Instantiate<Kaho>(Vector2(50.0f,620.0f),eLayerType::Player);
 		object::Instantiate<Ground>(Vector2::Zero, eLayerType::Ground);
 		object::Instantiate<Bell>(Vector2(400,625),eLayerType::Ground);
-		object::Instantiate<Obstacle>(Vector2(500, 200), eLayerType::Monster);
 		_portal=object::Instantiate<Portal>(Vector2(1500.0f, 500.0f),eLayerType::Portal);
 		_PlayerHpBar = object::Instantiate<PlayerHpBar>(Vector2(100.0f,50.0f),eLayerType::UI);
 		_VeiwPoint = object::Instantiate<VeiwPoint>(Vector2(480,360),eLayerType::UI);

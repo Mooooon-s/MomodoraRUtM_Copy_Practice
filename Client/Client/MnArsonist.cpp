@@ -213,6 +213,7 @@ namespace Mn
 				hitEffect->Dir((int)_Dir);
 				if (_Hp <= 0)
 				{
+					_Collider->Size(Vector2::Zero);
 					hitEffect->AnimationCntrl(0);
 				}
 				else

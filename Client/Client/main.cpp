@@ -169,12 +169,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    //해당 ID의 윈도우를 최신화
    UpdateWindow(hWnd);
 
-   ShowWindow(hWnd2, nCmdShow);
-   UpdateWindow(hWnd2);
+   //ShowWindow(hWnd2, nCmdShow);
+   //UpdateWindow(hWnd2);
 
    //윈도우를 생성하고 나서 게임을 초기화
    application.Initialize(hWnd);
-   application.SetToolHwnd(hWnd2);
+   //application.SetToolHwnd(hWnd2);
    //SetTimer(hWnd, 0, 1000, nullptr);
 
    return TRUE;

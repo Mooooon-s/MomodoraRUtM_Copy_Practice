@@ -138,32 +138,36 @@ namespace Mn
 	}
 	void MagnoliaBoss::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"meleeAttack")
+		if (_State != eMagnolia::Death)
 		{
-			_Hp -= 1.5;
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			pos.y -= (_Collider->Size().y / 2.0f);
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			if (_Hp <= 0)
+			if (other->Owner()->GetName() == L"meleeAttack")
 			{
-				hitEffect->AnimationCntrl(0);
+				_Hp -= 1.5;
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				pos.y -= (_Collider->Size().y / 2.0f);
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				if (_Hp <= 0)
+				{
+					_Collider->Size(Vector2::Zero);
+					hitEffect->AnimationCntrl(0);
+				}
+				else
+				{
+					hitEffect->AnimationCntrl(2);
+				}
 			}
-			else
+			if (other->Owner()->GetName() == L"Arrow")
 			{
+				_Hp -= 1;
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				pos.y -= (_Collider->Size().y / 2.0f);
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
 				hitEffect->AnimationCntrl(2);
 			}
-		}
-		if (other->Owner()->GetName() == L"Arrow")
-		{
-			_Hp -= 1;
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			pos.y -= (_Collider->Size().y / 2.0f);
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(2);
 		}
 	}
 	void MagnoliaBoss::idle()

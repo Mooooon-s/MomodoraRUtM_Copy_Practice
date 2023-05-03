@@ -84,7 +84,7 @@ namespace Mn
 		float distX = pos.x - playerPos.x;
 		_Pos = tr->Pos();
 		_ThinkTime += Time::DeltaTime();
-		if (_ThinkTime >= 1.0f)
+		if (_ThinkTime >= 1.5f)
 		{
 			_Status = think();
 			if (distX < 0)
@@ -108,12 +108,18 @@ namespace Mn
 		case eMonStatus::Hurt:
 			hurt();
 			break;
+		case eMonStatus::Death:
+			death();
+			break;
 		default:
 			break;
 		}
 		tr->Pos(_Pos);
 		if (_Hp <= 0)
-			GameObject::State(eState::Death);
+		{
+			_Status = eMonStatus::Death;
+			_Collider->Size(Vector2::Zero);
+		}
 		GameObject::Update();
 	}
 	void Imp::Render(HDC hdc)
@@ -126,48 +132,50 @@ namespace Mn
 	}
 	void Imp::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"meleeAttack")
+		if (_Status != eMonStatus::Death)
 		{
-			Vector2 dir = _Pos - _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
-			if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
+			if (other->Owner()->GetName() == L"meleeAttack")
 			{
-				Transform* tr = GetComponent<Transform>();
-				Vector2 pos = tr->Pos();
-				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-				hitEffect->Dir((int)_Dir);
-				hitEffect->AnimationCntrl(0);
-				_Status = eMonStatus::Hurt;
-				animationCntrl();
-				_Hp -= 1.5f;
-				_HurtTime = 0;
-				_ThinkTime = 0;
+				Vector2 dir = _Pos - _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
+				if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
+				{
+					Transform* tr = GetComponent<Transform>();
+					Vector2 pos = tr->Pos();
+					HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+					hitEffect->Dir((int)_Dir);
+					hitEffect->AnimationCntrl(0);
+					_Status = eMonStatus::Hurt;
+					animationCntrl();
+					_Hp -= 1.5f;
+					_HurtTime = 0;
+					_ThinkTime = 0;
+				}
+				else
+				{
+					_SoundPack[(int)eSound::sheld]->Play(false);
+					_Status = eMonStatus::Defence;
+					animationCntrl();
+				}
 			}
-			else
+
+			if (other->Owner()->GetName() == L"Arrow")
 			{
-				_SoundPack[(int)eSound::sheld]->Play(false);
-				_Status = eMonStatus::Defence;
-				animationCntrl();
+				Vector2 dir = _Pos - _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
+				if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
+				{
+					_Status = eMonStatus::Hurt;
+					animationCntrl();
+					_Hp -= 1.0f;
+					_HurtTime = 0;
+					_ThinkTime = 0;
+				}
+				else
+				{
+					_Status = eMonStatus::Defence;
+					animationCntrl();
+				}
 			}
 		}
-
-		if (other->Owner()->GetName() == L"Arrow")
-		{
-			Vector2 dir = _Pos - _kaho->CameraTarget<GameObject>()->GetComponent<Transform>()->Pos();
-			if ((_Dir == eDir::R && dir.x > 0) || (_Dir == eDir::L && dir.x < 0))
-			{
-				_Status = eMonStatus::Hurt;
-				animationCntrl();
-				_Hp -= 1.0f;
-				_HurtTime = 0;
-				_ThinkTime = 0;
-			}
-			else
-			{
-				_Status = eMonStatus::Defence;
-				animationCntrl();
-			}
-		}
-
 	}
 	void Imp::OnCollisionStay(Collider* other)
 	{
@@ -225,6 +233,14 @@ namespace Mn
 			_Status = eMonStatus::Defence;
 			animationCntrl();
 			_HurtTime = 0;
+		}
+	}
+	void Imp::death()
+	{
+		_HurtTime += Time::DeltaTime();
+		if (_HurtTime >= 0.3)
+		{
+			this->State(eState::Death);
 		}
 	}
 	void Imp::animationCntrl()

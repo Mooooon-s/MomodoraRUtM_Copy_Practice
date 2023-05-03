@@ -30,6 +30,7 @@ namespace Mn
 		, _HurtTime(0.0f)
 		, _Hp(1.0f)
 		, _Ishurt(false)
+		, _Death(false)
 		, _Sound1(nullptr)
 		, _Sound2(nullptr)
 	{
@@ -112,6 +113,11 @@ namespace Mn
 		if (_Ishurt == true)
 		{
 			_HurtTime += Time::DeltaTime();
+			if (_Hp <= 0)
+			{
+				_Death = true;
+				_Collider->Size(Vector2::Zero);
+			}
 			if (_Hp <= 0 && _HurtTime >= 0.8)
 			{
 				this->State(eState::Death);
@@ -129,36 +135,39 @@ namespace Mn
 	}
 	void ImpBomb::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"meleeAttack")
+		if (_Death == false)
 		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(0);
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
-			else
-				_Animator->Play(L"Imp_Bomb_Hurt_Left", false);
-			_Hp -= 1.5f;
-			_Ishurt = true;
-			_ThinkTime = 0;
-		}
+			if (other->Owner()->GetName() == L"meleeAttack")
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				hitEffect->AnimationCntrl(0);
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
+				else
+					_Animator->Play(L"Imp_Bomb_Hurt_Left", false);
+				_Hp -= 1.5f;
+				_Ishurt = true;
+				_ThinkTime = 0;
+			}
 
-		if (other->Owner()->GetName() == L"Arrow")
-		{
-			Transform* tr = GetComponent<Transform>(); 
-			Vector2 pos = tr->Pos();
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos,eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(2);
-			if (_Dir == eDir::R)
-				_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
-			else
-				_Animator->Play(L"Imp_Bomb_Hurt_Left", false);
-			_Hp -= 1.0f;
-			_Ishurt = true;
-			_ThinkTime = 0;
+			if (other->Owner()->GetName() == L"Arrow")
+			{
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				hitEffect->AnimationCntrl(2);
+				if (_Dir == eDir::R)
+					_Animator->Play(L"Imp_Bomb_Hurt_Right", false);
+				else
+					_Animator->Play(L"Imp_Bomb_Hurt_Left", false);
+				_Hp -= 1.0f;
+				_Ishurt = true;
+				_ThinkTime = 0;
+			}
 		}
 	}
 	void ImpBomb::OnCollisionStay(Collider* other)

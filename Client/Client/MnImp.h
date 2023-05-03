@@ -17,6 +17,7 @@ namespace Mn
 			Attack,
 			Defence,
 			Hurt,
+			Death,
 		};
 		enum class eDir
 		{
@@ -57,6 +58,7 @@ namespace Mn
 		void attack();
 		void defence();
 		void hurt();
+		void death();
 		void animationCntrl();
 		eMonStatus think();
 	private:

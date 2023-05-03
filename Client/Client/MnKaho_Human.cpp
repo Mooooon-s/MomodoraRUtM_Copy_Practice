@@ -271,7 +271,6 @@ namespace Mn
 		_SoundPack.push_back(Resources::Load<Sound>(L"Player_Attack3_Sound", L"..\\Resources\\Sound\\Kaho_Human\\Melee_3.wav"));
 
 
-		
 		_Animator->Play(L"Idle_Right", true);
 		GameObject::Initialize();
 	}
@@ -978,9 +977,8 @@ namespace Mn
 			else
 				_pos.x -= _MoveSpeed * Time::DeltaTime();
 		}
-		else
+		else if(_Rigidbody->GetGround()==false && (_PlayerStatus == ePlayerStatus::Jump || _PlayerStatus == ePlayerStatus::Fall))
 		{
-			
 			_Rigidbody->Velocity(Vector2(0.0f, 0.0f));
 			_DashCharge += Time::DeltaTime();
 

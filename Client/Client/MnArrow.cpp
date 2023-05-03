@@ -68,9 +68,9 @@ namespace Mn
 	}
 	void Arrow::Render(HDC hdc)
 	{
-		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->Pos();
-		Rectangle(hdc, pos.x, pos.y, pos.x + 5, pos.y + 5);
+		//Transform* tr = GetComponent<Transform>();
+		//Vector2 pos = tr->Pos();
+		//Rectangle(hdc, pos.x, pos.y, pos.x + 5, pos.y + 5);
 		GameObject::Render(hdc);
 	}
 	void Arrow::Release()

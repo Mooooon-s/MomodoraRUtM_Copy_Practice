@@ -18,6 +18,7 @@ namespace Mn
 			Attack,
 			Idle,
 			Hurt,
+			Death,
 		};
 		enum class eDir 
 		{
@@ -64,6 +65,7 @@ namespace Mn
 		void hurt();
 		void fall();
 		void idle();
+		void death();
 		void animatorCntrl();
 		void trowKnife();
 	};

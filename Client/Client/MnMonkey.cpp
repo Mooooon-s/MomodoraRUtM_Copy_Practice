@@ -122,6 +122,7 @@ namespace Mn
 			_HP -= 1.5f;
 			if (_HP <= 0)
 			{
+				_Collider->Size(Vector2::Zero);
 				hitEffect->AnimationCntrl(0);
 			}
 			else

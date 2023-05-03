@@ -96,18 +96,16 @@ namespace Mn
 	}
 	void Bomb::Render(HDC hdc)
 	{
-		Transform* tr = GetComponent<Transform>();
-		Vector2 underpos = tr->Pos();
-		Vector2 leftpos = Vector2(underpos.x - 8 * 2, underpos.y);
-		Vector2 rightpos = Vector2(underpos.x + 8 * 2, underpos.y);
-		underpos = Camera::ComputePos(underpos);
-		leftpos = Camera::ComputePos(leftpos);
-		rightpos = Camera::ComputePos(rightpos);
-		Rectangle(hdc, underpos.x, underpos.y, underpos.x + 2, underpos.y + 2);
-		Rectangle(hdc, leftpos.x, leftpos.y, leftpos.x + 5, leftpos.y + 5);
-		Rectangle(hdc, rightpos.x, rightpos.y, rightpos.x + 10, rightpos.y + 10);
-
-
+		//Transform* tr = GetComponent<Transform>();
+		//Vector2 underpos = tr->Pos();
+		//Vector2 leftpos = Vector2(underpos.x - 8 * 2, underpos.y);
+		//Vector2 rightpos = Vector2(underpos.x + 8 * 2, underpos.y);
+		//underpos = Camera::ComputePos(underpos);
+		//leftpos = Camera::ComputePos(leftpos);
+		//rightpos = Camera::ComputePos(rightpos);
+		//Rectangle(hdc, underpos.x, underpos.y, underpos.x + 2, underpos.y + 2);
+		//Rectangle(hdc, leftpos.x, leftpos.y, leftpos.x + 5, leftpos.y + 5);
+		//Rectangle(hdc, rightpos.x, rightpos.y, rightpos.x + 10, rightpos.y + 10);
 		GameObject::Render(hdc);
 	}
 	void Bomb::Release()

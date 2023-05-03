@@ -119,10 +119,15 @@ namespace Mn
 		case eMonStatus::Fall:
 			fall();
 			break;
+		case eMonStatus::Death:
+			death();
+			break;
 		default:
 			break;
 		}
 		tr->Pos(_Pos);
+		if (_Hp <= 0)
+			_MonState = eMonStatus::Death;
 		GameObject::Update();
 	}
 	void ImpKnife::Render(HDC hdc)
@@ -135,47 +140,52 @@ namespace Mn
 	}
 	void ImpKnife::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"meleeAttack")
+		if (_MonState != eMonStatus::Death)
 		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			_MonState = eMonStatus::Hurt;
-			animatorCntrl();
-			_Hp -= 1.5f;
-			if(_Hp<=0)
-			{
-				_Soundpack[(int)eSound::death]->Play(false);
-				hitEffect->AnimationCntrl(0);
-			}
-			else
-			{
-				_Soundpack[(int)eSound::hurt]->Play(false);
-				hitEffect->AnimationCntrl(2);
-			}
-			_ThinkTime = 0;
-		}
 
-		if (other->Owner()->GetName() == L"Arrow")
-		{
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(2);
-			_MonState = eMonStatus::Hurt;
-			animatorCntrl();
-			_Hp -= 1.0f;
-			if (_Hp <= 0)
+			if (other->Owner()->GetName() == L"meleeAttack")
 			{
-				_Soundpack[(int)eSound::death]->Play(false);
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				_MonState = eMonStatus::Hurt;
+				animatorCntrl();
+				_Hp -= 1.5f;
+				if (_Hp <= 0)
+				{
+					_Collider->Size(Vector2::Zero);
+					_Soundpack[(int)eSound::death]->Play(false);
+					hitEffect->AnimationCntrl(0);
+				}
+				else
+				{
+					_Soundpack[(int)eSound::hurt]->Play(false);
+					hitEffect->AnimationCntrl(2);
+				}
+				_ThinkTime = 0;
 			}
-			else
+
+			if (other->Owner()->GetName() == L"Arrow")
 			{
-				_Soundpack[(int)eSound::hurt]->Play(false);
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				hitEffect->AnimationCntrl(2);
+				_MonState = eMonStatus::Hurt;
+				animatorCntrl();
+				_Hp -= 1.0f;
+				if (_Hp <= 0)
+				{
+					_Soundpack[(int)eSound::death]->Play(false);
+				}
+				else
+				{
+					_Soundpack[(int)eSound::hurt]->Play(false);
+				}
+				_ThinkTime = 0;
 			}
-			_ThinkTime = 0;
 		}
 	}
 	void ImpKnife::OnCollisionStay(Collider* other)
@@ -260,11 +270,7 @@ namespace Mn
 	}
 	void ImpKnife::hurt()
 	{
-		_HurtTime += Time::DeltaTime();
-		if (_Hp <= 0.0f && _HurtTime>=0.7)
-		{
-			this->State(eState::Death);
-		}
+
 	}
 	void ImpKnife::fall()
 	{
@@ -277,6 +283,14 @@ namespace Mn
 	void ImpKnife::idle()
 	{
 
+	}
+	void ImpKnife::death()
+	{
+		_HurtTime += Time::DeltaTime();
+		if (_Hp <= 0.0f && _HurtTime >= 0.7)
+		{
+			this->State(eState::Death);
+		}
 	}
 	void ImpKnife::animatorCntrl()
 	{
@@ -311,6 +325,12 @@ namespace Mn
 				_Animator->Play(L"Imp_Knife_Fall_Right", false);
 			else
 				_Animator->Play(L"Imp_Knife_Fall_Left", false);
+			break;
+		case eMonStatus::Death:
+			if (_Dir == eDir::R)
+				_Animator->Play(L"Imp_Knife_Hurt_Right", false);
+			else
+				_Animator->Play(L"Imp_Knife_Hurt_Left", false);
 			break;
 		default:
 			break;

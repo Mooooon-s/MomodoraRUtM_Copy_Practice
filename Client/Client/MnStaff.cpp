@@ -55,6 +55,8 @@ namespace Mn
 		if (_GetBack >= 2)
 		{
 			pos += (_DirVec*-1) * 1000.0f * Time::DeltaTime();
+			if (_GetBack >= 6)
+				this->State(eState::Death);
 		}
 		else
 		{

@@ -196,28 +196,32 @@ namespace Mn
 	}
 	void Lupiar::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"meleeAttack")
+		if (_State != eLupiarState::Death)
 		{
-			_Hp -= 1.5;
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			pos.y -= (_Collider->Size().y / 2.0f);
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			if (_Hp <= 0)
+			if (other->Owner()->GetName() == L"meleeAttack")
 			{
-				hitEffect->AnimationCntrl(0);
+				_Hp -= 1.5;
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				pos.y -= (_Collider->Size().y / 2.0f);
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				if (_Hp <= 0)
+				{
+					_Collider->Size(Vector2::Zero);
+					hitEffect->AnimationCntrl(0);
+				}
+				else
+				{
+					hitEffect->AnimationCntrl(2);
+				}
+				if (_KnockBack >= 15.0f)
+					_Count++;
 			}
-			else
+			if (other->Owner()->GetName() == L"Arrow")
 			{
-				hitEffect->AnimationCntrl(2);
+				_ParringSound->Play(false);
 			}
-			if (_KnockBack >= 15.0f)
-				_Count++;
-		}
-		if (other->Owner()->GetName() == L"Arrow")
-		{
-			_ParringSound->Play(false);
 		}
 	}
 	void Lupiar::OnCollisionStay(Collider* other)

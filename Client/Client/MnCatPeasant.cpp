@@ -133,6 +133,7 @@ namespace Mn
 
 		if (_Hp <= 0 && _MonState != eMonstate::Death )
 		{
+			_Collider->Size(Vector2::Zero);
 			_MonState = eMonstate::Death;
 			animationCtrl();
 		}
@@ -150,30 +151,33 @@ namespace Mn
 	}
 	void CatPeasant::OnCollisionEnter(Collider* other)
 	{
-		if (other->Owner()->GetName() == L"meleeAttack")
+		if (_MonState != eMonstate::Death)
 		{
-			_Hp -= 2;
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			if (_Hp <= 0)
+			if (other->Owner()->GetName() == L"meleeAttack")
 			{
-				hitEffect->AnimationCntrl(0);
+				_Hp -= 2;
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
+				if (_Hp <= 0)
+				{
+					hitEffect->AnimationCntrl(0);
+				}
+				else
+				{
+					hitEffect->AnimationCntrl(2);
+				}
 			}
-			else
+			if (other->Owner()->GetName() == L"Arrow")
 			{
+				_Hp -= 1;
+				Transform* tr = GetComponent<Transform>();
+				Vector2 pos = tr->Pos();
+				HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
+				hitEffect->Dir((int)_Dir);
 				hitEffect->AnimationCntrl(2);
 			}
-		}
-		if (other->Owner()->GetName() == L"Arrow")
-		{
-			_Hp -= 1;
-			Transform* tr = GetComponent<Transform>();
-			Vector2 pos = tr->Pos();
-			HitEffect* hitEffect = object::Instantiate<HitEffect>(pos, eLayerType::Effect);
-			hitEffect->Dir((int)_Dir);
-			hitEffect->AnimationCntrl(2);
 		}
 	}
 	void CatPeasant::OnCollisionStay(Collider* other)

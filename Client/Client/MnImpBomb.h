@@ -29,6 +29,7 @@ namespace Mn
 		float		_HurtTime;
 		float		_Hp;
 		bool		_Ishurt;
+		bool		_Death;
 	public:
 		ImpBomb();
 		~ImpBomb();
