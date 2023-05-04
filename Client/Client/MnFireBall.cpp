@@ -50,7 +50,7 @@ namespace Mn
 		Vector2 dir = _Pos - pos;
 		dir.Normalize();
 		_Degree +=Time::DeltaTime()*500.0f;
-		pos.x += 600.0f * Time::DeltaTime()*dir.x;
+		pos.x += 1000.0f * Time::DeltaTime()*dir.x;
 		pos.y -= sinf(_Degree * PI/180);
 		Tr->Pos(pos);
 		_Timer += Time::DeltaTime();
