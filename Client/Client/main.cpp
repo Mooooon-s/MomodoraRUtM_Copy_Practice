@@ -112,15 +112,15 @@ ATOM MyRegisterClass(HINSTANCE hInstance,LPCWSTR name, WNDPROC proc)
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
+    wcex.hCursor        = LoadCursor(nullptr, IDC_NO);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName   = NULL;
     wcex.lpszClassName  = name;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
+    ShowCursor(false);
     //함수형 포인터
     return RegisterClassExW(&wcex);
-
     //함수 포인터가 필요
     //처리기반 함수 
     //window프로그램은 창을 내리면 멈춤
