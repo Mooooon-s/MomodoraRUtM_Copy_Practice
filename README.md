@@ -254,4 +254,93 @@ Using WinAPI/C++ (start at 2023/02/20)
     * Knife and bomb
     * hit Effect Sprite Sheet
  # Week 9 (4/17~ 4/23)
- * 
+ * Create Stage
+    * Create Stage 1 , 2 and 3
+    * Tile file
+    * pixel collsion bmp
+ * Monster
+    * BigPlant
+        * Move to the Player and attack within a certain distance
+    * CatPeasant
+        * Throw Staff to the Player
+    * Hit Effect
+    * Placing Monsters in Each Scene
+ * Boss
+    * Arsonist
+        * created about 4 different boss patterns
+        * After a certain distance, a projectile is launched at the player and teleports them to that location
+        * Melee has 3 random attacks
+    * Lupair
+        * All patterns have a random rolling, ground slamming, and clawing projectile throwing pattern
+        * This boss does not take damage from ranged attacks
+    * Magnolia
+        * Arrow
+            * Pattern of firing arrows while moving left and right
+        * Knife
+            * Throws a projectile, disappears, then reappears from behind the player and swoops in for the kill
+ * Npc
+    * Cath
+        * Move to the boss and attack within a certain distance
+ * Player
+    * Adding the ability to interact with specific colliders
+ * BackGround
+    * Stage2 Background
+ * UI
+    * Rendering HpBar and ItemBox
+    * Itme Box
+        * Added items that restore health and allow you to defecate
+ * Scene
+    * Synchronize health or player status with other scenes
+    * Create Map Trriger
+        * Fires an event when the trigger is activated at Scene
+ * Resources
+    * Add item resources
+ # Week 10 ( 4/24 ~ 4/30 )
+ * Camera View Point
+    * Allows the camera to move smoothly
+ * Player
+    * Using an item causes its effects to appear
+ * Boss
+    * Boss Health and Death FSM
+    * Magnolia and Lupiar
+        * Chage Page
+    * Magnolia
+        * Arrow
+            * Add Arrow Resource and Arrow Collider
+ * Charge Effect
+    * Boss
+        * Firing an effect before a specific action
+    * Player
+        * Firing an effect when cool down the skill
+ * UI
+    * Synchronize health with other scenes
+    * Create Boss Health Bar
+ * Bell
+    * Objects that can restore health Full
+    * Player Can Interactions with bell called pray
+    * Placing bells in Each Scene
+ * Wall
+    * When Boss appear the Wall appear too
+    * Prevent players from leaving a specific location
+ * Sound
+    * Load a sound and play that sound
+ * Resources
+    * Add Bell Resource
+    * Add Pray Sprite Sheet
+    * Add Pray Effect
+    * Add UI
+    * Add Boss Health Bar
+    * Add Sound Resources
+ # Week 11 ( 5/1 ~ 5/3)
+ * Obstacle
+    * Obstacles that fall off and cause damage when you pass under them.
+ * Scene
+    *  hidden the tools so they don't interfere with gameplay
+ * Monster
+    * make monsters die when they run out of health.
+ * Test
+    * Verify that all the features implemented are working properly
+
+# 2023/5/4
+ * Performance in front of others
+ * Organize what I've done so far
