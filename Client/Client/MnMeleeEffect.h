@@ -17,6 +17,7 @@ namespace Mn
 		int			_Attack;
 		bool		_IsEnd;
 		bool		_IsPlaying;
+		bool		_On;
 	public:
 		MeleeEffect();
 		~MeleeEffect();
@@ -32,6 +33,7 @@ namespace Mn
 	public:
 		void Dir(eDir dir) { _Dir = dir; }
 		void attack(int attack) { _Attack = attack; }
+		void On(bool on) { _On = on; }
 	private:
 		void melee1Complete();
 		void melee2Complete();

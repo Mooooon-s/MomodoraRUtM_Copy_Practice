@@ -64,6 +64,7 @@ namespace Mn
 		, _ComboCount(0)
 		, _RevivalPos(Vector2::Zero)
 		, _SoundPack()
+		, _On(false)
 	{
 	}
 	Kaho_Human::~Kaho_Human()
@@ -276,6 +277,11 @@ namespace Mn
 	}
 	void Kaho_Human::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::K) && _On == false)
+			_On = true;
+		else if (Input::GetKeyDown(eKeyCode::K) && _On == true)
+			_On = false;
+
 		if (_RevivalPos == Vector2::Zero)
 		{
 			Transform* tr = GetComponent<Transform>();
@@ -1054,6 +1060,7 @@ namespace Mn
 		MeleeEffect* melee=object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(1);
+		melee->On(_On);
 	}
 	void Kaho_Human::attackComplete()
 	{
@@ -1090,6 +1097,7 @@ namespace Mn
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(2);
+		melee->On(_On);
 	}
 	void Kaho_Human::attackCombo1Complete()
 	{
@@ -1126,6 +1134,7 @@ namespace Mn
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(3);
+		melee->On(_On);
 	}
 	void Kaho_Human::attackCombo2Complete()
 	{

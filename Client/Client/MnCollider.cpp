@@ -37,8 +37,6 @@ namespace Mn
 			else
 				_ON = true;
 		}
-
-
 	}
 	void Collider::Render(HDC hdc)
 	{

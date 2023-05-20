@@ -52,6 +52,7 @@ namespace Mn
 		bool			_GetDamage;
 		bool			_Death;
 		bool			_Switch;
+		bool			_On;
 		int				_ComboCount;
 		int				_DoubleJump;
 		int				_col;

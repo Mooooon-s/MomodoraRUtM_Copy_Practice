@@ -50,6 +50,7 @@ namespace Mn
 		, _Combo(false)
 		, _Death(false)
 		, _DashOn(true)
+		, _On(false)
 		, _GetDamage(true)
 		, _AlphaDegree(90)
 		, _DoubleJump(0)
@@ -188,6 +189,10 @@ namespace Mn
 	}
 	void Kaho_Cat::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::K) && _On == false)
+			_On = true;
+		else if (Input::GetKeyDown(eKeyCode::K) && _On == true)
+			_On = false;
 		if (_RevivalPos == Vector2::Zero)
 		{
 			Transform* tr = GetComponent<Transform>();
@@ -787,6 +792,7 @@ namespace Mn
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(1);
+		melee->On(_On);
 	}
 	void Kaho_Cat::attackCombo1Start()
 	{
@@ -797,6 +803,7 @@ namespace Mn
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(2);
+		melee->On(_On);
 	}
 	void Kaho_Cat::attackCombo2Start()
 	{
@@ -807,6 +814,7 @@ namespace Mn
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(3);
+		melee->On(_On);
 	}
 	void Kaho_Cat::attackAirStart()
 	{
@@ -816,6 +824,7 @@ namespace Mn
 		MeleeEffect* melee = object::Instantiate<MeleeEffect>(pos, eLayerType::Attack);
 		melee->Dir(_Dir);
 		melee->attack(1);
+		melee->On(_On);
 	}
 	void Kaho_Cat::attackComplete()
 	{

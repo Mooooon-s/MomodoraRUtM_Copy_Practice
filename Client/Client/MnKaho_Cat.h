@@ -44,6 +44,7 @@ namespace Mn
 		bool			_DashOn;
 		bool			_GetDamage;
 		bool			_Combo;
+		bool			_On;
 		int				_AlphaDegree;
 		int				_DoubleJump;
 		int				_ComboCount;

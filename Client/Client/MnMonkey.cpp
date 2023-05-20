@@ -13,6 +13,7 @@
 #include "MnObject.h"
 #include "MnMonMeleeAttack.h"
 #include "MnHitEffect.h"
+#include "MnInput.h"
 
 namespace Mn
 {
@@ -28,6 +29,7 @@ namespace Mn
 		, _HurtTime(0.0f)
 		, _MoveSpeed(0.0f)
 		, _HP(4.0f)
+		, _On(false)
 	{
 	}
 	Monkey::~Monkey()
@@ -84,6 +86,10 @@ namespace Mn
 	}
 	void Monkey::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::K) && _On == false)
+			_On = true;
+		else if (Input::GetKeyDown(eKeyCode::K) && _On == true)
+			_On = false;
 		switch (_MonStatus)
 		{
 		case Mn::Monkey::eMonStatus::Idle:
@@ -230,6 +236,7 @@ namespace Mn
 			cPos.x += size.x/2.0f;
 			cPos.y -= size.y;
 			cTr->Pos(cPos);
+			coll->On(_On);
 		}
 		else
 		{
@@ -240,6 +247,7 @@ namespace Mn
 			cPos.x -= (size.x+size.x/2.0f);
 			cPos.y -= size.y;
 			cTr->Pos(cPos);
+			coll->On(_On);
 		}
 	}
 	void Monkey::death()

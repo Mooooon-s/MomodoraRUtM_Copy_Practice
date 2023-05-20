@@ -31,6 +31,7 @@ namespace Mn
 		double		_HurtTime;
 		float		_MoveSpeed;
 		float		_HP;
+		bool		_On;
 		class Kaho* _Kaho;
 	public:
 		Monkey();

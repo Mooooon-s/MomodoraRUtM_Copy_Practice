@@ -8,6 +8,7 @@
 #include "MnObject.h"
 #include "MnPlayScene.h"
 #include "MnKaho.h"
+#include "MnInput.h"
 
 namespace Mn
 {
@@ -20,6 +21,7 @@ namespace Mn
 		, _Attack(0)
 		, _IsEnd(false)
 		, _IsPlaying(false)
+		, _On(false)
 	{
 	}
 	MeleeEffect::~MeleeEffect()
@@ -114,6 +116,7 @@ namespace Mn
 			if(dynamic_cast<Kaho*>(v))
 				_kaho = dynamic_cast<Kaho*>(v);
 		}
+		
 	}
 	void MeleeEffect::Update()
 	{
@@ -123,6 +126,7 @@ namespace Mn
 		{
 			object::Destory(this);
 		}
+		
 		GameObject::Update();
 	}
 	void MeleeEffect::Render(HDC hdc)
@@ -324,6 +328,7 @@ namespace Mn
 		default:
 			break;
 		}
+		_Collider->On(_On);
 	}
 	void MeleeEffect::kahoCatMeleeCollider()
 	{
@@ -361,5 +366,6 @@ namespace Mn
 		default:
 			break;
 		}
+		_Collider->On(_On);
 	}
 }

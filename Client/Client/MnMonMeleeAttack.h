@@ -8,6 +8,7 @@ namespace Mn
 	private:
 		Collider*	_Collider;
 		float		_Time;
+		bool		_On;
 	public:
 		MonMeleeAttack();
 		~MonMeleeAttack();
@@ -22,6 +23,7 @@ namespace Mn
 		virtual void OnCollisionExit(class Collider* other);
 	public:
 		void Done();
+		void On(bool on) { _On = on; }
 	};
 }
 

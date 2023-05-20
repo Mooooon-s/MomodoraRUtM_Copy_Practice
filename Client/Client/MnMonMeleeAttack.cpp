@@ -8,6 +8,7 @@ namespace Mn
 		: GameObject()
 		, _Collider(nullptr)
 		, _Time(0.0f)
+		, _On(false)
 	{
 	}
 	MonMeleeAttack::~MonMeleeAttack()
@@ -28,6 +29,7 @@ namespace Mn
 	}
 	void MonMeleeAttack::Render(HDC hdc)
 	{
+		_Collider->On(_On);
 		GameObject::Render(hdc);
 	}
 	void MonMeleeAttack::Release()
