@@ -1,6 +1,7 @@
 # MomodoraRUtM_Copy_Practice
 This project for Game Copy Practice
 
+Notion Link : https://shrub-glazer-8c0.notion.site/MomodoraRUtM-ee38a78bb4a44aba9490ea77b4f47760?pvs=4
 
 Using WinAPI/C++ (start at 2023/02/20)
 
